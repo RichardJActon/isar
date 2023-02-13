@@ -1,0 +1,37 @@
+{
+  "@renku_data_type": "renku.domain_model.project.Project",
+  "@renku_oid": "project",
+  "agent_version": "2.2.0",
+  "annotations": [],
+  "creator": {
+    "@renku_data_type": "renku.domain_model.provenance.agent.Person",
+    "@renku_data_value": {
+      "affiliation": null,
+      "alternate_name": null,
+      "email": "richardjacton@pm.me",
+      "id": "mailto:richardjacton@pm.me",
+      "name": "Richard J. Acton"
+    }
+  },
+  "date_created": {
+    "@renku_data_type": "datetime.datetime",
+    "@renku_data_value": "2023-02-13T11:04:59+00:00"
+  },
+  "description": null,
+  "id": "/projects/richardjacton/isar",
+  "keywords": [],
+  "minimum_renku_version": "2.1.0",
+  "name": "isar",
+  "template_metadata": {
+    "@renku_data_type": "renku.domain_model.project.ProjectTemplateMetadata",
+    "@renku_data_value": {
+      "immutable_template_files": [],
+      "metadata": "{\"__template_source__\": \"https://renkulab.io/gitlab/hdbi/templates\", \"__template_ref__\": null, \"__template_id__\": \"Renv\", \"__namespace__\": \"richardjacton\", \"__sanitized_project_name__\": \"\", \"__repository__\": \"\", \"__project_slug__\": \"\", \"__project_description__\": null, \"__renku_version__\": \"2.2.0\", \"__name__\": \"isar\", \"name\": \"isar\", \"__template_version__\": \"2423e1737023eb9aba579e790c4893c4e0becbd2\", \"__automated_update__\": true}",
+      "template_id": "Renv",
+      "template_ref": null,
+      "template_source": "https://renkulab.io/gitlab/hdbi/templates",
+      "template_version": "2423e1737023eb9aba579e790c4893c4e0becbd2"
+    }
+  },
+  "version": 10
+}
