@@ -1,0 +1,16 @@
+Package: isar
+Title: Investigation Study Assay metadata format tools for R
+Version: 0.0.0.9000
+Authors@R: 
+    person(
+        "Richard", "Acton", , "Richard.Acton@babraham.ac.uk",
+        role = c("aut", "cre"),
+        comment = c(ORCID = "0000-0002-2574-9611")
+    )
+Description: Investigation Study Assay metadata format tools for R.
+License: AGPL (>= 3)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.0.0
+Imports: 
+    R6

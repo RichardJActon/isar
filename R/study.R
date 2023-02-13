@@ -1,0 +1,69 @@
+study <- R6Class(
+	"study",
+	public = list(
+		id = '',
+		filename = '',
+		identifier = '',
+		title = '',
+		description = '',
+		submission_date = '',
+		public_release_date = '',
+		contacts = NULL,
+		design_descriptors = NULL,
+		publications = NULL,
+		factors = NULL,
+		protocols = NULL,
+		assays = NULL,
+		sources = NULL,
+		samples = NULL,
+		process_sequence = NULL,
+		other_material = NULL,
+		characteristic_categories = NULL,
+		comments = NULL,
+		units = NULL,
+		
+		initialize = function(
+			id = '',
+			filename = '',
+			identifier = '',
+			title = '',
+			description = '',
+			submission_date = '',
+			public_release_date = '',
+			contacts = NULL,
+			design_descriptors = NULL,
+			publications = NULL,
+			factors = NULL,
+			protocols = NULL,
+			assays = NULL,
+			sources = NULL,
+			samples = NULL,
+			process_sequence = NULL,
+			other_material = NULL,
+			characteristic_categories = NULL,
+			comments = NULL,
+			units = NULL
+		) {
+			self$id <- id
+			self$filename <- filename
+			self$identifier <- identifier
+			self$title <- title
+			self$description <- description
+			self$submission_date <- submission_date
+			self$public_release_date <- public_release_date
+			self$contacts <- contacts
+			self$design_descriptors <- design_descriptors
+			self$publications <- publications
+			self$factors <- factors
+			self$protocols <- protocols
+			self$assays <- assays
+			self$sources <- sources
+			self$samples <- samples
+			self$process_sequence <- process_sequence
+			self$other_material <- other_material
+			self$characteristic_categories <- characteristic_categories
+			self$comments <- comments
+			self$units <- units
+		}
+	)
+)

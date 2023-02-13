@@ -1,0 +1,7 @@
+^renv$
+^renv\.lock$
+^requirements\.txt$
+^environment\.yml$
+^isar\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
