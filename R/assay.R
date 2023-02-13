@@ -20,7 +20,7 @@ assay <- R6Class(
 		process_sequence = NULL,
 		comments = NULL,
 		graph = NULL,
-		
+
 		initialize = function(
 			measurement_type = NA,
 			technology_type = NA,
@@ -43,16 +43,27 @@ assay <- R6Class(
 			self$process_sequence <- process_sequence
 			self$comments <- comments
 			self$graph <- graph
-			
+
 			self$str()
 		},
 		set_measurement_type = function(measurement_type) {
 			self$measurement_type = measurement_type
 		},
+		get_measurement_type_input = function() {
+			shinyWidgets::pickerInput(
+				ns("measurement_type"), "Measurement Type",
+				choices = NA,
+				# selected = ,
+				multiple = FALSE,
+				options = shinyWidgets::pickerOptions(
+					actionsBox = TRUE, liveSearch = TRUE, size = 5
+				)
+			)
+		}
 		str = function() {
 			glue::glue(
 				.sep = "\n",
-				
+
 				# String template
 				## direct
 				"Assay(",
@@ -69,7 +80,7 @@ assay <- R6Class(
 				"	comments={num_comments} Comment objects",
 				"	units={num_units} Unit objects",
 				")",
-				
+
 				# Values
 				## direct
 				measurement_type				=	self$measurement_type,
