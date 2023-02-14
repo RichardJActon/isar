@@ -1,5 +1,3 @@
-library(R6)
-
 # datafile
 # material
 # process
@@ -44,7 +42,7 @@ assay <- R6Class(
 			self$comments <- comments
 			self$graph <- graph
 
-			self$str()
+			self$string()
 		},
 		set_measurement_type = function(measurement_type) {
 			self$measurement_type = measurement_type
@@ -56,11 +54,11 @@ assay <- R6Class(
 				# selected = ,
 				multiple = FALSE,
 				options = shinyWidgets::pickerOptions(
-					actionsBox = TRUE, liveSearch = TRUE, size = 5
+					actionsBox = TRUE, liveSearch = TRUE#, size = 5
 				)
 			)
-		}
-		str = function() {
+		},
+		string = function() {
 			glue::glue(
 				.sep = "\n",
 
