@@ -162,18 +162,24 @@ cito_labels %>%
 	# purrr::walk(cat)
 
 cl <- rdflib::rdf_parse("http://purl.obolibrary.org/obo/cl.owl")
-cl
+# cl
 
 clq <- paste(sep = "\n",
 	"PREFIX cl: <http://purl.obolibrary.org/obo/cl#>",
+	#"PREFIX clp: <http://purl.obolibrary.org/obo/CL_>",
 	"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>",
 	"SELECT *",
 	"{",
 	#"  ?x cl: ?y .",
 	"  ?accession rdfs:label ?label .",
+	#"  ?accessopm rdfs:string ?string .",
 	# "  ?accession rdfs:comment ?comment .",
 	"}"
 )
 
 cat(clq)
-rdflib::rdf_query(cl, clq)
+cl_labels <- rdflib::rdf_query(cl, clq)
+
+
+cl_labels %>%
+	dplyr::filter(grepl("http://purl.obolibrary.org/obo/CL_", accession))
