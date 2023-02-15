@@ -28,6 +28,13 @@ get_cito_terms <- function(file, filetype, url, version) {
 	return(terms_list)
 }
 
+cito_terms <- get_cito_terms(
+	file = "https://sparontologies.github.io/cito/current/cito.json",
+	filetype =  "json",
+	url = "https://sparontologies.github.io/cito/current/cito.html",
+	version = "2.8.1"
+)
+
 cito <- ontology_source$new(
 	name = "CiTO",
 	url = "https://sparontologies.github.io/cito/current/cito.html",
@@ -38,3 +45,135 @@ cito <- ontology_source$new(
 	description = "The Citation Typing Ontology (CiTO) is an ontology that enables characterization of the nature or type of citations, both factually and rhetorically.",
 	get_terms_list = get_cito_terms
 )
+
+
+term_validator_example_list_cito <- function(
+		value = NULL, accession = NULL, unit = NULL
+	) {
+	if (!is.null(value)) {
+		if (value %in% names(cito_terms)) {
+			if(!is.null(accession)) {
+				if (accession == cito_terms[[value]]) {
+					message("value pressent, accession matched")
+					return(TRUE)
+				} else {
+					stop("term does not match accession!")
+				}
+			} else {
+				message("value pressent, accession null")
+				return(TRUE)
+			}
+		} else {
+			message("value not pressent")
+			return(FALSE)
+		}
+	}
+	if (!is.null(accession)) {
+		if (accession %in% unlist(cito_terms)) {
+			if(!is.null(value)) {
+				if (
+					value == names(
+						unlist(cito_terms)[unlist(cito_terms) %in% accession]
+					)
+				) {
+					message("accession present, value matched")
+					return(TRUE)
+				} else {
+					stop("term does not match accession!")
+				}
+			} else {
+				message("accession present, value null")
+				return(TRUE)
+			}
+		} else {
+			message("accession not present")
+			return(FALSE)
+		}
+	}
+}
+
+term_validator_example_list_cito("agrees with", "agreesWith")
+term_validator_example_list_cito("agrees with")
+term_validator_example_list_cito("agrees with2")
+term_validator_example_list_cito("agrees with", "disagreesWith")
+
+term_validator_example_meters_float <- function(
+		value = NULL, accession = NULL, unit = NULL
+	) {
+	if(!is.numeric(value)){
+		return(FALSE)
+	}
+	if(!is.finite(value)) {
+		return(FALSE)
+	}
+	if(is.numeric(value) && is.null(unit)) {
+		return(TRUE)
+	}
+	if (is.numeric(value) && !is.null(unit)) {
+		if (unit == "m") {
+			return(TRUE)
+		} else {
+			return(FALSE)
+		}
+	}
+}
+
+term_validator_example_meters_float(value = 1, unit = "cm")
+
+term_validator_example_meters_float(value = "1", unit = "m")
+term_validator_example_meters_float(value = 1, unit = "m")
+term_validator_example_meters_float(value = 0.345, unit = "m")
+term_validator_example_meters_float(value = Inf, unit = "m")
+term_validator_example_meters_float(value = NA_real_, unit = "m")
+term_validator_example_meters_float(value = NaN, unit = "m")
+
+term_validator_example_meters_float(value = 1e308, unit = "m") # not Inf
+term_validator_example_meters_float(value = 1e309, unit = "m") # Inf
+
+term_validator_example_meters_float(value = 0.345)
+term_validator_example_meters_float(value = 0.345)
+
+
+
+library(rdflib)
+
+cito_rdf <- rdflib::rdf_parse("https://sparontologies.github.io/cito/current/cito.xml")
+cito_rdf
+
+citoq <- paste(sep = "\n",
+	"PREFIX : <http://www.sparontologies.net/example/>",
+	"PREFIX cito: <http://purl.org/spar/cito/>",
+	"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>",
+	"SELECT *",
+	"{",
+	"  ?accession rdfs:label ?label .",
+	"  ?accession rdfs:comment ?comment .",
+	"}"
+)
+
+cat(citoq)
+cito_labels <- rdflib::rdf_query(cito_rdf, citoq)
+cito_labels
+
+cito_labels %>%
+	dplyr::filter(label == "citation")# %>%
+	# dplyr::slice(2) %>%
+	# dplyr::pull(comment) %>%
+	# purrr::walk(cat)
+
+cl <- rdflib::rdf_parse("http://purl.obolibrary.org/obo/cl.owl")
+cl
+
+clq <- paste(sep = "\n",
+	"PREFIX cl: <http://purl.obolibrary.org/obo/cl#>",
+	"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>",
+	"SELECT *",
+	"{",
+	#"  ?x cl: ?y .",
+	"  ?accession rdfs:label ?label .",
+	# "  ?accession rdfs:comment ?comment .",
+	"}"
+)
+
+cat(clq)
+rdflib::rdf_query(cl, clq)
