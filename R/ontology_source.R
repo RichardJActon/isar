@@ -1,3 +1,8 @@
+
+# implement term_validator function instead of term list
+# e.g. for a unit a value could be valid if it conforms to a rule
+# such as is it an integer?
+
 ontology_source <- R6Class(
 	"ontology_source",
 	public = list(

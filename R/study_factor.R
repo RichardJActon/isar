@@ -1,41 +1,44 @@
-#' R6 class for an experimental factors factors
+#' R6 class for an experimental factor
 #'
-#' @details
-#' A study_factor corresponds to an independent variable manipulated by the
+#' A \code{study_factor} corresponds to an independent variable manipulated by the
 #' experimentalist with the intention to affect biological systems in a way
 #' that can be measured by an assay.
 #'
+#' @details
+#'
+#'
 #' @section Public fields:
-#' * `id`: name of a quantity
-#' * `name`: value of a quantity
-#' * `factor_type`: An ontology source reference of the study factor type
+#' * `name`: The name of the factor
+#' * `factor_type`: An \code{[ontology_source]} reference of the study factor type
+#' * `id`: unique identifier...
 #' * `comments`: Comments associated with instances of this class.
 #'
 study_factor <- R6Class(
 	"study_factor",
 	public = list(
-		id = '',
 		name = '',
 		factor_type = ontology_annotation$new(),
+		id = '',
 		comments = NULL,
 
-		#' @details Public fields:
+		#' @details
 		#'
-		#' @param id: unique identifier...
-		#' @param name: name of factor
-		#' @param factor_type: An ontology source reference of the study factor type
-		#' @param comments: Comments associated with instances of this class.
+		#' create a new study factor
 		#'
-
+		#' @param name The name of the factor
+		#' @param factor_type An \code{[ontology_source]} reference of the study factor_type
+		#' @param id unique identifier...
+		#' @param comments Comments associated with instances of this class.
+		#'
 		initialize = function(
-			id = '',
 			name = '',
 			factor_type = ontology_annotation$new(),
+			id = '',
 			comments = NULL
 		) {
-			self$id <- id
 			self$name <- name
 			self$factor_type <- factor_type
+			self$id <- id
 			self$comments <- comments
 		}
 	)

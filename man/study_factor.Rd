@@ -46,18 +46,18 @@ that can be measured by an assay.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{id:}}{unique identifier...}
+\item{\code{id}}{unique identifier...}
 
-\item{\code{name:}}{name of factor}
+\item{\code{name}}{name of factor}
 
-\item{\code{factor_type:}}{An ontology source reference of the study factor type}
+\item{\code{factor_type}}{An ontology source reference of the study factor type}
 
-\item{\code{comments:}}{Comments associated with instances of this class.}
+\item{\code{comments}}{Comments associated with instances of this class.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Public fields:
+create a new study factor
 }
 
 }
