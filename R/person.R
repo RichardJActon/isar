@@ -31,6 +31,7 @@ isa_person <- R6Class(
 			self$first_name <- first_name
 			self$mid_initials <- mid_initials
 			self$email <- email
+			# "^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"
 			self$phone <- phone
 			self$fax <- fax
 			self$address <- address

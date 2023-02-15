@@ -39,11 +39,33 @@ ontology_source <- R6Class(
 				))
 			}
 
-			if (!is.null(terms_list)) {
+			if(!is.function(get_terms_list) && is.null(terms_list)) {
+				warning(glue::glue(
+					.sep = "\n",
+					"Please supply either an explicit terms list",
+					"where keys are terms and values accessions",
+					"or a function which can generate such a list from the",
+					"file, file_type, url, & version"
+					# !! validate function arguments
+				))
+			}
+
+			if (!is.null(terms_list) && is.function(get_terms_list)) {
 				self$terms_list <- self$get_terms_list(
-					self$file, self$file_type, self$url
+					self$file, self$file_type, self$url, self$version
 				)
 			}
+		},
+
+		to_list = function(ld = FALSE) {
+			ontology_source_ref = list(
+				name = self$name,
+				file =  self$file,
+				version = self$version,
+				description = self$description,
+				comments = self$comments
+			)
+			return(ontology_source_ref)
 		}
 	)
 )

@@ -1,17 +1,3 @@
-set_name <- function(self, name) {
-	tryCatch({
-		if (is.character(name) && length(name) == 1L) {
-			self$name <- name
-		} else {
-			stop()
-		}
-	},
-	error = function(e) {
-		message("Name was not a string!")
-	}
-	)
-}
-
 sample <- R6Class(
 	"sample",
 	public = list(
@@ -37,18 +23,25 @@ sample <- R6Class(
 			self$derives_from <- derives_from
 			self$comments <- comments
 		},
-		set_name = function(name) {
-			tryCatch({
-				if (is.character(name) && length(name) == 1L) {
-					self$name <- name
-				} else {
-					stop()
+		check_name = function(name) {
+			tryCatch(
+				{
+					if (is.character(name) && length(name) == 1L) {
+						return(TRUE)
+					} else {
+						stop()
+					}
+				},
+				error = function(e) {
+					stop("Name was not a string!")
+					#message("Name was not a string!")
 				}
-			},
-			error = function(e) {
-				message("Name was not a string!")
-			}
 			)
+		},
+		set_name = function(name) {
+			if(self$check_name(name)) {
+				self$name <- name
+			}
 		}
 	)
 )

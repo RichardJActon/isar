@@ -1,4 +1,4 @@
-get_cito_terms <- function(file, filetype, url) {
+get_cito_terms <- function(file, filetype, url, version) {
 	cito_json <- rjson::fromJSON(file = file)
 
 	all_ids <- purrr::map_chr(cito_json, ~.x[["@id"]])

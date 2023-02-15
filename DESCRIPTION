@@ -11,7 +11,7 @@ Description: Investigation Study Assay metadata format tools for R.
 License: AGPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.0.0
+RoxygenNote: 7.2.0
 Imports: 
     purrr,
     rjson,
@@ -19,4 +19,6 @@ Imports:
     shinyWidgets
 Depends:
     R6
-
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3

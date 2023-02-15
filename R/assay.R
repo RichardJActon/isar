@@ -49,7 +49,7 @@ assay <- R6Class(
 		},
 		get_measurement_type_input = function() {
 			shinyWidgets::pickerInput(
-				ns("measurement_type"), "Measurement Type",
+				ns("assay"), "Measurement Type",
 				choices = NA,
 				# selected = ,
 				multiple = FALSE,
