@@ -37,26 +37,34 @@ factor_value <- R6Class(
 
 		initialize = function(
 			factor_name = NULL,
-			value = '',
+			value = NULL,
 			unit = NULL,
 			comments = NULL
 		) {
-			self$factor_name <- factor_name
-			if(is.null(factor_name)) { self$value <- value }
-			if(
-				!is.null(factor_name) &&
-				value %in% names(
-					self$factor_name$factor_type$term_source$terms_list
-				)
-			) {
-				self$value <- value
-			} else {
-				stop(glue::glue(
-					.sep = "\n",
-					"Value is not in a valid terms for this type of factor",
-					"see: factor_name$factor_type$term_source$terms_list"
-				))
+			if (checkmate::check_r6(factor_name, "study_factor")) {
+
 			}
+
+			self$factor_name <- factor_name
+
+			self$value <- value
+
+			# self$factor_name <- factor_name
+			# if(is.null(factor_name)) { self$value <- value }
+			# if(
+			# 	!is.null(factor_name) &&
+			# 	value %in% names(
+			# 		self$factor_name$factor_type$term_source$terms_list
+			# 	)
+			# ) {
+			# 	self$value <- value
+			# } else {
+			# 	stop(glue::glue(
+			# 		.sep = "\n",
+			# 		"Value is not in a valid terms for this type of factor",
+			# 		"see: factor_name$factor_type$term_source$terms_list"
+			# 	))
+			# }
 			self$unit <- unit
 			self$comments <- comments
 		}

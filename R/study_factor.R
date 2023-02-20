@@ -35,7 +35,9 @@ study_factor <- R6Class(
 			comments = NULL
 		) {
 			self$name <- name
-			self$factor_type <- factor_type
+			if (checkmate::check_r6(factor_type ,"ontology_annotation")) {
+				self$factor_type <- factor_type
+			}
 			self$id <- id
 			self$comments <- comments
 		}
