@@ -52,6 +52,25 @@ agrees_with <- ontology_annotation$new(
 	term = "agrees with", term_source = cito
 )
 
+disagrees_with <- ontology_annotation$new(
+	term = "disagrees with", term_source = cito
+)
+
+agree <- study_factor$new(
+	name = "citor agrees with citee",
+	factor_type = agrees_with
+)
+
+disagree <- study_factor$new(
+	name = "citor disagrees with citee",
+	factor_type = agrees_with
+)
+
+#factor_value$new(factor_name = agree, )
+
+
+# validator functions
+
 term_validator_example_list_cito <- function(
 		value = NULL, accession = NULL, unit = NULL
 ) {
@@ -138,7 +157,7 @@ term_validator_example_meters_float(value = 1e309, unit = "m") # Inf
 term_validator_example_meters_float(value = 0.345)
 term_validator_example_meters_float(value = 0.345)
 
-
+# ontology parsing for making ontoloogy source objects
 
 library(rdflib)
 
