@@ -3,6 +3,21 @@
 # e.g. for a unit a value could be valid if it conforms to a rule
 # such as is it an integer?
 
+
+#' R6 class for the source of ontology terms
+#'
+#' An \code{ontology_source} describes the resource from which the value of an \code{[ontology_annotation]} is derived from.
+#'
+#' @field name The name of the source of a term; i.e. the source controlled vocabulary or ontology.
+#' @field file A file name or a URI of an official resource.
+#' @field file_type the file type, parsable by \code{rdflib::rdf_parse()}
+#' @field url ...
+#' @field version vesion of the ontology
+#' @field description free text description of this source of ontology terms
+#' @field get_terms_list function to generate valid terms for file
+#' @field terms_list list of valid terms
+#' @field comments comments
+#'
 ontology_source <- R6Class(
 	"ontology_source",
 	public = list(
@@ -16,6 +31,20 @@ ontology_source <- R6Class(
 		terms_list = NULL,
 		comments = list(),
 
+		#' @details
+		#'
+		#' Create a new [ontology_source] object to act as source for ontology terms
+		#'
+		#' @param name The name of the source of a term; i.e. the source controlled vocabulary or ontology.
+		#' @param file A file name or a URI of an official resource.
+		#' @param file_type the file type, parsable by \code{rdflib::rdf_parse()}
+		#' @param url ...
+		#' @param version vesion of the ontology
+		#' @param description free text description of this source of ontology terms
+		#' @param get_terms_list function to generate valid terms for file
+		#' @param terms_list list of valid terms
+		#' @param comments comments
+		#'
 		initialize = function(
 			name = '',
 			file = '',
@@ -55,13 +84,18 @@ ontology_source <- R6Class(
 				))
 			}
 
-			if (!is.null(terms_list) && is.function(get_terms_list)) {
+			if (is.null(terms_list) && is.function(get_terms_list)) {
 				self$terms_list <- self$get_terms_list(
 					self$file, self$file_type, self$url, self$version
 				)
 			}
 		},
 
+		#' @details
+		#'
+		#' make an R list convertible to json
+		#'
+		#' @param ld (default FALSE)
 		to_list = function(ld = FALSE) {
 			ontology_source_ref = list(
 				name = self$name,
