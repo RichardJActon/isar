@@ -7,7 +7,7 @@ Authors@R:
         role = c("aut", "cre"),
         comment = c(ORCID = "0000-0002-2574-9611")
     )
-Description: Investigation Study Assay metadata format tools for R.
+Description: Investigation Study Assay metadata format tools for R. A re-implementation of [ISA-tools](https://github.com/ISA-tools/) in R with some customisations and additions.
 License: AGPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -20,5 +20,7 @@ Imports:
 Depends:
     R6
 Suggests: 
-    testthat (>= 3.0.0)
+    devtools,
+    testthat (>= 3.0.0),
+    usethis
 Config/testthat/edition: 3
