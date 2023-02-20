@@ -2,27 +2,29 @@
 % Please edit documentation in R/study_factor.R
 \name{study_factor}
 \alias{study_factor}
-\title{R6 class for an experimental factors factors}
+\title{R6 class for an experimental factor}
 \description{
-R6 class for an experimental factors factors
-
-R6 class for an experimental factors factors
-}
-\details{
-A study_factor corresponds to an independent variable manipulated by the
+A \code{study_factor} corresponds to an independent variable manipulated by the
 experimentalist with the intention to affect biological systems in a way
 that can be measured by an assay.
 }
 \section{Public fields}{
 
-\itemize{
-\item \code{id}: name of a quantity
-\item \code{name}: value of a quantity
-\item \code{factor_type}: An ontology source reference of the study factor type
-\item \code{comments}: Comments associated with instances of this class.
-}
 }
 
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{name}}{The name of the factor}
+
+\item{\code{factor_type}}{An \code{[ontology_source]} reference of the study factor type}
+
+\item{\code{id}}{unique identifier...}
+
+\item{\code{comments}}{Comments associated with instances of this class.}
+}
+\if{html}{\out{</div>}}
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
@@ -36,9 +38,9 @@ that can be measured by an assay.
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{study_factor$new(
-  id = "",
   name = "",
   factor_type = ontology_annotation$new(),
+  id = "",
   comments = NULL
 )}\if{html}{\out{</div>}}
 }
@@ -46,11 +48,11 @@ that can be measured by an assay.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
+\item{\code{name}}{The name of the factor}
+
+\item{\code{factor_type}}{An \code{[ontology_source]} reference of the study factor_type}
+
 \item{\code{id}}{unique identifier...}
-
-\item{\code{name}}{name of factor}
-
-\item{\code{factor_type}}{An ontology source reference of the study factor type}
 
 \item{\code{comments}}{Comments associated with instances of this class.}
 }

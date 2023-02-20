@@ -4,10 +4,10 @@
 #' A factor_value represents the value instance of a [study_factor].
 #'
 #' @section Public fields:
-#' * `factor_name`: name of a quantity
-#' * `value`: value of a quantity
-#' * `unit`: units in which that quantity is measured
-#' * `comments`: comments
+#' @field factor_name name of a quantity
+#' @field value value of a quantity
+#' @field unit units in which that quantity is measured
+#' @field comments comments
 #'
 factor_value <- R6Class(
 	"factor_value",

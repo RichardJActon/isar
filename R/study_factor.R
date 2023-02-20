@@ -4,14 +4,12 @@
 #' experimentalist with the intention to affect biological systems in a way
 #' that can be measured by an assay.
 #'
-#' @details
-#'
 #'
 #' @section Public fields:
-#' * `name`: The name of the factor
-#' * `factor_type`: An \code{[ontology_source]} reference of the study factor type
-#' * `id`: unique identifier...
-#' * `comments`: Comments associated with instances of this class.
+#' @field name The name of the factor
+#' @field factor_type An \code{[ontology_source]} reference of the study factor type
+#' @field id unique identifier...
+#' @field comments Comments associated with instances of this class.
 #'
 study_factor <- R6Class(
 	"study_factor",

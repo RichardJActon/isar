@@ -13,13 +13,6 @@ R6 class for an experimental factor value
 }
 \section{Public fields}{
 
-\itemize{
-\item \code{term}:  the name of ontology term
-\item \code{term_source}: the ontology that is the source of the term represented by an \link{ontology_source} object.
-\item \code{term_accession}: the unique identifier of the ontology term
-\item \code{comments}: comments
-\item \code{id}: unique identifier...
-}
 }
 
 \examples{
@@ -39,6 +32,21 @@ ontology_annotation$new(
 ## ------------------------------------------------
 
 ontology_annotation$to_list()
+}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{term}}{the name of ontology term}
+
+\item{\code{term_source}}{the ontology that is the source of the term represented by an \link{ontology_source} object.}
+
+\item{\code{term_accession}}{the unique identifier of the ontology term}
+
+\item{\code{comments}}{comments}
+
+\item{\code{id}}{unique identifier...}
+}
+\if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{

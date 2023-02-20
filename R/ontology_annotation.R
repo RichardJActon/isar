@@ -6,11 +6,11 @@
 #'  [ontology_source].
 #'
 #' @section Public fields:
-#' * `term`:  the name of ontology term
-#' * `term_source`: the ontology that is the source of the term represented by an [ontology_source] object.
-#' * `term_accession`: the unique identifier of the ontology term
-#' * `comments`: comments
-#' * `id`: unique identifier...
+#' @field term  the name of ontology term
+#' @field term_source the ontology that is the source of the term represented by an [ontology_source] object.
+#' @field term_accession the unique identifier of the ontology term
+#' @field comments comments
+#' @field id unique identifier...
 #'
 ontology_annotation <- R6Class(
 	"ontology_annotation",

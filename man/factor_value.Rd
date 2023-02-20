@@ -13,12 +13,6 @@ A factor_value represents the value instance of a \link{study_factor}.
 }
 \section{Public fields}{
 
-\itemize{
-\item \code{factor_name}: name of a quantity
-\item \code{value}: value of a quantity
-\item \code{unit}: units in which that quantity is measured
-\item \code{comments}: comments
-}
 }
 
 \examples{
@@ -31,6 +25,24 @@ factor_value$new(
     factor_name = "height",
     value = "180", unit = "cm"
 )
+factor_value$new(
+    factor_name = sf,
+    value = "agrees with",
+    unit = NULL
+)
+}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{factor_name}}{name of a quantity}
+
+\item{\code{value}}{value of a quantity}
+
+\item{\code{unit}}{units in which that quantity is measured}
+
+\item{\code{comments}}{comments}
+}
+\if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -44,7 +56,7 @@ factor_value$new(
 \if{latex}{\out{\hypertarget{method-factor_value-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{factor_value$new(factor_name = "", value = "", unit = "", comments = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{factor_value$new(factor_name = NULL, value = "", unit = NULL, comments = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -54,7 +66,7 @@ factor_value$new(
 
 \item{\code{value}}{the value of a quantity}
 
-\item{\code{unit}}{the unit of measurent}
+\item{\code{unit}}{the unit of measurement}
 
 \item{\code{comments}}{comments}
 }
@@ -69,6 +81,11 @@ create a new factor value
 \preformatted{factor_value$new(
     factor_name = "height",
     value = "180", unit = "cm"
+)
+factor_value$new(
+    factor_name = sf,
+    value = "agrees with",
+    unit = NULL
 )
 }
 \if{html}{\out{</div>}}
