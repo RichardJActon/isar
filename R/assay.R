@@ -5,6 +5,31 @@
 
 # inherits from Commentable, StudyAssayMixin ?
 
+#' R6 class for an assay
+#'
+#' An assay represents a test performed either on material taken from a
+#' subject or on a whole initial subject, producing qualitative or
+#' quantitative measurements.
+#'
+#' An assay groups descriptions of provenance of sample processing for
+#' related tests. Each test typically follows the steps of one particular
+#' experimental workflow described by a particular protocol.
+#'
+#' @details
+#'
+#' @section Public fields:
+#' * `measurement_type`: An [ontology_annotation] to qualify the endpoint, or  what is being measured (e.g. gene expression profiling or protein  identification).
+#' * `technology_type`: An [ontology_annotation] to identify the technology  used to perform the measurement.
+#' * `technology_platform`: Manufacturer and platform name, e.g. Bruker AVANCE.
+#' * `filename`:  A field to specify the name of the assay file for compatibility with ISA-Tab.
+#' * `materials`: Materials associated with the assay, lists of '[sample]s' and [other_material]'.
+#' * `units`: A list of units used in the annotation of material units ? [ontology_annotation] !!.
+#' * `characteristic_categories`: A list of [ontology_annotation] used in the annotation of material characteristics in the Assay.
+#' * `process_sequence`: A list of Process objects representing the experimental graphs at the Assay level.
+#' * `comments`: Comments associated with instances of this class.
+#' * `graph`: A graph representation of the assay graph.
+#'
+
 assay <- R6Class(
 	"assay",
 	public = list(
@@ -19,6 +44,19 @@ assay <- R6Class(
 		comments = NULL,
 		graph = NULL,
 
+		#' @details
+		#' Create a new assay
+		#' @param `measurement_type`: An [ontology_annotation] to qualify the endpoint, or  what is being measured (e.g. gene expression profiling or protein  identification).
+		#' @param `technology_type`: An [ontology_annotation] to identify the technology  used to perform the measurement.
+		#' @param `technology_platform`: Manufacturer and platform name, e.g. Bruker AVANCE.
+		#' @param `filename`:  A field to specify the name of the assay file for compatibility with ISA-Tab.
+		#' @param `materials`: Materials associated with the assay, lists of '[sample]s' and [other_material]'.
+		#' @param `units`: A list of units used in the annotation of material units ? [ontology_annotation] !!.
+		#' @param `characteristic_categories`: A list of [ontology_annotation] used in the annotation of material characteristics in the Assay.
+		#' @param `process_sequence`: A list of Process objects representing the experimental graphs at the Assay level.
+		#' @param `comments`: Comments associated with instances of this class.
+		#' @param `graph`: A graph representation of the assay graph.
+		#'
 		initialize = function(
 			measurement_type = NA,
 			technology_type = NA,
