@@ -46,6 +46,11 @@ cito <- ontology_source$new(
 	get_terms_list = get_cito_terms
 )
 
+cito$terms_list[["agrees with"]]
+
+agrees_with <- ontology_annotation$new(
+	term = "agrees with", term_source = cito
+)
 
 term_validator_example_list_cito <- function(
 		value = NULL, accession = NULL, unit = NULL
