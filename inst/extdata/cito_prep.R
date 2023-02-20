@@ -49,7 +49,7 @@ cito <- ontology_source$new(
 
 term_validator_example_list_cito <- function(
 		value = NULL, accession = NULL, unit = NULL
-	) {
+) {
 	if (!is.null(value)) {
 		if (value %in% names(cito_terms)) {
 			if(!is.null(accession)) {
@@ -99,7 +99,7 @@ term_validator_example_list_cito("agrees with", "disagreesWith")
 
 term_validator_example_meters_float <- function(
 		value = NULL, accession = NULL, unit = NULL
-	) {
+) {
 	if(!is.numeric(value)){
 		return(FALSE)
 	}
@@ -140,7 +140,8 @@ library(rdflib)
 cito_rdf <- rdflib::rdf_parse("https://sparontologies.github.io/cito/current/cito.xml")
 cito_rdf
 
-citoq <- paste(sep = "\n",
+citoq <- paste(
+	sep = "\n",
 	"PREFIX : <http://www.sparontologies.net/example/>",
 	"PREFIX cito: <http://purl.org/spar/cito/>",
 	"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>",
@@ -157,29 +158,39 @@ cito_labels
 
 cito_labels %>%
 	dplyr::filter(label == "citation")# %>%
-	# dplyr::slice(2) %>%
-	# dplyr::pull(comment) %>%
-	# purrr::walk(cat)
+# dplyr::slice(2) %>%
+# dplyr::pull(comment) %>%
+# purrr::walk(cat)
 
 cl <- rdflib::rdf_parse("http://purl.obolibrary.org/obo/cl.owl")
 # cl
 
-clq <- paste(sep = "\n",
+clq <- paste(
+	sep = "\n",
 	"PREFIX cl: <http://purl.obolibrary.org/obo/cl#>",
-	#"PREFIX clp: <http://purl.obolibrary.org/obo/CL_>",
+	"PREFIX clp: <http://purl.obolibrary.org/obo/>", #CL_
+	"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>",
+	"PREFIX obocl: <http://purl.obolibrary.org/obo/cl.owl>",
+	"PREFIX owl: <http://www.w3.org/2002/07/owl#>",
 	"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>",
 	"SELECT *",
+	"WHERE",
 	"{",
 	#"  ?x cl: ?y .",
-	"  ?accession rdfs:label ?label .",
+	#"  <http://purl.obolibrary.org/obo/> ?x ?y .",
+	"  ?accession rdfs:about 'http://purl.obolibrary.org/obo/CL_0000749' .",
+#	"  ?accession rdfs:label ?label .",
+	#"  ?x obocl: "
+	#"  ?accession rdfs:label ?label ;",
 	#"  ?accessopm rdfs:string ?string .",
 	# "  ?accession rdfs:comment ?comment .",
-	"}"
+	# "  FILTER CONTAINS(?accession, 'CL_') .",#CONTAINS
+	"}","LIMIT 1000"
 )
 
 cat(clq)
 cl_labels <- rdflib::rdf_query(cl, clq)
-
+cl_labels
 
 cl_labels %>%
 	dplyr::filter(grepl("http://purl.obolibrary.org/obo/CL_", accession))
