@@ -30,6 +30,12 @@ factor_value$new(
     value = "agrees with",
     unit = NULL
 )
+
+## ------------------------------------------------
+## Method `factor_value$to_list`
+## ------------------------------------------------
+
+ontology_annotation$to_list()
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
@@ -48,6 +54,8 @@ factor_value$new(
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-factor_value-new}{\code{factor_value$new()}}
+\item \href{#method-factor_value-to_list}{\code{factor_value$to_list()}}
+\item \href{#method-factor_value-from_list}{\code{factor_value$from_list()}}
 \item \href{#method-factor_value-clone}{\code{factor_value$clone()}}
 }
 }
@@ -56,7 +64,12 @@ factor_value$new(
 \if{latex}{\out{\hypertarget{method-factor_value-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{factor_value$new(factor_name = NULL, value = "", unit = NULL, comments = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{factor_value$new(
+  factor_name = NULL,
+  value = NULL,
+  unit = NULL,
+  comments = NULL
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -90,6 +103,54 @@ factor_value$new(
 }
 \if{html}{\out{</div>}}
 
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-factor_value-to_list"></a>}}
+\if{latex}{\out{\hypertarget{method-factor_value-to_list}{}}}
+\subsection{Method \code{to_list()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{factor_value$to_list(ld = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ld}}{logical json-ld}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+generate an R list representation translatable to JSON
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{ontology_annotation$to_list()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-factor_value-from_list"></a>}}
+\if{latex}{\out{\hypertarget{method-factor_value-from_list}{}}}
+\subsection{Method \code{from_list()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{factor_value$from_list(lst)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{lst}}{an ontology source object serialized to a list}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Make \link{ontology_annotation} from list
 }
 
 }

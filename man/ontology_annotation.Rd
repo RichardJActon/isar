@@ -53,6 +53,7 @@ ontology_annotation$to_list()
 \itemize{
 \item \href{#method-ontology_annotation-new}{\code{ontology_annotation$new()}}
 \item \href{#method-ontology_annotation-to_list}{\code{ontology_annotation$to_list()}}
+\item \href{#method-ontology_annotation-from_list}{\code{ontology_annotation$from_list()}}
 \item \href{#method-ontology_annotation-clone}{\code{ontology_annotation$clone()}}
 }
 }
@@ -62,9 +63,9 @@ ontology_annotation$to_list()
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ontology_annotation$new(
-  term = "",
+  term = NULL,
   term_source = NULL,
-  term_accession = "",
+  term_accession = NULL,
   comments = list(),
   id = ""
 )}\if{html}{\out{</div>}}
@@ -127,6 +128,26 @@ generate an R list representation translatable to JSON
 }
 \if{html}{\out{</div>}}
 
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ontology_annotation-from_list"></a>}}
+\if{latex}{\out{\hypertarget{method-ontology_annotation-from_list}{}}}
+\subsection{Method \code{from_list()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ontology_annotation$from_list(lst)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{lst}}{an ontology source object serialized to a list}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Make \link{ontology_annotation} from list
 }
 
 }

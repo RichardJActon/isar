@@ -12,9 +12,9 @@
 factor_value <- R6Class(
 	"factor_value",
 	public = list(
-		factor_name = '',
-		value = '',
-		unit = '',
+		factor_name = NULL,
+		value = NULL,
+		unit = NULL,
 		comments = NULL,
 
 		#' @details
@@ -41,13 +41,23 @@ factor_value <- R6Class(
 			unit = NULL,
 			comments = NULL
 		) {
-			if (checkmate::check_r6(factor_name, "study_factor")) {
-
+			if (!is.null(factor_name)) {
+				if (checkmate::check_r6(factor_name, "study_factor")) {
+					self$factor_name <- factor_name
+				}
+				self$value <- self$factor_name$factor_type
+			} else {
+				self$factor_name <-factor_name
+				self$value <- value
 			}
-
-			self$factor_name <- factor_name
-
-			self$value <- value
+			# if (is.null(value)) {
+			# 	self$value <- self$factor_name$factor_type
+			# } else if (
+			# 	checkmate::check_r6(value, "ontology_annotation") &&
+			# 	value$term_accession == factor_name$factor_type$term_accession
+			# ) {
+			#
+			# }
 
 			# self$factor_name <- factor_name
 			# if(is.null(factor_name)) { self$value <- value }
@@ -67,6 +77,35 @@ factor_value <- R6Class(
 			# }
 			self$unit <- unit
 			self$comments <- comments
+		},
+
+		#' @details
+		#' generate an R list representation translatable to JSON
+		#' @param ld logical json-ld
+		#' @examples
+		#' ontology_annotation$to_list()
+		to_list = function(ld = FALSE) {
+			factor_value = list(
+				"factor_name" = self$factor_name$to_list(),
+				"value" = self$value,
+				"unit" = self$unit,
+				"comments" = self$comments
+			)
+			return(factor_value)
+		},
+
+		#' @details
+		#'
+		#' Make [ontology_annotation] from list
+		#'
+		#' @param lst an ontology source object serialized to a list
+		from_list = function(lst) {
+			self$factor_name <- study_factor$new()
+			self$factor_name$from_list(lst[["factor_name"]])
+			self$value <- self$factor_name$factor_type
+			# !! not using value direct from list but from factor ~
+			self$unit = lst[["unit"]]
+			self$comments = lst[["comments"]]
 		}
 	)
 )

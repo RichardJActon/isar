@@ -12,6 +12,14 @@ that can be measured by an assay.
 
 }
 
+\examples{
+
+## ------------------------------------------------
+## Method `study_factor$to_list`
+## ------------------------------------------------
+
+study_factor$to_list()
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -29,6 +37,8 @@ that can be measured by an assay.
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-study_factor-new}{\code{study_factor$new()}}
+\item \href{#method-study_factor-to_list}{\code{study_factor$to_list()}}
+\item \href{#method-study_factor-from_list}{\code{study_factor$from_list()}}
 \item \href{#method-study_factor-clone}{\code{study_factor$clone()}}
 }
 }
@@ -60,6 +70,54 @@ that can be measured by an assay.
 }
 \subsection{Details}{
 create a new study factor
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-study_factor-to_list"></a>}}
+\if{latex}{\out{\hypertarget{method-study_factor-to_list}{}}}
+\subsection{Method \code{to_list()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{study_factor$to_list(ld = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ld}}{logical json-ld}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+generate an R list representation translatable to JSON
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{study_factor$to_list()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-study_factor-from_list"></a>}}
+\if{latex}{\out{\hypertarget{method-study_factor-from_list}{}}}
+\subsection{Method \code{from_list()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{study_factor$from_list(lst)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{lst}}{a list serialization of a study factor object}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Make \link{ontology_annotation} from list
 }
 
 }

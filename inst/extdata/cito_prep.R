@@ -46,11 +46,20 @@ cito <- ontology_source$new(
 	get_terms_list = get_cito_terms
 )
 
+cito_lst <- cito$to_list()
+lst_cito <- ontology_source$new()
+lst_cito$from_list(cito_lst)
+
 cito$terms_list[["agrees with"]]
 
 agrees_with <- ontology_annotation$new(
 	term = "agrees with", term_source = cito
 )
+
+aw_lst <- agrees_with$to_list()
+lst_aw <- ontology_annotation$new()$from_list(aw_lst)
+# identical(agrees_with, lst_aw) # R6 object identity?
+
 
 disagrees_with <- ontology_annotation$new(
 	term = "disagrees with", term_source = cito
@@ -61,13 +70,18 @@ agree <- study_factor$new(
 	factor_type = agrees_with
 )
 
+agree_lst <- agree$to_list()
+lst_agree <- study_factor$new()$from_list(agree_lst)
+
 disagree <- study_factor$new(
 	name = "citor disagrees with citee",
 	factor_type = agrees_with
 )
 
-#factor_value$new(factor_name = agree, )
+fv_agree <- factor_value$new(factor_name = agree)
+fv_disagree <- factor_value$new(factor_name = disagree)
 
+study_factor$new()
 
 # validator functions
 

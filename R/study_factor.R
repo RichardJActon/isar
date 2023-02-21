@@ -40,6 +40,35 @@ study_factor <- R6Class(
 			}
 			self$id <- id
 			self$comments <- comments
+		},
+
+		#' @details
+		#' generate an R list representation translatable to JSON
+		#' @param ld logical json-ld
+		#' @examples
+		#' study_factor$to_list()
+		to_list = function(ld = FALSE) {
+			study_factor = list(
+				"name" = self$name,
+				"factor_type" = self$factor_type$to_list(),
+				"@id" = self$id,
+				"comments" = self$comments
+			)
+			return(study_factor)
+		},
+
+		#' @details
+		#'
+		#' Make [ontology_annotation] from list
+		#'
+		#' @param lst a list serialization of a study factor object
+		from_list = function(lst) {
+			self$name = lst[["name"]]
+			self$factor_type <- ontology_annotation$new()$from_list(
+				lst[["factor_type"]]
+			)
+			self$id = lst[["@id"]]
+			self$comments = lst[["comments"]]
 		}
 	)
 )

@@ -83,15 +83,25 @@ ontology_annotation <- R6Class(
 			ontology_annotation = list(
 				"@id" = self$id,
 				"annotationValue" = self$term,
-				"termSource" = self$term_source$name,
+				"termSource" = self$term_source$to_list(),
 				"termAccession" = self$term_accession,
 				"comments" = self$comments ## !!
 			)
 			return(ontology_annotation)
-		}
+		},
 
+		#' @details
+		#'
+		#' Make [ontology_annotation] from list
+		#'
+		#' @param lst an ontology source object serialized to a list
 		from_list = function(lst) {
-
+			self$id = lst[["@id"]]
+			self$term = lst[["annotationValue"]]
+			self$term_source <- ontology_source$new()
+			self$term_source$from_list(lst[["termSource"]])
+			self$term_accession = lst[["termAccession"]]
+			self$comments = lst[["comments"]]
 		}
 	)
 )

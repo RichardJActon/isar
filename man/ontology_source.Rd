@@ -34,6 +34,7 @@ An \code{ontology_source} describes the resource from which the value of an \cod
 \itemize{
 \item \href{#method-ontology_source-new}{\code{ontology_source$new()}}
 \item \href{#method-ontology_source-to_list}{\code{ontology_source$to_list()}}
+\item \href{#method-ontology_source-from_list}{\code{ontology_source$from_list()}}
 \item \href{#method-ontology_source-clone}{\code{ontology_source$clone()}}
 }
 }
@@ -100,6 +101,26 @@ Create a new \link{ontology_source} object to act as source for ontology terms
 }
 \subsection{Details}{
 make an R list convertible to json
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ontology_source-from_list"></a>}}
+\if{latex}{\out{\hypertarget{method-ontology_source-from_list}{}}}
+\subsection{Method \code{from_list()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ontology_source$from_list(lst)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{lst}}{an ontology source object serialized to a list}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Make \link{ontology_source} from list
 }
 
 }
