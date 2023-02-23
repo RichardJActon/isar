@@ -1,3 +1,5 @@
+# make value a private method, if it should only come from factor type?
+
 #' R6 class for an experimental factor value
 #'
 #' @details
@@ -9,6 +11,9 @@
 #' @field unit units in which that quantity is measured
 #' @field comments comments
 #'
+#' @importFrom checkmate check_r6
+#'
+#' @export
 factor_value <- R6Class(
 	"factor_value",
 	public = list(
@@ -25,6 +30,7 @@ factor_value <- R6Class(
 		#' @param comments comments
 		#'
 		#' @examples
+		#' \dontrun{
 		#' factor_value$new(
 		#'     factor_name = "height",
 		#'     value = "180", unit = "cm"
@@ -34,6 +40,7 @@ factor_value <- R6Class(
 		#'     value = "agrees with",
 		#'     unit = NULL
 		#' )
+		#' }
 
 		initialize = function(
 			factor_name = NULL,
@@ -87,7 +94,7 @@ factor_value <- R6Class(
 		to_list = function(ld = FALSE) {
 			factor_value = list(
 				"factor_name" = self$factor_name$to_list(),
-				"value" = self$value,
+				"value" = self$value$to_list(),
 				"unit" = self$unit,
 				"comments" = self$comments
 			)
@@ -102,8 +109,10 @@ factor_value <- R6Class(
 		from_list = function(lst) {
 			self$factor_name <- study_factor$new()
 			self$factor_name$from_list(lst[["factor_name"]])
-			self$value <- self$factor_name$factor_type
+			# self$value <- self$factor_name$factor_type
 			# !! not using value direct from list but from factor ~
+			self$value <- ontology_annotation$new()
+			self$value$from_list(lst[["value"]])
 			self$unit = lst[["unit"]]
 			self$comments = lst[["comments"]]
 		}

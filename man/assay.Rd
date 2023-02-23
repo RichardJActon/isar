@@ -12,16 +12,6 @@ quantitative measurements.
 An assay groups descriptions of provenance of sample processing for
 related tests. Each test typically follows the steps of one particular
 experimental workflow described by a particular protocol.
-
-Create a new assay
-
-set the measurement type
-
-shiny UI element for picking a measurement type
-
-make an R list convertible to json
-
-stringify
 }
 \section{Public fields}{
 
@@ -56,9 +46,13 @@ stringify
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-assay-new}{\code{assay$new()}}
+\item \href{#method-assay-check_measurement_type}{\code{assay$check_measurement_type()}}
+\item \href{#method-assay-check_technology_type}{\code{assay$check_technology_type()}}
 \item \href{#method-assay-set_measurement_type}{\code{assay$set_measurement_type()}}
+\item \href{#method-assay-set_technology_type}{\code{assay$set_technology_type()}}
 \item \href{#method-assay-get_measurement_type_input}{\code{assay$get_measurement_type_input()}}
 \item \href{#method-assay-to_list}{\code{assay$to_list()}}
+\item \href{#method-assay-from_list}{\code{assay$from_list()}}
 \item \href{#method-assay-string}{\code{assay$string()}}
 \item \href{#method-assay-clone}{\code{assay$clone()}}
 }
@@ -107,6 +101,50 @@ stringify
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Details}{
+Create a new assay
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-assay-check_measurement_type"></a>}}
+\if{latex}{\out{\hypertarget{method-assay-check_measurement_type}{}}}
+\subsection{Method \code{check_measurement_type()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{assay$check_measurement_type(measurement_type)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{measurement_type}}{An \code{[ontology_annotation]} to qualify the endpoint, or  what is being measured (e.g. gene expression profiling or protein  identification).}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+checks the  measurement_type is an instance of \code{[ontology_annotation]}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-assay-check_technology_type"></a>}}
+\if{latex}{\out{\hypertarget{method-assay-check_technology_type}{}}}
+\subsection{Method \code{check_technology_type()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{assay$check_technology_type(technology_type)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{technology_type}}{An \code{[ontology_annotation]} to identify the technology  used to perform the measurement.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+checks that technology_type an instance of \code{[ontology_annotation]}
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-assay-set_measurement_type"></a>}}
@@ -123,13 +161,48 @@ stringify
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Details}{
+set the measurement type
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-assay-set_technology_type"></a>}}
+\if{latex}{\out{\hypertarget{method-assay-set_technology_type}{}}}
+\subsection{Method \code{set_technology_type()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{assay$set_technology_type(technology_type)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{technology_type}}{An \link{ontology_annotation} to identify the technology  used to perform the measurement.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+set the technology type
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-assay-get_measurement_type_input"></a>}}
 \if{latex}{\out{\hypertarget{method-assay-get_measurement_type_input}{}}}
 \subsection{Method \code{get_measurement_type_input()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{assay$get_measurement_type_input()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{assay$get_measurement_type_input(namespace = "assay")}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{namespace}}{Shiny module namespace}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+shiny UI element for picking a measurement type
 }
 
 \subsection{Returns}{
@@ -147,7 +220,30 @@ a shiny UI element
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{ld}}{linked data (default FALSE)}
+\item{\code{ld}}{linked data (default FALSE)
+#' @details
+
+Make \code{[assay]} from list}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+make an R list convertible to json
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-assay-from_list"></a>}}
+\if{latex}{\out{\hypertarget{method-assay-from_list}{}}}
+\subsection{Method \code{from_list()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{assay$from_list(lst)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{lst}}{an ontology source object serialized to a list}
 }
 \if{html}{\out{</div>}}
 }
@@ -158,6 +254,10 @@ a shiny UI element
 \subsection{Method \code{string()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{assay$string()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+stringify
 }
 
 \subsection{Returns}{

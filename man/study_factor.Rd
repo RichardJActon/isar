@@ -47,12 +47,7 @@ study_factor$to_list()
 \if{latex}{\out{\hypertarget{method-study_factor-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{study_factor$new(
-  name = "",
-  factor_type = ontology_annotation$new(),
-  id = "",
-  comments = NULL
-)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{study_factor$new(name = "", factor_type = NULL, id = "", comments = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -117,7 +112,7 @@ generate an R list representation translatable to JSON
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Make \link{ontology_annotation} from list
+Make \code{[ontology_annotation]} from list
 }
 
 }

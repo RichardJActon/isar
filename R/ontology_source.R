@@ -18,6 +18,9 @@
 #' @field terms_list list of valid terms
 #' @field comments comments
 #'
+#' @importFrom glue glue
+#'
+#' @export
 ontology_source <- R6Class(
 	"ontology_source",
 	public = list(

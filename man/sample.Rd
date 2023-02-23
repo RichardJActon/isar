@@ -2,7 +2,7 @@
 % Please edit documentation in R/sample.R
 \name{sample}
 \alias{sample}
-\title{R6 class for}
+\title{R6 class for sample}
 \description{
 Represents a sample material in an experimental graph.
 }
@@ -10,6 +10,14 @@ Represents a sample material in an experimental graph.
 
 }
 
+\examples{
+
+## ------------------------------------------------
+## Method `sample$to_list`
+## ------------------------------------------------
+
+sample$to_list()
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -17,7 +25,7 @@ Represents a sample material in an experimental graph.
 
 \item{\code{name}}{A name/reference for the sample material.}
 
-\item{\code{factor_values}}{A list of \cose{\link{factor_values}} used to qualify the material in terms of study factors/design.}
+\item{\code{factor_values}}{A list of \code{[factor_values]} used to qualify the material in terms of study factors/design.}
 
 \item{\code{characteristics}}{A list of Characteristics used to qualify the material properties.}
 
@@ -32,7 +40,11 @@ Represents a sample material in an experimental graph.
 \itemize{
 \item \href{#method-sample-new}{\code{sample$new()}}
 \item \href{#method-sample-check_name}{\code{sample$check_name()}}
+\item \href{#method-sample-check_factor_values}{\code{sample$check_factor_values()}}
 \item \href{#method-sample-set_name}{\code{sample$set_name()}}
+\item \href{#method-sample-set_factor_values}{\code{sample$set_factor_values()}}
+\item \href{#method-sample-to_list}{\code{sample$to_list()}}
+\item \href{#method-sample-from_list}{\code{sample$from_list()}}
 \item \href{#method-sample-clone}{\code{sample$clone()}}
 }
 }
@@ -58,7 +70,7 @@ Represents a sample material in an experimental graph.
 
 \item{\code{name}}{A name/reference for the sample material.}
 
-\item{\code{factor_values}}{A list of \code{[factor_values]} used to qualify the material in terms of study factors/design.}
+\item{\code{factor_values}}{A list of \code{[factor_value]} objects used to qualify the material in terms of study factors/design.}
 
 \item{\code{characteristics}}{A list of Characteristics used to qualify the material properties.}
 
@@ -94,6 +106,27 @@ validates the name field is a string
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-sample-check_factor_values"></a>}}
+\if{latex}{\out{\hypertarget{method-sample-check_factor_values}{}}}
+\subsection{Method \code{check_factor_values()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{sample$check_factor_values(factor_values)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{factor_values}}{factor values to be used in a \code{[sample]} object
+A list of \code{[factor_value]} objects}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+validates the factor_values field is a list of \code{[factor_value]} objects
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-sample-set_name"></a>}}
 \if{latex}{\out{\hypertarget{method-sample-set_name}{}}}
 \subsection{Method \code{set_name()}}{
@@ -110,6 +143,75 @@ validates the name field is a string
 }
 \subsection{Details}{
 Sets the name
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-sample-set_factor_values"></a>}}
+\if{latex}{\out{\hypertarget{method-sample-set_factor_values}{}}}
+\subsection{Method \code{set_factor_values()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{sample$set_factor_values(factor_values)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{factor_values}}{factor values used in the sample
+A list of \code{[factor_value]} objects}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Sets the factor values used in the sample
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-sample-to_list"></a>}}
+\if{latex}{\out{\hypertarget{method-sample-to_list}{}}}
+\subsection{Method \code{to_list()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{sample$to_list(ld = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ld}}{logical json-ld}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+generate an R list representation translatable to JSON
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{sample$to_list()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-sample-from_list"></a>}}
+\if{latex}{\out{\hypertarget{method-sample-from_list}{}}}
+\subsection{Method \code{from_list()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{sample$from_list(lst)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{lst}}{a list serialization of a \code{[sample]} factor object}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Make \code{[sample]} from list
 }
 
 }

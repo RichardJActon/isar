@@ -11,11 +11,11 @@
 #' subject or on a whole initial subject, producing qualitative or
 #' quantitative measurements.
 #'
+#' @details
 #' An assay groups descriptions of provenance of sample processing for
 #' related tests. Each test typically follows the steps of one particular
 #' experimental workflow described by a particular protocol.
 #'
-#' @details
 #'
 #' @section Public fields:
 #'
@@ -30,7 +30,11 @@
 #' @field comments Comments associated with instances of this class.
 #' @field graph A graph representation of the assay graph.
 #'
-
+#' @importFrom glue glue
+#' @importFrom shinyWidgets pickerInput
+#' @importFrom checkmate check_r6
+#'
+#' @export
 assay <- R6Class(
 	"assay",
 	public = list(
@@ -84,6 +88,25 @@ assay <- R6Class(
 			self$string()
 		},
 
+		# Checkers
+
+		#' @details
+		#' checks the  measurement_type is an instance of \code{[ontology_annotation]}
+		#'
+		#' @param measurement_type An \code{[ontology_annotation]} to qualify the endpoint, or  what is being measured (e.g. gene expression profiling or protein  identification).
+		check_measurement_type = function(measurement_type) {
+			res <- checkmate::check_r6(measurement_type, "ontology_annotation")
+			if (res) { return(TRUE) } else { stop(res) }
+		},
+		#' @details
+		#' checks that technology_type an instance of \code{[ontology_annotation]}
+		#'
+		#' @param technology_type An \code{[ontology_annotation]} to identify the technology  used to perform the measurement.
+		check_technology_type = function(technology_type) {
+			res <- checkmate::check_r6(technology_type, "ontology_annotation")
+			if (res) { return(TRUE) } else { stop(res) }
+		},
+
 		# Setters
 
 		#' @details
@@ -92,7 +115,19 @@ assay <- R6Class(
 		#'
 		#' @param measurement_type An [ontology_annotation] to qualify the endpoint, or  what is being measured (e.g. gene expression profiling or protein  identification).
 		set_measurement_type = function(measurement_type) {
-			self$measurement_type = measurement_type
+			if (self$check_measurement_type(measurement_type)) {
+				self$measurement_type <- measurement_type
+			}
+		},
+		#' @details
+		#'
+		#' set the technology type
+		#'
+		#' @param technology_type An [ontology_annotation] to identify the technology  used to perform the measurement.
+		set_technology_type = function(technology_type) {
+			if (self$check_technology_type(technology_type)) {
+				self$technology_type <- technology_type
+			}
 		},
 
 		# Getters
@@ -101,10 +136,11 @@ assay <- R6Class(
 		#' @details
 		#'
 		#' shiny UI element for picking a measurement type
+		#' @param namespace Shiny module namespace
 		#' @return a shiny UI element
-		get_measurement_type_input = function() {
+		get_measurement_type_input = function(namespace = "assay") {
 			shinyWidgets::pickerInput(
-				ns("assay"), "Measurement Type",
+				ns(namespace), "Measurement Type",
 				choices = NA,
 				# selected = ,
 				multiple = FALSE,
@@ -134,6 +170,27 @@ assay <- R6Class(
 				"graph" = self$graph
 			)
 			return(assay)
+		},
+
+		#' #' @details
+		#'
+		#' Make \code{[assay]} from list
+		#'
+		#' @param lst an ontology source object serialized to a list
+		from_list = function(lst) {
+			self$measurement_type <- lst[["measurement_type"]]
+			self$technology_type <- lst[["technology_type"]]
+
+			self$technology_platform <- lst[["technology_platform"]]
+			self$filename <- lst[["filename"]]
+			self$materials <- lst[["materials"]]
+
+			self$units <- lst[["units"]]
+			self$characteristic_categories <- lst[["characteristic_categories"]]
+
+			self$process_sequence <- lst[["process_sequence"]]
+			self$comments <- lst[["comments"]]
+			self$graph <- lst[["graph"]]
 		},
 
 		#' @details

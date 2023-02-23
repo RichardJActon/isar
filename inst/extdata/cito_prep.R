@@ -57,7 +57,11 @@ agrees_with <- ontology_annotation$new(
 )
 
 aw_lst <- agrees_with$to_list()
-lst_aw <- ontology_annotation$new()$from_list(aw_lst)
+#lst_aw <- ontology_annotation$new()$from_list(aw_lst)
+
+lst_aw <- ontology_annotation$new()
+lst_aw$from_list(aw_lst)
+# lst_aw$term_source$get_terms_list
 # identical(agrees_with, lst_aw) # R6 object identity?
 
 
@@ -71,7 +75,10 @@ agree <- study_factor$new(
 )
 
 agree_lst <- agree$to_list()
-lst_agree <- study_factor$new()$from_list(agree_lst)
+lst_agree <- study_factor$new()
+lst_agree$from_list(agree_lst)
+lst_agree$factor_type
+lst_agree$factor_type$term_source
 
 disagree <- study_factor$new(
 	name = "citor disagrees with citee",
@@ -81,7 +88,35 @@ disagree <- study_factor$new(
 fv_agree <- factor_value$new(factor_name = agree)
 fv_disagree <- factor_value$new(factor_name = disagree)
 
+fva_lst <- fv_agree$to_list()
+lst_fva <- factor_value$new()
+lst_fva$from_list(fva_lst)
+
+# expect error
+test_sample <- sample$new(
+	name = "test",
+	factor_values = fv_agree
+)
+
+test_sample <- sample$new(
+	name = "test",
+	factor_values = list(fv_agree, TRUE)
+)
+
+# example
+test_sample <- sample$new(
+	name = "test",
+	factor_values = list(fv_agree)
+)
+
+test_sample_lst <- test_sample$to_list()
+lst_test_sample <- sample$new()
+lst_test_sample$from_list(test_sample_lst)
+
+
 study_factor$new()
+
+
 
 # validator functions
 

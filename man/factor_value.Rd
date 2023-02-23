@@ -21,6 +21,7 @@ A factor_value represents the value instance of a \link{study_factor}.
 ## Method `factor_value$new`
 ## ------------------------------------------------
 
+\dontrun{
 factor_value$new(
     factor_name = "height",
     value = "180", unit = "cm"
@@ -30,6 +31,7 @@ factor_value$new(
     value = "agrees with",
     unit = NULL
 )
+}
 
 ## ------------------------------------------------
 ## Method `factor_value$to_list`
@@ -91,7 +93,8 @@ create a new factor value
 
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{factor_value$new(
+\preformatted{\dontrun{
+factor_value$new(
     factor_name = "height",
     value = "180", unit = "cm"
 )
@@ -100,6 +103,7 @@ factor_value$new(
     value = "agrees with",
     unit = NULL
 )
+}
 }
 \if{html}{\out{</div>}}
 

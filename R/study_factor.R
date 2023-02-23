@@ -11,11 +11,14 @@
 #' @field id unique identifier...
 #' @field comments Comments associated with instances of this class.
 #'
+#' @importFrom checkmate check_r6
+#'
+#' @export
 study_factor <- R6Class(
 	"study_factor",
 	public = list(
 		name = '',
-		factor_type = ontology_annotation$new(),
+		factor_type = NULL,
 		id = '',
 		comments = NULL,
 
@@ -30,13 +33,17 @@ study_factor <- R6Class(
 		#'
 		initialize = function(
 			name = '',
-			factor_type = ontology_annotation$new(),
+			factor_type = NULL,
 			id = '',
 			comments = NULL
 		) {
 			self$name <- name
-			if (checkmate::check_r6(factor_type ,"ontology_annotation")) {
+			if (is.null(factor_type)) {
 				self$factor_type <- factor_type
+			} else if (checkmate::check_r6(factor_type ,"ontology_annotation")) {
+				self$factor_type <- factor_type
+			} else {
+				stop("factor_type is not and ontology_annotation object or NULL!")
 			}
 			self$id <- id
 			self$comments <- comments
@@ -59,14 +66,13 @@ study_factor <- R6Class(
 
 		#' @details
 		#'
-		#' Make [ontology_annotation] from list
+		#' Make \code{[ontology_annotation]} from list
 		#'
 		#' @param lst a list serialization of a study factor object
 		from_list = function(lst) {
 			self$name = lst[["name"]]
-			self$factor_type <- ontology_annotation$new()$from_list(
-				lst[["factor_type"]]
-			)
+			self$factor_type <- ontology_annotation$new()
+			self$factor_type$from_list(lst[["factor_type"]])
 			self$id = lst[["@id"]]
 			self$comments = lst[["comments"]]
 		}

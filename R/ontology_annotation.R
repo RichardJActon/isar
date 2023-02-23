@@ -12,6 +12,7 @@
 #' @field comments comments
 #' @field id unique identifier...
 #'
+#' @export
 ontology_annotation <- R6Class(
 	"ontology_annotation",
 	public = list(
@@ -72,6 +73,8 @@ ontology_annotation <- R6Class(
 			}
 			self$comments <- comments # comment
 			self$id <- id #
+
+			# invisible(self)
 		},
 
 		#' @details
