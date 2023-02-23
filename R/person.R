@@ -1,3 +1,6 @@
+# use FOAF for this? http://xmlns.com/foaf/0.1/
+# or schema.org person https://schema.org/Person
+
 #' R6 class for person
 #'
 #' Represents person
