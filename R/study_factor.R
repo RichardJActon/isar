@@ -16,6 +16,7 @@
 #' @export
 study_factor <- R6Class(
 	"study_factor",
+	inherit = identifiable,
 	public = list(
 		name = '',
 		factor_type = NULL,
@@ -34,7 +35,7 @@ study_factor <- R6Class(
 		initialize = function(
 			name = '',
 			factor_type = NULL,
-			id = '',
+			id = super$set_id(),
 			comments = NULL
 		) {
 			self$name <- name

@@ -18,7 +18,8 @@ Imports:
     purrr,
     rjson,
     shiny,
-    shinyWidgets
+    shinyWidgets,
+    uuid
 Depends:
     R6
 Suggests: 
