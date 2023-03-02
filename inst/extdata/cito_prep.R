@@ -117,6 +117,10 @@ lst_test_sample$from_list(test_sample_lst)
 study_factor$new()
 
 
+at <- assay$new()
+at$set_measurement_type(agrees_with)
+
+
 
 # validator functions
 

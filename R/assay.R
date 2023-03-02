@@ -63,16 +63,16 @@ assay <- R6Class(
 		#' @param comments Comments associated with instances of this class.
 		#' @param graph A graph representation of the assay graph.
 		initialize = function(
-			measurement_type = NA,
-			technology_type = NA,
-			technology_platform = NA,
-			filename = NA,
-			materials = NA,
-			units = NA,
-			characteristic_categories = NA,
-			process_sequence = NA,
-			comments = NA,
-			graph = NA
+			measurement_type = NULL,
+			technology_type = NULL,
+			technology_platform = NULL,
+			filename = NULL,
+			materials = NULL,
+			units = NULL,
+			characteristic_categories = NULL,
+			process_sequence = NULL,
+			comments = NULL,
+			graph = NULL
 		) {
 			self$measurement_type <- measurement_type
 			self$technology_type <- technology_type
@@ -138,16 +138,24 @@ assay <- R6Class(
 		#' shiny UI element for picking a measurement type
 		#' @param namespace Shiny module namespace
 		#' @return a shiny UI element
-		get_measurement_type_input = function(namespace = "assay") {
-			shinyWidgets::pickerInput(
-				ns(namespace), "Measurement Type",
-				choices = NA,
-				# selected = ,
-				multiple = FALSE,
-				options = shinyWidgets::pickerOptions(
-					actionsBox = TRUE, liveSearch = TRUE#, size = 5
-				)
-			)
+		get_assay_ui = function(id = "assay") {
+			self$measurement_type$get_ontology_annotation_ui(id)
+			# ns <- shiny::NS(id)
+			# shinyWidgets::pickerInput(
+			# 	ns(namespace), "Measurement Type",
+			# 	choices = names(self$measurement_type$term_source$terms_list),
+			# 	selected = self$measurement_type$term,
+			# 	multiple = FALSE,
+			# 	options = shinyWidgets::pickerOptions(
+			# 		actionsBox = TRUE, liveSearch = TRUE#, size = 5
+			# 	)
+			# )
+		},
+		get_assay_server = function(id) {
+			self$measurement_type$get_ontology_annotation_server(id)
+			# shiny::moduleServer(id, function(input, output, session) {
+			#
+			# })
 		},
 		## conversions
 

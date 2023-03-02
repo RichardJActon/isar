@@ -77,6 +77,32 @@ ontology_annotation <- R6Class(
 			# invisible(self)
 		},
 
+		# getters
+
+		## Shiny
+		# unique ID?
+		get_ontology_annotation_ui = function(id = "ontology_annotation") {
+			ns <- shiny::NS(id)
+			shiny::tagList(
+				shinyWidgets::pickerInput(
+					ns("measurement_type"), "Measurement Type",
+					choices = names(self$term_source$terms_list),
+					selected = self$term,
+					multiple = FALSE,
+					options = shinyWidgets::pickerOptions(
+						actionsBox = TRUE, liveSearch = TRUE#, size = 5
+					)
+				),
+				shiny::verbatimTextOutput(ns("measurement_type_test"))
+			)
+		},
+
+		get_ontology_annotation_server = function(id) {
+			shiny::moduleServer(id, function(input, output, session) {
+				output$measurement_type_test <- shiny::renderText(input$measurement_type)
+			})
+		},
+
 		#' @details
 		#' generate an R list representation translatable to JSON
 		#' @param ld logical json-ld
