@@ -19,6 +19,7 @@ Imports:
     rjson,
     shiny,
     shinyWidgets,
+    tibble,
     uuid
 Depends:
     R6
