@@ -1,21 +1,24 @@
 test_that("comments work", {
 	test_comment <- comment$new()
 	checkmate::expect_r6(test_comment, "comment")
+	expect_null(test_comment$name)
+	expect_null(test_comment$value)
 
 	ex_name <- "example"
 	ex_value <- "this is a comment"
 	test_comment <- comment$new(ex_name, ex_value)
 
 	string_not_double <- "Must be of type 'string', not 'double'"
-	expect_error(test_comment$check_name(1), regexp = string_not_double)
+	non_zero_length <- "name must be a non-zero length string"
+	expect_error(test_comment$check_name(1), regexp = non_zero_length)
 	expect_error(test_comment$check_value(1), regexp = string_not_double)
-	expect_error(test_comment$set_name(1), regexp = string_not_double)
+	expect_error(test_comment$set_name(1), regexp = non_zero_length)
 	expect_error(test_comment$set_value(1), regexp = string_not_double)
 
 	string_not_logical <- "Must be of type 'string', not 'logical'"
-	expect_error(test_comment$check_name(TRUE), regexp = string_not_logical)
+	expect_error(test_comment$check_name(TRUE), regexp = non_zero_length)
 	expect_error(test_comment$check_value(TRUE), regexp = string_not_logical)
-	expect_error(test_comment$set_name(TRUE), regexp = string_not_logical)
+	expect_error(test_comment$set_name(TRUE), regexp = non_zero_length)
 	expect_error(test_comment$set_value(TRUE), regexp = string_not_logical)
 
 	ex_list <- list(ex_value)
@@ -46,3 +49,4 @@ test_that("comments work", {
 		regexp = "May only contain the following types: \\{character\\}, but element 1 has type 'numeric'"
 	)
 })
+

@@ -9,26 +9,35 @@
 comment <- R6::R6Class(
 	"comment",
 	public = list(
-		name = '',
-		value = '',
+		name = NULL,
+		value = NULL,
 
 		#' @details
 		#' make a new comment object
 		#' @param name a name for the comment string
 		#' @param value the content of the comment string
 		initialize = function(
-			name = '',
-			value = ''
+			name = NULL,
+			value = NULL
 		) {
-			self$name <- self$set_name(name)
-			self$value <- self$set_value(value)
+			if(is.null(name)) { self$name <- NULL } else { self$set_name(name) }
+			if(is.null(value)) {self$value <- NULL} else {
+				self$set_value(value)
+			}
 		},
 		#' @details
 		#' check that name is valid
 		#' @param name a name for the comment string
 		check_name = function(name) {
-			check <- checkmate::check_string(name)
-			if (isTRUE(check)) { return(TRUE) } else { stop(check) }
+			if(
+				checkmate::test_string(name) && !checkmate::qtest(name, "S[0]")
+			) {
+				return(TRUE)
+			} else {
+				stop("name must be a non-zero length string")
+			}
+			# check <- checkmate::test_string(name)
+			# if (isTRUE(check)) { return(TRUE) } else { stop(check) }
 		},
 		#' @details
 		#' check that value is valid
