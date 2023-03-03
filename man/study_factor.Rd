@@ -20,6 +20,9 @@ that can be measured by an assay.
 
 study_factor$to_list()
 }
+\section{Super class}{
+\code{\link[isar:identifiable]{isar::identifiable}} -> \code{study_factor}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -42,12 +45,24 @@ study_factor$to_list()
 \item \href{#method-study_factor-clone}{\code{study_factor$clone()}}
 }
 }
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="isar" data-topic="identifiable" data-id="set_id"><a href='../../isar/html/identifiable.html#method-identifiable-set_id'><code>isar::identifiable$set_id()</code></a></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-study_factor-new"></a>}}
 \if{latex}{\out{\hypertarget{method-study_factor-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{study_factor$new(name = "", factor_type = NULL, id = "", comments = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{study_factor$new(
+  name = "",
+  factor_type = NULL,
+  id = super$set_id(),
+  comments = NULL
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
