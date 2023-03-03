@@ -50,7 +50,8 @@ experimental workflow described by a particular protocol.
 \item \href{#method-assay-check_technology_type}{\code{assay$check_technology_type()}}
 \item \href{#method-assay-set_measurement_type}{\code{assay$set_measurement_type()}}
 \item \href{#method-assay-set_technology_type}{\code{assay$set_technology_type()}}
-\item \href{#method-assay-get_measurement_type_input}{\code{assay$get_measurement_type_input()}}
+\item \href{#method-assay-get_assay_ui}{\code{assay$get_assay_ui()}}
+\item \href{#method-assay-get_assay_server}{\code{assay$get_assay_server()}}
 \item \href{#method-assay-to_list}{\code{assay$to_list()}}
 \item \href{#method-assay-from_list}{\code{assay$from_list()}}
 \item \href{#method-assay-string}{\code{assay$string()}}
@@ -63,16 +64,16 @@ experimental workflow described by a particular protocol.
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{assay$new(
-  measurement_type = NA,
-  technology_type = NA,
-  technology_platform = NA,
-  filename = NA,
-  materials = NA,
-  units = NA,
-  characteristic_categories = NA,
-  process_sequence = NA,
-  comments = NA,
-  graph = NA
+  measurement_type = NULL,
+  technology_type = NULL,
+  technology_platform = NULL,
+  filename = NULL,
+  materials = NULL,
+  units = NULL,
+  characteristic_categories = NULL,
+  process_sequence = NULL,
+  comments = NULL,
+  graph = NULL
 )}\if{html}{\out{</div>}}
 }
 
@@ -187,17 +188,17 @@ set the technology type
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-assay-get_measurement_type_input"></a>}}
-\if{latex}{\out{\hypertarget{method-assay-get_measurement_type_input}{}}}
-\subsection{Method \code{get_measurement_type_input()}}{
+\if{html}{\out{<a id="method-assay-get_assay_ui"></a>}}
+\if{latex}{\out{\hypertarget{method-assay-get_assay_ui}{}}}
+\subsection{Method \code{get_assay_ui()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{assay$get_measurement_type_input(namespace = "assay")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{assay$get_assay_ui(id = "assay")}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{namespace}}{Shiny module namespace}
+\item{\code{id}}{Shiny module namespace}
 }
 \if{html}{\out{</div>}}
 }
@@ -207,6 +208,29 @@ shiny UI element for picking a measurement type
 
 \subsection{Returns}{
 a shiny UI element
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-assay-get_assay_server"></a>}}
+\if{latex}{\out{\hypertarget{method-assay-get_assay_server}{}}}
+\subsection{Method \code{get_assay_server()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{assay$get_assay_server(id)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{Shiny module namespace}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+shiny server element for picking a measurement type
+}
+
+\subsection{Returns}{
+a shiny server function
 }
 }
 \if{html}{\out{<hr>}}

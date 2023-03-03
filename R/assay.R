@@ -136,7 +136,7 @@ assay <- R6Class(
 		#' @details
 		#'
 		#' shiny UI element for picking a measurement type
-		#' @param namespace Shiny module namespace
+		#' @param id Shiny module namespace
 		#' @return a shiny UI element
 		get_assay_ui = function(id = "assay") {
 			self$measurement_type$get_ontology_annotation_ui(id)
@@ -151,6 +151,12 @@ assay <- R6Class(
 			# 	)
 			# )
 		},
+
+		#' @details
+		#'
+		#' shiny server element for picking a measurement type
+		#' @param id Shiny module namespace
+		#' @return a shiny server function
 		get_assay_server = function(id) {
 			self$measurement_type$get_ontology_annotation_server(id)
 			# shiny::moduleServer(id, function(input, output, session) {
