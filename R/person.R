@@ -30,7 +30,7 @@ isa_person <- R6Class(
 		last_name = '',
 		first_name = '',
 		mid_initials = '',
-		email = '',
+		email = NULL,
 		phone = '',
 		fax = '',
 		address = '',
@@ -58,7 +58,7 @@ isa_person <- R6Class(
 			last_name = '',
 			first_name = '',
 			mid_initials = '',
-			email = '',
+			email = NULL,
 			phone = '',
 			fax = '',
 			address = '',
@@ -81,7 +81,7 @@ isa_person <- R6Class(
 			self$fax <- fax
 			self$address <- address
 			self$affiliation <- affiliation
-			if (!checkmate::qtest(orcid, "S[0]")) {
+			if (checkmate::qtest(orcid, "S[0]")) {
 				self$orcid <- orcid
 			} else {
 				self$set_orcid(orcid)
