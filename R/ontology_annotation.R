@@ -81,6 +81,13 @@ ontology_annotation <- R6Class(
 
 		## Shiny
 		# unique ID?
+
+		#' @details
+		#'
+		#' Shiny UI element for picking an ontology term
+		#'
+		#' @param id Shiny module namespace
+		#' @return a shiny UI element
 		get_ontology_annotation_ui = function(id = "ontology_annotation") {
 			ns <- shiny::NS(id)
 			shiny::tagList(
@@ -97,6 +104,12 @@ ontology_annotation <- R6Class(
 			)
 		},
 
+		#' @details
+		#'
+		#' Shiny server element for picking an ontology term
+		#'
+		#' @param id Shiny module namespace
+		#' @return a shiny UI element
 		get_ontology_annotation_server = function(id) {
 			shiny::moduleServer(id, function(input, output, session) {
 				output$measurement_type_test <- shiny::renderText(input$measurement_type)

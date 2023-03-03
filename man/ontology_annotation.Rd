@@ -52,6 +52,8 @@ ontology_annotation$to_list()
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-ontology_annotation-new}{\code{ontology_annotation$new()}}
+\item \href{#method-ontology_annotation-get_ontology_annotation_ui}{\code{ontology_annotation$get_ontology_annotation_ui()}}
+\item \href{#method-ontology_annotation-get_ontology_annotation_server}{\code{ontology_annotation$get_ontology_annotation_server()}}
 \item \href{#method-ontology_annotation-to_list}{\code{ontology_annotation$to_list()}}
 \item \href{#method-ontology_annotation-from_list}{\code{ontology_annotation$from_list()}}
 \item \href{#method-ontology_annotation-clone}{\code{ontology_annotation$clone()}}
@@ -102,6 +104,52 @@ create a new factor value
 
 }
 
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ontology_annotation-get_ontology_annotation_ui"></a>}}
+\if{latex}{\out{\hypertarget{method-ontology_annotation-get_ontology_annotation_ui}{}}}
+\subsection{Method \code{get_ontology_annotation_ui()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ontology_annotation$get_ontology_annotation_ui(id = "ontology_annotation")}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{Shiny module namespace}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Shiny UI element for picking an ontology term
+}
+
+\subsection{Returns}{
+a shiny UI element
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ontology_annotation-get_ontology_annotation_server"></a>}}
+\if{latex}{\out{\hypertarget{method-ontology_annotation-get_ontology_annotation_server}{}}}
+\subsection{Method \code{get_ontology_annotation_server()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ontology_annotation$get_ontology_annotation_server(id)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{Shiny module namespace}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Shiny server element for picking an ontology term
+}
+
+\subsection{Returns}{
+a shiny UI element
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ontology_annotation-to_list"></a>}}
