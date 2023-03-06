@@ -70,7 +70,7 @@ person$to_list()
   last_name = "",
   first_name = "",
   mid_initials = "",
-  email = "",
+  email = NULL,
   phone = "",
   fax = "",
   address = "",

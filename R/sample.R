@@ -1,4 +1,3 @@
-
 #' R6 class for sample
 #'
 #' Represents a sample material in an experimental graph.
@@ -14,12 +13,13 @@
 #' @importFrom checkmate check_string test_r6
 #' @importFrom glue glue
 #' @importFrom purrr map_lgl
+#' @importFrom uuid UUIDgenerate
 #'
 #' @export
 sample <- R6Class(
 	"sample",
+	inherit = commentable,
 	public = list(
-		id = '',
 		name = '',
 		factor_values = NULL,
 		characteristics = NULL,
@@ -37,14 +37,12 @@ sample <- R6Class(
 		#' @param derives_from A link to the source material that the sample is derived from.
 		#' @param comments Comments associated with instances of this class.
 		initialize = function(
-			id = '',
 			name = '',
 			factor_values = NULL,
 			characteristics = NULL,
 			derives_from = NULL,
 			comments = NULL
 		) {
-			self$id <- id
 			self$set_name(name)
 			if (is.null(factor_values)) {
 				self$factor_values <- factor_values
@@ -53,7 +51,8 @@ sample <- R6Class(
 			}
 			self$characteristics <- characteristics # list
 			self$derives_from <- derives_from # list
-			self$comments <- comments # list
+			#self$comments <- comments # list
+			super$commentable$new(comments)
 		},
 
 		# Checks
@@ -172,6 +171,15 @@ sample <- R6Class(
 			self$characteristics <- lst[["characteristics"]]
 			self$derives_from <- lst[["derives_from"]]
 			self$comments <- lst[["comments"]]
+		},
+		#' @details
+		#' Get the uuid of this object
+		#' @return a uuid
+		get_id = function() {
+			private$id
 		}
+	),
+	private = list(
+		id = uuid::UUIDgenerate()
 	)
 )

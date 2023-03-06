@@ -18,6 +18,9 @@ Represents a sample material in an experimental graph.
 
 sample$to_list()
 }
+\section{Super class}{
+\code{\link[base:NA]{base::NA}} -> \code{sample}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -48,13 +51,19 @@ sample$to_list()
 \item \href{#method-sample-clone}{\code{sample$clone()}}
 }
 }
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-sample-new"></a>}}
 \if{latex}{\out{\hypertarget{method-sample-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{sample$new(
-  id = "",
+  id = super$set_id(),
   name = "",
   factor_values = NULL,
   characteristics = NULL,

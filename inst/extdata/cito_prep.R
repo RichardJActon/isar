@@ -217,7 +217,34 @@ library(rdflib)
 # om
 OM <- rdflib::rdf_parse("https://raw.githubusercontent.com/HajoRijgersberg/OM/master/om-2.0.rdf")
 
-omq <- paste(
+omq_prefix <- paste(
+	sep = "\n",
+	"PREFIX om: <http://www.ontology-of-units-of-measure.org/resource/om-2/>",
+	"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>",
+	"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>",
+	"SELECT *",
+	"{",
+	# "  ?unit rdf:type om:Unit .",
+	"  ?unit rdf:type om:PrefixedUnit .",
+	#"  VALUES ?types { om:Unit om:PrefixedUnit }",
+	#"  ?types om:Unit",
+
+	#"  VALUES ?types om:PrefixedUnit",
+	#"  ?unit rdf:type ?types",
+	"  OPTIONAL { ?unit rdfs:comment ?comment }",
+	"  OPTIONAL { ?unit om:symbol ?symbol }",
+
+	# "  OPTIONAL {",
+	# "    ?unit rdfs:comment ?comment .",
+	# "    ?unit om:symbol ?symbol",
+	# #"    ?unit om:prefix ?prefix",
+	# "  }",
+	"  ?unit rdfs:label ?label",
+	"  FILTER(LANG(?label) = 'en' )",
+	"}"
+)
+
+omq_unit <- paste(
 	sep = "\n",
 	"PREFIX om: <http://www.ontology-of-units-of-measure.org/resource/om-2/>",
 	"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>",
@@ -225,16 +252,19 @@ omq <- paste(
 	"SELECT *",
 	"{",
 	"  ?unit rdf:type om:Unit .",
-	"  OPTIONAL {",
-	"    ?unit rdfs:comment ?comment .",
-	"    ?unit om:symbol ?symbol",
-	"  }",
+	"  OPTIONAL { ?unit rdfs:comment ?comment }",
+	"  OPTIONAL { ?unit om:symbol ?symbol }",
+	"  ?unit rdfs:label ?label",
+	"  FILTER(LANG(?label) = 'en' )",
 	"}"
 )
 
-cat(omq)
-omqr <- rdflib::rdf_query(OM, omq)
-omqr
+# cat(omq)
+omqr_unit <- rdflib::rdf_query(OM, omq_unit)
+omqr_prefix <- rdflib::rdf_query(OM, omq_prefix)
+omqr <- dplyr::bind_rows(omqr_unit,omqr_prefix)
+
+omqr |> dplyr::filter(grepl("byte", label))
 
 # cito
 cito_rdf <- rdflib::rdf_parse("https://sparontologies.github.io/cito/current/cito.xml")

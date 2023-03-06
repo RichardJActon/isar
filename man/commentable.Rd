@@ -22,11 +22,12 @@ R6 superclass for making classes commentable
 \item \href{#method-commentable-check_comments}{\code{commentable$check_comments()}}
 \item \href{#method-commentable-set_comments}{\code{commentable$set_comments()}}
 \item \href{#method-commentable-get_comments}{\code{commentable$get_comments()}}
-\item \href{#method-commentable-get_comment}{\code{commentable$get_comment()}}
 \item \href{#method-commentable-get_comment_names}{\code{commentable$get_comment_names()}}
 \item \href{#method-commentable-get_comment_values}{\code{commentable$get_comment_values()}}
+\item \href{#method-commentable-get_comment}{\code{commentable$get_comment()}}
 \item \href{#method-commentable-add_comment}{\code{commentable$add_comment()}}
 \item \href{#method-commentable-to_list}{\code{commentable$to_list()}}
+\item \href{#method-commentable-to_tidy}{\code{commentable$to_tidy()}}
 \item \href{#method-commentable-from_list}{\code{commentable$from_list()}}
 \item \href{#method-commentable-clone}{\code{commentable$clone()}}
 }
@@ -36,7 +37,7 @@ R6 superclass for making classes commentable
 \if{latex}{\out{\hypertarget{method-commentable-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{commentable$new(comments = list(comment$new()))}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{commentable$new(comments = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -108,29 +109,6 @@ comments a list of \code{[comment]} objects
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-commentable-get_comment"></a>}}
-\if{latex}{\out{\hypertarget{method-commentable-get_comment}{}}}
-\subsection{Method \code{get_comment()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{commentable$get_comment(name)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{name of the comment to retrieve}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-get a specific comment by name as a \code{[comment]} object
-}
-
-\subsection{Returns}{
-selected comment a \code{[comment]} object
-}
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-commentable-get_comment_names"></a>}}
 \if{latex}{\out{\hypertarget{method-commentable-get_comment_names}{}}}
 \subsection{Method \code{get_comment_names()}}{
@@ -160,6 +138,29 @@ get the values of all comments
 
 \subsection{Returns}{
 a character vector of comment values
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-commentable-get_comment"></a>}}
+\if{latex}{\out{\hypertarget{method-commentable-get_comment}{}}}
+\subsection{Method \code{get_comment()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{commentable$get_comment(name)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{name of the comment to retrieve}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+get a specific comment by name as a \code{[comment]} object
+}
+
+\subsection{Returns}{
+selected comment a \code{[comment]} object
 }
 }
 \if{html}{\out{<hr>}}
@@ -199,6 +200,22 @@ convert \code{[commentable]} object into an R list of comments
 
 \subsection{Returns}{
 a list where the names are comment names and the values comment values
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-commentable-to_tidy"></a>}}
+\if{latex}{\out{\hypertarget{method-commentable-to_tidy}{}}}
+\subsection{Method \code{to_tidy()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{commentable$to_tidy()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+convert \code{[commentable]} object into an tibble of comments
+}
+
+\subsection{Returns}{
+a tibble where the first column is comment names and the second is comment values
 }
 }
 \if{html}{\out{<hr>}}

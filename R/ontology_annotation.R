@@ -1,4 +1,4 @@
-# commentable, identifiable?
+# commentable
 
 #' R6 class for an experimental factor value
 #'
@@ -12,15 +12,19 @@
 #' @field comments comments
 #' @field id unique identifier...
 #'
+#' @importFrom R6 R6Class
+#' @importFrom uuid UUIDgenerate
+#' @importFrom shiny NS tagList verbatimTextOutput renderText moduleServer
+#' @importFrom shinyWidgets pickerInput pickerOptions
+#'
 #' @export
-ontology_annotation <- R6Class(
+ontology_annotation <- R6::R6Class(
 	"ontology_annotation",
 	public = list(
 		term = NULL, # str
 		term_source = NULL, # ontology_source
 		term_accession = NULL, # str
 		comments = list(), # comment
-		id = '', #
 
 		#' @details
 		#' create a new factor value
@@ -40,8 +44,7 @@ ontology_annotation <- R6Class(
 			term = NULL, # str
 			term_source = NULL, # ontology_source
 			term_accession = NULL, # str
-			comments = list(), # comment
-			id = '' #
+			comments = list() # comment
 		) {
 			self$term_source <- term_source # ontology_source
 			if(!is.null(term)) {
@@ -72,9 +75,25 @@ ontology_annotation <- R6Class(
 				}
 			}
 			self$comments <- comments # comment
-			self$id <- id #
 
 			# invisible(self)
+		},
+
+		check_term_source = function(term_source) {
+			check <- checkmate::check_r6(term_source, "ontology_source")
+			if(check) { return(TRUE) } else { stop(check) }
+		},
+		check_term = function() {
+
+		},
+		check_term_accession = function() {
+
+		},
+
+		set_term_source = function(term_source) {
+			if(check_term_source(term_source)) {
+				self$term_source <- term_source
+			}
 		},
 
 		# getters
@@ -144,6 +163,16 @@ ontology_annotation <- R6Class(
 			self$term_source$from_list(lst[["term_source"]])
 			self$term_accession = lst[["term_accession"]]
 			self$comments = lst[["comments"]]
+		},
+
+		#' @details
+		#' Get the uuid of this object
+		#' @return a uuid
+		get_id = function() {
+			private$id
 		}
+	),
+	private = list(
+		id = uuid::UUIDgenerate()
 	)
 )

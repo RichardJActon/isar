@@ -33,7 +33,7 @@ A comment allows arbitrary annotation of all commentable ISA classes
 \if{latex}{\out{\hypertarget{method-comment-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{comment$new(name = "", value = "")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{comment$new(name = NULL, value = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

@@ -7,11 +7,11 @@
             "TabSet2"
         ],
         "tabSet1": [
-            "VCS",
             "Environment",
             "History",
             "Connections",
             "Build",
+            "VCS",
             "Tutorial",
             "Presentation"
         ],
@@ -26,7 +26,7 @@
         "hiddenTabSet": [],
         "console_left_on_top": false,
         "console_right_on_top": true,
-        "additional_source_columns": 1
+        "additional_source_columns": 0
     },
     "save_workspace": "never",
     "load_workspace": false,
