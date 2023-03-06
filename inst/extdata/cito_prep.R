@@ -214,6 +214,29 @@ term_validator_example_meters_float(value = 0.345)
 
 library(rdflib)
 
+# om
+OM <- rdflib::rdf_parse("https://raw.githubusercontent.com/HajoRijgersberg/OM/master/om-2.0.rdf")
+
+omq <- paste(
+	sep = "\n",
+	"PREFIX om: <http://www.ontology-of-units-of-measure.org/resource/om-2/>",
+	"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>",
+	"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>",
+	"SELECT *",
+	"{",
+	"  ?unit rdf:type om:Unit .",
+	"  OPTIONAL {",
+	"    ?unit rdfs:comment ?comment .",
+	"    ?unit om:symbol ?symbol",
+	"  }",
+	"}"
+)
+
+cat(omq)
+omqr <- rdflib::rdf_query(OM, omq)
+omqr
+
+# cito
 cito_rdf <- rdflib::rdf_parse("https://sparontologies.github.io/cito/current/cito.xml")
 cito_rdf
 
