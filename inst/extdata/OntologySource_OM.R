@@ -62,6 +62,14 @@ get_om_terms <- function(file, filetype, url, version) {
 
 # get_om_terms
 
+# cache for convenient whilst reconstructing the object due to slow speed
+omqrl <- get_om_terms(
+	file = "https://raw.githubusercontent.com/HajoRijgersberg/OM/master/om-2.0.rdf",
+	filetype = "rdf",
+	url = "http://www.ontology-of-units-of-measure.org/resource/om-2",
+	version = "2.0.38"
+)
+
 OM <- ontology_source$new(
 	name = "Ontology of units of Measure (OM)",
 	# ontology_id = "OM"
@@ -73,8 +81,9 @@ OM <- ontology_source$new(
 	version = "2.0.38", # OLS version
 	# commit_hash = "416b7b0bee253f3e4f0d05d4281fe76c8761ddae"
 	description = "The OM ontology provides classes, instances, and properties that represent the different concepts used for defining and using measures and units. It includes, for instance, common units such as the SI units meter and kilogram, but also units from other systems of units such as the mile or nautical mile. For many application areas it includes more specific units and quantities, such as the unit of the Hubble constant: km/s/Mpc, or the quantity vaselife. OM defines the complete set of concepts in the domain as distinguished in the textual standards. As a result the ontology can answer a wider range of competency questions than the existing approaches do. The following application areas are supported by OM: Geometry; Mechanics; Thermodynamics; Electromagnetism; Fluid mechanics; Chemical physics; Photometry; Radiometry and Radiobiology; Nuclear physics; Astronomy and Astrophysics; Cosmology; Earth science; Meteorology; Material science; Microbiology; Economics; Information technology; Typography; Shipping; Food engineering; Post-harvest; technology; Dynamics of texture and taste; Packaging",
-	get_terms_list = get_om_terms
-	#terms_list = omqrl
+	# use the function in the accual object so the provenance is recorded not the terms list.
+	#get_terms_list = get_om_terms
+	terms_list = omqrl
 )
 
 
@@ -86,15 +95,23 @@ exOM <- ontology_annotation$new(
 )
 
 exOM
+tmpobjfile <- tempfile()
 
 library(shiny)
 
 ui <- fluidPage(
-	exOM$get_ontology_annotation_ui("example")
+	exOM$get_ontology_annotation_ui("example"),
+	shiny::actionButton("save","save")
 )
 
 server <- function(input, output, session) {
 	exOM$get_ontology_annotation_server("example")
+	shiny::observeEvent("save", {
+		qs::qsave(exOM, tmpobjfile)
+	})
 }
 
 shinyApp(ui, server)
+
+ex <- qs::qread(tmpobjfile)
+ex
