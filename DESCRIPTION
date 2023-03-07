@@ -16,6 +16,7 @@ Imports:
     checkmate,
     glue,
     purrr,
+    qs,
     rjson,
     shiny,
     shinyWidgets,
