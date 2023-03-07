@@ -10,7 +10,6 @@
 #' @field term_source the ontology that is the source of the term represented by an [ontology_source] object.
 #' @field term_accession the unique identifier of the ontology term
 #' @field comments comments
-#' @field id unique identifier...
 #'
 #' @importFrom R6 R6Class
 #' @importFrom uuid UUIDgenerate

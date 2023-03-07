@@ -24,8 +24,6 @@ sample$to_list()
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{id}}{...}
-
 \item{\code{name}}{A name/reference for the sample material.}
 
 \item{\code{factor_values}}{A list of \code{[factor_values]} used to qualify the material in terms of study factors/design.}
@@ -35,13 +33,6 @@ sample$to_list()
 \item{\code{derives_from}}{A link to the source material that the sample is derived from.}
 
 \item{\code{comments}}{Comments associated with instances of this class.}
-}
-\if{html}{\out{</div>}}
-}
-\section{Active bindings}{
-\if{html}{\out{<div class="r6-active-bindings">}}
-\describe{
-\item{\code{id}}{...}
 }
 \if{html}{\out{</div>}}
 }

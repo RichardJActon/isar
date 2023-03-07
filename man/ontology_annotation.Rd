@@ -43,15 +43,6 @@ ontology_annotation$to_list()
 \item{\code{term_accession}}{the unique identifier of the ontology term}
 
 \item{\code{comments}}{comments}
-
-\item{\code{id}}{unique identifier...}
-}
-\if{html}{\out{</div>}}
-}
-\section{Active bindings}{
-\if{html}{\out{<div class="r6-active-bindings">}}
-\describe{
-\item{\code{id}}{unique identifier...}
 }
 \if{html}{\out{</div>}}
 }

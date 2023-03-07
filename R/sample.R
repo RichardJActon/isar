@@ -3,7 +3,6 @@
 #' Represents a sample material in an experimental graph.
 #'
 #' @section Public fields:
-#' @field id ...
 #' @field name A name/reference for the sample material.
 #' @field factor_values A list of \code{[factor_values]} used to qualify the material in terms of study factors/design.
 #' @field characteristics A list of Characteristics used to qualify the material properties.
