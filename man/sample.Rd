@@ -19,7 +19,7 @@ Represents a sample material in an experimental graph.
 sample$to_list()
 }
 \section{Super class}{
-\code{\link[base:NA]{base::NA}} -> \code{sample}
+\code{\link[isar:commentable]{isar::commentable}} -> \code{sample}
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
@@ -38,6 +38,13 @@ sample$to_list()
 }
 \if{html}{\out{</div>}}
 }
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
+\describe{
+\item{\code{id}}{...}
+}
+\if{html}{\out{</div>}}
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
@@ -48,12 +55,21 @@ sample$to_list()
 \item \href{#method-sample-set_factor_values}{\code{sample$set_factor_values()}}
 \item \href{#method-sample-to_list}{\code{sample$to_list()}}
 \item \href{#method-sample-from_list}{\code{sample$from_list()}}
+\item \href{#method-sample-get_id}{\code{sample$get_id()}}
 \item \href{#method-sample-clone}{\code{sample$clone()}}
 }
 }
 \if{html}{\out{
-<details open><summary>Inherited methods</summary>
+<details><summary>Inherited methods</summary>
 <ul>
+<li><span class="pkg-link" data-pkg="isar" data-topic="commentable" data-id="add_comment"><a href='../../isar/html/commentable.html#method-commentable-add_comment'><code>isar::commentable$add_comment()</code></a></li>
+<li><span class="pkg-link" data-pkg="isar" data-topic="commentable" data-id="check_comments"><a href='../../isar/html/commentable.html#method-commentable-check_comments'><code>isar::commentable$check_comments()</code></a></li>
+<li><span class="pkg-link" data-pkg="isar" data-topic="commentable" data-id="get_comment"><a href='../../isar/html/commentable.html#method-commentable-get_comment'><code>isar::commentable$get_comment()</code></a></li>
+<li><span class="pkg-link" data-pkg="isar" data-topic="commentable" data-id="get_comment_names"><a href='../../isar/html/commentable.html#method-commentable-get_comment_names'><code>isar::commentable$get_comment_names()</code></a></li>
+<li><span class="pkg-link" data-pkg="isar" data-topic="commentable" data-id="get_comment_values"><a href='../../isar/html/commentable.html#method-commentable-get_comment_values'><code>isar::commentable$get_comment_values()</code></a></li>
+<li><span class="pkg-link" data-pkg="isar" data-topic="commentable" data-id="get_comments"><a href='../../isar/html/commentable.html#method-commentable-get_comments'><code>isar::commentable$get_comments()</code></a></li>
+<li><span class="pkg-link" data-pkg="isar" data-topic="commentable" data-id="set_comments"><a href='../../isar/html/commentable.html#method-commentable-set_comments'><code>isar::commentable$set_comments()</code></a></li>
+<li><span class="pkg-link" data-pkg="isar" data-topic="commentable" data-id="to_tidy"><a href='../../isar/html/commentable.html#method-commentable-to_tidy'><code>isar::commentable$to_tidy()</code></a></li>
 </ul>
 </details>
 }}
@@ -63,7 +79,6 @@ sample$to_list()
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{sample$new(
-  id = super$set_id(),
   name = "",
   factor_values = NULL,
   characteristics = NULL,
@@ -75,8 +90,6 @@ sample$to_list()
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{id}}{...}
-
 \item{\code{name}}{A name/reference for the sample material.}
 
 \item{\code{factor_values}}{A list of \code{[factor_value]} objects used to qualify the material in terms of study factors/design.}
@@ -86,6 +99,8 @@ sample$to_list()
 \item{\code{derives_from}}{A link to the source material that the sample is derived from.}
 
 \item{\code{comments}}{Comments associated with instances of this class.}
+
+\item{\code{id}}{...}
 }
 \if{html}{\out{</div>}}
 }
@@ -223,6 +238,22 @@ generate an R list representation translatable to JSON
 Make \code{[sample]} from list
 }
 
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-sample-get_id"></a>}}
+\if{latex}{\out{\hypertarget{method-sample-get_id}{}}}
+\subsection{Method \code{get_id()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{sample$get_id()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Get the uuid of this object
+}
+
+\subsection{Returns}{
+a uuid
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-sample-clone"></a>}}

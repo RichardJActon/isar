@@ -48,14 +48,28 @@ ontology_annotation$to_list()
 }
 \if{html}{\out{</div>}}
 }
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
+\describe{
+\item{\code{id}}{unique identifier...}
+}
+\if{html}{\out{</div>}}
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-ontology_annotation-new}{\code{ontology_annotation$new()}}
+\item \href{#method-ontology_annotation-check_term_source}{\code{ontology_annotation$check_term_source()}}
+\item \href{#method-ontology_annotation-check_term}{\code{ontology_annotation$check_term()}}
+\item \href{#method-ontology_annotation-check_term_accession}{\code{ontology_annotation$check_term_accession()}}
+\item \href{#method-ontology_annotation-set_term_source}{\code{ontology_annotation$set_term_source()}}
+\item \href{#method-ontology_annotation-set_term}{\code{ontology_annotation$set_term()}}
+\item \href{#method-ontology_annotation-set_term_accession}{\code{ontology_annotation$set_term_accession()}}
 \item \href{#method-ontology_annotation-get_ontology_annotation_ui}{\code{ontology_annotation$get_ontology_annotation_ui()}}
 \item \href{#method-ontology_annotation-get_ontology_annotation_server}{\code{ontology_annotation$get_ontology_annotation_server()}}
 \item \href{#method-ontology_annotation-to_list}{\code{ontology_annotation$to_list()}}
 \item \href{#method-ontology_annotation-from_list}{\code{ontology_annotation$from_list()}}
+\item \href{#method-ontology_annotation-get_id}{\code{ontology_annotation$get_id()}}
 \item \href{#method-ontology_annotation-clone}{\code{ontology_annotation$clone()}}
 }
 }
@@ -68,8 +82,7 @@ ontology_annotation$to_list()
   term = NULL,
   term_source = NULL,
   term_accession = NULL,
-  comments = list(),
-  id = ""
+  comments = list()
 )}\if{html}{\out{</div>}}
 }
 
@@ -102,6 +115,126 @@ create a new factor value
 }
 \if{html}{\out{</div>}}
 
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ontology_annotation-check_term_source"></a>}}
+\if{latex}{\out{\hypertarget{method-ontology_annotation-check_term_source}{}}}
+\subsection{Method \code{check_term_source()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ontology_annotation$check_term_source(term_source)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{term_source}}{an \code{[ontology_source]} object}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Checks that the source of ontology terms is an \code{[ontology_source]} object
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ontology_annotation-check_term"></a>}}
+\if{latex}{\out{\hypertarget{method-ontology_annotation-check_term}{}}}
+\subsection{Method \code{check_term()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ontology_annotation$check_term(term)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{term}}{an ontology term}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Checks that the supplied term is in the list of valid terms from the ontology source object
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ontology_annotation-check_term_accession"></a>}}
+\if{latex}{\out{\hypertarget{method-ontology_annotation-check_term_accession}{}}}
+\subsection{Method \code{check_term_accession()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ontology_annotation$check_term_accession(term_accession)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{term_accession}}{an accession for an ontology term}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Checks that the supplied term accession is in the the list of valid accession terms from the ontology source object
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ontology_annotation-set_term_source"></a>}}
+\if{latex}{\out{\hypertarget{method-ontology_annotation-set_term_source}{}}}
+\subsection{Method \code{set_term_source()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ontology_annotation$set_term_source(term_source)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{term_source}}{an \code{[ontology_source]} object}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Sets the value of term_source if it passes the checks
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ontology_annotation-set_term"></a>}}
+\if{latex}{\out{\hypertarget{method-ontology_annotation-set_term}{}}}
+\subsection{Method \code{set_term()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ontology_annotation$set_term(term)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{term}}{an ontology term}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Sets the term and the term accession corresponding to that term if the term passes validity checks
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ontology_annotation-set_term_accession"></a>}}
+\if{latex}{\out{\hypertarget{method-ontology_annotation-set_term_accession}{}}}
+\subsection{Method \code{set_term_accession()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ontology_annotation$set_term_accession(term_accession)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{term_accession}}{an accession for an ontology term}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Sets the term accession and the term corresponding to that accession if the accession passes validity checks
 }
 
 }
@@ -198,6 +331,22 @@ generate an R list representation translatable to JSON
 Make \link{ontology_annotation} from list
 }
 
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ontology_annotation-get_id"></a>}}
+\if{latex}{\out{\hypertarget{method-ontology_annotation-get_id}{}}}
+\subsection{Method \code{get_id()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ontology_annotation$get_id()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Get the uuid of this object
+}
+
+\subsection{Returns}{
+a uuid
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ontology_annotation-clone"></a>}}

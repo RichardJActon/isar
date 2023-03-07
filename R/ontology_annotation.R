@@ -46,53 +46,130 @@ ontology_annotation <- R6::R6Class(
 			term_accession = NULL, # str
 			comments = list() # comment
 		) {
-			self$term_source <- term_source # ontology_source
-			if(!is.null(term)) {
-				# handling on not explicitly enumerated lists?
-				# - check a remote resource with an API call?
-				if(term %in% names(self$term_source$terms_list)) {
-					self$term <- term # str
-					if (is.null(term_accession)) {
-						self$term_accession <- self$term_source$terms_list[[term]]
-					} else if (self$term_source$terms_list[[term]] != term_accession) {
-						stop("Supplied term & term accession do not match!")
-					}
-				} else {
-					stop("term is not in term source")
-				}
+			if (is.null(term_source)) {
+				self$term_source <- term_source # ontology_source
+			} else {
+				self$set_term_source(term_source)
 			}
-			if(!is.null(term_accession)) {
-				if(term_accession %in% unlist(self$term_source$terms_list)) {
-					self$term_accession <- term_accession # str
-					term_vec <- unlist(self$term_source$terms_list)
-					if (is.null(term)) {
-						self$term <- names(term_vec[term_vec == term_accession])
-					} else if (names(term_vec[term_vec == term_accession]) != term) {
-						stop("Supplied term accession & term do not match!")
-					}
-				} else {
-					stop("term accession is not in the term source")
-				}
-			}
-			self$comments <- comments # comment
 
+			if (is.null(term) && !is.null(term_accession)) {
+				self$set_term_accession(term_accession)
+			}
+
+			if (!is.null(term) && is.null(term_accession)) {
+				self$set_term(term)
+			}
+
+			if (!is.null(term) && !is.null(term_accession)) {
+				if (self$term_source$terms_list[[term]] != term_accession) {
+					stop("Supplied term & term accession do not match!")
+				} else {
+					self$set_term(term)
+				}
+			}
+
+			# if(!is.null(term)) {
+			# 	# handling on not explicitly enumerated lists?
+			# 	# - check a remote resource with an API call?
+			# 	if(term %in% names(self$term_source$terms_list)) {
+			# 		self$term <- term # str
+			# 		if (is.null(term_accession)) {
+			# 			self$term_accession <- self$term_source$terms_list[[term]]
+			# 		} else if (self$term_source$terms_list[[term]] != term_accession) {
+			# 			stop("Supplied term & term accession do not match!")
+			# 		}
+			# 	} else {
+			# 		stop("term is not in term source")
+			# 	}
+			# }
+			# if(!is.null(term_accession)) {
+			# 	if(term_accession %in% unlist(self$term_source$terms_list)) {
+			# 		self$term_accession <- term_accession # str
+			# 		term_vec <- unlist(self$term_source$terms_list)
+			# 		if (is.null(term)) {
+			# 			self$term <- names(term_vec[term_vec == term_accession])
+			# 		} else if (names(term_vec[term_vec == term_accession]) != term) {
+			# 			stop("Supplied term accession & term do not match!")
+			# 		}
+			# 	} else {
+			# 		stop("term accession is not in the term source")
+			# 	}
+			# }
+			if (!is.null(comments)) {
+				self$comments <- comments # comment
+			}
 			# invisible(self)
 		},
 
+		#' @details
+		#'
+		#' Checks that the source of ontology terms is an \code{[ontology_source]} object
+		#'
+		#' @param term_source an \code{[ontology_source]} object
 		check_term_source = function(term_source) {
 			check <- checkmate::check_r6(term_source, "ontology_source")
 			if(check) { return(TRUE) } else { stop(check) }
 		},
-		check_term = function() {
 
+		#' @details
+		#'
+		#' Checks that the supplied term is in the list of valid terms from the ontology source object
+		#'
+		#' @param term an ontology term
+		check_term = function(term) {
+			if(term %in% names(self$term_source$terms_list)) {
+				return(TRUE)
+			} else {
+				stop("term is not in term source")
+			}
 		},
-		check_term_accession = function() {
 
+		#' @details
+		#'
+		#' Checks that the supplied term accession is in the the list of valid accession terms from the ontology source object
+		#'
+		#' @param term_accession an accession for an ontology term
+		check_term_accession = function(term_accession) {
+			if(term_accession %in% unlist(self$term_source$terms_list)) {
+				return(TRUE)
+			} else {
+				stop("term accession is not in the term source")
+			}
 		},
 
+		#' @details
+		#'
+		#' Sets the value of term_source if it passes the checks
+		#'
+		#' @param term_source an \code{[ontology_source]} object
 		set_term_source = function(term_source) {
-			if(check_term_source(term_source)) {
+			if(self$check_term_source(term_source)) {
 				self$term_source <- term_source
+			}
+		},
+
+		#' @details
+		#'
+		#' Sets the term and the term accession corresponding to that term if the term passes validity checks
+		#'
+		#' @param term an ontology term
+		set_term = function(term) {
+			if(self$check_term(term)) {
+				self$term <- term
+				self$term_accession <- self$term_source$terms_list[[term]]
+			}
+		},
+
+		#' @details
+		#'
+		#' Sets the term accession and the term corresponding to that accession if the accession passes validity checks
+		#'
+		#' @param term_accession an accession for an ontology term
+		set_term_accession = function(term_accession) {
+			if(self$check_term_accession(term_accession)) {
+				self$term_accession <- term_accession
+				term_vec <- unlist(self$term_source$terms_list)
+				self$term <- names(term_vec[term_vec == term_accession])
 			}
 		},
 
@@ -132,6 +209,8 @@ ontology_annotation <- R6::R6Class(
 		get_ontology_annotation_server = function(id) {
 			shiny::moduleServer(id, function(input, output, session) {
 				output$measurement_type_test <- shiny::renderText(input$measurement_type)
+				#self$term <- input$measurement_type
+				self$set_term(input$measurement_type)
 			})
 		},
 
