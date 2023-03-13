@@ -17,15 +17,13 @@
 #' experimental workflow described by a particular protocol.
 #'
 #'
-#' @section Public fields:
-#'
-#' @field measurement_type An [ontology_annotation] to qualify the endpoint, or  what is being measured (e.g. gene expression profiling or protein  identification).
-#' @field technology_type An [ontology_annotation] to identify the technology  used to perform the measurement.
+#' @field measurement_type An \code{[OntologyAnnotation]} to qualify the endpoint, or  what is being measured (e.g. gene expression profiling or protein  identification).
+#' @field technology_type An \code{[OntologyAnnotation]} to identify the technology  used to perform the measurement.
 #' @field technology_platform Manufacturer and platform name, e.g. Bruker AVANCE.
 #' @field filename  A field to specify the name of the assay file for compatibility with ISA-Tab.
-#' @field materials Materials associated with the assay, lists of '[sample]s' and [other_material]'.
-#' @field units A list of units used in the annotation of material units ? [ontology_annotation] !!.
-#' @field characteristic_categories A list of [ontology_annotation] used in the annotation of material characteristics in the Assay.
+#' @field materials Materials associated with the assay, lists of '\code{[Sample]}s' and other_material'.
+#' @field units A list of units used in the annotation of material units ? \code{[OntologyAnnotation]} !!.
+#' @field characteristic_categories A list of \code{[OntologyAnnotation]} used in the annotation of material characteristics in the Assay.
 #' @field process_sequence A list of Process objects representing the experimental graphs at the Assay level.
 #' @field comments Comments associated with instances of this class.
 #' @field graph A graph representation of the assay graph.
@@ -35,8 +33,8 @@
 #' @importFrom checkmate check_r6
 #'
 #' @export
-assay <- R6Class(
-	"assay",
+Assay <- R6Class(
+	"Assay",
 	public = list(
 		measurement_type = NULL,
 		technology_type = NULL,
@@ -52,13 +50,13 @@ assay <- R6Class(
 		#' @details
 		#' Create a new assay
 		#'
-		#' @param measurement_type An [ontology_annotation] to qualify the endpoint, or  what is being measured (e.g. gene expression profiling or protein  identification).
-		#' @param technology_type An [ontology_annotation] to identify the technology  used to perform the measurement.
+		#' @param measurement_type An \code{[OntologyAnnotation]} to qualify the endpoint, or  what is being measured (e.g. gene expression profiling or protein  identification).
+		#' @param technology_type An \code{[OntologyAnnotation]} to identify the technology  used to perform the measurement.
 		#' @param technology_platform Manufacturer and platform name, e.g. Bruker AVANCE.
 		#' @param filename  A field to specify the name of the assay file for compatibility with ISA-Tab.
-		#' @param materials Materials associated with the assay, lists of '[sample]s' and [other_material]'.
-		#' @param units A list of units used in the annotation of material units ? [ontology_annotation] !!.
-		#' @param characteristic_categories A list of [ontology_annotation] used in the annotation of material characteristics in the Assay.
+		#' @param materials Materials associated with the assay, lists of '\code{[Sample]}s' and other_material'.
+		#' @param units A list of units used in the annotation of material units ? \code{[OntologyAnnotation]} !!.
+		#' @param characteristic_categories A list of \code{[OntologyAnnotation]} used in the annotation of material characteristics in the Assay.
 		#' @param process_sequence A list of Process objects representing the experimental graphs at the Assay level.
 		#' @param comments Comments associated with instances of this class.
 		#' @param graph A graph representation of the assay graph.
@@ -91,19 +89,19 @@ assay <- R6Class(
 		# Checkers
 
 		#' @details
-		#' checks the  measurement_type is an instance of \code{[ontology_annotation]}
+		#' checks the  measurement_type is an instance of \code{[OntologyAnnotation]}
 		#'
-		#' @param measurement_type An \code{[ontology_annotation]} to qualify the endpoint, or  what is being measured (e.g. gene expression profiling or protein  identification).
+		#' @param measurement_type An \code{[OntologyAnnotation]} to qualify the endpoint, or  what is being measured (e.g. gene expression profiling or protein  identification).
 		check_measurement_type = function(measurement_type) {
-			res <- checkmate::check_r6(measurement_type, "ontology_annotation")
+			res <- checkmate::check_r6(measurement_type, "OntologyAnnotation")
 			if (res) { return(TRUE) } else { stop(res) }
 		},
 		#' @details
-		#' checks that technology_type an instance of \code{[ontology_annotation]}
+		#' checks that technology_type an instance of \code{[OntologyAnnotation]}
 		#'
-		#' @param technology_type An \code{[ontology_annotation]} to identify the technology  used to perform the measurement.
+		#' @param technology_type An \code{[OntologyAnnotation]} to identify the technology  used to perform the measurement.
 		check_technology_type = function(technology_type) {
-			res <- checkmate::check_r6(technology_type, "ontology_annotation")
+			res <- checkmate::check_r6(technology_type, "OntologyAnnotation")
 			if (res) { return(TRUE) } else { stop(res) }
 		},
 
@@ -113,7 +111,7 @@ assay <- R6Class(
 		#'
 		#' set the measurement type
 		#'
-		#' @param measurement_type An [ontology_annotation] to qualify the endpoint, or  what is being measured (e.g. gene expression profiling or protein  identification).
+		#' @param measurement_type An \code{[OntologyAnnotation]} to qualify the endpoint, or  what is being measured (e.g. gene expression profiling or protein  identification).
 		set_measurement_type = function(measurement_type) {
 			if (self$check_measurement_type(measurement_type)) {
 				self$measurement_type <- measurement_type
@@ -123,46 +121,44 @@ assay <- R6Class(
 		#'
 		#' set the technology type
 		#'
-		#' @param technology_type An [ontology_annotation] to identify the technology  used to perform the measurement.
+		#' @param technology_type An \code{[OntologyAnnotation]} to identify the technology  used to perform the measurement.
 		set_technology_type = function(technology_type) {
 			if (self$check_technology_type(technology_type)) {
 				self$technology_type <- technology_type
 			}
 		},
 
-		# Getters
-		## Shiny
-
-		#' @details
-		#'
-		#' shiny UI element for picking a measurement type
-		#' @param id Shiny module namespace
-		#' @return a shiny UI element
-		get_assay_ui = function(id = "assay") {
-			self$measurement_type$get_ontology_annotation_ui(id)
-			# ns <- shiny::NS(id)
-			# shinyWidgets::pickerInput(
-			# 	ns(namespace), "Measurement Type",
-			# 	choices = names(self$measurement_type$term_source$terms_list),
-			# 	selected = self$measurement_type$term,
-			# 	multiple = FALSE,
-			# 	options = shinyWidgets::pickerOptions(
-			# 		actionsBox = TRUE, liveSearch = TRUE#, size = 5
-			# 	)
-			# )
-		},
-
-		#' @details
-		#'
-		#' shiny server element for picking a measurement type
-		#' @param id Shiny module namespace
-		#' @return a shiny server function
-		get_assay_server = function(id) {
-			self$measurement_type$get_ontology_annotation_server(id)
-			# shiny::moduleServer(id, function(input, output, session) {
-			#
-			# })
-		},
+		# # Getters
+		# ## Shiny
+		# 		# #' @details
+		# #'
+		# #' shiny UI element for picking a measurement type
+		# #' @param id Shiny module namespace
+		# #' @return a shiny UI element
+		# get_assay_ui = function(id = "assay") {
+		# 	self$measurement_type$get_OntologyAnnotation_ui(id)
+		# 	# ns <- shiny::NS(id)
+		# 	# shinyWidgets::pickerInput(
+		# 	# 	ns(namespace), "Measurement Type",
+		# 	# 	choices = names(self$measurement_type$term_source$terms_list),
+		# 	# 	selected = self$measurement_type$term,
+		# 	# 	multiple = FALSE,
+		# 	# 	options = shinyWidgets::pickerOptions(
+		# 	# 		actionsBox = TRUE, liveSearch = TRUE#, size = 5
+		# 	# 	)
+		# 	# )
+		# },
+		# 		# #' @details
+		# #'
+		# #' shiny server element for picking a measurement type
+		# #' @param id Shiny module namespace
+		# #' @return a shiny server function
+		# get_assay_server = function(id) {
+		# 	self$measurement_type$get_OntologyAnnotation_server(id)
+		# 	# shiny::moduleServer(id, function(input, output, session) {
+		# 	#
+		# 	# })
+		# },
 		## conversions
 
 		#' @details
@@ -188,7 +184,7 @@ assay <- R6Class(
 
 		#' #' @details
 		#'
-		#' Make \code{[assay]} from list
+		#' Make \code{[Assay]} from list
 		#'
 		#' @param lst an ontology source object serialized to a list
 		from_list = function(lst) {

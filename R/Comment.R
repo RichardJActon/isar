@@ -6,8 +6,8 @@
 #' @field value the content of the comment string
 #'
 #' @importFrom checkmate check_string check_list
-comment <- R6::R6Class(
-	"comment",
+Comment <- R6::R6Class(
+	"Comment",
 	public = list(
 		name = NULL,
 		value = NULL,

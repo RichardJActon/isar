@@ -1,11 +1,10 @@
-#' R6 class for investigation
+#' R6 class for Investigation
 #'
 #' Represents an investigation from the ISA model
 #'
 #' @details
 #' An investigation maintains metadata about the project context and links to one or more studies. There can only be 1 Investigation in an ISA descriptor.
 #'
-#' @section Public fields:
 #' @field id ...
 #' @field filename ...
 #' @field identifier A locally unique identifier or an accession number provided by a repository.
@@ -19,9 +18,11 @@
 #' @field studies \code{[study]} is the central unit, containing information on the subject under study.
 #' @field comments comments associated with instances of this class.
 #'
+#' @importFrom R6 R6Class
+#'
 #' @export
-investigation <- R6Class(
-	"investigation",
+Investigation <- R6::R6Class(
+	"Investigation",
 	public = list(
 		id = '',
 		filename = '',
@@ -45,10 +46,10 @@ investigation <- R6Class(
 		#' @param description A textual description of the investigation.
 		#' @param submission_date date on which the investigation was reported to the repository. This should be ISO8601 formatted.
 		#' @param public_release_date The date on which the investigation should be released publicly. This should be ISO8601 formatted.
-		#' @param ontology_source_references ontology_source_references \code{[ontology_sources]} to be referenced by \code{[ontology_annotations]} used in this ISA descriptor.
+		#' @param ontology_source_references ontology_source_references \code{[OntologySource]}s to be referenced by \code{[OntologyAnnotation]}s used in this ISA descriptor.
 		#' @param publications publications A list of Publications associated with an Investigation. (format?)
 		#' @param contacts contacts A list of People/contacts associated with an Investigation.
-		#' @param studies studies \code{[study]} is the central unit, containing information on the subject under study.
+		#' @param studies studies \code{[Study]} is the central unit, containing information on the subject under study.
 		#' @param comments comments comments associated with instances of this class.
 		#'
 		initialize = function(

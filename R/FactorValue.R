@@ -3,9 +3,8 @@
 #' R6 class for an experimental factor value
 #'
 #' @details
-#' A factor_value represents the value instance of a [study_factor].
+#' A factor_value represents the value instance of a [StudyFactor].
 #'
-#' @section Public fields:
 #' @field factor_name name of a quantity
 #' @field value value of a quantity
 #' @field unit units in which that quantity is measured
@@ -14,8 +13,8 @@
 #' @importFrom checkmate check_r6
 #'
 #' @export
-factor_value <- R6Class(
-	"factor_value",
+FactorValue <- R6Class(
+	"FactorValue",
 	public = list(
 		factor_name = NULL,
 		value = NULL,
@@ -31,11 +30,7 @@ factor_value <- R6Class(
 		#'
 		#' @examples
 		#' \dontrun{
-		#' factor_value$new(
-		#'     factor_name = "height",
-		#'     value = "180", unit = "cm"
-		#' )
-		#' factor_value$new(
+		#' FactorValue$new(
 		#'     factor_name = sf,
 		#'     value = "agrees with",
 		#'     unit = NULL
@@ -49,7 +44,7 @@ factor_value <- R6Class(
 			comments = NULL
 		) {
 			if (!is.null(factor_name)) {
-				if (checkmate::check_r6(factor_name, "study_factor")) {
+				if (checkmate::check_r6(factor_name, "StudyFactor")) {
 					self$factor_name <- factor_name
 				}
 				self$value <- self$factor_name$factor_type
@@ -89,8 +84,6 @@ factor_value <- R6Class(
 		#' @details
 		#' generate an R list representation translatable to JSON
 		#' @param ld logical json-ld
-		#' @examples
-		#' ontology_annotation$to_list()
 		to_list = function(ld = FALSE) {
 			factor_value = list(
 				"factor_name" = self$factor_name$to_list(),
@@ -103,15 +96,15 @@ factor_value <- R6Class(
 
 		#' @details
 		#'
-		#' Make [ontology_annotation] from list
+		#' Make [OntologyAnnotation] from list
 		#'
 		#' @param lst an ontology source object serialized to a list
 		from_list = function(lst) {
-			self$factor_name <- study_factor$new()
+			self$factor_name <- StudyFactor$new()
 			self$factor_name$from_list(lst[["factor_name"]])
 			# self$value <- self$factor_name$factor_type
 			# !! not using value direct from list but from factor ~
-			self$value <- ontology_annotation$new()
+			self$value <- OntologyAnnotation$new()
 			self$value$from_list(lst[["value"]])
 			self$unit = lst[["unit"]]
 			self$comments = lst[["comments"]]

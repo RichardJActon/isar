@@ -1,4 +1,4 @@
-#' R6 class for a source
+#' R6 class for a Source
 #'
 #' @field id ...
 #' @field name A name/reference for the source material.
@@ -8,8 +8,8 @@
 #' @importFrom R6 R6Class
 #'
 #' @export
-source <- R6::R6Class(
-	"source",
+Source <- R6::R6Class(
+	"Source",
 	public = list(
 		id = "",
 		name = "",
@@ -49,7 +49,7 @@ source <- R6::R6Class(
 
 		#' #' @details
 		#'
-		#' Make \code{[source]} from list
+		#' Make \code{[Source]} from list
 		#'
 		#' @param lst a source object serialized to a list
 		from_list = function(lst) {

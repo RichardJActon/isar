@@ -2,9 +2,8 @@
 #'
 #' Represents a sample material in an experimental graph.
 #'
-#' @section Public fields:
 #' @field name A name/reference for the sample material.
-#' @field factor_values A list of \code{[factor_values]} used to qualify the material in terms of study factors/design.
+#' @field factor_values A list of \code{[FactorValue]}s used to qualify the material in terms of study factors/design.
 #' @field characteristics A list of Characteristics used to qualify the material properties.
 #' @field derives_from A link to the source material that the sample is derived from.
 #' @field comments Comments associated with instances of this class.
@@ -13,11 +12,12 @@
 #' @importFrom glue glue
 #' @importFrom purrr map_lgl
 #' @importFrom uuid UUIDgenerate
+#' @importFrom R6 R6Class
 #'
 #' @export
-sample <- R6Class(
-	"sample",
-	inherit = commentable,
+Sample <- R6::R6Class(
+	"Sample",
+	inherit = Commentable,
 	public = list(
 		name = '',
 		factor_values = NULL,
@@ -31,7 +31,7 @@ sample <- R6Class(
 		#'
 		#' @param id ...
 		#' @param name A name/reference for the sample material.
-		#' @param factor_values A list of \code{[factor_value]} objects used to qualify the material in terms of study factors/design.
+		#' @param factor_values A list of \code{[FactorValue]} objects used to qualify the material in terms of study factors/design.
 		#' @param characteristics A list of Characteristics used to qualify the material properties.
 		#' @param derives_from A link to the source material that the sample is derived from.
 		#' @param comments Comments associated with instances of this class.
@@ -50,8 +50,11 @@ sample <- R6Class(
 			}
 			self$characteristics <- characteristics # list
 			self$derives_from <- derives_from # list
-			#self$comments <- comments # list
-			super$commentable$new(comments)
+			if(is.null(comments)) {
+				self$comments <- comments
+			} else {
+				super$set_comments(comments)
+			}
 		},
 
 		# Checks
@@ -79,10 +82,10 @@ sample <- R6Class(
 		},
 		#' @details
 		#'
-		#' validates the factor_values field is a list of \code{[factor_value]} objects
+		#' validates the factor_values field is a list of \code{[FactorValue]} objects
 		#'
-		#' @param factor_values factor values to be used in a \code{[sample]} object
-		#' A list of \code{[factor_value]} objects
+		#' @param factor_values factor values to be used in a \code{[Sample]} object
+		#' A list of \code{[FactorValue]} objects
 		check_factor_values = function(factor_values) {
 			if(!is.list(factor_values)) {
 				stop(glue::glue(
@@ -92,7 +95,7 @@ sample <- R6Class(
 				))
 			}
 			is_factor_value <- purrr::map_lgl(
-				factor_values, ~checkmate::test_r6(.x, "factor_value")
+				factor_values, ~checkmate::test_r6(.x, "FactorValue")
 			)
 			if (all(is_factor_value)) {
 				return(TRUE)
@@ -127,7 +130,7 @@ sample <- R6Class(
 		#' Sets the factor values used in the sample
 		#'
 		#' @param factor_values factor values used in the sample
-		#' A list of \code{[factor_value]} objects
+		#' A list of \code{[FactorValue]} objects
 		set_factor_values = function(factor_values) {
 			if(self$check_factor_values(factor_values)) {
 				self$factor_values <- factor_values
@@ -140,7 +143,7 @@ sample <- R6Class(
 		#' generate an R list representation translatable to JSON
 		#' @param ld logical json-ld
 		#' @examples
-		#' sample$to_list()
+		#' Sample$new()
 		to_list = function(ld = FALSE) {
 			sample = list(
 				"id" = self$id,
@@ -157,13 +160,13 @@ sample <- R6Class(
 		#'
 		#' Make \code{[sample]} from list
 		#'
-		#' @param lst a list serialization of a \code{[sample]} factor object
+		#' @param lst a list serialization of a \code{[Sample]} factor object
 		from_list = function(lst) {
 			self$id <- lst[["id"]]
 			self$name <- lst[["name"]]
 			self$factor_values <- purrr::map(
 				lst[["factor_values"]], ~{
-					fv <- factor_value$new()
+					fv <- FactorValue$new()
 					fv$from_list(.x)
 				}
 			)

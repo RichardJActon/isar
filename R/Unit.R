@@ -13,7 +13,7 @@ Unit <- R6::R6Class(
 
 		initialize = function() {
 			if (!is.null(unit)) {
-				self$unit = ontology_source$new("OM")
+				self$unit = OntologySource$new("OM")
 
 			}
 		}

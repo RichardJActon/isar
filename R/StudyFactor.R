@@ -1,26 +1,23 @@
 #' R6 class for an experimental factor
 #'
-#' A \code{study_factor} corresponds to an independent variable manipulated by the
+#' A \code{[StudyFactor]} corresponds to an independent variable manipulated by the
 #' experimentalist with the intention to affect biological systems in a way
 #' that can be measured by an assay.
 #'
 #'
-#' @section Public fields:
 #' @field name The name of the factor
-#' @field factor_type An \code{[ontology_source]} reference of the study factor type
-#' @field id unique identifier...
+#' @field factor_type An \code{[OntologySource]} reference of the study factor type
 #' @field comments Comments associated with instances of this class.
 #'
 #' @importFrom checkmate check_r6
+#' @importFrom R6 R6Class
 #'
 #' @export
-study_factor <- R6Class(
-	"study_factor",
-	inherit = identifiable,
+StudyFactor <- R6::R6Class(
+	"StudyFactor",
 	public = list(
 		name = '',
 		factor_type = NULL,
-		id = '',
 		comments = NULL,
 
 		#' @details
@@ -28,25 +25,22 @@ study_factor <- R6Class(
 		#' create a new study factor
 		#'
 		#' @param name The name of the factor
-		#' @param factor_type An \code{[ontology_source]} reference of the study factor_type
-		#' @param id unique identifier...
+		#' @param factor_type An \code{[OntologySource]} reference of the study factor_type
 		#' @param comments Comments associated with instances of this class.
 		#'
 		initialize = function(
 			name = '',
 			factor_type = NULL,
-			id = super$set_id(),
 			comments = NULL
 		) {
 			self$name <- name
 			if (is.null(factor_type)) {
 				self$factor_type <- factor_type
-			} else if (checkmate::check_r6(factor_type ,"ontology_annotation")) {
+			} else if (checkmate::check_r6(factor_type ,"OntologyAnnotation")) {
 				self$factor_type <- factor_type
 			} else {
 				stop("factor_type is not and ontology_annotation object or NULL!")
 			}
-			self$id <- id
 			self$comments <- comments
 		},
 
@@ -54,7 +48,7 @@ study_factor <- R6Class(
 		#' generate an R list representation translatable to JSON
 		#' @param ld logical json-ld
 		#' @examples
-		#' study_factor$to_list()
+		#' StudyFactor$new()
 		to_list = function(ld = FALSE) {
 			study_factor = list(
 				"name" = self$name,
@@ -67,15 +61,25 @@ study_factor <- R6Class(
 
 		#' @details
 		#'
-		#' Make \code{[ontology_annotation]} from list
+		#' Make \code{[OntologyAnnotation]} from list
 		#'
 		#' @param lst a list serialization of a study factor object
 		from_list = function(lst) {
 			self$name = lst[["name"]]
-			self$factor_type <- ontology_annotation$new()
+			self$factor_type <- OntologyAnnotation$new()
 			self$factor_type$from_list(lst[["factor_type"]])
 			self$id = lst[["@id"]]
 			self$comments = lst[["comments"]]
+		},
+
+		#' @details
+		#' Get the uuid of this object
+		#' @return a uuid
+		get_id = function() {
+			private$id
 		}
+	),
+	private = list(
+		id = uuid::UUIDgenerate()
 	)
 )

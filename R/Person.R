@@ -1,12 +1,11 @@
 # use FOAF for this? http://xmlns.com/foaf/0.1/
 # or schema.org person https://schema.org/Person
 
-#' R6 class for person
+#' R6 class for Person
 #'
-#' Represents person
+#' Represents a person
 #'
 #'
-#' @section Public fields:
 #' @field id ...
 #' @field last_name The last name of a person.
 #' @field first_name The first name of a person.
@@ -21,16 +20,17 @@
 #' @field comments comments associated with instances of this class.
 #'
 #' @importFrom checkmate qtest
+#' @importFrom R6 R6Class
 #'
 #' @export
-isa_person <- R6Class(
-	"isa_person",
+Person <- R6::R6Class(
+	"Person",
 	public = list(
 		id = '',
 		last_name = '',
 		first_name = '',
 		mid_initials = '',
-		email = NULL,
+		email = '',
 		phone = '',
 		fax = '',
 		address = '',
@@ -58,7 +58,7 @@ isa_person <- R6Class(
 			last_name = '',
 			first_name = '',
 			mid_initials = '',
-			email = NULL,
+			email = '',
 			phone = '',
 			fax = '',
 			address = '',
@@ -72,7 +72,7 @@ isa_person <- R6Class(
 			self$first_name <- first_name
 			self$mid_initials <- mid_initials
 			self$email <- email
-			if(is.null(email)) {
+			if (checkmate::qtest(email, "S[0]")) {
 				self$email <- email
 			} else {
 				self$set_email(email)
@@ -97,10 +97,10 @@ isa_person <- R6Class(
 		#' NB the regex used to validate emails is ... difficult to represent in roxygen syntax
 		#' @param email an email address
 		check_email = function(email) {
-			# "^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"
+			# "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"
 			# "/^[-!#-'*+\/-9=?^-~]+(?:\.[-!#-'*+\/-9=?^-~]+)*@[-!#-'*+\/-9=?^-~]+(?:\.[-!#-'*+\/-9=?^-~]+)+$/i"
 			if (grepl(
-				"^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$",
+				"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$",
 				email
 				)
 			) {
@@ -109,6 +109,8 @@ isa_person <- R6Class(
 				stop("Invalid email address!")
 			}
 		},
+
+		# Consider a web-lookup check
 
 		#' @details
 		#' check if the ORCID is valid i.e. 4 lots of 4 digits separated by hyphens
@@ -155,7 +157,7 @@ isa_person <- R6Class(
 		#' generate an R list representation translatable to JSON
 		#' @param ld logical json-ld
 		#' @examples
-		#' person$to_list()
+		#' Person$new()
 		to_list = function(ld = FALSE) {
 			person = list(
 				"id" = self$id,
@@ -176,9 +178,9 @@ isa_person <- R6Class(
 
 		#' @details
 		#'
-		#' Make \code{[person]} from list
+		#' Make \code{[Person]} from list
 		#'
-		#' @param lst an \code{[person]} object serialized to a list
+		#' @param lst an \code{[Person]} object serialized to a list
 		from_list = function(lst) {
 			self$id <- lst[["id"]]
 			self$last_name <- lst[["last_name"]]

@@ -1,12 +1,12 @@
-test_that("comments work", {
-	test_comment <- comment$new()
-	checkmate::expect_r6(test_comment, "comment")
+test_that("Comments work", {
+	test_comment <- Comment$new()
+	checkmate::expect_r6(test_comment, "Comment")
 	expect_null(test_comment$name)
 	expect_null(test_comment$value)
 
 	ex_name <- "example"
 	ex_value <- "this is a comment"
-	test_comment <- comment$new(ex_name, ex_value)
+	test_comment <- Comment$new(ex_name, ex_value)
 
 	string_not_double <- "Must be of type 'string', not 'double'"
 	non_zero_length <- "name must be a non-zero length string"
@@ -25,10 +25,10 @@ test_that("comments work", {
 	names(ex_list) <- ex_name
 	expect_equal(test_comment$to_list(), ex_list)
 
-	test_from_list <- comment$new()
+	test_from_list <- Comment$new()
 	test_from_list$from_list(ex_list)
 
-	checkmate::expect_r6(test_from_list, "comment")
+	checkmate::expect_r6(test_from_list, "Comment")
 	expect_equal(test_from_list$name, ex_name)
 	expect_equal(test_from_list$value, ex_value)
 

@@ -15,9 +15,9 @@
 #' @field factors A factor corresponds to an independent variable manipulated by the experimentalist with the intention to affect biological systems in a way that can be measured by an assay.
 #' @field protocols Protocols used within the ISA artifact.
 #' @field assays An Assay represents a portion of the experimental design.
-#' @field sources Sources associated with the study, is equivalent to materials['sources'].
-#' @field samples samples associated with the study, is equivalent to materials['samples'].
-#' @field other_material Other Materials associated with the study, is equivalent to materials['other_material'].
+#' @field sources Sources associated with the study, is equivalent to materials sources.
+#' @field samples samples associated with the study, is equivalent to materials samples.
+#' @field other_material Other Materials associated with the study, is equivalent to materials other_material.
 #' @field units A list of Units used in the annotation of material units in the study.
 #' @field characteristic_categories Annotations of material characteristics used in the study.
 #' @field process_sequence A list of Process objects representing the experimental graphs at the study level.
@@ -26,9 +26,11 @@
 #' #field materials Materials associated with the study, contains lists of 'sources', 'samples' and 'other_material'. DEPRECATED.
 #' #field graph Graph representation of the study graph.
 #'
+#' @importFrom R6 R6Class
+#'
 #' @export
-study <- R6Class(
-	"study",
+Study <- R6::R6Class(
+	"Study",
 	public = list(
 		id = '',
 		filename = '',
@@ -68,9 +70,9 @@ study <- R6Class(
 		#' @param factors A factor corresponds to an independent variable manipulated by the experimentalist with the intention to affect biological systems in a way that can be measured by an assay.
 		#' @param protocols Protocols used within the ISA artifact.
 		#' @param assays An Assay represents a portion of the experimental design.
-		#' @param sources Sources associated with the study, is equivalent to materials['sources'].
-		#' @param samples samples associated with the study, is equivalent to materials['samples'].
-		#' @param other_material Other Materials associated with the study, is equivalent to materials['other_material'].
+		#' @param sources Sources associated with the study, is equivalent to materials sources.
+		#' @param samples samples associated with the study, is equivalent to materials \code{[Sample]}.
+		#' @param other_material Other Materials associated with the study, is equivalent to materials other_material.
 		#' @param units A list of Units used in the annotation of material units in the study.
 		#' @param characteristic_categories Annotations of material characteristics used in the study.
 		#' @param process_sequence A list of Process objects representing the experimental graphs at the study level.

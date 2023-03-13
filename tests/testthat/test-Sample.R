@@ -1,13 +1,13 @@
 test_that("factor_values checking works", {
 	expect_error(
-		test_sample <- sample$new(
+		test_sample <- Sample$new(
 			name = "test",
 			factor_values = "string"
 		),
 		regexp = "factor_values is not a list"
 	)
 	expect_error(
-		test_sample <- sample$new(
+		test_sample <- Sample$new(
 			name = "test",
 			factor_values = list("")
 		),
