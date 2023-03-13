@@ -12,11 +12,7 @@ An investigation maintains metadata about the project context and links to one o
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{id}}{...}
-
 \item{\code{filename}}{...}
-
-\item{\code{identifier}}{A locally unique identifier or an accession number provided by a repository.}
 
 \item{\code{title}}{A concise name given to the investigation.}
 
@@ -26,13 +22,13 @@ An investigation maintains metadata about the project context and links to one o
 
 \item{\code{public_release_date}}{The date on which the investigation should be released publicly. This should be ISO8601 formatted.}
 
-\item{\code{ontology_source_references}}{\code{[ontology_sources]} to be referenced by \code{[ontology_annotations]} used in this ISA descriptor.}
+\item{\code{ontology_source_references}}{\code{[OntologySources]} to be referenced by \code{[OntologyAnnotations]} used in this ISA descriptor.}
 
-\item{\code{publications}}{A list of Publications associated with an Investigation. (format?)}
+\item{\code{publications}}{a list of \code{[Publication]} objects}
 
 \item{\code{contacts}}{A list of People/contacts associated with an Investigation.}
 
-\item{\code{studies}}{\code{[study]} is the central unit, containing information on the subject under study.}
+\item{\code{studies}}{\code{[Study]} is the central unit, containing information on the subject under study.}
 
 \item{\code{comments}}{comments associated with instances of this class.}
 }
@@ -42,6 +38,17 @@ An investigation maintains metadata about the project context and links to one o
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Investigation-new}{\code{Investigation$new()}}
+\item \href{#method-Investigation-check_studies}{\code{Investigation$check_studies()}}
+\item \href{#method-Investigation-set_studies}{\code{Investigation$set_studies()}}
+\item \href{#method-Investigation-check_contacts}{\code{Investigation$check_contacts()}}
+\item \href{#method-Investigation-set_contacts}{\code{Investigation$set_contacts()}}
+\item \href{#method-Investigation-check_publications}{\code{Investigation$check_publications()}}
+\item \href{#method-Investigation-set_publications}{\code{Investigation$set_publications()}}
+\item \href{#method-Investigation-check_public_release_date}{\code{Investigation$check_public_release_date()}}
+\item \href{#method-Investigation-set_public_release_date}{\code{Investigation$set_public_release_date()}}
+\item \href{#method-Investigation-check_submission_date}{\code{Investigation$check_submission_date()}}
+\item \href{#method-Investigation-set_submission_date}{\code{Investigation$set_submission_date()}}
+\item \href{#method-Investigation-get_id}{\code{Investigation$get_id()}}
 \item \href{#method-Investigation-clone}{\code{Investigation$clone()}}
 }
 }
@@ -51,13 +58,11 @@ An investigation maintains metadata about the project context and links to one o
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Investigation$new(
-  id = "",
   filename = "",
-  identifier = "",
   title = "",
   description = "",
-  submission_date = "",
-  public_release_date = "",
+  submission_date = NULL,
+  public_release_date = NULL,
   ontology_source_references = NULL,
   publications = NULL,
   contacts = NULL,
@@ -69,11 +74,7 @@ An investigation maintains metadata about the project context and links to one o
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{id}}{...}
-
 \item{\code{filename}}{...}
-
-\item{\code{identifier}}{A locally unique identifier or an accession number provided by a repository.}
 
 \item{\code{title}}{A concise name given to the investigation.}
 
@@ -99,6 +100,222 @@ An investigation maintains metadata about the project context and links to one o
 Create a new investigation object
 }
 
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Investigation-check_studies"></a>}}
+\if{latex}{\out{\hypertarget{method-Investigation-check_studies}{}}}
+\subsection{Method \code{check_studies()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$check_studies(studies)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{studies}}{a list of \code{[Study]} objects}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+check studies is a list of \code{[Study]} objects
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Investigation-set_studies"></a>}}
+\if{latex}{\out{\hypertarget{method-Investigation-set_studies}{}}}
+\subsection{Method \code{set_studies()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$set_studies(studies)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{studies}}{a list of \code{[Study]} objects}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+set studies if studies is a list of \code{[Study]} objects
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Investigation-check_contacts"></a>}}
+\if{latex}{\out{\hypertarget{method-Investigation-check_contacts}{}}}
+\subsection{Method \code{check_contacts()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$check_contacts(contacts)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{contacts}}{a list of \code{[Person]} objects}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+check contacts is a list of \code{[Person]} objects
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Investigation-set_contacts"></a>}}
+\if{latex}{\out{\hypertarget{method-Investigation-set_contacts}{}}}
+\subsection{Method \code{set_contacts()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$set_contacts(contacts)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{contacts}}{a list of \code{[Person]} objects}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+set contacts if contacts is a list of \code{[Person]} objects
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Investigation-check_publications"></a>}}
+\if{latex}{\out{\hypertarget{method-Investigation-check_publications}{}}}
+\subsection{Method \code{check_publications()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$check_publications(publications)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{publications}}{a list of \code{[Publication]} objects}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+check publications is a list of \code{[Publication]} objects
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Investigation-set_publications"></a>}}
+\if{latex}{\out{\hypertarget{method-Investigation-set_publications}{}}}
+\subsection{Method \code{set_publications()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$set_publications(publications)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{publications}}{a list of \code{[Publication]} objects}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Check publications is a list of \code{[Publication]} objects
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Investigation-check_public_release_date"></a>}}
+\if{latex}{\out{\hypertarget{method-Investigation-check_public_release_date}{}}}
+\subsection{Method \code{check_public_release_date()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$check_public_release_date(public_release_date)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{public_release_date}}{a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Check public_release_date is a Date object
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Investigation-set_public_release_date"></a>}}
+\if{latex}{\out{\hypertarget{method-Investigation-set_public_release_date}{}}}
+\subsection{Method \code{set_public_release_date()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$set_public_release_date(public_release_date)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{public_release_date}}{a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Set public_release_date to a Date object
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Investigation-check_submission_date"></a>}}
+\if{latex}{\out{\hypertarget{method-Investigation-check_submission_date}{}}}
+\subsection{Method \code{check_submission_date()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$check_submission_date(submission_date)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{submission_date}}{a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Check submission_date is a Date object
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Investigation-set_submission_date"></a>}}
+\if{latex}{\out{\hypertarget{method-Investigation-set_submission_date}{}}}
+\subsection{Method \code{set_submission_date()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$set_submission_date(submission_date)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{submission_date}}{a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Set submission_date to a Date object
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Investigation-get_id"></a>}}
+\if{latex}{\out{\hypertarget{method-Investigation-get_id}{}}}
+\subsection{Method \code{get_id()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$get_id()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Get the uuid of this object
+}
+
+\subsection{Returns}{
+a uuid
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Investigation-clone"></a>}}
