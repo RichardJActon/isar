@@ -72,8 +72,16 @@ Assay <- R6Class(
 			comments = NULL,
 			graph = NULL
 		) {
-			self$measurement_type <- measurement_type
-			self$technology_type <- technology_type
+			if (is.null(measurement_type)) {
+				self$measurement_type <- measurement_type
+			} else {
+				self$set_measurement_type(measurement_type)
+			}
+			if (is.null(technology_type)) {
+				self$technology_type <- technology_type
+			} else {
+				self$set_technology_type(technology_type)
+			}
 			self$technology_platform <- technology_platform
 			self$filename <- filename
 			self$materials <- materials
@@ -93,16 +101,16 @@ Assay <- R6Class(
 		#'
 		#' @param measurement_type An \code{[OntologyAnnotation]} to qualify the endpoint, or  what is being measured (e.g. gene expression profiling or protein  identification).
 		check_measurement_type = function(measurement_type) {
-			res <- checkmate::check_r6(measurement_type, "OntologyAnnotation")
-			if (res) { return(TRUE) } else { stop(res) }
+			check <- checkmate::check_r6(measurement_type, "OntologyAnnotation")
+			if (isTRUE(check)) { return(TRUE) } else { stop(check) }
 		},
 		#' @details
 		#' checks that technology_type an instance of \code{[OntologyAnnotation]}
 		#'
 		#' @param technology_type An \code{[OntologyAnnotation]} to identify the technology  used to perform the measurement.
 		check_technology_type = function(technology_type) {
-			res <- checkmate::check_r6(technology_type, "OntologyAnnotation")
-			if (res) { return(TRUE) } else { stop(res) }
+			check <- checkmate::check_r6(technology_type, "OntologyAnnotation")
+			if (isTRUE(check)) { return(TRUE) } else { stop(check) }
 		},
 
 		# Setters
