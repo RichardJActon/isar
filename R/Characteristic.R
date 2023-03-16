@@ -39,6 +39,7 @@ Characteristic <- R6::R6Class(
 		set_unit = function() {
 
 		},
+
 		to_list = function(){
 
 		},
