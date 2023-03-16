@@ -65,9 +65,9 @@ Publication <- R6::R6Class(
 		#' Check for a valid DOI (Digital Object Identifier)
 		#' @param doi a valid DOI (Digital Object Identifier)
 		check_doi = function(doi) {
-			doi_regex = '(10[.][0-9]{2,}(?:[.][0-9]+)*/(?:(?![%"#? ])\\S)+)'
+			doi_regex = '^(10[.][0-9]{2,}(?:[.][0-9]+)*/(?:(?![%"#? ])\\S)+)$'
 			# https://github.com/regexhq/doi-regex/blob/main/index.js
-			if(grepl(doi_regex, doi)) { return(TRUE) } else {
+			if(grepl(doi_regex, doi, perl = TRUE)) { return(TRUE) } else {
 				stop("Invalid DOI!")
 			}
 		},
@@ -119,11 +119,14 @@ Publication <- R6::R6Class(
 			publication = list(
 				"pubmed_id" = self$pubmed_id, # https://www.ncbi.nlm.nih.gov/pmc/tools/id-converter-api/
 				"doi" = self$doi,
-				"author_list" = self$author_list$to_list(),
+				"author_list" = NULL,
 				"title" = self$title,
 				"status" = self$status, #  https://sparontologies.github.io/pso/current/pso.html
 				"comments" = self$comments
 			)
+			if(!is.null(self$author_list)) {
+				publication[["author_list"]] <- self$author_list$to_list()
+			}
 			return(publication)
 		},
 		#' @details
