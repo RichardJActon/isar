@@ -102,7 +102,7 @@ OntologyAnnotation <- R6::R6Class(
 		#' @param term_source an \code{[OntologySource]} object
 		check_term_source = function(term_source) {
 			check <- checkmate::check_r6(term_source, "OntologySource")
-			if(check) { return(TRUE) } else { stop(check) }
+			if(isTRUE(check)) { return(TRUE) } else { stop(check) }
 		},
 
 		#' @details
