@@ -23,9 +23,11 @@ Imports:
     tibble,
     uuid
 Depends:
+    R (>= 2.10),
     R6
 Suggests: 
     devtools,
     testthat (>= 3.0.0),
     usethis
 Config/testthat/edition: 3
+LazyData: true
