@@ -1,4 +1,5 @@
-# Units of Measurement
+## code to prepare `OM` dataset goes here
+# Ontology of Units of Measure
 
 library(rdflib)
 library(dplyr)
@@ -43,7 +44,7 @@ get_om_terms <- function(file, filetype, url, version) {
 	# cat(omq)
 	omqr_unit <- rdflib::rdf_query(OM, omq_unit)
 	omqr_prefix <- rdflib::rdf_query(OM, omq_prefix)
-	omqr <- dplyr::bind_rows(omqr_unit,omqr_prefix)
+	omqr <- dplyr::bind_rows(omqr_unit, omqr_prefix)
 
 	# omqr |> dplyr::filter(grepl("byte", label))
 
@@ -63,14 +64,14 @@ get_om_terms <- function(file, filetype, url, version) {
 # get_om_terms
 
 # cache for convenient whilst reconstructing the object due to slow speed
-omqrl <- get_om_terms(
-	file = "https://raw.githubusercontent.com/HajoRijgersberg/OM/master/om-2.0.rdf",
-	filetype = "rdf",
-	url = "http://www.ontology-of-units-of-measure.org/resource/om-2",
-	version = "2.0.38"
-)
+# omqrl <- get_om_terms(
+# 	file = "https://raw.githubusercontent.com/HajoRijgersberg/OM/master/om-2.0.rdf",
+# 	filetype = "rdf",
+# 	url = "http://www.ontology-of-units-of-measure.org/resource/om-2",
+# 	version = "2.0.38"
+# )
 
-OM <- ontology_source$new(
+OM <- OntologySource$new(
 	name = "Ontology of units of Measure (OM)",
 	# ontology_id = "OM"
 	file = "https://raw.githubusercontent.com/HajoRijgersberg/OM/master/om-2.0.rdf",
@@ -81,92 +82,11 @@ OM <- ontology_source$new(
 	version = "2.0.38", # OLS version
 	# commit_hash = "416b7b0bee253f3e4f0d05d4281fe76c8761ddae"
 	description = "The OM ontology provides classes, instances, and properties that represent the different concepts used for defining and using measures and units. It includes, for instance, common units such as the SI units meter and kilogram, but also units from other systems of units such as the mile or nautical mile. For many application areas it includes more specific units and quantities, such as the unit of the Hubble constant: km/s/Mpc, or the quantity vaselife. OM defines the complete set of concepts in the domain as distinguished in the textual standards. As a result the ontology can answer a wider range of competency questions than the existing approaches do. The following application areas are supported by OM: Geometry; Mechanics; Thermodynamics; Electromagnetism; Fluid mechanics; Chemical physics; Photometry; Radiometry and Radiobiology; Nuclear physics; Astronomy and Astrophysics; Cosmology; Earth science; Meteorology; Material science; Microbiology; Economics; Information technology; Typography; Shipping; Food engineering; Post-harvest; technology; Dynamics of texture and taste; Packaging",
-	# use the function in the accual object so the provenance is recorded not the terms list.
-	#get_terms_list = get_om_terms
-	terms_list = omqrl
+	# use the function in the actual object so the provenance is recorded not the terms list.
+	get_terms_list = get_om_terms
+	#terms_list = omqrl
 )
 
+# OM$terms_list[["metre"]]
 
-OM$terms_list[["metre"]]
-
-
-tmpobjfile <- tempfile()
-
-library(shiny)
-
-ui <- fluidPage(
-	#exOM$get_ontology_annotation_ui("example"),
-	# shiny::uiOutput(ns("term_picker")),
-	#ontology_annotation_ui("example"),
-	shiny::uiOutput("example"),
-	shiny::actionButton("save","save")
-)
-
-server <- function(input, output, session) {
-
-	# exOM <- reactive(
-	# 	ontology_annotation$new(
-	# 		term = "metre",
-	# 		term_source = OM
-	# 	)
-	# )
-	#
-	# output$term_picker <- shiny::renderUI(
-	# 	exOM()$get_ontology_annotation_server("example")
-	# )
-
-	output$picker_ui <- shiny::renderUI(
-		ontology_annotation_ui("", )
-	)
-
-	ontology_annotation_server("example")
-
-	shiny::observeEvent(input$save, {
-		qs::qsave(measurement_type(), tmpobjfile)
-	})
-}
-
-shinyApp(ui, server)
-
-ex <- qs::qread(tmpobjfile)
-ex
-
-
-##
-# d OntologyAnnotation shiny
-#
-ontology_annotation_ui <- function(id = "ontology_annotation", OntologyAnnotation) {
-	ns <- shiny::NS(id)
-	shiny::tagList(
-		shinyWidgets::pickerInput(
-			ns("measurement_type"), "Measurement Type",
-			choices = names(OntologyAnnotation$term_source$terms_list),
-			selected = OntologyAnnotation$term,
-			multiple = FALSE,
-			options = shinyWidgets::pickerOptions(
-				actionsBox = TRUE, liveSearch = TRUE#, size = 5
-			)
-		),
-		shiny::verbatimTextOutput(ns("measurement_type_test")),
-	)
-}
-
-ontology_annotation_server <- function(id) {
-	shiny::moduleServer(id, function(input, output, session) {
-		output$measurement_type_test <- shiny::renderText(input$measurement_type)
-		#self$term <- input$measurement_type
-		measurement_type <- shiny::reactive(
-			ontology_annotation$new(
-				term_source = OM,
-				term = input$measurement_type
-			)
-		)
-
-		output$term_picker <- shiny::renderUI(
-			ontology_annotation_ui("example", measurement_type())
-		)
-		# shiny::observeEvent(input$save, {
-		# 	qs::qsave(measurement_type(), tmpobjfile)
-		# })
-	})
-}
+usethis::use_data(OM, overwrite = TRUE)
