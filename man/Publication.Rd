@@ -74,9 +74,9 @@ Generate a \code{[Publication]} object from a list
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Publication$new(
   pubmed_id = NULL,
-  doi = "",
+  doi = character(),
   author_list = NULL,
-  title = "",
+  title = character(),
   status = NULL,
   comments = NULL
 )}\if{html}{\out{</div>}}

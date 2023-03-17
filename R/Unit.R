@@ -26,11 +26,11 @@ Unit <- R6::R6Class(
 UnitAnnotation <- R6::R6Class(
 	"UnitAnnotation",
 	public = list(
-		value = NULL,
+		value = numeric(),
 		unit = NULL,
 		check_function = NULL,
 		initialize = function(
-			value = NULL,
+			value = numeric(),
 			unit = NULL,
 			check_function = NULL
 		) {
@@ -50,7 +50,7 @@ UnitAnnotation <- R6::R6Class(
 			if(self$check_unit(unit)) { self$unit <- unit }
 		},
 		check_value = function(value) {
-			check <- self$check_function(value)
+			check <- checkmate::check_number(value)
 			if (isTRUE(check)) { return(TRUE) } else { stop(check) }
 		},
 		set_value = function(value) {
@@ -60,5 +60,5 @@ UnitAnnotation <- R6::R6Class(
 )
 
 
-metre <- Unit$new("metre")
-UnitAnnotation$new(1,metre)
+# metre <- Unit$new("metre")
+# UnitAnnotation$new(1,metre)

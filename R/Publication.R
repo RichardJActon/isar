@@ -17,9 +17,9 @@ Publication <- R6::R6Class(
 	"Publication",
 	list(
 		pubmed_id = NULL, # https://www.ncbi.nlm.nih.gov/pmc/tools/id-converter-api/
-		doi = '',
+		doi = character(),
 		author_list = NULL,
-		title = '',
+		title = character(),
 		status = NULL, #  https://sparontologies.github.io/pso/current/pso.html
 		comments = NULL,
 		#' @details
@@ -32,9 +32,9 @@ Publication <- R6::R6Class(
 		#' @param comments comments Comments associated with instances of this class.
 		initialize = function(
 			pubmed_id = NULL, # https://www.ncbi.nlm.nih.gov/pmc/tools/id-converter-api/
-			doi = '',
+			doi = character(),
 			author_list = NULL,
-			title = '',
+			title = character(),
 			status = NULL, #  https://sparontologies.github.io/pso/current/pso.html
 			comments = NULL
 		) {
@@ -102,9 +102,8 @@ Publication <- R6::R6Class(
 		#' Check the the title has a non-zero length
 		#' @param title of the publication
 		check_title = function(title) {
-			if(checkmate::qtest(title, "S+")) { return(TRUE) } else {
-				stop("Title must have a length greater than 0")
-			}
+			check <- checkmate::check_string(title, min.chars = 1L)
+			if (isTRUE(check)) { return(TRUE) } else { stop(check) }
 		},
 		#' @details
 		#' Set the title of the \code{[Publication]}

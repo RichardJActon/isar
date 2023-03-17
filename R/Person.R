@@ -54,16 +54,16 @@ Person <- R6::R6Class(
 		#' @param roles A list of role(s) performed by this person. Roles reported here need not correspond to roles held withing their affiliated organization.
 		#' @param comments comments associated with instances of this class.
 		initialize = function(
-			id = '',
-			last_name = '',
-			first_name = '',
-			mid_initials = '',
-			email = '',
-			phone = '',
-			fax = '',
-			address = '',
-			affiliation = '',
-			orcid = '',
+			id = character(),
+			last_name = character(),
+			first_name = character(),
+			mid_initials = character(),
+			email = character(),
+			phone = character(),
+			fax = character(),
+			address = character(),
+			affiliation = character(),
+			orcid = character(),
 			roles = NULL,
 			comments = NULL
 		) {

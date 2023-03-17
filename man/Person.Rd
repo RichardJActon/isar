@@ -62,16 +62,16 @@ Person$new()
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Person$new(
-  id = "",
-  last_name = "",
-  first_name = "",
-  mid_initials = "",
-  email = "",
-  phone = "",
-  fax = "",
-  address = "",
-  affiliation = "",
-  orcid = "",
+  id = character(),
+  last_name = character(),
+  first_name = character(),
+  mid_initials = character(),
+  email = character(),
+  phone = character(),
+  fax = character(),
+  address = character(),
+  affiliation = character(),
+  orcid = character(),
   roles = NULL,
   comments = NULL
 )}\if{html}{\out{</div>}}
