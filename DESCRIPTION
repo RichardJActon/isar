@@ -46,6 +46,7 @@ Collate:
     'ProcessSequenceNode.R'
     'Process.R'
     'Protocol.R'
+    'ProtocolComponent.R'
     'Publication.R'
     'Sample.R'
     'Source.R'
