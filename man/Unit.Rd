@@ -8,10 +8,19 @@ R6 object for specifying a unit of measurement
 
 R6 object for specifying a unit of measurement
 }
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{unit}}{a unit of measurement}
+}
+\if{html}{\out{</div>}}
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Unit-new}{\code{Unit$new()}}
+\item \href{#method-Unit-to_list}{\code{Unit$to_list()}}
+\item \href{#method-Unit-from_list}{\code{Unit$from_list()}}
 \item \href{#method-Unit-clone}{\code{Unit$clone()}}
 }
 }
@@ -21,6 +30,57 @@ R6 object for specifying a unit of measurement
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Unit$new(unit = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{unit}}{a unit of measurement}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Create a new \code{[Unit]} object
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Unit-to_list"></a>}}
+\if{latex}{\out{\hypertarget{method-Unit-to_list}{}}}
+\subsection{Method \code{to_list()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Unit$to_list(ld = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ld}}{linked data (default FALSE)}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+An R list representation of a \code{[Unit]} object
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Unit-from_list"></a>}}
+\if{latex}{\out{\hypertarget{method-Unit-from_list}{}}}
+\subsection{Method \code{from_list()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Unit$from_list(lst)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{lst}}{an Unit object serialized to a list}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Make \code{[Unit]} object from list
 }
 
 }

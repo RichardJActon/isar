@@ -3,10 +3,10 @@
 #' R6 class for an experimental factor value
 #'
 #' @details
-#'  [OntologySource].
+#' \code{[OntologySource]}
 #'
 #' @field term  the name of ontology term
-#' @field term_source the ontology that is the source of the term represented by an [OntologySource] object.
+#' @field term_source the ontology that is the source of the term represented by an \code{[OntologySource]} object.
 #' @field term_accession the unique identifier of the ontology term
 #' @field comments comments
 #'
@@ -27,7 +27,7 @@ OntologyAnnotation <- R6::R6Class(
 		#' @details
 		#' create a new factor value
 		#' @param term the name of ontology term
-		#' @param term_source the ontology that is the source of the term represented by an [OntologySource] object.
+		#' @param term_source the ontology that is the source of the term represented by an \code{[OntologySource]} object.
 		#' @param term_accession the unique identifier of the ontology term
 		#' @param comments comments
 		#' @param id a unique identifier ...
@@ -38,7 +38,7 @@ OntologyAnnotation <- R6::R6Class(
 			term = NULL, # str
 			term_source = NULL, # OntologySource
 			term_accession = NULL, # str
-			comments = list() # comment
+			comments = NULL # comment
 		) {
 			if (is.null(term_source)) {
 				self$term_source <- term_source # OntologySource
@@ -89,26 +89,20 @@ OntologyAnnotation <- R6::R6Class(
 			# 		stop("term accession is not in the term source")
 			# 	}
 			# }
-			if (!is.null(comments)) {
-				self$comments <- comments # comment
-			}
+			self$set_comments(comments)
 			# invisible(self)
 		},
 
 		#' @details
-		#'
 		#' Checks that the source of ontology terms is an \code{[OntologySource]} object
-		#'
 		#' @param term_source an \code{[OntologySource]} object
 		check_term_source = function(term_source) {
 			check <- checkmate::check_r6(term_source, "OntologySource")
-			if(isTRUE(check)) { return(TRUE) } else { stop(check) }
+			error_with_check_message_on_failure(check)
 		},
 
 		#' @details
-		#'
 		#' Checks that the supplied term is in the list of valid terms from the ontology source object
-		#'
 		#' @param term an ontology term
 		check_term = function(term) {
 			if(term %in% names(self$term_source$terms_list)) {
@@ -119,9 +113,7 @@ OntologyAnnotation <- R6::R6Class(
 		},
 
 		#' @details
-		#'
 		#' Checks that the supplied term accession is in the the list of valid accession terms from the ontology source object
-		#'
 		#' @param term_accession an accession for an ontology term
 		check_term_accession = function(term_accession) {
 			if(term_accession %in% unlist(self$term_source$terms_list)) {
@@ -143,9 +135,7 @@ OntologyAnnotation <- R6::R6Class(
 		},
 
 		#' @details
-		#'
 		#' Sets the term and the term accession corresponding to that term if the term passes validity checks
-		#'
 		#' @param term an ontology term
 		set_term = function(term) {
 			if(self$check_term(term)) {
@@ -155,9 +145,7 @@ OntologyAnnotation <- R6::R6Class(
 		},
 
 		#' @details
-		#'
 		#' Sets the term accession and the term corresponding to that accession if the accession passes validity checks
-		#'
 		#' @param term_accession an accession for an ontology term
 		set_term_accession = function(term_accession) {
 			if(self$check_term_accession(term_accession)) {
@@ -208,7 +196,16 @@ OntologyAnnotation <- R6::R6Class(
 		#  		self$set_term(measurement_type())
 		#  	})
 		#  },
-
+		#' @details
+		#' checks if comments are a named list of character vectors
+		#' @param comments comments
+		check_comments = function(comments) { check_comments(comments) },
+		#' @details
+		#' Sets comments if they are in a valid format
+		#' @param comments a list of comments
+		set_comments = function(comments) {
+			if(self$check_comments(comments)) { self$comments <- comments }
+		},
 		#' @details
 		#' generate an R list representation translatable to JSON
 		#' @param ld logical json-ld
@@ -224,9 +221,7 @@ OntologyAnnotation <- R6::R6Class(
 		},
 
 		#' @details
-		#'
-		#' Make [OntologyAnnotation] from list
-		#'
+		#' Make \code{[OntologyAnnotation]} from list
 		#' @param lst an ontology source object serialized to a list
 		from_list = function(lst) {
 			self$id = lst[["@id"]]

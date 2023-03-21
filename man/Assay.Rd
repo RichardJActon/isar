@@ -192,10 +192,7 @@ set the technology type
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{ld}}{linked data (default FALSE)
-#' @details
-
-Make \code{[Assay]} from list}
+\item{\code{ld}}{linked data (default FALSE)}
 }
 \if{html}{\out{</div>}}
 }
@@ -219,6 +216,10 @@ make an R list convertible to json
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Details}{
+Make \code{[Assay]} from list
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Assay-string"></a>}}

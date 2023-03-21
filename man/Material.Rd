@@ -11,7 +11,13 @@ R6 object to represent Materials
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{characteristics}}{}
+\item{\code{name}}{name of the material}
+
+\item{\code{type}}{the type of the material}
+
+\item{\code{characteristics}}{the characteristics of the material in the form of a \code{[Characteristics]} object}
+
+\item{\code{comments}}{comments}
 }
 \if{html}{\out{</div>}}
 }
@@ -23,6 +29,10 @@ R6 object to represent Materials
 \item \href{#method-Material-set_name}{\code{Material$set_name()}}
 \item \href{#method-Material-check_characteristics}{\code{Material$check_characteristics()}}
 \item \href{#method-Material-set_characteristics}{\code{Material$set_characteristics()}}
+\item \href{#method-Material-check_comments}{\code{Material$check_comments()}}
+\item \href{#method-Material-set_comments}{\code{Material$set_comments()}}
+\item \href{#method-Material-to_list}{\code{Material$to_list()}}
+\item \href{#method-Material-from_list}{\code{Material$from_list()}}
 \item \href{#method-Material-get_id}{\code{Material$get_id()}}
 \item \href{#method-Material-clone}{\code{Material$clone()}}
 }
@@ -32,7 +42,12 @@ R6 object to represent Materials
 \if{latex}{\out{\hypertarget{method-Material-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Material$new(name = character(), type = character(), characteristics = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Material$new(
+  name = character(),
+  type = character(),
+  characteristics = NULL,
+  comments = NULL
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -40,10 +55,18 @@ R6 object to represent Materials
 \describe{
 \item{\code{name}}{The name of the material}
 
+\item{\code{type}}{the type of the material}
+
 \item{\code{characteristics}}{a list of \code{[Characteristic]} objects}
+
+\item{\code{comments}}{comments}
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Details}{
+Create a new \code{[Material]} object
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Material-check_name"></a>}}
@@ -122,6 +145,86 @@ check characteristics is a list of \code{[Characteristic]} objects
 }
 \subsection{Details}{
 set characteristics if characteristics is a list of \code{[Characteristic]} objects
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Material-check_comments"></a>}}
+\if{latex}{\out{\hypertarget{method-Material-check_comments}{}}}
+\subsection{Method \code{check_comments()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Material$check_comments(comments)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comments}}{comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+checks if comments are a named list of character vectors
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Material-set_comments"></a>}}
+\if{latex}{\out{\hypertarget{method-Material-set_comments}{}}}
+\subsection{Method \code{set_comments()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Material$set_comments(comments)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comments}}{a list of comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Sets comments if they are in a valid format
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Material-to_list"></a>}}
+\if{latex}{\out{\hypertarget{method-Material-to_list}{}}}
+\subsection{Method \code{to_list()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Material$to_list(ld = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ld}}{linked data (default FALSE)}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+An R list representation of a \code{[Material]} object
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Material-from_list"></a>}}
+\if{latex}{\out{\hypertarget{method-Material-from_list}{}}}
+\subsection{Method \code{from_list()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Material$from_list(lst)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{lst}}{an Material object serialized to a list}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Make \code{[Material]} object from list
 }
 
 }

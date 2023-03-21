@@ -190,7 +190,7 @@ Assay <- R6Class(
 			return(assay)
 		},
 
-		#' #' @details
+		#' @details
 		#'
 		#' Make \code{[Assay]} from list
 		#'

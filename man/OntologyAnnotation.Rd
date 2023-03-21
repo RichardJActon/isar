@@ -9,7 +9,7 @@ R6 class for an experimental factor value
 R6 class for an experimental factor value
 }
 \details{
-\link{OntologySource}.
+\code{[OntologySource]}
 }
 \examples{
 
@@ -24,7 +24,7 @@ OA <- OntologyAnnotation$new()
 \describe{
 \item{\code{term}}{the name of ontology term}
 
-\item{\code{term_source}}{the ontology that is the source of the term represented by an \link{OntologySource} object.}
+\item{\code{term_source}}{the ontology that is the source of the term represented by an \code{[OntologySource]} object.}
 
 \item{\code{term_accession}}{the unique identifier of the ontology term}
 
@@ -42,6 +42,8 @@ OA <- OntologyAnnotation$new()
 \item \href{#method-OntologyAnnotation-set_term_source}{\code{OntologyAnnotation$set_term_source()}}
 \item \href{#method-OntologyAnnotation-set_term}{\code{OntologyAnnotation$set_term()}}
 \item \href{#method-OntologyAnnotation-set_term_accession}{\code{OntologyAnnotation$set_term_accession()}}
+\item \href{#method-OntologyAnnotation-check_comments}{\code{OntologyAnnotation$check_comments()}}
+\item \href{#method-OntologyAnnotation-set_comments}{\code{OntologyAnnotation$set_comments()}}
 \item \href{#method-OntologyAnnotation-to_list}{\code{OntologyAnnotation$to_list()}}
 \item \href{#method-OntologyAnnotation-from_list}{\code{OntologyAnnotation$from_list()}}
 \item \href{#method-OntologyAnnotation-get_id}{\code{OntologyAnnotation$get_id()}}
@@ -57,7 +59,7 @@ OA <- OntologyAnnotation$new()
   term = NULL,
   term_source = NULL,
   term_accession = NULL,
-  comments = list()
+  comments = NULL
 )}\if{html}{\out{</div>}}
 }
 
@@ -66,7 +68,7 @@ OA <- OntologyAnnotation$new()
 \describe{
 \item{\code{term}}{the name of ontology term}
 
-\item{\code{term_source}}{the ontology that is the source of the term represented by an \link{OntologySource} object.}
+\item{\code{term_source}}{the ontology that is the source of the term represented by an \code{[OntologySource]} object.}
 
 \item{\code{term_accession}}{the unique identifier of the ontology term}
 
@@ -210,6 +212,46 @@ Sets the term accession and the term corresponding to that accession if the acce
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OntologyAnnotation-check_comments"></a>}}
+\if{latex}{\out{\hypertarget{method-OntologyAnnotation-check_comments}{}}}
+\subsection{Method \code{check_comments()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OntologyAnnotation$check_comments(comments)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comments}}{comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+checks if comments are a named list of character vectors
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OntologyAnnotation-set_comments"></a>}}
+\if{latex}{\out{\hypertarget{method-OntologyAnnotation-set_comments}{}}}
+\subsection{Method \code{set_comments()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OntologyAnnotation$set_comments(comments)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comments}}{a list of comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Sets comments if they are in a valid format
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OntologyAnnotation-to_list"></a>}}
 \if{latex}{\out{\hypertarget{method-OntologyAnnotation-to_list}{}}}
 \subsection{Method \code{to_list()}}{
@@ -245,7 +287,7 @@ generate an R list representation translatable to JSON
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Make \link{OntologyAnnotation} from list
+Make \code{[OntologyAnnotation]} from list
 }
 
 }

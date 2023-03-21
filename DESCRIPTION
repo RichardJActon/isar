@@ -31,3 +31,23 @@ Suggests:
     usethis
 Config/testthat/edition: 3
 LazyData: true
+Collate:
+    'utility.R'
+    'Assay.R'
+    'Characteristic.R'
+    'Comment.R'
+    'Commentable.R'
+    'FactorValue.R'
+    'Investigation.R'
+    'Material.R'
+    'OntologyAnnotation.R'
+    'OntologySource.R'
+    'Person.R'
+    'ProcessSequenceNode.R'
+    'Publication.R'
+    'Sample.R'
+    'Source.R'
+    'Study.R'
+    'StudyFactor.R'
+    'Unit.R'
+    'data.R'

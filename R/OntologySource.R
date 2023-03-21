@@ -33,7 +33,7 @@ OntologySource <- R6::R6Class(
 		description = '',
 		get_terms_list = NULL,
 		terms_list = NULL,
-		comments = list(),
+		comments = NULL,
 
 		#' @details
 		#'
@@ -58,7 +58,7 @@ OntologySource <- R6::R6Class(
 			description = '',
 			get_terms_list = NULL,
 			terms_list = NULL,
-			comments = list()
+			comments = NULL
 		) {
 			self$name <- name
 			self$file <- file
@@ -66,7 +66,7 @@ OntologySource <- R6::R6Class(
 			self$url <- url
 			self$version <- version
 			self$description <- description
-			self$comments <- comments
+			self$set_comments(comments)
 			self$get_terms_list <- get_terms_list
 
 			if (is.null(terms_list) && is.null(get_terms_list)) {
@@ -105,7 +105,16 @@ OntologySource <- R6::R6Class(
 			}
 
 		},
-
+		#' @details
+		#' checks if comments are a named list of character vectors
+		#' @param comments comments
+		check_comments = function(comments) { check_comments(comments) },
+		#' @details
+		#' Sets comments if they are in a valid format
+		#' @param comments a list of comments
+		set_comments = function(comments) {
+			if(self$check_comments(comments)) { self$comments <- comments }
+		},
 		#' @details
 		#'
 		#' make an R list convertible to json

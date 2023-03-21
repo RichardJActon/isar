@@ -33,6 +33,8 @@ An \code{[OntologySource]} describes the resource from which the value of an \co
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-OntologySource-new}{\code{OntologySource$new()}}
+\item \href{#method-OntologySource-check_comments}{\code{OntologySource$check_comments()}}
+\item \href{#method-OntologySource-set_comments}{\code{OntologySource$set_comments()}}
 \item \href{#method-OntologySource-to_list}{\code{OntologySource$to_list()}}
 \item \href{#method-OntologySource-from_list}{\code{OntologySource$from_list()}}
 \item \href{#method-OntologySource-clone}{\code{OntologySource$clone()}}
@@ -52,7 +54,7 @@ An \code{[OntologySource]} describes the resource from which the value of an \co
   description = "",
   get_terms_list = NULL,
   terms_list = NULL,
-  comments = list()
+  comments = NULL
 )}\if{html}{\out{</div>}}
 }
 
@@ -81,6 +83,46 @@ An \code{[OntologySource]} describes the resource from which the value of an \co
 }
 \subsection{Details}{
 Create a new \link{OntologySource} object to act as source for ontology terms
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OntologySource-check_comments"></a>}}
+\if{latex}{\out{\hypertarget{method-OntologySource-check_comments}{}}}
+\subsection{Method \code{check_comments()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OntologySource$check_comments(comments)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comments}}{comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+checks if comments are a named list of character vectors
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OntologySource-set_comments"></a>}}
+\if{latex}{\out{\hypertarget{method-OntologySource-set_comments}{}}}
+\subsection{Method \code{set_comments()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OntologySource$set_comments(comments)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comments}}{a list of comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Sets comments if they are in a valid format
 }
 
 }

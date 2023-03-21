@@ -9,55 +9,86 @@
 # unit source
 
 #' R6 object for specifying a unit of measurement
-#'
+#' @field unit a unit of measurement
 Unit <- R6::R6Class(
 	"Unit",
 	public = list(
 		unit = NULL,
+		#' @details
+		#' Create a new \code{[Unit]} object
+		#' @param unit a unit of measurement
 		initialize = function(unit = NULL) {
 			if (is.null(unit)) { self$unit <- unit } else {
 				self$unit <- OntologyAnnotation$new(unit, OM)
 			}
+		},
+		#' @details
+		#' An R list representation of a \code{[Unit]} object
+		#' @param ld linked data (default FALSE)
+		to_list = function(ld = FALSE) {
+			unit <- list(
+				unit = self$unit
+			)
+			return(unit)
+		},
+		#' @details
+		#' Make \code{[Unit]} object from list
+		#' @param lst an Unit object serialized to a list
+		from_list = function(lst) {
+			self$unit <- OntologyAnnotation$new()
+			self$unit <- self$unit$from_list(lst[["unit"]])
 		}
 	)
 )
 
-
-UnitAnnotation <- R6::R6Class(
-	"UnitAnnotation",
-	public = list(
-		value = numeric(),
-		unit = NULL,
-		check_function = NULL,
-		initialize = function(
-			value = numeric(),
-			unit = NULL,
-			check_function = NULL
-		) {
-			if(is.null(value)) { self$value <- value } else { self$set_value(value) }
-			if(is.null(unit)) { self$unit <- unit } else { self$set_unit(unit)}
-			if(is.null(check_function)) {
-				self$check_function <- function(x) {TRUE}
-			} else {
-				self$check_function <- check_function
-			}
-		},
-		check_unit = function(unit) {
-			check <- checkmate::check_r6(unit, "Unit")
-			if (isTRUE(check)) { return(TRUE) } else { stop(check) }
-		},
-		set_unit = function(unit) {
-			if(self$check_unit(unit)) { self$unit <- unit }
-		},
-		check_value = function(value) {
-			check <- checkmate::check_number(value)
-			if (isTRUE(check)) { return(TRUE) } else { stop(check) }
-		},
-		set_value = function(value) {
-			if(self$check_value(value)) { self$value <- value }
-		}
-	)
-)
+#
+# UnitAnnotation <- R6::R6Class(
+# 	"UnitAnnotation",
+# 	public = list(
+# 		value = numeric(),
+# 		unit = NULL,
+# 		check_function = NULL,
+# 		initialize = function(
+# 			value = numeric(),
+# 			unit = NULL,
+# 			check_function = NULL
+# 		) {
+# 			if(is.null(value)) { self$value <- value } else { self$set_value(value) }
+# 			if(is.null(unit)) { self$unit <- unit } else { self$set_unit(unit)}
+# 			if(is.null(check_function)) {
+# 				self$check_function <- function(x) {TRUE}
+# 			} else {
+# 				self$check_function <- check_function
+# 			}
+# 		},
+# 		check_unit = function(unit) {
+# 			check <- checkmate::check_r6(unit, "Unit")
+# 			if (isTRUE(check)) { return(TRUE) } else { stop(check) }
+# 		},
+# 		set_unit = function(unit) {
+# 			if(self$check_unit(unit)) { self$unit <- unit }
+# 		},
+# 		check_value = function(value) {
+# 			check <- checkmate::check_number(value)
+# 			if (isTRUE(check)) { return(TRUE) } else { stop(check) }
+# 		},
+# 		set_value = function(value) {
+# 			if(self$check_value(value)) { self$value <- value }
+# 		},
+# 		to_list = function(ld = FALSE){
+# 			UnitAnnotation <- list(
+# 				value = self$value,
+# 				unit = self$unit,
+# 				check_function = self$check_function
+# 			)
+# 		},
+# 		from_list = function(lst){
+# 			self$value <- lst[["value"]]
+# 			self$unit <- lst[["unit"]]
+# 			self$check_function <- lst[["check_function"]]
+# 		}
+# 	)
+# )
 
 
 # metre <- Unit$new("metre")

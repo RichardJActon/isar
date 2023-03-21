@@ -16,6 +16,8 @@ A Characteristic acts as a qualifying property to a material object.
 \item{\code{value}}{The value of this instance of a characteristic as relevant to the attached material.}
 
 \item{\code{unit}}{If applicable, a unit qualifier for the value (if the value is numeric).}
+
+\item{\code{comments}}{comments}
 }
 \if{html}{\out{</div>}}
 }
@@ -24,11 +26,13 @@ A Characteristic acts as a qualifying property to a material object.
 \itemize{
 \item \href{#method-Characteristic-new}{\code{Characteristic$new()}}
 \item \href{#method-Characteristic-check_category}{\code{Characteristic$check_category()}}
-\item \href{#method-Characteristic-check_value}{\code{Characteristic$check_value()}}
-\item \href{#method-Characteristic-check_unit}{\code{Characteristic$check_unit()}}
 \item \href{#method-Characteristic-set_category}{\code{Characteristic$set_category()}}
+\item \href{#method-Characteristic-check_value}{\code{Characteristic$check_value()}}
 \item \href{#method-Characteristic-set_value}{\code{Characteristic$set_value()}}
+\item \href{#method-Characteristic-check_unit}{\code{Characteristic$check_unit()}}
 \item \href{#method-Characteristic-set_unit}{\code{Characteristic$set_unit()}}
+\item \href{#method-Characteristic-check_comments}{\code{Characteristic$check_comments()}}
+\item \href{#method-Characteristic-set_comments}{\code{Characteristic$set_comments()}}
 \item \href{#method-Characteristic-to_list}{\code{Characteristic$to_list()}}
 \item \href{#method-Characteristic-from_list}{\code{Characteristic$from_list()}}
 \item \href{#method-Characteristic-get_id}{\code{Characteristic$get_id()}}
@@ -40,7 +44,24 @@ A Characteristic acts as a qualifying property to a material object.
 \if{latex}{\out{\hypertarget{method-Characteristic-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Characteristic$new(category = NULL, value = NULL, unit = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$new(category = NULL, value = NULL, unit = NULL, comments = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{category}}{The classifier of the type of characteristic being described.}
+
+\item{\code{value}}{The value of this instance of a characteristic as relevant to the attached material.}
+
+\item{\code{unit}}{If applicable, a unit qualifier for the value (if the value is numeric).}
+
+\item{\code{comments}}{comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Create a new \code{[Characteristics]} object
 }
 
 }
@@ -49,25 +70,18 @@ A Characteristic acts as a qualifying property to a material object.
 \if{latex}{\out{\hypertarget{method-Characteristic-check_category}{}}}
 \subsection{Method \code{check_category()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Characteristic$check_category()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$check_category(category)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{category}}{an \code{[OntologyAnnotation]} object}
 }
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Characteristic-check_value"></a>}}
-\if{latex}{\out{\hypertarget{method-Characteristic-check_value}{}}}
-\subsection{Method \code{check_value()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Characteristic$check_value()}\if{html}{\out{</div>}}
+\if{html}{\out{</div>}}
 }
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Characteristic-check_unit"></a>}}
-\if{latex}{\out{\hypertarget{method-Characteristic-check_unit}{}}}
-\subsection{Method \code{check_unit()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Characteristic$check_unit()}\if{html}{\out{</div>}}
+\subsection{Details}{
+Check that category is an \code{[OntologyAnnotation]} object
 }
 
 }
@@ -76,7 +90,38 @@ A Characteristic acts as a qualifying property to a material object.
 \if{latex}{\out{\hypertarget{method-Characteristic-set_category}{}}}
 \subsection{Method \code{set_category()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Characteristic$set_category()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$set_category(category)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{category}}{an \code{[OntologyAnnotation]} object}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Set category if input is valid
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Characteristic-check_value"></a>}}
+\if{latex}{\out{\hypertarget{method-Characteristic-check_value}{}}}
+\subsection{Method \code{check_value()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$check_value(value)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{value}}{a value in the specified units}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+check that value is numeric
 }
 
 }
@@ -85,7 +130,38 @@ A Characteristic acts as a qualifying property to a material object.
 \if{latex}{\out{\hypertarget{method-Characteristic-set_value}{}}}
 \subsection{Method \code{set_value()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Characteristic$set_value()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$set_value(value)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{value}}{a value in the specified units}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+set the value if input is valid
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Characteristic-check_unit"></a>}}
+\if{latex}{\out{\hypertarget{method-Characteristic-check_unit}{}}}
+\subsection{Method \code{check_unit()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$check_unit(unit)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{unit}}{a \code{[Unit]} object}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+check if unit is a \code{[Unit]} object
 }
 
 }
@@ -94,7 +170,58 @@ A Characteristic acts as a qualifying property to a material object.
 \if{latex}{\out{\hypertarget{method-Characteristic-set_unit}{}}}
 \subsection{Method \code{set_unit()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Characteristic$set_unit()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$set_unit(unit)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{unit}}{a \code{[Unit]} object}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+set unit if input is valid
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Characteristic-check_comments"></a>}}
+\if{latex}{\out{\hypertarget{method-Characteristic-check_comments}{}}}
+\subsection{Method \code{check_comments()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$check_comments(comments)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comments}}{comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+checks if comments are a named list of character vectors
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Characteristic-set_comments"></a>}}
+\if{latex}{\out{\hypertarget{method-Characteristic-set_comments}{}}}
+\subsection{Method \code{set_comments()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$set_comments(comments)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comments}}{a list of comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Sets comments if they are in a valid format
 }
 
 }
@@ -103,7 +230,18 @@ A Characteristic acts as a qualifying property to a material object.
 \if{latex}{\out{\hypertarget{method-Characteristic-to_list}{}}}
 \subsection{Method \code{to_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Characteristic$to_list()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$to_list(ld = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ld}}{linked data (default FALSE)}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+An R list representation of a \code{[Characteristic]} object
 }
 
 }
@@ -112,7 +250,18 @@ A Characteristic acts as a qualifying property to a material object.
 \if{latex}{\out{\hypertarget{method-Characteristic-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Characteristic$from_list()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$from_list(lst)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{lst}}{an Characteristic object serialized to a list}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Make \code{[Characteristic]} object from list
 }
 
 }

@@ -1,8 +1,9 @@
 #' R6 object to represent Materials
 #'
-#' @field name
-#' @field type
-#' @field characteristics
+#' @field name name of the material
+#' @field type the type of the material
+#' @field characteristics the characteristics of the material in the form of a \code{[Characteristics]} object
+#' @field comments comments
 #'
 #' @importFrom R6 R6Class
 #' @importFrom checkmate qtest check_string
@@ -16,21 +17,21 @@ Material <- R6::R6Class(
 		name = character(),
 		type = character(),
 		characteristics = NULL,
-		# comments
+		comments = NULL,
 
 		#' @details
-		#'
+		#' Create a new \code{[Material]} object
 		#' @param name The name of the material
-		#' @param type
+		#' @param type the type of the material
 		#' @param characteristics a list of \code{[Characteristic]} objects
+		#' @param comments comments
 		initialize = function(
 			name = character(),
 			type = character(),
-			characteristics = NULL
+			characteristics = NULL,
+			comments = NULL
 		) {
-			if (checkmate::qtest(name, "S[0]")) {
-				self$name <- name
-			} else {
+			if (checkmate::qtest(name, "S[0]")) { self$name <- name } else {
 				self$set_name(name)
 			}
 		},
@@ -39,7 +40,7 @@ Material <- R6::R6Class(
 		#' @param name The name of the material
 		check_name = function(name) {
 			check <- checkmate::check_string(name, min.chars = 1L)
-			if (isTRUE(check)) { return(TRUE) } else { stop(check) }
+			error_with_check_message_on_failure(check)
 		},
 		#' @details
 		#' set the name of the material if valid
@@ -68,6 +69,38 @@ Material <- R6::R6Class(
 				self$characteristics <- characteristics
 			}
 		},
+		#' @details
+		#' checks if comments are a named list of character vectors
+		#' @param comments comments
+		check_comments = function(comments) { check_comments(comments) },
+		#' @details
+		#' Sets comments if they are in a valid format
+		#' @param comments a list of comments
+		set_comments = function(comments) {
+			if(self$check_comments(comments)) { self$comments <- comments }
+		},
+		#' @details
+		#' An R list representation of a \code{[Material]} object
+		#' @param ld linked data (default FALSE)
+		to_list = function(ld = FALSE) {
+			material = list(
+				"name" = self$name,
+				"type" = self$type,
+				"characteristics" = self$characteristics$to_list(),
+				"comments" = self$comments
+			)
+		},
+		#' @details
+		#' Make \code{[Material]} object from list
+		#' @param lst an Material object serialized to a list
+		from_list = function(lst) {
+			self$name <- lst[["name"]]
+			self$type <- lst[["type"]]
+			self$characteristics <- Characteristic$new()
+			self$characteristics$from_list(lst[["characteristics"]])
+			self$comments <- lst[["comments"]]
+		},
+
 		#' @details
 		#' Get the uuid of this object
 		#' @return a uuid
