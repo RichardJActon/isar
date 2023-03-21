@@ -52,17 +52,17 @@ Investigation <- R6::R6Class(
 		#' @param comments comments comments associated with instances of this class.
 		#'
 		initialize = function(
-		filename = '',
-		#identifier = '',
-		title = '',
-		description = '',
-		submission_date = NULL,
-		public_release_date = NULL,
-		ontology_source_references = NULL,
-		publications = NULL,
-		contacts = NULL,
-		studies = NULL,
-		comments = NULL
+			filename = '',
+			#identifier = '',
+			title = '',
+			description = '',
+			submission_date = NULL,
+			public_release_date = NULL,
+			ontology_source_references = NULL,
+			publications = NULL,
+			contacts = NULL,
+			studies = NULL,
+			comments = NULL
 		) {
 			self$filename <- filename
 			# self$identifier <- identifier

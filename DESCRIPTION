@@ -44,6 +44,8 @@ Collate:
     'OntologySource.R'
     'Person.R'
     'ProcessSequenceNode.R'
+    'Process.R'
+    'Protocol.R'
     'Publication.R'
     'Sample.R'
     'Source.R'
