@@ -143,9 +143,9 @@ Protocol <- R6::R6Class(
 		check_components = function(components) {
 			if(
 				checkmate::test_list(components, min.len = 1) &&
-				all(
-					purrr::map_lgl(components, ~checkmate::test_r6(.x, "OntologyAnnotation"))
-				)
+				all(purrr::map_lgl(
+					components, ~checkmate::test_r6(.x, "OntologyAnnotation")
+				))
 			) { return(TRUE) } else {
 				stop("All components must be OntologyAnnotation objects")
 			}
@@ -154,7 +154,9 @@ Protocol <- R6::R6Class(
 		#' set components if components is a list of \code{[Study]} objects
 		#' @param components a list of \code{[Study]} objects
 		set_components = function(components) {
-			if (self$check_studies(components)) { self$components <- components }
+			if (self$check_studies(components)) {
+				self$components <- components
+			}
 		},
 
 		#' @details
@@ -173,12 +175,12 @@ Protocol <- R6::R6Class(
 		to_list = function(ld = FALSE){
 			protocol <- list(
 				"name" = self$name,
-				"protocol_type" = self$protocol_type,
+				"protocol_type" = self$protocol_type$to_list(),
 				"description" = self$description,
 				"uri" = self$uri,
 				"version" = self$version,
 				"parameters" = self$parameters,
-				"components" = self$components,
+				"components" = purrr::map(self$components, ~.x$to_list()) ,
 				"comments" = self$comments
 			)
 			return(protocol)
@@ -188,12 +190,17 @@ Protocol <- R6::R6Class(
 		#' @param lst an Protocol object serialized to a list
 		from_list = function(lst) {
 			self$name <- lst[["name"]]
-			self$protocol_type <- lst[["protocol_type"]]
+			self$protocol_type <- OntologyAnnotation$new()
+			self$protocol_type$from_list(lst[["protocol_type"]])
 			self$description <- lst[["description"]]
 			self$uri <- lst[["uri"]]
 			self$version <- lst[["version"]]
 			self$parameters <- lst[["parameters"]]
-			self$components <- lst[["components"]]
+			self$components <- purrr::map(lst[["components"]], ~{
+				oa <- OntologyAnnotation$new()
+				oa$from_list(.x)
+				oa
+			})
 			self$comments <- lst[["comments"]]
 		},
 

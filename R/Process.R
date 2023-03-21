@@ -103,7 +103,7 @@ Process <- R6::R6Class(
 				"name" = self$name,
 				"executes_protocol" = self$executes_protocol,
 				"date" = self$date,
-				"performer" = self$performer,
+				"performer" = purrr::map(self$performer, ~.x$to_list),
 				"parameter_values" = self$parameter_values,
 				"inputs" = self$inputs,
 				"outputs" = self$outputs,
@@ -118,7 +118,11 @@ Process <- R6::R6Class(
 			self$name <- lst[["name"]]
 			self$executes_protocol <- lst[["executes_protocol"]]
 			self$date <- lst[["date"]]
-			self$performer <- lst[["performer"]]
+			self$performer <- purrr::map(lst[["performer"]], ~{
+				p <- Person$new()
+				p$from_list(.x)
+				p
+			})
 			self$parameter_values <- lst[["parameter_values"]]
 			self$inputs <- lst[["inputs"]]
 			self$outputs <- lst[["outputs"]]
