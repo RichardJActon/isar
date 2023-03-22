@@ -19,7 +19,7 @@ Sample <- R6::R6Class(
 	"Sample",
 	inherit = Commentable,
 	public = list(
-		name = '',
+		name = character(),
 		factor_values = NULL,
 		characteristics = NULL,
 		derives_from = NULL,
@@ -29,14 +29,13 @@ Sample <- R6::R6Class(
 		#'
 		#' Create a new instance of sample
 		#'
-		#' @param id ...
 		#' @param name A name/reference for the sample material.
 		#' @param factor_values A list of \code{[FactorValue]} objects used to qualify the material in terms of study factors/design.
 		#' @param characteristics A list of Characteristics used to qualify the material properties.
 		#' @param derives_from A link to the source material that the sample is derived from.
 		#' @param comments Comments associated with instances of this class.
 		initialize = function(
-			name = '',
+			name = character(),
 			factor_values = NULL,
 			characteristics = NULL,
 			derives_from = NULL,
@@ -56,8 +55,6 @@ Sample <- R6::R6Class(
 				super$set_comments(comments)
 			}
 		},
-
-		# Checks
 
 		#' @details
 		#'
@@ -80,6 +77,17 @@ Sample <- R6::R6Class(
 			# 	}
 			# )
 		},
+		#' @details
+		#'
+		#' Sets the name
+		#'
+		#' @param name the name of the sample
+		set_name = function(name) {
+			if(self$check_name(name)) {
+				self$name <- name
+			}
+		},
+
 		#' @details
 		#'
 		#' validates the factor_values field is a list of \code{[FactorValue]} objects
@@ -110,21 +118,8 @@ Sample <- R6::R6Class(
 					"are not factor values"
 				))
 			}
-
 		},
 
-		# Setters
-
-		#' @details
-		#'
-		#' Sets the name
-		#'
-		#' @param name the name of the sample
-		set_name = function(name) {
-			if(self$check_name(name)) {
-				self$name <- name
-			}
-		},
 		#' @details
 		#'
 		#' Sets the factor values used in the sample
@@ -137,8 +132,37 @@ Sample <- R6::R6Class(
 			}
 		},
 
-		#
-
+		#' @details
+		#' check characteristics is a list of \code{[Characteristic]} objects
+		#' @param characteristics a list of \code{[Characteristic]} objects
+		check_characteristics = function(characteristics) {
+			if(
+				checkmate::test_list(characteristics, min.len = 1) &&
+				all(purrr::map_lgl(
+					characteristics, ~checkmate::test_r6(.x, "Characteristic")
+				))
+			) { return(TRUE) } else {
+				stop("All characteristics must be Characteristic objects")
+			}
+		},
+		#' @details
+		#' set characteristics if characteristics is a list of \code{[Characteristic]} objects
+		#' @param characteristics a list of \code{[Characteristic]} objects
+		set_characteristics = function(characteristics) {
+			if (self$check_characteristics(characteristics)) {
+				self$characteristics <- characteristics
+			}
+		},
+		#' @details
+		#' checks if comments are a named list of character vectors
+		#' @param comments comments
+		check_comments = function(comments) { check_comments(comments) },
+		#' @details
+		#' Sets comments if they are in a valid format
+		#' @param comments a list of comments
+		set_comments = function(comments) {
+			if(self$check_comments(comments)) { self$comments <- comments }
+		},
 		#' @details
 		#' generate an R list representation translatable to JSON
 		#' @param ld logical json-ld
@@ -146,7 +170,7 @@ Sample <- R6::R6Class(
 		#' Sample$new()
 		to_list = function(ld = FALSE) {
 			sample = list(
-				"id" = self$id,
+				"id" = private$id,
 				"name" = self$name,
 				"factor_values" = purrr::map(self$factor_values, ~.x$to_list()),
 				"characteristics" = self$characteristics,
@@ -162,12 +186,13 @@ Sample <- R6::R6Class(
 		#'
 		#' @param lst a list serialization of a \code{[Sample]} factor object
 		from_list = function(lst) {
-			self$id <- lst[["id"]]
+			private$id <- lst[["id"]]
 			self$name <- lst[["name"]]
 			self$factor_values <- purrr::map(
 				lst[["factor_values"]], ~{
 					fv <- FactorValue$new()
 					fv$from_list(.x)
+					fv
 				}
 			)
 			self$characteristics <- lst[["characteristics"]]

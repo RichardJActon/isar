@@ -34,6 +34,15 @@ Material <- R6::R6Class(
 			if (checkmate::qtest(name, "S[0]")) { self$name <- name } else {
 				self$set_name(name)
 			}
+			if (checkmate::qtest(type, "S[0]")) { self$type <- type } else {
+				self$set_type(type)
+			}
+			if(is.null(characteristics)) {
+				self$characteristics <- characteristics
+			} else {
+				self$check_characteristics(characteristics)
+			}
+			self$comments <- comments
 		},
 		#' @details
 		#' Check if the name of the material is a string
@@ -47,6 +56,19 @@ Material <- R6::R6Class(
 		#' @param name The name of the material
 		set_name = function(name) {
 			if (self$check_name(name)) { self$name <- name }
+		},
+		#' @details
+		#' Check the the type has a non-zero length
+		#' @param type of the material
+		check_type = function(type) {
+			check <- checkmate::check_string(type, min.chars = 1L)
+			error_with_check_message_on_failure(check)
+		},
+		#' @details
+		#' Set the type of the \code{[Material]}
+		#' @param type of the material
+		set_type = function(type) {
+			if (self$check_type(type)) { self$type <- type }
 		},
 		#' @details
 		#' check characteristics is a list of \code{[Characteristic]} objects
@@ -85,6 +107,7 @@ Material <- R6::R6Class(
 		to_list = function(ld = FALSE) {
 			material = list(
 				"name" = self$name,
+				"id" = private$id,
 				"type" = self$type,
 				"characteristics" = self$characteristics$to_list(),
 				"comments" = self$comments
@@ -95,6 +118,7 @@ Material <- R6::R6Class(
 		#' @param lst an Material object serialized to a list
 		from_list = function(lst) {
 			self$name <- lst[["name"]]
+			private$id <- lst[["id"]]
 			self$type <- lst[["type"]]
 			self$characteristics <- Characteristic$new()
 			self$characteristics$from_list(lst[["characteristics"]])

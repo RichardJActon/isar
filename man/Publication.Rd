@@ -29,6 +29,10 @@ Check the the title has a non-zero length
 
 Set the title of the \code{[Publication]}
 
+checks if comments are a named list of character vectors
+
+Sets comments if they are in a valid format
+
 convert the Publication object to a list
 
 Generate a \code{[Publication]} object from a list
@@ -62,6 +66,8 @@ Generate a \code{[Publication]} object from a list
 \item \href{#method-Publication-set_author_list}{\code{Publication$set_author_list()}}
 \item \href{#method-Publication-check_title}{\code{Publication$check_title()}}
 \item \href{#method-Publication-set_title}{\code{Publication$set_title()}}
+\item \href{#method-Publication-check_comments}{\code{Publication$check_comments()}}
+\item \href{#method-Publication-set_comments}{\code{Publication$set_comments()}}
 \item \href{#method-Publication-to_list}{\code{Publication$to_list()}}
 \item \href{#method-Publication-from_list}{\code{Publication$from_list()}}
 \item \href{#method-Publication-clone}{\code{Publication$clone()}}
@@ -224,6 +230,38 @@ Generate a \code{[Publication]} object from a list
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{title}}{of the publication}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Publication-check_comments"></a>}}
+\if{latex}{\out{\hypertarget{method-Publication-check_comments}{}}}
+\subsection{Method \code{check_comments()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Publication$check_comments(comments)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comments}}{comments}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Publication-set_comments"></a>}}
+\if{latex}{\out{\hypertarget{method-Publication-set_comments}{}}}
+\subsection{Method \code{set_comments()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Publication$set_comments(comments)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comments}}{a list of comments}
 }
 \if{html}{\out{</div>}}
 }

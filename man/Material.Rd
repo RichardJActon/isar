@@ -27,6 +27,8 @@ R6 object to represent Materials
 \item \href{#method-Material-new}{\code{Material$new()}}
 \item \href{#method-Material-check_name}{\code{Material$check_name()}}
 \item \href{#method-Material-set_name}{\code{Material$set_name()}}
+\item \href{#method-Material-check_type}{\code{Material$check_type()}}
+\item \href{#method-Material-set_type}{\code{Material$set_type()}}
 \item \href{#method-Material-check_characteristics}{\code{Material$check_characteristics()}}
 \item \href{#method-Material-set_characteristics}{\code{Material$set_characteristics()}}
 \item \href{#method-Material-check_comments}{\code{Material$check_comments()}}
@@ -105,6 +107,46 @@ Check if the name of the material is a string
 }
 \subsection{Details}{
 set the name of the material if valid
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Material-check_type"></a>}}
+\if{latex}{\out{\hypertarget{method-Material-check_type}{}}}
+\subsection{Method \code{check_type()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Material$check_type(type)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{type}}{of the material}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Check the the type has a non-zero length
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Material-set_type"></a>}}
+\if{latex}{\out{\hypertarget{method-Material-set_type}{}}}
+\subsection{Method \code{set_type()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Material$set_type(type)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{type}}{of the material}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Set the type of the \code{[Material]}
 }
 
 }

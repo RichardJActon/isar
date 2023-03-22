@@ -22,7 +22,7 @@ OntologyAnnotation <- R6::R6Class(
 		term = NULL, # str
 		term_source = NULL, # OntologySource
 		term_accession = NULL, # str
-		comments = list(), # comment
+		comments = NULL, # comment
 
 		#' @details
 		#' create a new factor value
@@ -38,7 +38,7 @@ OntologyAnnotation <- R6::R6Class(
 			term = NULL, # str
 			term_source = NULL, # OntologySource
 			term_accession = NULL, # str
-			comments = NULL # comment
+			comments = NULL
 		) {
 			if (is.null(term_source)) {
 				self$term_source <- term_source # OntologySource
@@ -211,7 +211,7 @@ OntologyAnnotation <- R6::R6Class(
 		#' @param ld logical json-ld
 		to_list = function(ld = FALSE) {
 			ontology_annotation = list(
-				"@id" = self$id,
+				"@id" = private$id,
 				"annotation_value" = self$term,
 				"term_source" = self$term_source$to_list(),
 				"term_accession" = self$term_accession,
@@ -224,7 +224,7 @@ OntologyAnnotation <- R6::R6Class(
 		#' Make \code{[OntologyAnnotation]} from list
 		#' @param lst an ontology source object serialized to a list
 		from_list = function(lst) {
-			self$id = lst[["@id"]]
+			private$id = lst[["@id"]]
 			self$term = lst[["annotation_value"]]
 			self$term_source <- OntologySource$new()
 			self$term_source$from_list(lst[["term_source"]])

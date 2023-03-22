@@ -47,6 +47,8 @@ experimental workflow described by a particular protocol.
 \item \href{#method-Assay-set_measurement_type}{\code{Assay$set_measurement_type()}}
 \item \href{#method-Assay-set_technology_type}{\code{Assay$set_technology_type()}}
 \item \href{#method-Assay-to_list}{\code{Assay$to_list()}}
+\item \href{#method-Assay-check_comments}{\code{Assay$check_comments()}}
+\item \href{#method-Assay-set_comments}{\code{Assay$set_comments()}}
 \item \href{#method-Assay-from_list}{\code{Assay$from_list()}}
 \item \href{#method-Assay-string}{\code{Assay$string()}}
 \item \href{#method-Assay-clone}{\code{Assay$clone()}}
@@ -198,6 +200,46 @@ set the technology type
 }
 \subsection{Details}{
 make an R list convertible to json
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Assay-check_comments"></a>}}
+\if{latex}{\out{\hypertarget{method-Assay-check_comments}{}}}
+\subsection{Method \code{check_comments()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Assay$check_comments(comments)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comments}}{comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+checks if comments are a named list of character vectors
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Assay-set_comments"></a>}}
+\if{latex}{\out{\hypertarget{method-Assay-set_comments}{}}}
+\subsection{Method \code{set_comments()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Assay$set_comments(comments)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comments}}{a list of comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Sets comments if they are in a valid format
 }
 
 }

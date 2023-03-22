@@ -27,8 +27,8 @@ Investigation <- R6::R6Class(
 	public = list(
 		filename = '',
 		# identifier = '',
-		title = '',
-		description = '',
+		title = character(),
+		description = character(),
 		submission_date = NULL,
 		public_release_date = NULL,
 		ontology_source_references = NULL,
@@ -53,7 +53,6 @@ Investigation <- R6::R6Class(
 		#'
 		initialize = function(
 			filename = '',
-			#identifier = '',
 			title = '',
 			description = '',
 			submission_date = NULL,
@@ -78,7 +77,6 @@ Investigation <- R6::R6Class(
 				self$set_description(description)
 			}
 
-			self$submission_date <- submission_date
 			if (is.null(submission_date)) {
 				self$submission_date <- submission_date
 			} else {
@@ -104,7 +102,34 @@ Investigation <- R6::R6Class(
 			}
 			self$comments <- comments
 		},
-
+		#' @details
+		#' Check if the title of the investigation is a string
+		#' @param title The title of the investigation
+		check_title = function(title) {
+			check <- checkmate::check_string(title, min.chars = 1L)
+			error_with_check_message_on_failure(check)
+		},
+		#' @details
+		#' set the title of the investigation if valid
+		#' @param title The title of the investigation
+		set_title = function(title) {
+			if (self$check_title(title)) { self$title <- title }
+		},
+		#' @details
+		#' Check if the description of the investigation is a string
+		#' @param description The description of the investigation
+		check_description = function(description) {
+			check <- checkmate::check_string(description, min.chars = 1L)
+			error_with_check_message_on_failure(check)
+		},
+		#' @details
+		#' set the description of the investigation if valid
+		#' @param description The description of the investigation
+		set_description = function(description) {
+			if (self$check_description(description)) {
+				self$description <- description
+			}
+		},
 		#' @details
 		#' check studies is a list of \code{[Study]} objects
 		#' @param studies a list of \code{[Study]} objects
@@ -177,7 +202,7 @@ Investigation <- R6::R6Class(
 				)
 			} else {
 				check <- checkmate::check_date(public_release_date)
-				if(check) { return(TRUE) } else { stop(check) }
+				error_with_check_message_on_failure(check)
 			}
 		},
 		#' @details
@@ -199,7 +224,7 @@ Investigation <- R6::R6Class(
 				)
 			} else {
 				check <- checkmate::check_date(submission_date)
-				if(check) { return(TRUE) } else { stop(check) }
+				error_with_check_message_on_failure(check)
 			}
 		},
 		#' @details
@@ -209,6 +234,66 @@ Investigation <- R6::R6Class(
 			if(self$check_submission_date(submission_date)) {
 				self$submission_date <- submission_date
 			}
+		},
+		#' @details
+		#' checks if comments are a named list of character vectors
+		#' @param comments comments
+		check_comments = function(comments) { check_comments(comments) },
+		#' @details
+		#' Sets comments if they are in a valid format
+		#' @param comments a list of comments
+		set_comments = function(comments) {
+			if(self$check_comments(comments)) { self$comments <- comments }
+		},
+		#' @details
+		#' generate an R list representation translatable to JSON
+		#' @param ld logical json-ld
+		to_list = function(ld = FALSE) {
+			investigation = list(
+				"filename" = self$filename,
+				"id" = private$id,
+				"title" = self$title,
+				"description" = self$description,
+				"submission_date" = self$submission_date,
+				"public_release_date" = self$public_release_date,
+				"ontology_source_references" = self$ontology_source_references,
+				"publications" = self$publications$to_list(),
+				"contacts" = self$contacts$to_list(),
+				"studies" = self$studies$to_list(),
+				"comments" = self$comments
+			)
+			return(investigation)
+		},
+
+		#' @details
+		#'
+		#' Make \code{[Investigation]} from list
+		#'
+		#' @param lst an ontology source object serialized to a list
+		from_list = function(lst) {
+			self$filename <- lst[["filename"]]
+			private$id <- lst[["id"]]
+			self$title <- lst[["title"]]
+			self$description <- lst[["description"]]
+			self$submission_date <- lst[["submission_date"]]
+			self$public_release_date <- lst[["public_release_date"]]
+			self$ontology_source_references <- lst[["ontology_source_references"]]
+			self$publications <- purrr::map(lst[["publications"]], ~{
+				p <- Publication$new()
+				p$from_list(.x)
+				p
+			})
+			self$contacts <- purrr::map(lst[["contacts"]], ~{
+				p <- Person$new()
+				p$from_list(.x)
+				p
+			})
+			self$studies <- purrr::map(lst[["studies"]], ~{
+				s <- Study$new()
+				s$from_list(.x)
+				s
+			})
+			self$comments <- lst[["comments"]]
 		},
 
 		#' @details

@@ -43,7 +43,11 @@ A component used in a protocol.
 \if{latex}{\out{\hypertarget{method-ProtocolComponent-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ProtocolComponent$new(name = NULL, component_type = NULL, comments = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ProtocolComponent$new(
+  name = character(),
+  component_type = NULL,
+  comments = NULL
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

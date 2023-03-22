@@ -37,9 +37,13 @@ Sample$new()
 \itemize{
 \item \href{#method-Sample-new}{\code{Sample$new()}}
 \item \href{#method-Sample-check_name}{\code{Sample$check_name()}}
-\item \href{#method-Sample-check_factor_values}{\code{Sample$check_factor_values()}}
 \item \href{#method-Sample-set_name}{\code{Sample$set_name()}}
+\item \href{#method-Sample-check_factor_values}{\code{Sample$check_factor_values()}}
 \item \href{#method-Sample-set_factor_values}{\code{Sample$set_factor_values()}}
+\item \href{#method-Sample-check_characteristics}{\code{Sample$check_characteristics()}}
+\item \href{#method-Sample-set_characteristics}{\code{Sample$set_characteristics()}}
+\item \href{#method-Sample-check_comments}{\code{Sample$check_comments()}}
+\item \href{#method-Sample-set_comments}{\code{Sample$set_comments()}}
 \item \href{#method-Sample-to_list}{\code{Sample$to_list()}}
 \item \href{#method-Sample-from_list}{\code{Sample$from_list()}}
 \item \href{#method-Sample-get_id}{\code{Sample$get_id()}}
@@ -50,12 +54,10 @@ Sample$new()
 <details><summary>Inherited methods</summary>
 <ul>
 <li><span class="pkg-link" data-pkg="isar" data-topic="Commentable" data-id="add_comment"><a href='../../isar/html/Commentable.html#method-Commentable-add_comment'><code>isar::Commentable$add_comment()</code></a></li>
-<li><span class="pkg-link" data-pkg="isar" data-topic="Commentable" data-id="check_comments"><a href='../../isar/html/Commentable.html#method-Commentable-check_comments'><code>isar::Commentable$check_comments()</code></a></li>
 <li><span class="pkg-link" data-pkg="isar" data-topic="Commentable" data-id="get_comment"><a href='../../isar/html/Commentable.html#method-Commentable-get_comment'><code>isar::Commentable$get_comment()</code></a></li>
 <li><span class="pkg-link" data-pkg="isar" data-topic="Commentable" data-id="get_comment_names"><a href='../../isar/html/Commentable.html#method-Commentable-get_comment_names'><code>isar::Commentable$get_comment_names()</code></a></li>
 <li><span class="pkg-link" data-pkg="isar" data-topic="Commentable" data-id="get_comment_values"><a href='../../isar/html/Commentable.html#method-Commentable-get_comment_values'><code>isar::Commentable$get_comment_values()</code></a></li>
 <li><span class="pkg-link" data-pkg="isar" data-topic="Commentable" data-id="get_comments"><a href='../../isar/html/Commentable.html#method-Commentable-get_comments'><code>isar::Commentable$get_comments()</code></a></li>
-<li><span class="pkg-link" data-pkg="isar" data-topic="Commentable" data-id="set_comments"><a href='../../isar/html/Commentable.html#method-Commentable-set_comments'><code>isar::Commentable$set_comments()</code></a></li>
 <li><span class="pkg-link" data-pkg="isar" data-topic="Commentable" data-id="to_tidy"><a href='../../isar/html/Commentable.html#method-Commentable-to_tidy'><code>isar::Commentable$to_tidy()</code></a></li>
 </ul>
 </details>
@@ -66,7 +68,7 @@ Sample$new()
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Sample$new(
-  name = "",
+  name = character(),
   factor_values = NULL,
   characteristics = NULL,
   derives_from = NULL,
@@ -86,8 +88,6 @@ Sample$new()
 \item{\code{derives_from}}{A link to the source material that the sample is derived from.}
 
 \item{\code{comments}}{Comments associated with instances of this class.}
-
-\item{\code{id}}{...}
 }
 \if{html}{\out{</div>}}
 }
@@ -117,6 +117,26 @@ validates the name field is a string
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Sample-set_name"></a>}}
+\if{latex}{\out{\hypertarget{method-Sample-set_name}{}}}
+\subsection{Method \code{set_name()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Sample$set_name(name)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{the name of the sample}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Sets the name
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Sample-check_factor_values"></a>}}
 \if{latex}{\out{\hypertarget{method-Sample-check_factor_values}{}}}
 \subsection{Method \code{check_factor_values()}}{
@@ -138,26 +158,6 @@ validates the factor_values field is a list of \code{[FactorValue]} objects
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Sample-set_name"></a>}}
-\if{latex}{\out{\hypertarget{method-Sample-set_name}{}}}
-\subsection{Method \code{set_name()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Sample$set_name(name)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{the name of the sample}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-Sets the name
-}
-
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Sample-set_factor_values"></a>}}
 \if{latex}{\out{\hypertarget{method-Sample-set_factor_values}{}}}
 \subsection{Method \code{set_factor_values()}}{
@@ -175,6 +175,86 @@ A list of \code{[FactorValue]} objects}
 }
 \subsection{Details}{
 Sets the factor values used in the sample
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Sample-check_characteristics"></a>}}
+\if{latex}{\out{\hypertarget{method-Sample-check_characteristics}{}}}
+\subsection{Method \code{check_characteristics()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Sample$check_characteristics(characteristics)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{characteristics}}{a list of \code{[Characteristic]} objects}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+check characteristics is a list of \code{[Characteristic]} objects
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Sample-set_characteristics"></a>}}
+\if{latex}{\out{\hypertarget{method-Sample-set_characteristics}{}}}
+\subsection{Method \code{set_characteristics()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Sample$set_characteristics(characteristics)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{characteristics}}{a list of \code{[Characteristic]} objects}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+set characteristics if characteristics is a list of \code{[Characteristic]} objects
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Sample-check_comments"></a>}}
+\if{latex}{\out{\hypertarget{method-Sample-check_comments}{}}}
+\subsection{Method \code{check_comments()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Sample$check_comments(comments)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comments}}{comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+checks if comments are a named list of character vectors
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Sample-set_comments"></a>}}
+\if{latex}{\out{\hypertarget{method-Sample-set_comments}{}}}
+\subsection{Method \code{set_comments()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Sample$set_comments(comments)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comments}}{a list of comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Sets comments if they are in a valid format
 }
 
 }

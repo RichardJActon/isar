@@ -6,7 +6,6 @@
 #' Represents a person
 #'
 #'
-#' @field id ...
 #' @field last_name The last name of a person.
 #' @field first_name The first name of a person.
 #' @field mid_initials The middle initials of a person.
@@ -26,22 +25,20 @@
 Person <- R6::R6Class(
 	"Person",
 	public = list(
-		id = '',
-		last_name = '',
-		first_name = '',
-		mid_initials = '',
-		email = '',
-		phone = '',
-		fax = '',
-		address = '',
-		affiliation = '',
-		orcid = '',
+		last_name = character(),
+		first_name = character(),
+		mid_initials = character(),
+		email = character(),
+		phone = character(),
+		fax = character(),
+		address = character(),
+		affiliation = character(),
+		orcid = character(),
 		roles = NULL,
 		comments = NULL,
 
 		#' @details
 		#' person
-		#' @param id ...
 		#' @param last_name The last name of a person.
 		#' @param first_name The first name of a person.
 		#' @param mid_initials The middle initials of a person.
@@ -54,7 +51,6 @@ Person <- R6::R6Class(
 		#' @param roles A list of role(s) performed by this person. Roles reported here need not correspond to roles held withing their affiliated organization.
 		#' @param comments comments associated with instances of this class.
 		initialize = function(
-			id = character(),
 			last_name = character(),
 			first_name = character(),
 			mid_initials = character(),
@@ -113,6 +109,17 @@ Person <- R6::R6Class(
 		# Consider a web-lookup check
 
 		#' @details
+		#' sets the email address field
+		#' email addresses ar e first checked for validity by \code{[check_email]}
+		#'
+		#' @param email an email address
+		set_email = function(email) {
+			if(self$check_email(email)) {
+				self$email <- email
+			}
+		},
+
+		#' @details
 		#' check if the ORCID is valid i.e. 4 lots of 4 digits separated by hyphens
 		#'
 		#' @param orcid an ORCID string
@@ -121,19 +128,6 @@ Person <- R6::R6Class(
 				return(TRUE)
 			} else {
 				stop("Invalid ORCID! (4 lots of 4 digits seperated by -)")
-			}
-		},
-
-		# Setters
-
-		#' @details
-		#' sets the email address field
-		#' email addresses ar e first checked for validity by \code{[check_email]}
-		#'
-		#' @param email an email address
-		set_email = function(email) {
-			if(self$check_email(email)) {
-				self$email <- email
 			}
 		},
 
@@ -148,11 +142,6 @@ Person <- R6::R6Class(
 			}
 		},
 
-		# Getters
-
-
-		#
-
 		#' @details
 		#' generate an R list representation translatable to JSON
 		#' @param ld logical json-ld
@@ -160,7 +149,7 @@ Person <- R6::R6Class(
 		#' Person$new()
 		to_list = function(ld = FALSE) {
 			person = list(
-				"id" = self$id,
+				"id" = private$id,
 				"last_name" = self$last_name,
 				"first_name" = self$first_name,
 				"mid_initials" = self$mid_initials,
@@ -182,7 +171,7 @@ Person <- R6::R6Class(
 		#'
 		#' @param lst an \code{[Person]} object serialized to a list
 		from_list = function(lst) {
-			self$id <- lst[["id"]]
+			private$id <- lst[["id"]]
 			self$last_name <- lst[["last_name"]]
 			self$first_name <- lst[["first_name"]]
 			self$mid_initials <- lst[["mid_initials"]]
@@ -194,6 +183,15 @@ Person <- R6::R6Class(
 			self$set_orcid(lst[["orcid"]])
 			self$roles <- lst[["roles"]]
 			self$comments <- lst[["comments"]]
+		},
+		#' @details
+		#' Get the uuid of this object
+		#' @return a uuid
+		get_id = function() {
+			private$id
 		}
+	),
+	private = list(
+		id = uuid::UUIDgenerate()
 	)
 )

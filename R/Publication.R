@@ -103,13 +103,23 @@ Publication <- R6::R6Class(
 		#' @param title of the publication
 		check_title = function(title) {
 			check <- checkmate::check_string(title, min.chars = 1L)
-			if (isTRUE(check)) { return(TRUE) } else { stop(check) }
+			error_with_check_message_on_failure(check)
 		},
 		#' @details
 		#' Set the title of the \code{[Publication]}
 		#' @param title of the publication
 		set_title = function(title) {
 			if (self$check_title(title)) { self$title <- title }
+		},
+		#' @details
+		#' checks if comments are a named list of character vectors
+		#' @param comments comments
+		check_comments = function(comments) { check_comments(comments) },
+		#' @details
+		#' Sets comments if they are in a valid format
+		#' @param comments a list of comments
+		set_comments = function(comments) {
+			if(self$check_comments(comments)) { self$comments <- comments }
 		},
 		#' @details
 		#' convert the Publication object to a list

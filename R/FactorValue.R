@@ -80,7 +80,29 @@ FactorValue <- R6Class(
 			self$unit <- unit
 			self$comments <- comments
 		},
-
+		#' @details
+		#' check if unit is a \code{[Unit]} object
+		#' @param unit a \code{[Unit]} object
+		check_unit = function(unit) {
+			check <- checkmate::check_r6(unit, "Unit")
+			error_with_check_message_on_failure(check)
+		},
+		#' @details
+		#' set unit if input is valid
+		#' @param unit a \code{[Unit]} object
+		set_unit = function(unit) {
+			if(self$check_unit(unit)) { self$unit <- unit }
+		},
+		#' @details
+		#' checks if comments are a named list of character vectors
+		#' @param comments comments
+		check_comments = function(comments) { check_comments(comments) },
+		#' @details
+		#' Sets comments if they are in a valid format
+		#' @param comments a list of comments
+		set_comments = function(comments) {
+			if(self$check_comments(comments)) { self$comments <- comments }
+		},
 		#' @details
 		#' generate an R list representation translatable to JSON
 		#' @param ld logical json-ld

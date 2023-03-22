@@ -38,6 +38,10 @@ An investigation maintains metadata about the project context and links to one o
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Investigation-new}{\code{Investigation$new()}}
+\item \href{#method-Investigation-check_title}{\code{Investigation$check_title()}}
+\item \href{#method-Investigation-set_title}{\code{Investigation$set_title()}}
+\item \href{#method-Investigation-check_description}{\code{Investigation$check_description()}}
+\item \href{#method-Investigation-set_description}{\code{Investigation$set_description()}}
 \item \href{#method-Investigation-check_studies}{\code{Investigation$check_studies()}}
 \item \href{#method-Investigation-set_studies}{\code{Investigation$set_studies()}}
 \item \href{#method-Investigation-check_contacts}{\code{Investigation$check_contacts()}}
@@ -48,6 +52,10 @@ An investigation maintains metadata about the project context and links to one o
 \item \href{#method-Investigation-set_public_release_date}{\code{Investigation$set_public_release_date()}}
 \item \href{#method-Investigation-check_submission_date}{\code{Investigation$check_submission_date()}}
 \item \href{#method-Investigation-set_submission_date}{\code{Investigation$set_submission_date()}}
+\item \href{#method-Investigation-check_comments}{\code{Investigation$check_comments()}}
+\item \href{#method-Investigation-set_comments}{\code{Investigation$set_comments()}}
+\item \href{#method-Investigation-to_list}{\code{Investigation$to_list()}}
+\item \href{#method-Investigation-from_list}{\code{Investigation$from_list()}}
 \item \href{#method-Investigation-get_id}{\code{Investigation$get_id()}}
 \item \href{#method-Investigation-clone}{\code{Investigation$clone()}}
 }
@@ -98,6 +106,86 @@ An investigation maintains metadata about the project context and links to one o
 }
 \subsection{Details}{
 Create a new investigation object
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Investigation-check_title"></a>}}
+\if{latex}{\out{\hypertarget{method-Investigation-check_title}{}}}
+\subsection{Method \code{check_title()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$check_title(title)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{title}}{The title of the investigation}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Check if the title of the investigation is a string
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Investigation-set_title"></a>}}
+\if{latex}{\out{\hypertarget{method-Investigation-set_title}{}}}
+\subsection{Method \code{set_title()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$set_title(title)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{title}}{The title of the investigation}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+set the title of the investigation if valid
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Investigation-check_description"></a>}}
+\if{latex}{\out{\hypertarget{method-Investigation-check_description}{}}}
+\subsection{Method \code{check_description()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$check_description(description)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{description}}{The description of the investigation}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Check if the description of the investigation is a string
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Investigation-set_description"></a>}}
+\if{latex}{\out{\hypertarget{method-Investigation-set_description}{}}}
+\subsection{Method \code{set_description()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$set_description(description)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{description}}{The description of the investigation}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+set the description of the investigation if valid
 }
 
 }
@@ -298,6 +386,86 @@ Check submission_date is a Date object
 }
 \subsection{Details}{
 Set submission_date to a Date object
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Investigation-check_comments"></a>}}
+\if{latex}{\out{\hypertarget{method-Investigation-check_comments}{}}}
+\subsection{Method \code{check_comments()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$check_comments(comments)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comments}}{comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+checks if comments are a named list of character vectors
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Investigation-set_comments"></a>}}
+\if{latex}{\out{\hypertarget{method-Investigation-set_comments}{}}}
+\subsection{Method \code{set_comments()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$set_comments(comments)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comments}}{a list of comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Sets comments if they are in a valid format
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Investigation-to_list"></a>}}
+\if{latex}{\out{\hypertarget{method-Investigation-to_list}{}}}
+\subsection{Method \code{to_list()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$to_list(ld = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ld}}{logical json-ld}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+generate an R list representation translatable to JSON
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Investigation-from_list"></a>}}
+\if{latex}{\out{\hypertarget{method-Investigation-from_list}{}}}
+\subsection{Method \code{from_list()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$from_list(lst)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{lst}}{an ontology source object serialized to a list}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Make \code{[Investigation]} from list
 }
 
 }

@@ -17,8 +17,6 @@ Person$new()
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{id}}{...}
-
 \item{\code{last_name}}{The last name of a person.}
 
 \item{\code{first_name}}{The first name of a person.}
@@ -48,11 +46,12 @@ Person$new()
 \itemize{
 \item \href{#method-Person-new}{\code{Person$new()}}
 \item \href{#method-Person-check_email}{\code{Person$check_email()}}
-\item \href{#method-Person-check_orcid}{\code{Person$check_orcid()}}
 \item \href{#method-Person-set_email}{\code{Person$set_email()}}
+\item \href{#method-Person-check_orcid}{\code{Person$check_orcid()}}
 \item \href{#method-Person-set_orcid}{\code{Person$set_orcid()}}
 \item \href{#method-Person-to_list}{\code{Person$to_list()}}
 \item \href{#method-Person-from_list}{\code{Person$from_list()}}
+\item \href{#method-Person-get_id}{\code{Person$get_id()}}
 \item \href{#method-Person-clone}{\code{Person$clone()}}
 }
 }
@@ -62,7 +61,6 @@ Person$new()
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Person$new(
-  id = character(),
   last_name = character(),
   first_name = character(),
   mid_initials = character(),
@@ -80,8 +78,6 @@ Person$new()
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{id}}{...}
-
 \item{\code{last_name}}{The last name of a person.}
 
 \item{\code{first_name}}{The first name of a person.}
@@ -134,26 +130,6 @@ NB the regex used to validate emails is ... difficult to represent in roxygen sy
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Person-check_orcid"></a>}}
-\if{latex}{\out{\hypertarget{method-Person-check_orcid}{}}}
-\subsection{Method \code{check_orcid()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Person$check_orcid(orcid)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{orcid}}{an ORCID string}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-check if the ORCID is valid i.e. 4 lots of 4 digits separated by hyphens
-}
-
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Person-set_email"></a>}}
 \if{latex}{\out{\hypertarget{method-Person-set_email}{}}}
 \subsection{Method \code{set_email()}}{
@@ -171,6 +147,26 @@ check if the ORCID is valid i.e. 4 lots of 4 digits separated by hyphens
 \subsection{Details}{
 sets the email address field
 email addresses ar e first checked for validity by \code{[check_email]}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Person-check_orcid"></a>}}
+\if{latex}{\out{\hypertarget{method-Person-check_orcid}{}}}
+\subsection{Method \code{check_orcid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Person$check_orcid(orcid)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{orcid}}{an ORCID string}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+check if the ORCID is valid i.e. 4 lots of 4 digits separated by hyphens
 }
 
 }
@@ -242,6 +238,22 @@ generate an R list representation translatable to JSON
 Make \code{[Person]} from list
 }
 
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Person-get_id"></a>}}
+\if{latex}{\out{\hypertarget{method-Person-get_id}{}}}
+\subsection{Method \code{get_id()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Person$get_id()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Get the uuid of this object
+}
+
+\subsection{Returns}{
+a uuid
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Person-clone"></a>}}

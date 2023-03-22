@@ -175,6 +175,7 @@ Protocol <- R6::R6Class(
 		to_list = function(ld = FALSE){
 			protocol <- list(
 				"name" = self$name,
+				"id" = private$id,
 				"protocol_type" = self$protocol_type$to_list(),
 				"description" = self$description,
 				"uri" = self$uri,
@@ -190,6 +191,7 @@ Protocol <- R6::R6Class(
 		#' @param lst an Protocol object serialized to a list
 		from_list = function(lst) {
 			self$name <- lst[["name"]]
+			private$id <- lst[["id"]]
 			self$protocol_type <- OntologyAnnotation$new()
 			self$protocol_type$from_list(lst[["protocol_type"]])
 			self$description <- lst[["description"]]

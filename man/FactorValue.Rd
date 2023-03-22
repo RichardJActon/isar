@@ -42,6 +42,10 @@ FactorValue$new(
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-FactorValue-new}{\code{FactorValue$new()}}
+\item \href{#method-FactorValue-check_unit}{\code{FactorValue$check_unit()}}
+\item \href{#method-FactorValue-set_unit}{\code{FactorValue$set_unit()}}
+\item \href{#method-FactorValue-check_comments}{\code{FactorValue$check_comments()}}
+\item \href{#method-FactorValue-set_comments}{\code{FactorValue$set_comments()}}
 \item \href{#method-FactorValue-to_list}{\code{FactorValue$to_list()}}
 \item \href{#method-FactorValue-from_list}{\code{FactorValue$from_list()}}
 \item \href{#method-FactorValue-clone}{\code{FactorValue$clone()}}
@@ -84,6 +88,86 @@ FactorValue$new(
 }
 \if{html}{\out{</div>}}
 
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-FactorValue-check_unit"></a>}}
+\if{latex}{\out{\hypertarget{method-FactorValue-check_unit}{}}}
+\subsection{Method \code{check_unit()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{FactorValue$check_unit(unit)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{unit}}{a \code{[Unit]} object}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+check if unit is a \code{[Unit]} object
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-FactorValue-set_unit"></a>}}
+\if{latex}{\out{\hypertarget{method-FactorValue-set_unit}{}}}
+\subsection{Method \code{set_unit()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{FactorValue$set_unit(unit)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{unit}}{a \code{[Unit]} object}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+set unit if input is valid
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-FactorValue-check_comments"></a>}}
+\if{latex}{\out{\hypertarget{method-FactorValue-check_comments}{}}}
+\subsection{Method \code{check_comments()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{FactorValue$check_comments(comments)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comments}}{comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+checks if comments are a named list of character vectors
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-FactorValue-set_comments"></a>}}
+\if{latex}{\out{\hypertarget{method-FactorValue-set_comments}{}}}
+\subsection{Method \code{set_comments()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{FactorValue$set_comments(comments)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comments}}{a list of comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Sets comments if they are in a valid format
 }
 
 }

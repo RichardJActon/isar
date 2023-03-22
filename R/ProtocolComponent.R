@@ -6,7 +6,7 @@
 ProtocolComponent <- R6::R6Class(
 	"ProtocolComponent",
 	public = list(
-		name = NULL,
+		name = character(),
 		component_type = NULL,
 		comments = NULL,
 		#' @details
@@ -15,7 +15,7 @@ ProtocolComponent <- R6::R6Class(
 		#' @param component_type The classifier as a term for the component.
 		#' @param comments Comments associated with instances of this class.
 		initialize = function(
-			name = NULL,
+			name = character(),
 			component_type = NULL,
 			comments = NULL
 		) {
@@ -76,6 +76,7 @@ ProtocolComponent <- R6::R6Class(
 		to_list = function(ld = FALSE){
 			protocol_component <- list(
 				"name" = self$name,
+				"id" = private$id,
 				"component_type" = self$component_type$to_list(),
 				"comments" = self$comments
 			)
@@ -86,7 +87,8 @@ ProtocolComponent <- R6::R6Class(
 		#' @param lst an Characteristic object serialized to a list
 		from_list = function(lst) {
 			self$name <- lst[["name"]]
-			self$component_type <- OntologyAnnotation$new()
+			self$id <- lst[["id"]]
+ 			self$component_type <- OntologyAnnotation$new()
 			self$component_type$from_list(lst[["component_type"]])
 			self$comments <- lst[["comments"]]
 		},

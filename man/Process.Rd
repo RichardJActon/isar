@@ -36,6 +36,8 @@ Process nodes represent the application of a protocol to some input material (e.
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Process-new}{\code{Process$new()}}
+\item \href{#method-Process-check_name}{\code{Process$check_name()}}
+\item \href{#method-Process-set_name}{\code{Process$set_name()}}
 \item \href{#method-Process-check_performer}{\code{Process$check_performer()}}
 \item \href{#method-Process-check_date}{\code{Process$check_date()}}
 \item \href{#method-Process-set_date}{\code{Process$set_date()}}
@@ -54,7 +56,7 @@ Process nodes represent the application of a protocol to some input material (e.
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Process$new(
-  name = NULL,
+  name = character(),
   executes_protocol = NULL,
   date = NULL,
   performer = NULL,
@@ -88,6 +90,46 @@ Process nodes represent the application of a protocol to some input material (e.
 }
 \subsection{Details}{
 Create a new \code{[Process]}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Process-check_name"></a>}}
+\if{latex}{\out{\hypertarget{method-Process-check_name}{}}}
+\subsection{Method \code{check_name()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Process$check_name(name)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{of the process}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Check the the name has a non-zero length
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Process-set_name"></a>}}
+\if{latex}{\out{\hypertarget{method-Process-set_name}{}}}
+\subsection{Method \code{set_name()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Process$set_name(name)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{of the process}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Set the name of the \code{[Process]}
 }
 
 }

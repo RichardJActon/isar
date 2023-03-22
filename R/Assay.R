@@ -189,7 +189,16 @@ Assay <- R6Class(
 			)
 			return(assay)
 		},
-
+		#' @details
+		#' checks if comments are a named list of character vectors
+		#' @param comments comments
+		check_comments = function(comments) { check_comments(comments) },
+		#' @details
+		#' Sets comments if they are in a valid format
+		#' @param comments a list of comments
+		set_comments = function(comments) {
+			if(self$check_comments(comments)) { self$comments <- comments }
+		},
 		#' @details
 		#'
 		#' Make \code{[Assay]} from list

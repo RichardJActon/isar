@@ -12,7 +12,7 @@
 Process <- R6::R6Class(
 	"Process",
 	public = list(
-		name = NULL,
+		name = character(),
 		executes_protocol = NULL,
 		date = NULL,
 		performer = NULL,
@@ -31,7 +31,7 @@ Process <- R6::R6Class(
 		#' @param outputs A list of output materials, possibly Samples, Materials, DataFiles
 		#' @param comments Comments associated with instances of this class.
 		initialize = function(
-			name = NULL,
+			name = character(),
 			executes_protocol = NULL,
 			date = NULL,
 			performer = NULL,
@@ -48,6 +48,19 @@ Process <- R6::R6Class(
 			self$inputs <- inputs
 			self$outputs <- outputs
 			self$comments <- comments
+		},
+		#' @details
+		#' Check the the name has a non-zero length
+		#' @param name of the process
+		check_name = function(name) {
+			check <- checkmate::check_string(name, min.chars = 1L)
+			error_with_check_message_on_failure(check)
+		},
+		#' @details
+		#' Set the name of the \code{[Process]}
+		#' @param name of the process
+		set_name = function(name) {
+			if (self$check_name(name)) { self$name <- name }
 		},
 		#' @details
 		#' check performer is a list of \code{[Person]} objects

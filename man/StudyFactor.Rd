@@ -31,6 +31,10 @@ StudyFactor$new()
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-StudyFactor-new}{\code{StudyFactor$new()}}
+\item \href{#method-StudyFactor-check_name}{\code{StudyFactor$check_name()}}
+\item \href{#method-StudyFactor-set_name}{\code{StudyFactor$set_name()}}
+\item \href{#method-StudyFactor-check_comments}{\code{StudyFactor$check_comments()}}
+\item \href{#method-StudyFactor-set_comments}{\code{StudyFactor$set_comments()}}
 \item \href{#method-StudyFactor-to_list}{\code{StudyFactor$to_list()}}
 \item \href{#method-StudyFactor-from_list}{\code{StudyFactor$from_list()}}
 \item \href{#method-StudyFactor-get_id}{\code{StudyFactor$get_id()}}
@@ -42,7 +46,7 @@ StudyFactor$new()
 \if{latex}{\out{\hypertarget{method-StudyFactor-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{StudyFactor$new(name = "", factor_type = NULL, comments = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{StudyFactor$new(name = character(), factor_type = NULL, comments = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -58,6 +62,86 @@ StudyFactor$new()
 }
 \subsection{Details}{
 create a new study factor
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-StudyFactor-check_name"></a>}}
+\if{latex}{\out{\hypertarget{method-StudyFactor-check_name}{}}}
+\subsection{Method \code{check_name()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{StudyFactor$check_name(name)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{The name of the material}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Check if the name of the material is a string
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-StudyFactor-set_name"></a>}}
+\if{latex}{\out{\hypertarget{method-StudyFactor-set_name}{}}}
+\subsection{Method \code{set_name()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{StudyFactor$set_name(name)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{The name of the material}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+set the name of the material if valid
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-StudyFactor-check_comments"></a>}}
+\if{latex}{\out{\hypertarget{method-StudyFactor-check_comments}{}}}
+\subsection{Method \code{check_comments()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{StudyFactor$check_comments(comments)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comments}}{comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+checks if comments are a named list of character vectors
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-StudyFactor-set_comments"></a>}}
+\if{latex}{\out{\hypertarget{method-StudyFactor-set_comments}{}}}
+\subsection{Method \code{set_comments()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{StudyFactor$set_comments(comments)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comments}}{a list of comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Sets comments if they are in a valid format
 }
 
 }

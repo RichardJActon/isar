@@ -16,7 +16,7 @@
 StudyFactor <- R6::R6Class(
 	"StudyFactor",
 	public = list(
-		name = '',
+		name = character(),
 		factor_type = NULL,
 		comments = NULL,
 
@@ -29,11 +29,13 @@ StudyFactor <- R6::R6Class(
 		#' @param comments Comments associated with instances of this class.
 		#'
 		initialize = function(
-			name = '',
+			name = character(),
 			factor_type = NULL,
 			comments = NULL
 		) {
-			self$name <- name
+			if (checkmate::qtest(name, "S[0]")) { self$name <- name } else {
+				self$set_name(name)
+			}
 			if (is.null(factor_type)) {
 				self$factor_type <- factor_type
 			} else if (checkmate::check_r6(factor_type ,"OntologyAnnotation")) {
@@ -43,7 +45,29 @@ StudyFactor <- R6::R6Class(
 			}
 			self$comments <- comments
 		},
-
+		#' @details
+		#' Check if the name of the material is a string
+		#' @param name The name of the material
+		check_name = function(name) {
+			check <- checkmate::check_string(name, min.chars = 1L)
+			error_with_check_message_on_failure(check)
+		},
+		#' @details
+		#' set the name of the material if valid
+		#' @param name The name of the material
+		set_name = function(name) {
+			if (self$check_name(name)) { self$name <- name }
+		},
+		#' @details
+		#' checks if comments are a named list of character vectors
+		#' @param comments comments
+		check_comments = function(comments) { check_comments(comments) },
+		#' @details
+		#' Sets comments if they are in a valid format
+		#' @param comments a list of comments
+		set_comments = function(comments) {
+			if(self$check_comments(comments)) { self$comments <- comments }
+		},
 		#' @details
 		#' generate an R list representation translatable to JSON
 		#' @param ld logical json-ld
@@ -53,7 +77,7 @@ StudyFactor <- R6::R6Class(
 			study_factor = list(
 				"name" = self$name,
 				"factor_type" = self$factor_type$to_list(),
-				"@id" = self$id,
+				"@id" = private$id,
 				"comments" = self$comments
 			)
 			return(study_factor)
@@ -66,9 +90,9 @@ StudyFactor <- R6::R6Class(
 		#' @param lst a list serialization of a study factor object
 		from_list = function(lst) {
 			self$name = lst[["name"]]
+			private$id <- lst[["@id"]]
 			self$factor_type <- OntologyAnnotation$new()
 			self$factor_type$from_list(lst[["factor_type"]])
-			self$id = lst[["@id"]]
 			self$comments = lst[["comments"]]
 		},
 
