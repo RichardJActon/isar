@@ -49,6 +49,8 @@ Person$new()
 \item \href{#method-Person-set_email}{\code{Person$set_email()}}
 \item \href{#method-Person-check_orcid}{\code{Person$check_orcid()}}
 \item \href{#method-Person-set_orcid}{\code{Person$set_orcid()}}
+\item \href{#method-Person-check_comments}{\code{Person$check_comments()}}
+\item \href{#method-Person-set_comments}{\code{Person$set_comments()}}
 \item \href{#method-Person-to_list}{\code{Person$to_list()}}
 \item \href{#method-Person-from_list}{\code{Person$from_list()}}
 \item \href{#method-Person-get_id}{\code{Person$get_id()}}
@@ -188,6 +190,46 @@ check if the ORCID is valid i.e. 4 lots of 4 digits separated by hyphens
 \subsection{Details}{
 sets the orcid field
 ORCID's are first checked for validity by \code{[check_orcid]}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Person-check_comments"></a>}}
+\if{latex}{\out{\hypertarget{method-Person-check_comments}{}}}
+\subsection{Method \code{check_comments()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Person$check_comments(comments)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comments}}{comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+checks if comments are a named list of character vectors
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Person-set_comments"></a>}}
+\if{latex}{\out{\hypertarget{method-Person-set_comments}{}}}
+\subsection{Method \code{set_comments()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Person$set_comments(comments)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comments}}{a list of comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Sets comments if they are in a valid format
 }
 
 }

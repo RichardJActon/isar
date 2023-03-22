@@ -25,7 +25,11 @@ Characteristic <- R6::R6Class(
 			unit = NULL,
 			comments = NULL
 		) {
-			self$category <- category
+			if(is.null(category)) {
+				self$category <- category
+			} else {
+				self$set_category(category)
+			}
 			self$value <- value
 			self$unit <- unit
 			self$comments <- comments
