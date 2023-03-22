@@ -20,6 +20,7 @@
 #'
 #' @importFrom checkmate qtest
 #' @importFrom R6 R6Class
+#' @importFrom uuid UUIDgenerate
 #'
 #' @export
 Person <- R6::R6Class(
@@ -63,7 +64,6 @@ Person <- R6::R6Class(
 			roles = NULL,
 			comments = NULL
 		) {
-			self$id <- id
 			self$last_name <- last_name
 			self$first_name <- first_name
 			self$mid_initials <- mid_initials

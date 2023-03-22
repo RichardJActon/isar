@@ -9,8 +9,9 @@
 #' @field factor_type An \code{[OntologySource]} reference of the study factor type
 #' @field comments Comments associated with instances of this class.
 #'
-#' @importFrom checkmate check_r6
+#' @importFrom checkmate qtest check_string
 #' @importFrom R6 R6Class
+#' @importFrom uuid UUIDgenerate
 #'
 #' @export
 StudyFactor <- R6::R6Class(

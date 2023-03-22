@@ -4,6 +4,7 @@
 #' @field comments Comments associated with instances of this class.
 #'
 #' @importFrom R6 R6Class
+#' @importFrom uuid UUIDgenerate
 ProtocolParameter <- R6::R6Class(
 	"ProtocolParameter",
 	public = list(
@@ -37,7 +38,9 @@ ProtocolParameter <- R6::R6Class(
 		#' Set parameter_name if input is valid
 		#' @param parameter_name an \code{[OntologyAnnotation]} object
 		set_parameter_name = function(parameter_name) {
-			if(self$check_parameter_name(parameter_name)) { self$parameter_name <- parameter_name }
+			if(self$check_parameter_name(parameter_name)) {
+				self$parameter_name <- parameter_name
+			}
 		},
 		#' @details
 		#' checks if comments are a named list of character vectors
@@ -90,6 +93,8 @@ ProtocolParameter <- R6::R6Class(
 #'
 #' Allows checking for the identity of \code{[ProtocolParameter]} objects
 #'
+#' @param x a \code{[ProtocolParameter]} object
+#' @param y a \code{[ProtocolParameter]} object
 #' @export
 identical.ProtocolParameter <- s3_identical_maker(
 	c("parameter_name", "comments")

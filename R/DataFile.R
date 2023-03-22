@@ -7,6 +7,10 @@
 #' @field label The data file type, as indicated by a label such as 'Array Data File' or 'Raw Data File'
 #' @field generated_from Reference to Sample(s) the DataFile is generated from
 #' @field comments Comments associated with instances of this class.
+#'
+#' @importFrom R6 R6Class
+#' @importFrom checkmate check_r6
+#' @importFrom uuid UUIDgenerate
 DataFile <- R6::R6Class(
 	"DataFile",
 	public = list(

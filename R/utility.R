@@ -3,6 +3,9 @@
 #' @param comments a list of comments, named and with length 1 character vectors#
 #' @importFrom checkmate check_list test_string
 #' @importFrom purrr map_lgl
+#'
+#' @importFrom checkmate check_list test_string
+#' @importFrom purrr map_lgl
 check_comments <- function(comments) {
 	check <- checkmate::check_list(
 		comments, min.len = 1, types = "character", names = "named",
@@ -53,6 +56,8 @@ error_with_check_message_on_failure <- function(check, nextline = NULL) {
 #' should be compared to determine identity
 #' @param get_id  (default = TRUE) Compare the object's unique identifiers
 #' using the get_id method
+#'
+#' @importFrom purrr map_lgl
 s3_identical_maker <- function(obj_pub_props, get_id = TRUE) {
 	function(x, y) {
 		obj_pub_props <- obj_pub_props

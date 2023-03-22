@@ -3,6 +3,10 @@
 #' @field name A component name.
 #' @field component_type The classifier as a term for the component.
 #' @field comments Comments associated with instances of this class.
+#'
+#' @importFrom R6 R6Class
+#' @importFrom checkmate check_string check_r6
+#' @importFrom uuid UUIDgenerate
 ProtocolComponent <- R6::R6Class(
 	"ProtocolComponent",
 	public = list(

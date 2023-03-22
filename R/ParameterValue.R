@@ -4,6 +4,10 @@
 #' @field value The value of the parameter.
 #' @field unit The qualifying unit classifier, if the value is numeric.
 #' @field comments Comments associated with instances of this class.
+#'
+#' @importFrom R6 R6Class
+#' @importFrom checkmate check_r6
+#' @importFrom uuid UUIDgenerate
 ParameterValue <- R6::R6Class(
 	"ParameterValue",
 	public = list(
@@ -56,8 +60,6 @@ ParameterValue <- R6::R6Class(
 		#' @details
 		#' generate an R list representation translatable to JSON
 		#' @param ld logical json-ld
-		#' @examples
-		#' Person$new()
 		to_list = function(ld = FALSE) {
 			parameter_value = list(
 				"id" = private$id,

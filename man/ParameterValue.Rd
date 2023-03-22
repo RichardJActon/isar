@@ -11,14 +11,6 @@ A ParameterValue represents the instance value of a \code{[ProtocolParameter]}, 
 An R6 object for representing ParameterValue
 A ParameterValue represents the instance value of a \code{[ProtocolParameter]}, used in a Process.
 }
-\examples{
-
-## ------------------------------------------------
-## Method `ParameterValue$to_list`
-## ------------------------------------------------
-
-Person$new()
-}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -169,14 +161,6 @@ Sets comments if they are in a valid format
 }
 \subsection{Details}{
 generate an R list representation translatable to JSON
-}
-
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{Person$new()
-}
-\if{html}{\out{</div>}}
-
 }
 
 }
