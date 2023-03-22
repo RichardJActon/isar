@@ -44,3 +44,27 @@ error_with_check_message_on_failure <- function(check, nextline = NULL) {
 		stop(check)
 	}
 }
+
+#' s3_identical_maker
+#'
+#' function to aid in the creation of S3 generic methods for \code{[identical]}
+#' or R6 objects
+#' @param obj_pub_props a chacater vector of public properties whose values
+#' should be compared to determine identity
+#' @param get_id  (default = TRUE) Compare the object's unique identifiers
+#' using the get_id method
+s3_identical_maker <- function(obj_pub_props, get_id = TRUE) {
+	function(x, y) {
+		obj_pub_props <- obj_pub_props
+		obj_pub_props_lgl <- purrr::map_lgl(
+			obj_pub_props, ~identical(x[[.x]], y[[.y]])
+		)
+		res <- NULL
+		if(get_id) {
+			res <- all(obj_pub_props_lgl, identical(x$get_id(), y$get_id()))
+		} else {
+			res <- all(obj_pub_props_lgl)
+		}
+		return(res)
+	}
+}

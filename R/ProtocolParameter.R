@@ -85,3 +85,12 @@ ProtocolParameter <- R6::R6Class(
 		id = uuid::UUIDgenerate()
 	)
 )
+
+#' identical.ProtocolParameter
+#'
+#' Allows checking for the identity of \code{[ProtocolParameter]} objects
+#'
+#' @export
+identical.ProtocolParameter <- s3_identical_maker(
+	c("parameter_name", "comments")
+)
