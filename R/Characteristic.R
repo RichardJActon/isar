@@ -1,3 +1,5 @@
+#' Characteristic
+#'
 #' A Characteristic acts as a qualifying property to a material object.
 #'
 #' @field category The classifier of the type of characteristic being described.
@@ -87,11 +89,17 @@ Characteristic <- R6::R6Class(
 		#' @details
 		#' An R list representation of a \code{[Characteristic]} object
 		#' @param ld linked data (default FALSE)
-		to_list = function(ld = FALSE){
+		#' @param recursive call to_list methods of any objects within this object (default FALSE)
+		to_list = function(recursive = FALSE, ld = FALSE){
 			characteristic <- list(
-				"category" = self$category$to_list(),
+				"id" = private$id,
+				"category" = ifelse(
+					recursive, self$category$to_list(), self$category$term
+				),
 				"value" = self$value,
-				"unit" = self$unit$to_list(),
+				"unit" = ifelse(
+					recursive, self$unit$to_list(), self$unit$unit$term
+				),
 				"comments" = self$comments
 			)
 			return(characteristic)
@@ -100,9 +108,12 @@ Characteristic <- R6::R6Class(
 		#' Make \code{[Characteristic]} object from list
 		#' @param lst an Characteristic object serialized to a list
 		from_list = function(lst) {
-			self$category <- lst[["category"]]
+			private$id <- lst[["id"]]
+			ct <- OntologyAnnotation$new()
+			self$category <- ct$from_list(lst[["category"]])
 			self$value <- lst[["value"]]
-			self$unit <- lst[["unit"]]
+			u <- Unit$new()
+			self$unit <- u$from_list(lst[["unit"]])
 			self$comments <- lst[["comments"]]
 		},
 
@@ -117,3 +128,18 @@ Characteristic <- R6::R6Class(
 		id = uuid::UUIDgenerate()
 	)
 )
+
+
+#' identical.Characteristic
+#'
+#' Allows checking for the identity of \code{[Characteristic]} objects
+#'
+#' @param x a \code{[Characteristic]} object
+#' @param y a \code{[Characteristic]} object
+#' @export
+identical.Characteristic <- s3_identical_maker(c(
+	"category",
+	"value",
+	"unit",
+	"comments"
+))
