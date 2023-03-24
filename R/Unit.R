@@ -27,7 +27,7 @@ Unit <- R6::R6Class(
 		#' @param ld linked data (default FALSE)
 		to_list = function(ld = FALSE) {
 			unit <- list(
-				unit = self$unit
+				unit = self$unit$to_list()
 			)
 			return(unit)
 		},
