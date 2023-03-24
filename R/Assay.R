@@ -1,11 +1,4 @@
-# datafile
-# material
-# process
-# ontology annotation
-
-# inherits from Commentable, StudyAssayMixin ?
-
-#' R6 class for an assay
+#' Assay
 #'
 #' An assay represents a test performed either on material taken from a
 #' subject or on a whole initial subject, producing qualitative or
@@ -38,8 +31,8 @@ Assay <- R6Class(
 	public = list(
 		measurement_type = NULL,
 		technology_type = NULL,
-		technology_platform = NULL,
-		filename = NULL,
+		technology_platform = character(),
+		filename = character(),
 		materials = NULL,
 		units = NULL,
 		characteristic_categories = NULL,
@@ -63,8 +56,8 @@ Assay <- R6Class(
 		initialize = function(
 			measurement_type = NULL,
 			technology_type = NULL,
-			technology_platform = NULL,
-			filename = NULL,
+			technology_platform = character(),
+			filename = character(),
 			materials = NULL,
 			units = NULL,
 			characteristic_categories = NULL,
@@ -82,8 +75,16 @@ Assay <- R6Class(
 			} else {
 				self$set_technology_type(technology_type)
 			}
-			self$technology_platform <- technology_platform
-			self$filename <- filename
+			if (checkmate::qtest(technology_platform, "S[0]")) {
+				self$technology_platform <- technology_platform
+			} else {
+				self$set_technology_platform(technology_platform)
+			}
+			if (checkmate::qtest(filename, "S[0]")) {
+				self$filename <- filename
+			} else {
+				self$set_filename(filename)
+			}
 			self$materials <- materials
 			self$units <- units
 			self$characteristic_categories <- characteristic_categories
@@ -91,11 +92,8 @@ Assay <- R6Class(
 			self$comments <- comments
 			self$graph <- graph
 
-			self$string()
+			# self$string()
 		},
-
-		# Checkers
-
 		#' @details
 		#' checks the  measurement_type is an instance of \code{[OntologyAnnotation]}
 		#'
@@ -104,17 +102,6 @@ Assay <- R6Class(
 			check <- checkmate::check_r6(measurement_type, "OntologyAnnotation")
 			if (isTRUE(check)) { return(TRUE) } else { stop(check) }
 		},
-		#' @details
-		#' checks that technology_type an instance of \code{[OntologyAnnotation]}
-		#'
-		#' @param technology_type An \code{[OntologyAnnotation]} to identify the technology  used to perform the measurement.
-		check_technology_type = function(technology_type) {
-			check <- checkmate::check_r6(technology_type, "OntologyAnnotation")
-			if (isTRUE(check)) { return(TRUE) } else { stop(check) }
-		},
-
-		# Setters
-
 		#' @details
 		#'
 		#' set the measurement type
@@ -126,6 +113,14 @@ Assay <- R6Class(
 			}
 		},
 		#' @details
+		#' checks that technology_type an instance of \code{[OntologyAnnotation]}
+		#'
+		#' @param technology_type An \code{[OntologyAnnotation]} to identify the technology  used to perform the measurement.
+		check_technology_type = function(technology_type) {
+			check <- checkmate::check_r6(technology_type, "OntologyAnnotation")
+			if (isTRUE(check)) { return(TRUE) } else { stop(check) }
+		},
+		#' @details
 		#'
 		#' set the technology type
 		#'
@@ -134,6 +129,44 @@ Assay <- R6Class(
 			if (self$check_technology_type(technology_type)) {
 				self$technology_type <- technology_type
 			}
+		},
+		#' @details
+		#' Check if the technology_platform of the assay is a string
+		#' @param technology_platform The technology_platform of the assay
+		check_technology_platform = function(technology_platform) {
+			check <- checkmate::check_string(technology_platform, min.chars = 1L)
+			error_with_check_message_on_failure(check)
+		},
+		#' @details
+		#' set the technology_platform of the assay if valid
+		#' @param technology_platform The technology_platform of the assay
+		set_technology_platform = function(technology_platform) {
+			if (self$check_technology_platform(technology_platform)) {
+				self$technology_platform <- technology_platform
+			}
+		},
+		#' @details
+		#' Check if the filename of the assay is a string
+		#' @param filename The filename of the assay
+		check_filename = function(filename) {
+			check <- checkmate::check_string(filename, min.chars = 1L)
+			error_with_check_message_on_failure(check)
+		},
+		#' @details
+		#' set the filename of the assay if valid
+		#' @param filename The filename of the assay
+		set_filename = function(filename) {
+			if (self$check_filename(filename)) { self$filename <- filename }
+		},
+		#' @details
+		#' checks if comments are a named list of character vectors
+		#' @param comments comments
+		check_comments = function(comments) { check_comments(comments) },
+		#' @details
+		#' Sets comments if they are in a valid format
+		#' @param comments a list of comments
+		set_comments = function(comments) {
+			if(self$check_comments(comments)) { self$comments <- comments }
 		},
 
 		# # Getters
@@ -190,16 +223,6 @@ Assay <- R6Class(
 			return(assay)
 		},
 		#' @details
-		#' checks if comments are a named list of character vectors
-		#' @param comments comments
-		check_comments = function(comments) { check_comments(comments) },
-		#' @details
-		#' Sets comments if they are in a valid format
-		#' @param comments a list of comments
-		set_comments = function(comments) {
-			if(self$check_comments(comments)) { self$comments <- comments }
-		},
-		#' @details
 		#'
 		#' Make \code{[Assay]} from list
 		#'
@@ -218,49 +241,69 @@ Assay <- R6Class(
 			self$process_sequence <- lst[["process_sequence"]]
 			self$comments <- lst[["comments"]]
 			self$graph <- lst[["graph"]]
-		},
-
-		#' @details
-		#'
-		#' stringify
-		#'
-		#' @return a string
-		string = function() {
-			glue::glue(
-				.sep = "\n",
-
-				# String template
-				## direct
-				"Assay(",
-				"	measurement_type={measurement_type}",
-				"	technology_type={technology_type}",
-				"	technology_platform={technology_platform}",
-				"	filename={filename}",
-				## number of
-				"	data_files={num_datafiles} DataFile objects",
-				"	samples={num_samples} Sample objects",
-				"	process_sequence={num_processes} Process objects",
-				"	other_material={num_other_material} Material objects",
-				"	characteristic_categories={num_characteristic_categories} OntologyAnnots",
-				"	comments={num_comments} Comment objects",
-				"	units={num_units} Unit objects",
-				")",
-
-				# Values
-				## direct
-				measurement_type				=	self$measurement_type,
-				technology_type					=	self$technology_type,
-				technology_platform				=	self$technology_platform,
-				filename						=	self$filename,
-				## number of
-				num_datafiles					=	length(self$num_datafiles),
-				num_samples						=	length(self$num_samples),
-				num_processes					=	length(self$num_processes),
-				num_other_material				=	length(self$num_other_material),
-				num_characteristic_categories	=	length(self$num_characteristic_categories),
-				num_comments					=	length(self$num_comments),
-				num_units						=	length(self$num_units)
-			)
 		}
+
+		# #' @details
+		# #'
+		# #' stringify
+		# #'
+		# #' @return a string
+		# string = function() {
+		# 	glue::glue(
+		# 		.sep = "\n",
+		#
+		# 		# String template
+		# 		## direct
+		# 		"Assay(",
+		# 		"	measurement_type={measurement_type}",
+		# 		"	technology_type={technology_type}",
+		# 		"	technology_platform={technology_platform}",
+		# 		"	filename={filename}",
+		# 		## number of
+		# 		"	data_files={num_datafiles} DataFile objects",
+		# 		"	samples={num_samples} Sample objects",
+		# 		"	process_sequence={num_processes} Process objects",
+		# 		"	other_material={num_other_material} Material objects",
+		# 		"	characteristic_categories={num_characteristic_categories} OntologyAnnots",
+		# 		"	comments={num_comments} Comment objects",
+		# 		"	units={num_units} Unit objects",
+		# 		")",
+		#
+		# 		# Values
+		# 		## direct
+		# 		measurement_type				=	self$measurement_type,
+		# 		technology_type					=	self$technology_type,
+		# 		technology_platform				=	self$technology_platform,
+		# 		filename						=	self$filename,
+		# 		## number of
+		# 		num_datafiles					=	length(self$num_datafiles),
+		# 		num_samples						=	length(self$num_samples),
+		# 		num_processes					=	length(self$num_processes),
+		# 		num_other_material				=	length(self$num_other_material),
+		# 		num_characteristic_categories	=	length(self$num_characteristic_categories),
+		# 		num_comments					=	length(self$num_comments),
+		# 		num_units						=	length(self$num_units)
+		# 	)
+		# }
 	)
 )
+
+#' identical.Assay
+#'
+#' Allows checking for the identity of \code{[Assay]} objects
+#'
+#' @param x a \code{[Assay]} object
+#' @param y a \code{[Assay]} object
+#' @export
+identical.Assay <- s3_identical_maker(c(
+	"measurement_type",
+	"technology_type",
+	"technology_platform",
+	"filename",
+	"materials",
+	"units",
+	"characteristic_categories",
+	"process_sequence",
+	"comments",
+	"graph"
+), get_id = FALSE)
