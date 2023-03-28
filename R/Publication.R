@@ -155,3 +155,19 @@ Publication <- R6::R6Class(
 		}
 	)
 )
+
+#' identical.Publication
+#'
+#' Allows checking for the identity of \code{[Publication]} objects
+#'
+#' @param x a \code{[Publication]} object
+#' @param y a \code{[Publication]} object
+#' @export
+identical.Publication <- s3_identical_maker(c(
+	"pubmed_id",
+	"doi",
+	"author_list",
+	"title",
+	"status",
+	"comments"
+))

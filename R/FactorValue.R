@@ -133,3 +133,17 @@ FactorValue <- R6Class(
 		}
 	)
 )
+
+#' identical.FactorValue
+#'
+#' Allows checking for the identity of \code{[FactorValue]} objects
+#'
+#' @param x a \code{[FactorValue]} object
+#' @param y a \code{[FactorValue]} object
+#' @export
+identical.FactorValue <- s3_identical_maker(c(
+	"factor_name",
+	"value",
+	"unit",
+	"comments"
+), get_id = FALSE)

@@ -96,6 +96,7 @@ ProtocolParameter <- R6::R6Class(
 #' @param x a \code{[ProtocolParameter]} object
 #' @param y a \code{[ProtocolParameter]} object
 #' @export
-identical.ProtocolParameter <- s3_identical_maker(
-	c("parameter_name", "comments")
-)
+identical.ProtocolParameter <- s3_identical_maker(c(
+	"parameter_name",
+	"comments"
+))

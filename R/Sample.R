@@ -210,3 +210,17 @@ Sample <- R6::R6Class(
 		id = uuid::UUIDgenerate()
 	)
 )
+#' identical.Sample
+#'
+#' Allows checking for the identity of \code{[Sample]} objects
+#'
+#' @param x a \code{[Sample]} object
+#' @param y a \code{[Sample]} object
+#' @export
+identical.Sample <- s3_identical_maker(c(
+	"name",
+	"factor_values",
+	"characteristics",
+	"derives_from",
+	"comments"
+))

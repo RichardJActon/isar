@@ -153,3 +153,21 @@ Process <- R6::R6Class(
 		id = uuid::UUIDgenerate()
 	)
 )
+
+#' identical.Process
+#'
+#' Allows checking for the identity of \code{[Process]} objects
+#'
+#' @param x a \code{[Process]} object
+#' @param y a \code{[Process]} object
+#' @export
+identical.Process <- s3_identical_maker(c(
+	"name",
+	"executes_protocol",
+	"date",
+	"performer",
+	"parameter_values",
+	"inputs",
+	"outputs",
+	"comments"
+))

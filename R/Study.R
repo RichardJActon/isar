@@ -320,3 +320,31 @@ Study <- R6::R6Class(
 		id = uuid::UUIDgenerate()
 	)
 )
+
+#' identical.Study
+#'
+#' Allows checking for the identity of \code{[Study]} objects
+#'
+#' @param x a \code{[Study]} object
+#' @param y a \code{[Study]} object
+#' @export
+identical.Study <- s3_identical_maker(c(
+	"filename",
+	"title",
+	"description",
+	"submission_date",
+	"public_release_date",
+	"contacts",
+	"design_descriptors",
+	"publications",
+	"factors",
+	"protocols",
+	"assays",
+	"sources",
+	"samples",
+	"process_sequence",
+	"other_material",
+	"characteristic_categories",
+	"comments",
+	"units"
+))

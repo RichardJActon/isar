@@ -136,3 +136,17 @@ Material <- R6::R6Class(
 		id = uuid::UUIDgenerate()
 	)
 )
+
+#' identical.Material
+#'
+#' Allows checking for the identity of \code{[Material]} objects
+#'
+#' @param x a \code{[Material]} object
+#' @param y a \code{[Material]} object
+#' @export
+identical.Material <- s3_identical_maker(c(
+	"name",
+	"type",
+	"characteristics",
+	"comments"
+))

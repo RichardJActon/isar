@@ -211,7 +211,7 @@ OntologyAnnotation <- R6::R6Class(
 		#' @param ld logical json-ld
 		to_list = function(ld = FALSE) {
 			ontology_annotation = list(
-				"@id" = private$id,
+				"id" = private$id,
 				"annotation_value" = self$term,
 				"term_source" = self$term_source$to_list(),
 				"term_accession" = self$term_accession,
@@ -224,7 +224,7 @@ OntologyAnnotation <- R6::R6Class(
 		#' Make \code{[OntologyAnnotation]} from list
 		#' @param lst an ontology source object serialized to a list
 		from_list = function(lst) {
-			private$id = lst[["@id"]]
+			private$id = lst[["id"]]
 			self$term = lst[["annotation_value"]]
 			self$term_source <- OntologySource$new()
 			self$term_source$from_list(lst[["term_source"]])
@@ -243,3 +243,17 @@ OntologyAnnotation <- R6::R6Class(
 		id = uuid::UUIDgenerate()
 	)
 )
+
+#' identical.OntologyAnnotation
+#'
+#' Allows checking for the identity of \code{[OntologyAnnotation]} objects
+#'
+#' @param x a \code{[OntologyAnnotation]} object
+#' @param y a \code{[OntologyAnnotation]} object
+#' @export
+identical.OntologyAnnotation <- s3_identical_maker(c(
+	"annotation_value",
+	"term_source",
+	"term_accession",
+	"comments"
+))

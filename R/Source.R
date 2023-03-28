@@ -104,3 +104,15 @@ Source <- R6::R6Class(
 		id = uuid::UUIDgenerate()
 	)
 )
+#' identical.Source
+#'
+#' Allows checking for the identity of \code{[Source]} objects
+#'
+#' @param x a \code{[Source]} object
+#' @param y a \code{[Source]} object
+#' @export
+identical.Source <- s3_identical_maker(c(
+	"name",
+	"characteristics",
+	"comments"
+))

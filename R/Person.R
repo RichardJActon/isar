@@ -204,3 +204,24 @@ Person <- R6::R6Class(
 		id = uuid::UUIDgenerate()
 	)
 )
+
+#' identical.Person
+#'
+#' Allows checking for the identity of \code{[Person]} objects
+#'
+#' @param x a \code{[Person]} object
+#' @param y a \code{[Person]} object
+#' @export
+identical.Person <- s3_identical_maker(c(
+	"last_name",
+	"first_name",
+	"mid_initials",
+	"email",
+	"phone",
+	"fax",
+	"address",
+	"affiliation",
+	"orcid",
+	"roles",
+	"comments"
+))

@@ -78,7 +78,7 @@ StudyFactor <- R6::R6Class(
 			study_factor = list(
 				"name" = self$name,
 				"factor_type" = self$factor_type$to_list(),
-				"@id" = private$id,
+				"id" = private$id,
 				"comments" = self$comments
 			)
 			return(study_factor)
@@ -91,7 +91,7 @@ StudyFactor <- R6::R6Class(
 		#' @param lst a list serialization of a study factor object
 		from_list = function(lst) {
 			self$name = lst[["name"]]
-			private$id <- lst[["@id"]]
+			private$id <- lst[["id"]]
 			self$factor_type <- OntologyAnnotation$new()
 			self$factor_type$from_list(lst[["factor_type"]])
 			self$comments = lst[["comments"]]
@@ -108,3 +108,15 @@ StudyFactor <- R6::R6Class(
 		id = uuid::UUIDgenerate()
 	)
 )
+#' identical.StudyFactor
+#'
+#' Allows checking for the identity of \code{[StudyFactor]} objects
+#'
+#' @param x a \code{[StudyFactor]} object
+#' @param y a \code{[StudyFactor]} object
+#' @export
+identical.StudyFactor <- s3_identical_maker(c(
+	"name",
+	"factor_type",
+	"comments"
+))

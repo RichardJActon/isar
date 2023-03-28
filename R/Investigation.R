@@ -308,3 +308,23 @@ Investigation <- R6::R6Class(
 	)
 )
 
+#' identical.Investigation
+#'
+#' Allows checking for the identity of \code{[Investigation]} objects
+#'
+#' @param x a \code{[Investigation]} object
+#' @param y a \code{[Investigation]} object
+#' @export
+identical.Investigation <- s3_identical_maker(c(
+	"filename",
+	"title",
+	"description",
+	"submission_date",
+	"public_release_date",
+	"ontology_source_references",
+	"publications",
+	"contacts",
+	"studies",
+	"comments"
+))
+

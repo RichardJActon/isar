@@ -100,3 +100,18 @@ DataFile <- R6::R6Class(
 		id = uuid::UUIDgenerate()
 	)
 )
+
+#' identical.DataFile
+#'
+#' Allows checking for the identity of \code{[DataFile]} objects
+#'
+#' @param x a \code{[DataFile]} object
+#' @param y a \code{[DataFile]} object
+#' @export
+identical.DataFile <- s3_identical_maker(c(
+	"filename",
+	"label",
+	"generated_from",
+	"comments"
+))
+

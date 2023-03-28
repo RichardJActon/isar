@@ -217,3 +217,21 @@ Protocol <- R6::R6Class(
 		id = uuid::UUIDgenerate()
 	)
 )
+#' identical.Protocol
+#'
+#' Allows checking for the identity of \code{[Protocol]} objects
+#'
+#' @param x a \code{[Protocol]} object
+#' @param y a \code{[Protocol]} object
+#' @export
+identical.Protocol <- s3_identical_maker(c(
+	"name",
+	"id",
+	"protocol_type",
+	"description",
+	"uri",
+	"version",
+	"parameters",
+	"components",
+	"comments"
+))

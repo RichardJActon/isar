@@ -107,3 +107,16 @@ ProtocolComponent <- R6::R6Class(
 		id = uuid::UUIDgenerate()
 	)
 )
+
+#' identical.ProtocolComponent
+#'
+#' Allows checking for the identity of \code{[ProtocolComponent]} objects
+#'
+#' @param x a \code{[ProtocolComponent]} object
+#' @param y a \code{[ProtocolComponent]} object
+#' @export
+identical.ProtocolComponent <- s3_identical_maker(c(
+	"name",
+	"component_type",
+	"comments"
+))
