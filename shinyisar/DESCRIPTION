@@ -5,7 +5,9 @@ Authors@R: person('Richard', 'Acton', email = 'Richard.Acton@babraham.ac.uk', ro
 Description: A shiny app for creating and editing Investigation, Study, Assay (ISA) model projects.
 License: AGPL (>= 3)
 Imports: 
+    bs4Dash,
     config (>= 0.3.1),
+    gargoyle,
     golem (>= 0.3.2),
     shiny (>= 1.7.1)
 Encoding: UTF-8
