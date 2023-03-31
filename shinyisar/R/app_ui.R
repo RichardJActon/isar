@@ -20,9 +20,18 @@ app_ui <- function(request) {
 			controlbar = bs4Dash::dashboardControlbar(),
 			footer = bs4Dash::dashboardFooter(
 				left = shiny::markdown("&copy; 2023 [HDBI](https://hdbi.org/). License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)"),
-				right = shiny::img(alt = "Wellcome Trust", src = "inst/app/img/Wellcome_Trust_logo.svg", href = "https://wellcome.org/", width = 32)
+				right = shiny::img(
+					alt = "Wellcome Trust",
+					src = "inst/app/img/Wellcome_Trust_logo.svg",
+					href = "https://wellcome.org/",
+					width = 32
+				)
 			),
-			body = bs4Dash::dashboardBody()
+			body = bs4Dash::dashboardBody(
+				bs4Dash::tabItems(
+					mod_Investigation_body_ui("Investigation_1")
+				)
+			)
 		)
 	)
 }
