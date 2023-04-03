@@ -4,6 +4,10 @@
 
 #' Represents a data file in an experimental graph.
 #' @field filename A name/reference for the data file.
+#' @field file_path the path to the file
+#' @field check_file_exists check that the file exists
+#' @field compute_hash should the hash of the file be computed?
+#' @field hash_algo hashing algorithm to use (default md5)
 #' @field label The data file type, as indicated by a label such as 'Array Data File' or 'Raw Data File'
 #' @field generated_from Reference to Sample(s) the DataFile is generated from
 #' @field comments Comments associated with instances of this class.
@@ -18,13 +22,17 @@ DataFile <- R6::R6Class(
 		file_path = character(),
 		check_file_exists = FALSE,
 		compute_hash = FALSE,
-		hash_alog = "md5",
+		hash_algo = "md5",
 		label = NULL,
 		generated_from = NULL,
 		comments = NULL,
 		#' @details
 		#' Make a new DataFile object
 		#' @param filename A name/reference for the data file.
+		#' @param file_path the path to the file
+		#' @param check_file_exists check that the file exists
+		#' @param compute_hash should the hash of the file be computed?
+		#' @param hash_algo hashing algorithm to use (default md5)
 		#' @param label The data file type, as indicated by a label such as 'Array Data File' or 'Raw Data File'
 		#' @param generated_from Reference to Sample(s) the DataFile is generated from
 		#' @param comments Comments associated with instances of this class.
@@ -33,7 +41,7 @@ DataFile <- R6::R6Class(
 			file_path = character(),
 			check_file_exists = FALSE,
 			compute_hash = FALSE,
-			hash_alog = "md5",
+			hash_algo = "md5",
 			label = NULL,
 			generated_from = NULL,
 			comments = NULL
@@ -49,7 +57,7 @@ DataFile <- R6::R6Class(
 			self$file_path <- file_path
 			self$check_file_exists <- check_file_exists
 			self$compute_hash <- compute_hash
-			self$hash_alog <- hash_alog
+			self$hash_algo <- hash_algo
 
 			self$label <- label
 			if (is.null(generated_from)) {
@@ -90,14 +98,18 @@ DataFile <- R6::R6Class(
 		#' An R list representation of a \code{[DataFile]} object
 		#' @param ld linked data (default FALSE)
 		to_list = function(ld = FALSE){
-			characteristic <- list(
+			date_file <- list(
 				"id" = private$id,
 				"filename" = self$filename,
+				"file_path" = self$file_path,
+				"check_file_exists" = self$check_file_exists,
+				"compute_hash" = self$compute_hash,
+				"hash_algo" = self$hash_algo,
 				"label" = self$label,
 				"generated_from" = self$generated_from,
 				"comments" = self$comments
 			)
-			return(characteristic)
+			return(date_file)
 		},
 		#' @details
 		#' Make \code{[DataFile]} object from list
@@ -105,6 +117,10 @@ DataFile <- R6::R6Class(
 		from_list = function(lst) {
 			private$id <- lst[["id"]]
 			self$filename <- lst[["filename"]]
+			self$file_path <- lst[["file_path"]]
+			self$check_file_exists <- lst[["check_file_exists"]]
+			self$compute_hash <- lst[["compute_hash"]]
+			self$hash_algo <- lst[["hash_algo"]]
 			self$label <- lst[["label"]]
 			self$generated_from <- lst[["generated_from"]]
 			self$comments <- lst[["comments"]]

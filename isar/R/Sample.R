@@ -41,7 +41,12 @@ Sample <- R6::R6Class(
 			derives_from = NULL,
 			comments = NULL
 		) {
-			self$set_name(name)
+			if (checkmate::qtest(name, "S[0]")) {
+				self$name <- name
+			} else {
+				self$set_name(name)
+			}
+
 			if (is.null(factor_values)) {
 				self$factor_values <- factor_values
 			} else {

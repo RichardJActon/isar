@@ -13,6 +13,14 @@ Represents a data file in an experimental graph.
 \describe{
 \item{\code{filename}}{A name/reference for the data file.}
 
+\item{\code{file_path}}{the path to the file}
+
+\item{\code{check_file_exists}}{check that the file exists}
+
+\item{\code{compute_hash}}{should the hash of the file be computed?}
+
+\item{\code{hash_algo}}{hashing algorithm to use (default md5)}
+
 \item{\code{label}}{The data file type, as indicated by a label such as 'Array Data File' or 'Raw Data File'}
 
 \item{\code{generated_from}}{Reference to Sample(s) the DataFile is generated from}
@@ -45,7 +53,7 @@ Represents a data file in an experimental graph.
   file_path = character(),
   check_file_exists = FALSE,
   compute_hash = FALSE,
-  hash_alog = "md5",
+  hash_algo = "md5",
   label = NULL,
   generated_from = NULL,
   comments = NULL
@@ -56,6 +64,14 @@ Represents a data file in an experimental graph.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{filename}}{A name/reference for the data file.}
+
+\item{\code{file_path}}{the path to the file}
+
+\item{\code{check_file_exists}}{check that the file exists}
+
+\item{\code{compute_hash}}{should the hash of the file be computed?}
+
+\item{\code{hash_algo}}{hashing algorithm to use (default md5)}
 
 \item{\code{label}}{The data file type, as indicated by a label such as 'Array Data File' or 'Raw Data File'}
 

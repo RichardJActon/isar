@@ -24,9 +24,10 @@
 #' @importFrom glue glue
 #' @importFrom shinyWidgets pickerInput
 #' @importFrom checkmate check_r6
+#' @importFrom R6 R6Class
 #'
 #' @export
-Assay <- R6Class(
+Assay <- R6::R6Class(
 	"Assay",
 	public = list(
 		measurement_type = NULL,
