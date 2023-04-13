@@ -17,7 +17,7 @@
 #' @export
 Sample <- R6::R6Class(
 	"Sample",
-	inherit = Commentable,
+	# inherit = Commentable,
 	public = list(
 		name = character(),
 		factor_values = NULL,
@@ -54,11 +54,8 @@ Sample <- R6::R6Class(
 			}
 			self$characteristics <- characteristics # list
 			self$derives_from <- derives_from # list
-			if(is.null(comments)) {
-				self$comments <- comments
-			} else {
-				super$set_comments(comments)
-			}
+
+			self$comments <- comments
 		},
 
 		#' @details
