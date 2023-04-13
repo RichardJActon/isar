@@ -1,5 +1,22 @@
 test_that("DataFile works", {
 	test_data_file <- DataFile$new()
+
+	# comments
+	expect_true(test_data_file$check_comments(list("a" = "b")))
+	expect_true(test_data_file$check_comments(list("a" = "1", "b" = "2")))
+
+	expect_error(test_data_file$check_comments(list("b")), regexp = "Must have names")
+	expect_error(test_data_file$check_comments("b"), regexp = "Must be of type 'list' \\(or 'NULL'\\), not 'character'")
+	expect_error(test_data_file$check_comments(list("a" = 1L)), regexp = "May only contain the following types: \\{character\\}, but element 1 has type 'integer'")
+
+	expect_error(test_data_file$set_comments(list("b")), regexp = "Must have names")
+	expect_error(test_data_file$set_comments("b"), regexp = "Must be of type 'list' \\(or 'NULL'\\), not 'character'")
+
+	tmpf <- tempfile()
+	cat("This is the contents of a file...", file = tmpf)
+	#test_data_file$set
+
+
 	# x <- test_data_file$clone(deep = TRUE)
 	# expect_true(identical(test_data_file, x))
 	# expect_true(identical(test_data_file, test_data_file))

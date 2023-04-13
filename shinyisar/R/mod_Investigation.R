@@ -37,8 +37,8 @@ mod_Investigation_sidebar_ui <- function(id){
 #' @importFrom gargoyle watch
 #' @importFrom bs4Dash sidebarMenu sidebarHeader
 mod_Investigation_sidebar_server <- function(id, investigation){
-	moduleServer( id, function(input, output, session){
-		ns <- session$ns
+	moduleServer(id, function(input, output, session){
+		#ns <- session$ns
 		shiny::observeEvent(
 			gargoyle::watch("update_investigation"), {
 				output$sidebar_menu <- shiny::renderUI({
@@ -52,16 +52,16 @@ mod_Investigation_sidebar_server <- function(id, investigation){
 										tabName = paste0("tab_", .x$get_id())
 									)
 								)
-								shiny::uiOutput(ns(paste0("tab_", .x$get_id())))
+								shiny::uiOutput(paste0("tab_", .x$get_id()))
 							})
 						}
 					)
 					bs4Dash::sidebarMenu(
-						id = ns("sidebar_menu"),
+						id = "sidebar_menu",
 						bs4Dash::sidebarHeader("Investigation"),
 						bs4Dash::bs4SidebarMenuItem(
 							text = investigation$title,
-							tabName = ns(paste0("tab_", investigation$get_id())),
+							tabName = paste0("tab_", investigation$get_id()),
 							.list = lst_of_tabs
 						)
 					)
@@ -94,7 +94,7 @@ mod_Investigation_body_ui <- function(id){
 #' @importFrom bs4Dash sidebarMenu sidebarHeader
 mod_Investigation_body_server <- function(id, investigation){
 	moduleServer(id, function(input, output, session){
-		ns <- session$ns
+		#ns <- session$ns
 		shiny::observeEvent(
 			gargoyle::watch("update_investigation"), {
 				output$body <- shiny::renderUI(
