@@ -55,12 +55,16 @@ ProtocolParameter <- R6::R6Class(
 		#' @details
 		#' generate an R list representation translatable to JSON
 		#' @param ld logical json-ld
+		#' @param recursive use the `from_list()` method on list items that are also isar objects (default = TRUE)
 		#' @examples
 		#' Person$new()
-		to_list = function(ld = FALSE) {
+		to_list = function(ld = FALSE, recursive = FALSE) {
 			protocol_parameter = list(
 				"id" = private$id,
-				"parameter_name" = self$parameter_name,
+				"parameter_name" = switch(as.character(recursive),
+					"TRUE" = self$parameter_name$to_list(),
+					"FALSE" = self$parameter_name$term
+				),
 				"comments" = self$comments
 			)
 			return(protocol_parameter)
@@ -71,9 +75,23 @@ ProtocolParameter <- R6::R6Class(
 		#' Make \code{[Person]} from list
 		#'
 		#' @param lst an \code{[Person]} object serialized to a list
-		from_list = function(lst) {
+		#' @param recursive use the `from_list()` method on list items that are also isar objects (default = TRUE)
+		from_list = function(lst, recursive = FALSE) {
 			private$id <- lst[["id"]]
-			self$parameter_name <- lst[["parameter_name"]]
+			if(recursive) {
+				self$parameter_name <- OntologyAnnotation$new()
+				self$parameter_name$from_list(lst[["parameter_name"]])
+			} else {
+				if(checkmate::test_r6(
+					lst[["parameter_name"]], "OntologyAnnotation"
+				)) {
+					stop("not a list contains raw OntologyAnnotation object")
+				} else if(is.null(lst[["parameter_name"]])) {
+					self$parameter_name <- NULL
+				} else {
+					self$parameter_name$term <- lst[["parameter_name"]]
+				}
+			}
 			self$comments <- lst[["comments"]]
 		},
 
