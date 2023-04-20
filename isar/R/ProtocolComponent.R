@@ -60,7 +60,7 @@ ProtocolComponent <- R6::R6Class(
 		#' Set component_type if input is valid
 		#' @param component_type an \code{[OntologyAnnotation]} object
 		set_component_type = function(component_type) {
-			if(self$check_pcomponent_type(component_type)) {
+			if(self$check_component_type(component_type)) {
 				self$component_type <- component_type
 			}
 		},
@@ -77,11 +77,15 @@ ProtocolComponent <- R6::R6Class(
 		#' @details
 		#' An R list representation of a \code{[ProtocolComponent]} object
 		#' @param ld linked data (default FALSE)
-		to_list = function(ld = FALSE){
+		#' @param recursive use the `from_list()` method on list items that are also isar objects (default = TRUE)
+		to_list = function(ld = FALSE, recursive = TRUE){
 			protocol_component <- list(
 				"name" = self$name,
 				"id" = private$id,
-				"component_type" = self$component_type$to_list(),
+				"component_type" = switch(as.character(recursive),
+					"TRUE" = self$component_type$to_list(),
+					"FALSE" = self$component_type$term
+				),
 				"comments" = self$comments
 			)
 			return(protocol_component)
@@ -89,11 +93,24 @@ ProtocolComponent <- R6::R6Class(
 		#' @details
 		#' Make \code{[Characteristic]} object from list
 		#' @param lst an Characteristic object serialized to a list
-		from_list = function(lst) {
+		#' @param recursive use the `from_list()` method on list items that are also isar objects (default = TRUE)
+		from_list = function(lst, recursive = TRUE) {
 			self$name <- lst[["name"]]
-			self$id <- lst[["id"]]
- 			self$component_type <- OntologyAnnotation$new()
-			self$component_type$from_list(lst[["component_type"]])
+			private$id <- lst[["id"]]
+			if(recursive) {
+				self$component_type <- OntologyAnnotation$new()
+				self$component_type$from_list(lst[["component_type"]])
+			} else {
+				if(checkmate::test_r6(
+					lst[["component_type"]], "OntologyAnnotation")
+				) {
+					stop("not a list contains raw OntologyAnnotation object")
+				} else if(is.null(lst[["component_type"]])) {
+					self$component_type <- NULL
+				} else {
+					self$component_type$term <- lst[["component_type"]]
+				}
+			}
 			self$comments <- lst[["comments"]]
 		},
 		#' @details
