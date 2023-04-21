@@ -14,9 +14,6 @@ Represents a sample material in an experimental graph.
 
 Sample$new()
 }
-\section{Super class}{
-\code{\link[isar:Commentable]{isar::Commentable}} -> \code{Sample}
-}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -47,21 +44,10 @@ Sample$new()
 \item \href{#method-Sample-to_list}{\code{Sample$to_list()}}
 \item \href{#method-Sample-from_list}{\code{Sample$from_list()}}
 \item \href{#method-Sample-get_id}{\code{Sample$get_id()}}
+\item \href{#method-Sample-set_id}{\code{Sample$set_id()}}
 \item \href{#method-Sample-clone}{\code{Sample$clone()}}
 }
 }
-\if{html}{\out{
-<details><summary>Inherited methods</summary>
-<ul>
-<li><span class="pkg-link" data-pkg="isar" data-topic="Commentable" data-id="add_comment"><a href='../../isar/html/Commentable.html#method-Commentable-add_comment'><code>isar::Commentable$add_comment()</code></a></li>
-<li><span class="pkg-link" data-pkg="isar" data-topic="Commentable" data-id="get_comment"><a href='../../isar/html/Commentable.html#method-Commentable-get_comment'><code>isar::Commentable$get_comment()</code></a></li>
-<li><span class="pkg-link" data-pkg="isar" data-topic="Commentable" data-id="get_comment_names"><a href='../../isar/html/Commentable.html#method-Commentable-get_comment_names'><code>isar::Commentable$get_comment_names()</code></a></li>
-<li><span class="pkg-link" data-pkg="isar" data-topic="Commentable" data-id="get_comment_values"><a href='../../isar/html/Commentable.html#method-Commentable-get_comment_values'><code>isar::Commentable$get_comment_values()</code></a></li>
-<li><span class="pkg-link" data-pkg="isar" data-topic="Commentable" data-id="get_comments"><a href='../../isar/html/Commentable.html#method-Commentable-get_comments'><code>isar::Commentable$get_comments()</code></a></li>
-<li><span class="pkg-link" data-pkg="isar" data-topic="Commentable" data-id="to_tidy"><a href='../../isar/html/Commentable.html#method-Commentable-to_tidy'><code>isar::Commentable$to_tidy()</code></a></li>
-</ul>
-</details>
-}}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Sample-new"></a>}}
 \if{latex}{\out{\hypertarget{method-Sample-new}{}}}
@@ -321,6 +307,28 @@ Get the uuid of this object
 \subsection{Returns}{
 a uuid
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Sample-set_id"></a>}}
+\if{latex}{\out{\hypertarget{method-Sample-set_id}{}}}
+\subsection{Method \code{set_id()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Sample$set_id(id = uuid::UUIDgenerate(), suffix = character())}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{a uuid}
+
+\item{\code{suffix}}{a human readable suffix}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+set the uuid of this object
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Sample-clone"></a>}}

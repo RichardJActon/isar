@@ -35,6 +35,7 @@ A ParameterValue represents the instance value of a \code{[ProtocolParameter]}, 
 \item \href{#method-ParameterValue-to_list}{\code{ParameterValue$to_list()}}
 \item \href{#method-ParameterValue-from_list}{\code{ParameterValue$from_list()}}
 \item \href{#method-ParameterValue-get_id}{\code{ParameterValue$get_id()}}
+\item \href{#method-ParameterValue-set_id}{\code{ParameterValue$set_id()}}
 \item \href{#method-ParameterValue-clone}{\code{ParameterValue$clone()}}
 }
 }
@@ -199,6 +200,28 @@ Get the uuid of this object
 \subsection{Returns}{
 a uuid
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ParameterValue-set_id"></a>}}
+\if{latex}{\out{\hypertarget{method-ParameterValue-set_id}{}}}
+\subsection{Method \code{set_id()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ParameterValue$set_id(id = uuid::UUIDgenerate(), suffix = character())}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{a uuid}
+
+\item{\code{suffix}}{a human readable suffix}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+set the uuid of this object
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ParameterValue-clone"></a>}}

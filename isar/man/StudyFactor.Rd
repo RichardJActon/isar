@@ -38,6 +38,7 @@ StudyFactor$new()
 \item \href{#method-StudyFactor-to_list}{\code{StudyFactor$to_list()}}
 \item \href{#method-StudyFactor-from_list}{\code{StudyFactor$from_list()}}
 \item \href{#method-StudyFactor-get_id}{\code{StudyFactor$get_id()}}
+\item \href{#method-StudyFactor-set_id}{\code{StudyFactor$set_id()}}
 \item \href{#method-StudyFactor-clone}{\code{StudyFactor$clone()}}
 }
 }
@@ -208,6 +209,28 @@ Get the uuid of this object
 \subsection{Returns}{
 a uuid
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-StudyFactor-set_id"></a>}}
+\if{latex}{\out{\hypertarget{method-StudyFactor-set_id}{}}}
+\subsection{Method \code{set_id()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{StudyFactor$set_id(id = uuid::UUIDgenerate(), suffix = character())}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{a uuid}
+
+\item{\code{suffix}}{a human readable suffix}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+set the uuid of this object
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-StudyFactor-clone"></a>}}

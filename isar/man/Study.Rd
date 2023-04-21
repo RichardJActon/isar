@@ -71,6 +71,7 @@ study is the central unit, containing information on the subject under study, it
 \item \href{#method-Study-to_list}{\code{Study$to_list()}}
 \item \href{#method-Study-from_list}{\code{Study$from_list()}}
 \item \href{#method-Study-get_id}{\code{Study$get_id()}}
+\item \href{#method-Study-set_id}{\code{Study$set_id()}}
 \item \href{#method-Study-clone}{\code{Study$clone()}}
 }
 }
@@ -482,6 +483,28 @@ Get the uuid of this object
 \subsection{Returns}{
 a uuid
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Study-set_id"></a>}}
+\if{latex}{\out{\hypertarget{method-Study-set_id}{}}}
+\subsection{Method \code{set_id()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Study$set_id(id = uuid::UUIDgenerate(), suffix = character())}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{a uuid}
+
+\item{\code{suffix}}{a human readable suffix}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+set the uuid of this object
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Study-clone"></a>}}

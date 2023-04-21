@@ -30,6 +30,7 @@ R6 class for a Source
 \item \href{#method-Source-to_list}{\code{Source$to_list()}}
 \item \href{#method-Source-from_list}{\code{Source$from_list()}}
 \item \href{#method-Source-get_id}{\code{Source$get_id()}}
+\item \href{#method-Source-set_id}{\code{Source$set_id()}}
 \item \href{#method-Source-clone}{\code{Source$clone()}}
 }
 }
@@ -187,6 +188,28 @@ Get the uuid of this object
 \subsection{Returns}{
 a uuid
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Source-set_id"></a>}}
+\if{latex}{\out{\hypertarget{method-Source-set_id}{}}}
+\subsection{Method \code{set_id()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Source$set_id(id = uuid::UUIDgenerate(), suffix = character())}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{a uuid}
+
+\item{\code{suffix}}{a human readable suffix}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+set the uuid of this object
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Source-clone"></a>}}

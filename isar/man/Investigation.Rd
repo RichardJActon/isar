@@ -57,6 +57,7 @@ An investigation maintains metadata about the project context and links to one o
 \item \href{#method-Investigation-to_list}{\code{Investigation$to_list()}}
 \item \href{#method-Investigation-from_list}{\code{Investigation$from_list()}}
 \item \href{#method-Investigation-get_id}{\code{Investigation$get_id()}}
+\item \href{#method-Investigation-set_id}{\code{Investigation$set_id()}}
 \item \href{#method-Investigation-clone}{\code{Investigation$clone()}}
 }
 }
@@ -484,6 +485,28 @@ Get the uuid of this object
 \subsection{Returns}{
 a uuid
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Investigation-set_id"></a>}}
+\if{latex}{\out{\hypertarget{method-Investigation-set_id}{}}}
+\subsection{Method \code{set_id()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$set_id(id = uuid::UUIDgenerate(), suffix = character())}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{a uuid}
+
+\item{\code{suffix}}{a human readable suffix}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+set the uuid of this object
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Investigation-clone"></a>}}

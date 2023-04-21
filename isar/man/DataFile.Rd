@@ -33,13 +33,20 @@ Represents a data file in an experimental graph.
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-DataFile-new}{\code{DataFile$new()}}
+\item \href{#method-DataFile-check_filename}{\code{DataFile$check_filename()}}
+\item \href{#method-DataFile-set_filename}{\code{DataFile$set_filename()}}
+\item \href{#method-DataFile-check_file_path}{\code{DataFile$check_file_path()}}
+\item \href{#method-DataFile-set_file_path}{\code{DataFile$set_file_path()}}
+\item \href{#method-DataFile-check_hash_algo}{\code{DataFile$check_hash_algo()}}
 \item \href{#method-DataFile-check_generated_from}{\code{DataFile$check_generated_from()}}
 \item \href{#method-DataFile-set_generated_from}{\code{DataFile$set_generated_from()}}
 \item \href{#method-DataFile-check_comments}{\code{DataFile$check_comments()}}
 \item \href{#method-DataFile-set_comments}{\code{DataFile$set_comments()}}
+\item \href{#method-DataFile-validate_file}{\code{DataFile$validate_file()}}
 \item \href{#method-DataFile-to_list}{\code{DataFile$to_list()}}
 \item \href{#method-DataFile-from_list}{\code{DataFile$from_list()}}
 \item \href{#method-DataFile-get_id}{\code{DataFile$get_id()}}
+\item \href{#method-DataFile-set_id}{\code{DataFile$set_id()}}
 \item \href{#method-DataFile-clone}{\code{DataFile$clone()}}
 }
 }
@@ -49,7 +56,7 @@ Represents a data file in an experimental graph.
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DataFile$new(
-  filename = NULL,
+  filename = character(),
   file_path = character(),
   check_file_exists = FALSE,
   compute_hash = FALSE,
@@ -85,6 +92,102 @@ Represents a data file in an experimental graph.
 Make a new DataFile object
 }
 
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DataFile-check_filename"></a>}}
+\if{latex}{\out{\hypertarget{method-DataFile-check_filename}{}}}
+\subsection{Method \code{check_filename()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DataFile$check_filename(filename)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{filename}}{The filename of the \code{[DataFile]}}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Check if the filename of the \code{[DataFile]} is a string
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DataFile-set_filename"></a>}}
+\if{latex}{\out{\hypertarget{method-DataFile-set_filename}{}}}
+\subsection{Method \code{set_filename()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DataFile$set_filename(filename)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{filename}}{The filename of the \code{[DataFile]}}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+set the filename of the \code{[DataFile]} if valid
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DataFile-check_file_path"></a>}}
+\if{latex}{\out{\hypertarget{method-DataFile-check_file_path}{}}}
+\subsection{Method \code{check_file_path()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DataFile$check_file_path(file_path)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{file_path}}{The file_path of the \code{[DataFile]}}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Check if the file_path of the \code{[DataFile]} is a string
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DataFile-set_file_path"></a>}}
+\if{latex}{\out{\hypertarget{method-DataFile-set_file_path}{}}}
+\subsection{Method \code{set_file_path()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DataFile$set_file_path(file_path)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{file_path}}{The file_path of the \code{[DataFile]}}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+set the file_path of the \code{[DataFile]} if valid
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DataFile-check_hash_algo"></a>}}
+\if{latex}{\out{\hypertarget{method-DataFile-check_hash_algo}{}}}
+\subsection{Method \code{check_hash_algo()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DataFile$check_hash_algo()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+checks that hash algo is valid hash algorithm name
+}
+
+\subsection{Returns}{
+logical
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DataFile-check_generated_from"></a>}}
@@ -167,6 +270,25 @@ Sets comments if they are in a valid format
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DataFile-validate_file"></a>}}
+\if{latex}{\out{\hypertarget{method-DataFile-validate_file}{}}}
+\subsection{Method \code{validate_file()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DataFile$validate_file()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Checks that the hash of the file at filepath matches the stored
+hash of the file. Returns TRUE if they match and FALSE if not.
+
+validate_file
+}
+
+\subsection{Returns}{
+logical
+}
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DataFile-to_list"></a>}}
 \if{latex}{\out{\hypertarget{method-DataFile-to_list}{}}}
 \subsection{Method \code{to_list()}}{
@@ -221,6 +343,28 @@ Get the uuid of this object
 \subsection{Returns}{
 a uuid
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DataFile-set_id"></a>}}
+\if{latex}{\out{\hypertarget{method-DataFile-set_id}{}}}
+\subsection{Method \code{set_id()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DataFile$set_id(id = uuid::UUIDgenerate(), suffix = character())}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{a uuid}
+
+\item{\code{suffix}}{a human readable suffix}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+set the uuid of this object
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DataFile-clone"></a>}}

@@ -53,6 +53,7 @@ An experimental Protocol used in the study.
 \item \href{#method-NA-to_list}{\code{Protocol$to_list()}}
 \item \href{#method-NA-from_list}{\code{Protocol$from_list()}}
 \item \href{#method-NA-get_id}{\code{Protocol$get_id()}}
+\item \href{#method-NA-set_id}{\code{Protocol$set_id()}}
 \item \href{#method-unknown-clone}{\code{Protocol$clone()}}
 }
 }
@@ -434,6 +435,28 @@ Get the uuid of this object
 \subsection{Returns}{
 a uuid
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-NA-set_id"></a>}}
+\if{latex}{\out{\hypertarget{method-NA-set_id}{}}}
+\subsection{Method \code{set_id()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Protocol$set_id(id = uuid::UUIDgenerate(), suffix = character())}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{a uuid}
+
+\item{\code{suffix}}{a human readable suffix}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+set the uuid of this object
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-unknown-clone"></a>}}

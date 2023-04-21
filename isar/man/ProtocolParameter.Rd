@@ -36,6 +36,7 @@ Person$new()
 \item \href{#method-ProtocolParameter-to_list}{\code{ProtocolParameter$to_list()}}
 \item \href{#method-ProtocolParameter-from_list}{\code{ProtocolParameter$from_list()}}
 \item \href{#method-ProtocolParameter-get_id}{\code{ProtocolParameter$get_id()}}
+\item \href{#method-ProtocolParameter-set_id}{\code{ProtocolParameter$set_id()}}
 \item \href{#method-ProtocolParameter-clone}{\code{ProtocolParameter$clone()}}
 }
 }
@@ -146,13 +147,15 @@ Sets comments if they are in a valid format
 \if{latex}{\out{\hypertarget{method-ProtocolParameter-to_list}{}}}
 \subsection{Method \code{to_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ProtocolParameter$to_list(ld = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ProtocolParameter$to_list(ld = FALSE, recursive = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{ld}}{logical json-ld}
+
+\item{\code{recursive}}{use the \code{from_list()} method on list items that are also isar objects (default = TRUE)}
 }
 \if{html}{\out{</div>}}
 }
@@ -174,13 +177,15 @@ generate an R list representation translatable to JSON
 \if{latex}{\out{\hypertarget{method-ProtocolParameter-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ProtocolParameter$from_list(lst)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ProtocolParameter$from_list(lst, recursive = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{lst}}{an \code{[Person]} object serialized to a list}
+
+\item{\code{recursive}}{use the \code{from_list()} method on list items that are also isar objects (default = TRUE)}
 }
 \if{html}{\out{</div>}}
 }
@@ -204,6 +209,28 @@ Get the uuid of this object
 \subsection{Returns}{
 a uuid
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ProtocolParameter-set_id"></a>}}
+\if{latex}{\out{\hypertarget{method-ProtocolParameter-set_id}{}}}
+\subsection{Method \code{set_id()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ProtocolParameter$set_id(id = uuid::UUIDgenerate(), suffix = character())}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{a uuid}
+
+\item{\code{suffix}}{a human readable suffix}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+set the uuid of this object
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ProtocolParameter-clone"></a>}}

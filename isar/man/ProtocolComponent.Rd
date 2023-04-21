@@ -35,6 +35,7 @@ A component used in a protocol.
 \item \href{#method-ProtocolComponent-to_list}{\code{ProtocolComponent$to_list()}}
 \item \href{#method-ProtocolComponent-from_list}{\code{ProtocolComponent$from_list()}}
 \item \href{#method-ProtocolComponent-get_id}{\code{ProtocolComponent$get_id()}}
+\item \href{#method-ProtocolComponent-set_id}{\code{ProtocolComponent$set_id()}}
 \item \href{#method-ProtocolComponent-clone}{\code{ProtocolComponent$clone()}}
 }
 }
@@ -191,13 +192,15 @@ Sets comments if they are in a valid format
 \if{latex}{\out{\hypertarget{method-ProtocolComponent-to_list}{}}}
 \subsection{Method \code{to_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ProtocolComponent$to_list(ld = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ProtocolComponent$to_list(ld = FALSE, recursive = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{ld}}{linked data (default FALSE)}
+
+\item{\code{recursive}}{use the \code{from_list()} method on list items that are also isar objects (default = TRUE)}
 }
 \if{html}{\out{</div>}}
 }
@@ -211,13 +214,15 @@ An R list representation of a \code{[ProtocolComponent]} object
 \if{latex}{\out{\hypertarget{method-ProtocolComponent-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ProtocolComponent$from_list(lst)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ProtocolComponent$from_list(lst, recursive = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{lst}}{an Characteristic object serialized to a list}
+
+\item{\code{recursive}}{use the \code{from_list()} method on list items that are also isar objects (default = TRUE)}
 }
 \if{html}{\out{</div>}}
 }
@@ -241,6 +246,28 @@ Get the uuid of this object
 \subsection{Returns}{
 a uuid
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ProtocolComponent-set_id"></a>}}
+\if{latex}{\out{\hypertarget{method-ProtocolComponent-set_id}{}}}
+\subsection{Method \code{set_id()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ProtocolComponent$set_id(id = uuid::UUIDgenerate(), suffix = character())}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{a uuid}
+
+\item{\code{suffix}}{a human readable suffix}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+set the uuid of this object
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ProtocolComponent-clone"></a>}}

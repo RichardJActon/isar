@@ -34,6 +34,7 @@ A Characteristic acts as a qualifying property to a material object.
 \item \href{#method-Characteristic-to_list}{\code{Characteristic$to_list()}}
 \item \href{#method-Characteristic-from_list}{\code{Characteristic$from_list()}}
 \item \href{#method-Characteristic-get_id}{\code{Characteristic$get_id()}}
+\item \href{#method-Characteristic-set_id}{\code{Characteristic$set_id()}}
 \item \href{#method-Characteristic-clone}{\code{Characteristic$clone()}}
 }
 }
@@ -228,15 +229,15 @@ Sets comments if they are in a valid format
 \if{latex}{\out{\hypertarget{method-Characteristic-to_list}{}}}
 \subsection{Method \code{to_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Characteristic$to_list(recursive = FALSE, ld = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$to_list(ld = FALSE, recursive = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{recursive}}{call to_list methods of any objects within this object (default FALSE)}
-
 \item{\code{ld}}{linked data (default FALSE)}
+
+\item{\code{recursive}}{call to_list methods of any objects within this object (default FALSE)}
 }
 \if{html}{\out{</div>}}
 }
@@ -250,13 +251,15 @@ An R list representation of a \code{[Characteristic]} object
 \if{latex}{\out{\hypertarget{method-Characteristic-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Characteristic$from_list(lst)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$from_list(lst, recursive = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{lst}}{an Characteristic object serialized to a list}
+
+\item{\code{recursive}}{call to_list methods of any objects within this object (default FALSE)}
 }
 \if{html}{\out{</div>}}
 }
@@ -280,6 +283,28 @@ Get the uuid of this object
 \subsection{Returns}{
 a uuid
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Characteristic-set_id"></a>}}
+\if{latex}{\out{\hypertarget{method-Characteristic-set_id}{}}}
+\subsection{Method \code{set_id()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$set_id(id = uuid::UUIDgenerate(), suffix = character())}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{a uuid}
+
+\item{\code{suffix}}{a human readable suffix}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+set the uuid of this object
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Characteristic-clone"></a>}}
