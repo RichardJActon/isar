@@ -1,0 +1,68 @@
+#' Organisation
+#'
+#' @field comments comments associated with instances of this class.
+#'
+#' @importFrom uuid UUIDgenerate
+#'
+#' @export
+Organisation <- R6::R6Class(
+	"Organisation",
+	public = list(
+		comments = NULL,
+		initialize = function(
+		comments = NULL
+		) {
+			self$set_comments(comments)
+		},
+		#' @details
+		#' checks if comments are a named list of character vectors
+		#' @param comments comments
+		check_comments = function(comments) { check_comments(comments) },
+		#' @details
+		#' Sets comments if they are in a valid format
+		#' @param comments a list of comments
+		set_comments = function(comments) {
+			if(self$check_comments(comments)) { self$comments <- comments }
+		},
+		#' @details
+		#' generate an R list representation translatable to JSON
+		#' @param ld logical json-ld
+		#' @examples
+		#' Organisation$new()
+		to_list = function(ld = FALSE) {
+			person = list(
+				"id" = private$id,
+
+				"comments" = self$comments
+			)
+			return(person)
+		},
+
+		#' @details
+		#'
+		#' Make \code{[Organisation]} from list
+		#'
+		#' @param lst an \code{[Organisation]} object serialized to a list
+		from_list = function(lst) {
+			private$id <- lst[["id"]]
+
+			self$comments <- lst[["comments"]]
+		},
+		#' @details
+		#' Get the uuid of this object
+		#' @return a uuid
+		get_id = function() {
+			private$id
+		},
+		#' @details
+		#' set the uuid of this object
+		#' @param id a uuid
+		#' @param suffix a human readable suffix
+		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
+			private$id <- generate_id(id, suffix)
+		}
+	),
+	private = list(
+		id = generate_id()
+	)
+)
