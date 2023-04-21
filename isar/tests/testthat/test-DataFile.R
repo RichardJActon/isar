@@ -1,7 +1,8 @@
+# DataFile ----
 test_that("DataFile works", {
 	test_data_file <- DataFile$new()
 
-	# comments
+	## comments ----
 	expect_true(test_data_file$check_comments(list("a" = "b")))
 	expect_true(test_data_file$check_comments(list("a" = "1", "b" = "2")))
 
