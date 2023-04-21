@@ -101,7 +101,10 @@ OntologySource <- R6::R6Class(
 				))
 			}
 
-			if(!is.function(get_terms_list) && is.null(terms_list)) {
+			if(
+				(!is.function(get_terms_list) && !is.null(get_terms_list)) &&
+				is.null(terms_list)
+			) {
 				warning(glue::glue(
 					.sep = "\n",
 					"Please supply either an explicit terms list",
