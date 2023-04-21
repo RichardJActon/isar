@@ -90,7 +90,7 @@ Characteristic <- R6::R6Class(
 		#' An R list representation of a \code{[Characteristic]} object
 		#' @param ld linked data (default FALSE)
 		#' @param recursive call to_list methods of any objects within this object (default FALSE)
-		to_list = function(recursive = FALSE, ld = FALSE){
+		to_list = function(ld = FALSE, recursive = FALSE){
 			characteristic <- list(
 				"id" = private$id,
 				"category" = ifelse(
