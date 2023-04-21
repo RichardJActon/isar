@@ -57,11 +57,17 @@ DataFile <- R6::R6Class(
 			} else {
 				self$set_file_path(file_path)
 			}
-			if (is.null(filename) && !is.null(self$file_path)) {
+			if (
+				checkmate::qtest(filename, "S[0]") &&
+				!checkmate::qtest(self$file_path, "S[0]")
+			) {
 				self$set_filename(fs::path_file(self$file_path))
 				message(paste0("Setting filename from path: ", self$filename))
 			}
-			if (!is.null(filename) && !is.null(self$file_path)) {
+			if (
+				!checkmate::qtest(filename, "S[0]") &&
+				!checkmate::qtest(self$file_path, "S[0]")
+			) {
 				if (fs::path_file(self$file_path) != filename) {
 					stop("filename does not match path")
 				}
@@ -119,7 +125,10 @@ DataFile <- R6::R6Class(
 		set_file_path = function(file_path) {
 			if (self$check_file_path(file_path)) { self$file_path <- file_path }
 		},
-
+		#'
+		#' @details
+		#' checks that hash algo is valid hash algorithm name
+		#' @return logical
 		check_hash_algo = function() {
 			all(self$hash_algo %in% c(
 				"md5", "sha1", "crc32", "sha256", "sha512", "xxhash32",
