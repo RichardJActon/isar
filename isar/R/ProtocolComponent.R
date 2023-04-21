@@ -60,7 +60,7 @@ ProtocolComponent <- R6::R6Class(
 		#' Set component_type if input is valid
 		#' @param component_type an \code{[OntologyAnnotation]} object
 		set_component_type = function(component_type) {
-			if(self$check_pcomponent_type(component_type)) {
+			if(self$check_component_type(component_type)) {
 				self$component_type <- component_type
 			}
 		},
