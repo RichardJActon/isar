@@ -9,8 +9,11 @@ Organisation <- R6::R6Class(
 	"Organisation",
 	public = list(
 		comments = NULL,
+		#' @details
+		#' make a new Organisation object
+		#' @param comments Comments associated with instances of this class.
 		initialize = function(
-		comments = NULL
+			comments = NULL
 		) {
 			self$set_comments(comments)
 		},
