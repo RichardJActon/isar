@@ -45,6 +45,7 @@ Represents a data file in an experimental graph.
 \item \href{#method-DataFile-validate_file}{\code{DataFile$validate_file()}}
 \item \href{#method-DataFile-to_list}{\code{DataFile$to_list()}}
 \item \href{#method-DataFile-from_list}{\code{DataFile$from_list()}}
+\item \href{#method-DataFile-get_hash}{\code{DataFile$get_hash()}}
 \item \href{#method-DataFile-get_id}{\code{DataFile$get_id()}}
 \item \href{#method-DataFile-set_id}{\code{DataFile$set_id()}}
 \item \href{#method-DataFile-clone}{\code{DataFile$clone()}}
@@ -327,6 +328,22 @@ An R list representation of a \code{[DataFile]} object
 Make \code{[DataFile]} object from list
 }
 
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DataFile-get_hash"></a>}}
+\if{latex}{\out{\hypertarget{method-DataFile-get_hash}{}}}
+\subsection{Method \code{get_hash()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DataFile$get_hash()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Get the hash of the file
+}
+
+\subsection{Returns}{
+a uuid
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DataFile-get_id"></a>}}

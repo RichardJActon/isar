@@ -15,13 +15,42 @@ test_that("DataFile works", {
 
 	tmpf <- tempfile()
 	cat("This is the contents of a file...", file = tmpf)
-	#test_data_file$set
 
+	test_data_file <- DataFile$new(
+		filename = fs::path_file(tmpf),
+		file_path = tmpf,
+		check_file_exists = TRUE,
+		hash_algo = "md5",
+		compute_hash = TRUE
+	)
+	expect_true(test_data_file$validate_file())
+	expect_equal(digest::digest(tmpf, file = TRUE), test_data_file$get_hash())
 
+	fs::file_delete(tmpf)
 	# x <- test_data_file$clone(deep = TRUE)
 	# expect_true(identical(test_data_file, x))
 	# expect_true(identical(test_data_file, test_data_file))
 
+	# test_data_file$to_list()
+
+	example_list <- list(
+		id = test_data_file$get_id(),
+		filename = fs::path_file(tmpf),
+		file_path = tmpf,
+		check_file_exists = TRUE,
+		compute_hash = TRUE,
+		hash_algo = "md5",
+		label = NULL,
+		generated_from = NULL,
+		comments = NULL
+	)
+
+	expect_equal(example_list, test_data_file$to_list())
+
+	# from_list_test <- DataFile$new()
+	# from_list_test$from_list(example_list)
+
+	# move hash computation out of init!!
 })
 #
 # test_data_file$get_id()

@@ -15,6 +15,7 @@
 #' @importFrom R6 R6Class
 #' @importFrom checkmate check_r6
 #' @importFrom uuid UUIDgenerate
+#' @importFrom digest digest
 DataFile <- R6::R6Class(
 	"DataFile",
 	public = list(
@@ -82,7 +83,7 @@ DataFile <- R6::R6Class(
 			self$check_file_exists <- check_file_exists
 
 			if (isTRUE(compute_hash)) {
-				private$hash <- digest(
+				private$hash <- digest::digest(
 					object = file_path, algo = hash_algo, file = TRUE
 				)
 			}
@@ -172,7 +173,7 @@ DataFile <- R6::R6Class(
 		#' validate_file
 		#' @return logical
 		validate_file = function() {
-			all(private$hash == digest(
+			all(private$hash == digest::digest(
 				object = self$file_path, algo = self$hash_algo, file = TRUE
 			))
 		},
@@ -209,11 +210,13 @@ DataFile <- R6::R6Class(
 			self$comments <- lst[["comments"]]
 		},
 		#' @details
+		#' Get the hash of the file
+		#' @return a uuid
+		get_hash = function() { private$hash },
+		#' @details
 		#' Get the uuid of this object
 		#' @return a uuid
-		get_id = function() {
-			private$id
-		},
+		get_id = function() { private$id },
 		#' @details
 		#' set the uuid of this object
 		#' @param id a uuid
