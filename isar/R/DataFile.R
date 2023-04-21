@@ -204,10 +204,17 @@ DataFile <- R6::R6Class(
 		#' @return a uuid
 		get_id = function() {
 			private$id
+		},
+		#' @details
+		#' set the uuid of this object
+		#' @param id a uuid
+		#' @param suffix a human readable suffix
+		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
+			private$id <- generate_id(id, suffix)
 		}
 	),
 	private = list(
-		id = uuid::UUIDgenerate(),
+		id = generate_id(),
 		hash = NULL
 	)
 )

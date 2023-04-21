@@ -73,3 +73,58 @@ s3_identical_maker <- function(obj_pub_props, get_id = TRUE) {
 		return(res)
 	}
 }
+
+#' generate_id
+#' generates a uuid with optional suffix
+#' @param id a uuid
+#' @param suffix a human readable string to be suffixed to the uuid
+#'
+#' @importFrom uuid UUIDgenerate UUIDvalidate
+#' @importFrom checkmate qtest
+# #' @export
+generate_id <- function(id = uuid::UUIDgenerate(), suffix = character()) {
+	if(!checkmate::qtest(suffix, "S?")) {
+		stop("suffix must be a character vector of length 1")
+	}
+	if(!checkmate::qtest(suffix, "S[0]")) {
+		if(!grepl("^\\w+$", suffix)) {
+			# NB _ not considered special!
+			stop("suffix must not contain any special characters")
+		}
+	}
+	if(!uuid::UUIDvalidate(id)) { stop("invalid uuid!") }
+	paste(c(id, suffix), collapse = "-")
+}
+
+#' test_id
+#' Tests if an id is valid, returns TRUE if valid and FALSE if not
+#' (follows checkmate conventions)
+#' @param id a uuid or uuid with a suffix
+#' @importFrom uuid UUIDvalidate
+# #' @export
+test_id <- function(id) {
+	if(uuid::UUIDvalidate(id)) {
+		return(TRUE)
+	} else if (uuid::UUIDvalidate(sub("-\\w+$", "", id))) {
+		return(TRUE)
+	} else {
+		return(FALSE)
+	}
+}
+
+# test_id(generate_id())
+# test_id(generate_id(suffix = "x"))
+# test_id(generate_id(suffix = "x-x"))
+# test_id("notuuid")
+# test_id(1)
+
+#' check_id
+#' Checks if an id is valid, returns TRUE if valid and explanatory string if not
+#' (follows checkmate conventions)
+#' @param id a uuid or uuid with a suffix
+# #' @export
+check_id <- function(id) {
+	if(test_id(id)) { return(TRUE) } else {
+		return("id must be a valid uuid or a valid uuid with a suffix")
+	}
+}

@@ -77,11 +77,16 @@ ProtocolComponent <- R6::R6Class(
 		#' @details
 		#' An R list representation of a \code{[ProtocolComponent]} object
 		#' @param ld linked data (default FALSE)
-		to_list = function(ld = FALSE){
+		#' @param recursive use the `from_list()` method on list items that are also isar objects (default = TRUE)
+		to_list = function(ld = FALSE, recursive = TRUE){
 			protocol_component <- list(
 				"name" = self$name,
 				"id" = private$id,
-				"component_type" = self$component_type$to_list(),
+				"component_type" = switch(
+					as.character(recursive),
+					"TRUE" = self$component_type$to_list(),
+					"FALSE" = self$component_type$term
+				),
 				"comments" = self$comments
 			)
 			return(protocol_component)
@@ -89,11 +94,24 @@ ProtocolComponent <- R6::R6Class(
 		#' @details
 		#' Make \code{[Characteristic]} object from list
 		#' @param lst an Characteristic object serialized to a list
-		from_list = function(lst) {
+		#' @param recursive use the `from_list()` method on list items that are also isar objects (default = TRUE)
+		from_list = function(lst, recursive = TRUE) {
 			self$name <- lst[["name"]]
-			self$id <- lst[["id"]]
- 			self$component_type <- OntologyAnnotation$new()
-			self$component_type$from_list(lst[["component_type"]])
+			private$id <- lst[["id"]]
+			if(recursive) {
+				self$component_type <- OntologyAnnotation$new()
+				self$component_type$from_list(lst[["component_type"]])
+			} else {
+				if(checkmate::test_r6(
+					lst[["component_type"]], "OntologyAnnotation")
+				) {
+					stop("not a list contains raw OntologyAnnotation object")
+				} else if(is.null(lst[["component_type"]])) {
+					self$component_type <- NULL
+				} else {
+					self$component_type$term <- lst[["component_type"]]
+				}
+			}
 			self$comments <- lst[["comments"]]
 		},
 		#' @details
@@ -101,10 +119,17 @@ ProtocolComponent <- R6::R6Class(
 		#' @return a uuid
 		get_id = function() {
 			private$id
+		},
+		#' @details
+		#' set the uuid of this object
+		#' @param id a uuid
+		#' @param suffix a human readable suffix
+		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
+			private$id <- generate_id(id, suffix)
 		}
 	),
 	private = list(
-		id = uuid::UUIDgenerate()
+		id = generate_id()
 	)
 )
 

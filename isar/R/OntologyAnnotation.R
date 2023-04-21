@@ -209,11 +209,19 @@ OntologyAnnotation <- R6::R6Class(
 		#' @details
 		#' generate an R list representation translatable to JSON
 		#' @param ld logical json-ld
-		to_list = function(ld = FALSE) {
+		#' @param recursive call to_list methods of any objects within this object (default FALSE)
+		to_list = function(ld = FALSE, recursive = TRUE) {
 			ontology_annotation = list(
 				"id" = private$id,
 				"annotation_value" = self$term,
-				"term_source" = self$term_source$to_list(),
+				"term_source" = switch(
+					as.character(recursive),
+					"TRUE" = self$term_source$to_list(),
+					"FALSE" = switch(
+						as.character(is.null(self$term_source)),
+						"TRUE" = NULL, "FALSE" = self$term_source$name
+					)
+				),
 				"term_accession" = self$term_accession,
 				"comments" = self$comments ## !!
 			)
@@ -223,11 +231,24 @@ OntologyAnnotation <- R6::R6Class(
 		#' @details
 		#' Make \code{[OntologyAnnotation]} from list
 		#' @param lst an ontology source object serialized to a list
-		from_list = function(lst) {
+		#' @param recursive call to_list methods of any objects within this object (default FALSE)
+		from_list = function(lst, recursive = TRUE) {
 			private$id = lst[["id"]]
 			self$term = lst[["annotation_value"]]
-			self$term_source <- OntologySource$new()
-			self$term_source$from_list(lst[["term_source"]])
+			if(recursive) {
+				self$term_source <- OntologySource$new()
+				self$term_source$from_list(lst[["term_source"]])
+			} else {
+				if(checkmate::test_r6(
+					lst[["term_source"]], "OntologySource"
+				)) {
+					stop("not a list contains raw OntologySource object")
+				} else if(is.null(lst[["term_source"]])) {
+					self$term_source <- NULL
+				} else {
+					self$term_source$name <- lst[["term_source"]]
+				}
+			}
 			self$term_accession = lst[["term_accession"]]
 			self$comments = lst[["comments"]]
 		},
@@ -237,10 +258,18 @@ OntologyAnnotation <- R6::R6Class(
 		#' @return a uuid
 		get_id = function() {
 			private$id
+		},
+
+		#' @details
+		#' set the uuid of this object
+		#' @param id a uuid
+		#' @param suffix a human readable suffix
+		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
+			private$id <- generate_id(id, suffix)
 		}
 	),
 	private = list(
-		id = uuid::UUIDgenerate()
+		id = generate_id()
 	)
 )
 

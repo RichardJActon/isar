@@ -107,13 +107,38 @@ Characteristic <- R6::R6Class(
 		#' @details
 		#' Make \code{[Characteristic]} object from list
 		#' @param lst an Characteristic object serialized to a list
-		from_list = function(lst) {
+		#' @param recursive call to_list methods of any objects within this object (default FALSE)
+		from_list = function(lst, recursive = FALSE) {
 			private$id <- lst[["id"]]
-			ct <- OntologyAnnotation$new()
-			self$category <- ct$from_list(lst[["category"]])
+			if(recursive) {
+				self$category <- OntologyAnnotation$new()
+				self$category$from_list(lst[["category"]])
+			} else {
+				if(checkmate::test_r6(
+					lst[["category"]], "OntologyAnnotation"
+				)) {
+					stop("not a list contains raw OntologyAnnotation object")
+				} else if(is.null(lst[["category"]])) {
+					self$category <- NULL
+				} else {
+					self$category$term <- lst[["category"]]
+				}
+			}
 			self$value <- lst[["value"]]
-			u <- Unit$new()
-			self$unit <- u$from_list(lst[["unit"]])
+			if(recursive) {
+				self$unit <- Unit$new()
+				self$unit$from_list(lst[["unit"]])
+			} else {
+				if(checkmate::test_r6(
+					lst[["unit"]], "Unit"
+				)) {
+					stop("not a list contains raw Unit object")
+				} else if(is.null(lst[["unit"]])) {
+					self$unit <- NULL
+				} else {
+					self$unit$unit$term <- lst[["unit"]]
+				}
+			}
 			self$comments <- lst[["comments"]]
 		},
 
@@ -122,10 +147,17 @@ Characteristic <- R6::R6Class(
 		#' @return a uuid
 		get_id = function() {
 			private$id
+		},
+		#' @details
+		#' set the uuid of this object
+		#' @param id a uuid
+		#' @param suffix a human readable suffix
+		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
+			private$id <- generate_id(id, suffix)
 		}
 	),
 	private = list(
-		id = uuid::UUIDgenerate()
+		id = generate_id()
 	)
 )
 
