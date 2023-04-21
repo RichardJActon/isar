@@ -40,14 +40,15 @@ OntologyAnnotation <- R6::R6Class(
 			term_accession = NULL, # str
 			comments = NULL
 		) {
+			# transition to character() !!
+			if (is.null(term) && !is.null(term_accession)) {
+				self$set_term_accession(term_accession)
+			}
+
 			if (is.null(term_source)) {
 				self$term_source <- term_source # OntologySource
 			} else {
 				self$set_term_source(term_source)
-			}
-
-			if (is.null(term) && !is.null(term_accession)) {
-				self$set_term_accession(term_accession)
 			}
 
 			if (!is.null(term) && is.null(term_accession)) {
