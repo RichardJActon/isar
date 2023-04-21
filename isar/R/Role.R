@@ -9,6 +9,9 @@ Role <- R6::R6Class(
 	"Role",
 	public = list(
 		comments = NULL,
+		#' @details
+		#' make a new Organisation object
+		#' @param comments Comments associated with instances of this class.
 		initialize = function(
 			comments = NULL
 		) {
