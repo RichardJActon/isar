@@ -35,8 +35,6 @@ Collate:
     'utility.R'
     'Assay.R'
     'Characteristic.R'
-    'Comment.R'
-    'Commentable.R'
     'FactorValue.R'
     'Investigation.R'
     'Material.R'
