@@ -22,7 +22,7 @@
 #' @field graph A graph representation of the assay graph.
 #'
 #' @importFrom glue glue
-#' @importFrom shinyWidgets pickerInput
+# #' @importFrom shinyWidgets pickerInput
 #' @importFrom checkmate check_r6
 #' @importFrom R6 R6Class
 #'
