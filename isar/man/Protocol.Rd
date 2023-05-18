@@ -46,6 +46,8 @@ An experimental Protocol used in the study.
 \item \href{#method-NA-set_version}{\code{Protocol$set_version()}}
 \item \href{#method-NA-check_protocol_type}{\code{Protocol$check_protocol_type()}}
 \item \href{#method-NA-set_protocol_type}{\code{Protocol$set_protocol_type()}}
+\item \href{#method-NA-check_parameters}{\code{Protocol$check_parameters()}}
+\item \href{#method-NA-set_parameters}{\code{Protocol$set_parameters()}}
 \item \href{#method-NA-check_components}{\code{Protocol$check_components()}}
 \item \href{#method-NA-set_components}{\code{Protocol$set_components()}}
 \item \href{#method-NA-check_comments}{\code{Protocol$check_comments()}}
@@ -87,7 +89,7 @@ An experimental Protocol used in the study.
 
 \item{\code{version}}{An identifier for the version to ensure protocol tracking.}
 
-\item{\code{parameters}}{A list of ProtocolParameter describing the list of to execute the protocol.}
+\item{\code{parameters}}{A list of \code{[ProtocolParameter]}s describing the list of to execute the protocol.}
 
 \item{\code{components}}{A list of \code{[OntologyAnnotation]} describing a protocol's components; e.g. instrument names, software names, and reagents names.}
 
@@ -297,6 +299,46 @@ Check that protocol_type is an \code{[OntologyAnnotation]} object
 }
 \subsection{Details}{
 Set protocol_type if input is valid
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-NA-check_parameters"></a>}}
+\if{latex}{\out{\hypertarget{method-NA-check_parameters}{}}}
+\subsection{Method \code{check_parameters()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Protocol$check_parameters(parameters)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{parameters}}{a \code{[ProtcolParameter]} object}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Set parameters if input is valid
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-NA-set_parameters"></a>}}
+\if{latex}{\out{\hypertarget{method-NA-set_parameters}{}}}
+\subsection{Method \code{set_parameters()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Protocol$set_parameters(parameters)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{parameters}}{an \code{[ProtcolParameter]} object}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Set parameters if input is valid
 }
 
 }

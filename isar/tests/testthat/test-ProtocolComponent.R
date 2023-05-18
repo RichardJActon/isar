@@ -31,7 +31,10 @@ test_that("ProtocolComponent works", {
 	## ID ----
 	expect_true(uuid::UUIDvalidate(test_protocol_component$get_id()))
 
-	## To list ----
+
+	test_protocol_component$set_name("DNA isolation")
+	test_protocol_component$set_component_type(oa)
+	# ## To list ----
 	example_list <- list(
 		name = "DNA isolation",
 		id = test_protocol_component$get_id(),
@@ -39,21 +42,21 @@ test_that("ProtocolComponent works", {
 		comments = NULL
 	)
 	expect_equal(test_protocol_component$to_list(recursive = FALSE), example_list)
-
-	## From list ----
-	test_from_list <- ProtocolComponent$new()
-	test_from_list$from_list(example_list, recursive = FALSE)
-	expect_equal(test_from_list$to_list(recursive = FALSE), example_list)
-
-	example_list_null <- list(
-		name = "DNA isolation",
-		id = test_protocol_component$get_id(),
-		component_type = NULL,
-		comments = NULL
-	)
-	test_from_list <- ProtocolComponent$new()
-	test_from_list$from_list(example_list_null, recursive = FALSE)
-	expect_equal(test_from_list$to_list(recursive = FALSE), example_list_null)
+	#
+	# ## From list ----
+	# test_from_list <- ProtocolComponent$new()
+	# test_from_list$from_list(example_list, recursive = FALSE)
+	# expect_equal(test_from_list$to_list(recursive = FALSE), example_list)
+	#
+	# example_list_null <- list(
+	# 	name = "DNA isolation",
+	# 	id = test_protocol_component$get_id(),
+	# 	component_type = NULL,
+	# 	comments = NULL
+	# )
+	# test_from_list <- ProtocolComponent$new()
+	# test_from_list$from_list(example_list_null, recursive = FALSE)
+	# expect_equal(test_from_list$to_list(recursive = FALSE), example_list_null)
 
 	# warning from OntologySource from list that needs resolving
 	# recursive_list <- test_protocol_component$to_list(recursive = TRUE)

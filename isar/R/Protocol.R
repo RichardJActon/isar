@@ -11,6 +11,7 @@
 #' @field components A list of \code{[OntologyAnnotation]} describing a protocol's components; e.g. instrument names, software names, and reagents names.
 #' @field comments Comments associated with instances of this class.
 Protocol <- R6::R6Class(
+	"Protocol",
 	public = list(
 		name = character(),
 		protocol_type = NULL,
@@ -28,7 +29,7 @@ Protocol <- R6::R6Class(
 		#' @param description A free-text description of the protocol.
 		#' @param uri Pointer to protocol resources externally that can be accessed by their Uniform Resource Identifier (URI).
 		#' @param version An identifier for the version to ensure protocol tracking.
-		#' @param parameters A list of ProtocolParameter describing the list of to execute the protocol.
+		#' @param parameters A list of \code{[ProtocolParameter]}s describing the list of to execute the protocol.
 		#' @param components A list of \code{[OntologyAnnotation]} describing a protocol's components; e.g. instrument names, software names, and reagents names.
 		#' @param comments Comments associated with instances of this class.
 		initialize = function(
@@ -58,9 +59,17 @@ Protocol <- R6::R6Class(
 			} else {
 				self$set_version(version)
 			}
-			self$parameters <- parameters
-			self$components <- components
-			self$comments <- comments
+			if(is.null(parameters)) {
+				self$parameters <- parameters
+			} else {
+				self$set_parameters(parameters)
+			}
+			if(is.null(parameters)) {
+				self$components <- components
+			} else {
+				self$aet_components(components)
+			}
+			self$check_comments(comments)
 		},
 		#' @details
 		#' Check that name is a single string
@@ -138,6 +147,23 @@ Protocol <- R6::R6Class(
 			}
 		},
 		#' @details
+		#' Set parameters if input is valid
+		#' @param parameters a \code{[ProtcolParameter]} object
+		check_parameters = function(parameters) {
+			check <- checkmate::check_r6(parameters, "ProtcolParameter")
+			error_with_check_message_on_failure(
+				check, nextline = "Class: ProtcolParameter"
+			)
+		},
+		#' @details
+		#' Set parameters if input is valid
+		#' @param parameters an \code{[ProtcolParameter]} object
+		set_parameters = function(parameters) {
+			if(self$check_parameters(parameters)) {
+				self$check_parameter <- parameters
+			}
+		},
+		#' @details
 		#' check components is a list of \code{[OntologyAnnotation]} objects
 		#' @param components a list of \code{[OntologyAnnotation]} objects
 		check_components = function(components) {
@@ -172,16 +198,28 @@ Protocol <- R6::R6Class(
 		#' @details
 		#' An R list representation of a \code{[Process]} object
 		#' @param ld linked data (default FALSE)
-		to_list = function(ld = FALSE){
+		#' @param recursive use the `from_list()` method on list items that are also isar objects (default = TRUE)
+		to_list = function(ld = FALSE, recursive = TRUE){
 			protocol <- list(
 				"name" = self$name,
 				"id" = private$id,
-				"protocol_type" = self$protocol_type$to_list(),
+				"protocol_type" = switch(as.character(recursive),
+					"TRUE" = self$protocol_type$to_list(),
+					"FALSE" = self$protocol_type$term
+				),
 				"description" = self$description,
 				"uri" = self$uri,
 				"version" = self$version,
-				"parameters" = self$parameters,
-				"components" = purrr::map(self$components, ~.x$to_list()) ,
+				"parameters" = switch(
+					as.character(recursive),
+					"TRUE" = purrr::map(self$parameters, ~.x$to_list()),
+					"FALSE" = purrr::map(self$parameters, ~.x$term)
+				),
+				"components" = switch(
+					as.character(recursive),
+					"TRUE" = purrr::map(self$components, ~.x$to_list()),
+					"FALSE" = purrr::map(self$components, ~.x$parameter_name)
+				),
 				"comments" = self$comments
 			)
 			return(protocol)
@@ -189,15 +227,20 @@ Protocol <- R6::R6Class(
 		#' @details
 		#' Make \code{[Protocol]} object from list
 		#' @param lst an Protocol object serialized to a list
-		from_list = function(lst) {
+		#' @param recursive use the `from_list()` method on list items that are also isar objects (default = TRUE)
+		from_list = function(lst, recursive = TRUE) {
 			self$name <- lst[["name"]]
 			private$id <- lst[["id"]]
+
 			self$protocol_type <- OntologyAnnotation$new()
 			self$protocol_type$from_list(lst[["protocol_type"]])
+
 			self$description <- lst[["description"]]
 			self$uri <- lst[["uri"]]
 			self$version <- lst[["version"]]
+
 			self$parameters <- lst[["parameters"]]
+
 			self$components <- purrr::map(lst[["components"]], ~{
 				oa <- OntologyAnnotation$new()
 				oa$from_list(.x)
