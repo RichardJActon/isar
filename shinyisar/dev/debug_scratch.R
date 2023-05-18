@@ -20,73 +20,73 @@ ui <- fluidPage(
 	shiny::uiOutput("ui")
 )
 
-ui <- bs4Dash::dashboardPage(
-	title = "Shiny ISA R",
-	header = bs4Dash::dashboardHeader(),
-	sidebar = bs4Dash::dashboardSidebar(
-		bs4Dash::sidebarMenu(
-			id = "sidebar_menu",
-			bs4Dash::sidebarHeader("Investigation"),
-			bs4Dash::bs4SidebarMenuItem(
-				text = "demo",
-				tabName = "demo",
-				.list = list(
-					bs4Dash::bs4SidebarMenuItem(
-						text = "study_1",
-						tabName = "study_1"
-					),
-					bs4Dash::bs4SidebarMenuItem(
-						text = "study_2",
-						tabName = "study_2"
-					)
-				)
-			)
-		)
-	),
-	controlbar = bs4Dash::dashboardControlbar(),
-	footer = bs4Dash::dashboardFooter(
-		left = shiny::markdown("&copy; 2023 [HDBI](https://hdbi.org/). License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)"),
-		right = shiny::img(
-			alt = "Wellcome Trust",
-			src = "inst/app/img/Wellcome_Trust_logo.svg",
-			href = "https://wellcome.org/",
-			width = 32
-		)
-	),
-	body = bs4Dash::dashboardBody(
-		bs4Dash::tabItems(
-			bs4Dash::tabItem(
-				tabName = "demo",
-				shiny::fluidRow(
-					bs4Dash::box(
-						title = shiny::h1("demo"),
-						"some text..."
-					)
-				)
-			),
-			list(
-				bs4Dash::tabItem(
-					tabName = "study_1",
-					shiny::fluidRow(
-						bs4Dash::box(
-							title = shiny::h1("study_1"),
-							"some text..."
-						)
-					)
-				),
-				bs4Dash::tabItem(
-					tabName = "study_2",
-					shiny::fluidRow(
-						bs4Dash::box(
-							title = shiny::h1("study_2"),
-							"some text..."
-						)
-					)
-				)
-			)
-		)
-	)
-)
+# ui <- bs4Dash::dashboardPage(
+# 	title = "Shiny ISA R",
+# 	header = bs4Dash::dashboardHeader(),
+# 	sidebar = bs4Dash::dashboardSidebar(
+# 		bs4Dash::sidebarMenu(
+# 			id = "sidebar_menu",
+# 			bs4Dash::sidebarHeader("Investigation"),
+# 			bs4Dash::bs4SidebarMenuItem(
+# 				text = "demo",
+# 				tabName = "demo",
+# 				.list = list(
+# 					bs4Dash::bs4SidebarMenuItem(
+# 						text = "study_1",
+# 						tabName = "study_1"
+# 					),
+# 					bs4Dash::bs4SidebarMenuItem(
+# 						text = "study_2",
+# 						tabName = "study_2"
+# 					)
+# 				)
+# 			)
+# 		)
+# 	),
+# 	controlbar = bs4Dash::dashboardControlbar(),
+# 	footer = bs4Dash::dashboardFooter(
+# 		left = shiny::markdown("&copy; 2023 [HDBI](https://hdbi.org/). License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)"),
+# 		right = shiny::img(
+# 			alt = "Wellcome Trust",
+# 			src = "inst/app/img/Wellcome_Trust_logo.svg",
+# 			href = "https://wellcome.org/",
+# 			width = 32
+# 		)
+# 	),
+# 	body = bs4Dash::dashboardBody(
+# 		bs4Dash::tabItems(
+# 			bs4Dash::tabItem(
+# 				tabName = "demo",
+# 				shiny::fluidRow(
+# 					bs4Dash::box(
+# 						title = shiny::h1("demo"),
+# 						"some text..."
+# 					)
+# 				)
+# 			),
+# 			list(
+# 				bs4Dash::tabItem(
+# 					tabName = "study_1",
+# 					shiny::fluidRow(
+# 						bs4Dash::box(
+# 							title = shiny::h1("study_1"),
+# 							"some text..."
+# 						)
+# 					)
+# 				),
+# 				bs4Dash::tabItem(
+# 					tabName = "study_2",
+# 					shiny::fluidRow(
+# 						bs4Dash::box(
+# 							title = shiny::h1("study_2"),
+# 							"some text..."
+# 						)
+# 					)
+# 				)
+# 			)
+# 		)
+# 	)
+# )
 
 
 server <- function(input, output, session) {
@@ -112,7 +112,7 @@ server <- function(input, output, session) {
 										# text = .x$title,
 										# tabName = paste0("tab_", .x$id)
 									),
-									shiny::textOutput(.x$title,inline = TRUE)
+									shiny::textOutput(.x$title, inline = TRUE)
 								)
 							})
 							shiny::uiOutput(paste0("tab_", .x$id))
@@ -139,7 +139,7 @@ server <- function(input, output, session) {
 }
 
 
-server <- function(input, output, session) {
-
-}
+# server <- function(input, output, session) {
+#
+# }
 shinyApp(ui, server)
