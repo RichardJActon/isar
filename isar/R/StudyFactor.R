@@ -6,7 +6,7 @@
 #'
 #'
 #' @field name The name of the factor
-#' @field factor_type An \code{[OntologySource]} reference of the study factor type
+#' @field factor_type An \code{[OntologyAnnotation]} reference of the study factor type
 #' @field comments Comments associated with instances of this class.
 #'
 #' @importFrom checkmate qtest check_string
@@ -26,7 +26,7 @@ StudyFactor <- R6::R6Class(
 		#' create a new study factor
 		#'
 		#' @param name The name of the factor
-		#' @param factor_type An \code{[OntologySource]} reference of the study factor_type
+		#' @param factor_type An \code{[OntologyAnnotation]} reference of the study factor_type
 		#' @param comments Comments associated with instances of this class.
 		#'
 		initialize = function(
