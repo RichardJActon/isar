@@ -187,7 +187,7 @@ Investigation <- R6::R6Class(
 		#' Check publications is a list of \code{[Publication]} objects
 		#' @param publications a list of \code{[Publication]} objects
 		set_publications = function(publications) {
-			if (self$check_contacts(publications)) {
+			if (self$check_publications(publications)) {
 				self$publications <- publications
 			}
 		},
