@@ -12,10 +12,10 @@
 #' @field description A textual description of the investigation.
 #' @field submission_date date on which the investigation was reported to the repository. This should be ISO8601 formatted.
 #' @field public_release_date The date on which the investigation should be released publicly. This should be ISO8601 formatted.
-#' @field ontology_source_references \code{[OntologySources]} to be referenced by \code{[OntologyAnnotations]} used in this ISA descriptor.
-#' @field publications a list of \code{[Publication]} objects
+#' @field ontology_source_references [OntologySources] to be referenced by [OntologyAnnotations] used in this ISA descriptor.
+#' @field publications a list of [Publication] objects
 #' @field contacts A list of People/contacts associated with an Investigation.
-#' @field studies \code{[Study]} is the central unit, containing information on the subject under study.
+#' @field studies [Study] is the central unit, containing information on the subject under study.
 #' @field comments comments associated with instances of this class.
 #'
 #' @importFrom R6 R6Class
@@ -45,10 +45,10 @@ Investigation <- R6::R6Class(
 		#' @param description A textual description of the investigation.
 		#' @param submission_date date on which the investigation was reported to the repository. This should be ISO8601 formatted.
 		#' @param public_release_date The date on which the investigation should be released publicly. This should be ISO8601 formatted.
-		#' @param ontology_source_references ontology_source_references \code{[OntologySource]}s to be referenced by \code{[OntologyAnnotation]}s used in this ISA descriptor.
+		#' @param ontology_source_references ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor.
 		#' @param publications publications A list of Publications associated with an Investigation. (format?)
 		#' @param contacts contacts A list of People/contacts associated with an Investigation.
-		#' @param studies studies \code{[Study]} is the central unit, containing information on the subject under study.
+		#' @param studies studies [Study] is the central unit, containing information on the subject under study.
 		#' @param comments comments comments associated with instances of this class.
 		#'
 		initialize = function(
@@ -131,8 +131,8 @@ Investigation <- R6::R6Class(
 			}
 		},
 		#' @details
-		#' check studies is a list of \code{[Study]} objects
-		#' @param studies a list of \code{[Study]} objects
+		#' check studies is a list of [Study] objects
+		#' @param studies a list of [Study] objects
 		check_studies = function(studies) {
 			if(
 				checkmate::test_list(studies, min.len = 1) &&
@@ -144,15 +144,15 @@ Investigation <- R6::R6Class(
 			}
 		},
 		#' @details
-		#' set studies if studies is a list of \code{[Study]} objects
-		#' @param studies a list of \code{[Study]} objects
+		#' set studies if studies is a list of [Study] objects
+		#' @param studies a list of [Study] objects
 		set_studies = function(studies) {
 			if (self$check_studies(studies)) { self$studies <- studies }
 		},
 
 		#' @details
-		#' check contacts is a list of \code{[Person]} objects
-		#' @param contacts a list of \code{[Person]} objects
+		#' check contacts is a list of [Person] objects
+		#' @param contacts a list of [Person] objects
 		check_contacts = function(contacts) {
 			if(
 				checkmate::test_list(contacts, min.len = 1) &&
@@ -164,15 +164,15 @@ Investigation <- R6::R6Class(
 			}
 		},
 		#' @details
-		#' set contacts if contacts is a list of \code{[Person]} objects
-		#' @param contacts a list of \code{[Person]} objects
+		#' set contacts if contacts is a list of [Person] objects
+		#' @param contacts a list of [Person] objects
 		set_contacts = function(contacts) {
 			if (self$check_contacts(contacts)) { self$contacts <- contacts }
 		},
 
 		#' @details
-		#' check publications is a list of \code{[Publication]} objects
-		#' @param publications a list of \code{[Publication]} objects
+		#' check publications is a list of [Publication] objects
+		#' @param publications a list of [Publication] objects
 		check_publications = function(publications) {
 			if(
 				checkmate::test_list(publications, min.len = 1) &&
@@ -184,8 +184,8 @@ Investigation <- R6::R6Class(
 			}
 		},
 		#' @details
-		#' Check publications is a list of \code{[Publication]} objects
-		#' @param publications a list of \code{[Publication]} objects
+		#' Check publications is a list of [Publication] objects
+		#' @param publications a list of [Publication] objects
 		set_publications = function(publications) {
 			if (self$check_publications(publications)) {
 				self$publications <- publications
@@ -267,7 +267,7 @@ Investigation <- R6::R6Class(
 
 		#' @details
 		#'
-		#' Make \code{[Investigation]} from list
+		#' Make [Investigation] from list
 		#'
 		#' @param lst an ontology source object serialized to a list
 		from_list = function(lst) {
@@ -317,10 +317,10 @@ Investigation <- R6::R6Class(
 
 #' identical.Investigation
 #'
-#' Allows checking for the identity of \code{[Investigation]} objects
+#' Allows checking for the identity of [Investigation] objects
 #'
-#' @param x a \code{[Investigation]} object
-#' @param y a \code{[Investigation]} object
+#' @param x a [Investigation] object
+#' @param y a [Investigation] object
 #' @export
 identical.Investigation <- s3_identical_maker(c(
 	"filename",
