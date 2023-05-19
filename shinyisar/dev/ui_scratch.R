@@ -1,4 +1,6 @@
+# bs4Dash UI components ----
 
+## Sidebar ----
 sidebar <- bs4Dash::dashboardSidebar(
 	bs4Dash::sidebarMenu(
 		id = "sidebar_menu",
@@ -20,6 +22,7 @@ sidebar <- bs4Dash::dashboardSidebar(
 	)
 )
 
+## Footer ----
 footer <- bs4Dash::dashboardFooter(
 	left = shiny::markdown("&copy; 2023 [HDBI](https://hdbi.org/). License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)"),
 	right = shiny::img(
@@ -30,6 +33,7 @@ footer <- bs4Dash::dashboardFooter(
 	)
 )
 
+## Investigation tab ----
 investigation_tab <- bs4Dash::tabItem(
 	tabName = "example_investigation",
 	shiny::fluidRow(
@@ -141,6 +145,7 @@ investigation_tab <- bs4Dash::tabItem(
 
 )
 
+## Study Tabs ----
 study1_tab <- bs4Dash::tabItem(
 	tabName = "a",
 	shiny::fluidRow(
@@ -238,6 +243,7 @@ study1_tab <- bs4Dash::tabItem(
 	)
 )
 
+## Body ----
 body <- bs4Dash::dashboardBody(
 	bs4Dash::tabItems(
 		investigation_tab,
@@ -257,10 +263,19 @@ body <- bs4Dash::dashboardBody(
 			tabName = "about",
 			shiny::fluidRow(
 				bs4Dash::userBox(
+					width = 12, collapsible = FALSE,
 					title = bs4Dash::userDescription(
-						title = "ISAR",
+						title = "{shinyisar}",
 						subtitle = "v0.0.0-9000",
-						image = NULL
+						image = NULL # shinyisar Hex
+					)
+				),
+				bs4Dash::userBox(
+					width = 12, collapsible = FALSE,
+					title = bs4Dash::userDescription(
+						title = "{isar}",
+						subtitle = "v0.0.0-9000",
+						image = NULL # isar Hex
 					)
 				)
 			)
@@ -268,6 +283,7 @@ body <- bs4Dash::dashboardBody(
 	)
 )
 
+# Combined UI ----
 ui <- bs4Dash::dashboardPage(
 	title = "Shiny ISA R",
 	header = bs4Dash::dashboardHeader(),
@@ -278,7 +294,10 @@ ui <- bs4Dash::dashboardPage(
 
 )
 
+# Server ----
 server <- function(input, output, session) {
 
 }
+
+# Run App ----
 shinyApp(ui, server)
