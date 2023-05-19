@@ -1,6 +1,8 @@
 # use FOAF for this? http://xmlns.com/foaf/0.1/
 # or schema.org person https://schema.org/Person
 
+# use CRediT for roles? https://credit.niso.org/
+
 #' R6 class for Person
 #'
 #' Represents a person
