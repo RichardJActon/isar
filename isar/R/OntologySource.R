@@ -293,6 +293,7 @@ OntologySource <- R6::R6Class(
 			)
 			cat(crayon::green(crayon::bold("Comments:\n")))
 			purrr::iwalk(
+				# Improve comment formatting for longer comments
 				self$comments, ~cat(paste0(
 					"    ", crayon::bold(.x), ": ", .y
 				), sep = "\n")
