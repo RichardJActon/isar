@@ -7,10 +7,10 @@
 identical.Investigation(x, y)
 }
 \arguments{
-\item{x}{a \code{[Investigation]} object}
+\item{x}{a \link{Investigation} object}
 
-\item{y}{a \code{[Investigation]} object}
+\item{y}{a \link{Investigation} object}
 }
 \description{
-Allows checking for the identity of \code{[Investigation]} objects
+Allows checking for the identity of \link{Investigation} objects
 }
