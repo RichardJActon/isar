@@ -64,7 +64,8 @@ app_server <- function(input, output, session) {
 
 	Paper8 <- Publication$new(
 		title = "The impact of higher dimensional L spaces on thalmic flux",
-		pubmed_id = 8L, doi = "10.8888/88", status = "pre-print",
+		pubmed_id = 8L, doi = "10.8888/88",
+		status = "pre-print", # Ontology Annotation!
 		comments = list(
 			"Location of the librarian?" =
 				"we lost him in the stacks and we need to get his comments on this before be publish"
@@ -79,7 +80,51 @@ app_server <- function(input, output, session) {
 		filename = "a_qei",
 	)
 
-	BookDensity <- Study$new(
+	Sapience <- OntologySource$new(
+		"Sapience",
+		terms_list = list("Sapient" = "TRUE", "Not Sapient" = "FALSE")
+	)
+
+	BooksPCM <- OntologySource$new(
+		"Books per cubic meter", terms_list = list("1" = 1, "2" = 2)
+	)
+
+
+	SapientPairwood <- Source$new(
+		name = "Sapient Pairwood",
+		comments = list(
+			"Ethics?" =
+				"If this wood is sapient should we be using it in this experiment, has anyone run this past the IRB?"
+		),
+		characteristics = list(
+			Characteristic$new(
+				category = OntologyAnnotation$new(term = "Sapient", term_source = Sapience),
+				value = 1, unit = Unit$new("serving spoon") # allow composite units
+			)
+		)
+	)
+
+	BookDensity <- StudyFactor$new(
+		"Book Density",
+		factor_type = OntologyAnnotation$new("1", term_source = BooksPCM)
+			#BooksPCM
+	) # allow units
+
+	Shelf1 <- Sample$new(
+		name = "Shelf 1",
+		factor_values = FactorValue$new(
+			factor_name = "Low Book Density",
+			value = "1",
+			unit = "books / m^3"
+		) ,
+		characteristics = ,
+		derives_from = SapientPairwood
+	)
+
+	#Protocol$new()
+
+
+	BookDensitySTC <- Study$new(
 		title = "The impact of book density on spacetime curvature",
 		description = "Studying Lorem Ipsum",
 		submission_date = "2023-05-10",
@@ -96,7 +141,7 @@ app_server <- function(input, output, session) {
 		process_sequence = ,
 		other_material = ,
 		characteristic_categories = ,
-		comments = list("Help!" = "Eldrich horrors are eating the students! Again."),
+		comments = list("Help!" = "Eldrich horrors are eating the students! Again!"),
 		units =
 	)
 
