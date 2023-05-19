@@ -4,7 +4,7 @@
 \alias{OntologySource}
 \title{R6 class for the source of ontology terms}
 \description{
-An \code{[OntologySource]} describes the resource from which the value of an \code{[OntologyAnnotation]} is derived from.
+An \link{OntologySource} describes the resource from which the value of an \link{OntologyAnnotation} is derived from.
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
@@ -49,6 +49,7 @@ An \code{[OntologySource]} describes the resource from which the value of an \co
 \item \href{#method-OntologySource-set_comments}{\code{OntologySource$set_comments()}}
 \item \href{#method-OntologySource-to_list}{\code{OntologySource$to_list()}}
 \item \href{#method-OntologySource-from_list}{\code{OntologySource$from_list()}}
+\item \href{#method-OntologySource-print}{\code{OntologySource$print()}}
 \item \href{#method-OntologySource-clone}{\code{OntologySource$clone()}}
 }
 }
@@ -109,12 +110,12 @@ Create a new \link{OntologySource} object to act as source for ontology terms
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{name}}{The name of the OntologySource}
+\item{\code{name}}{The name of the \link{OntologySource}}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Check if the name of the OntologySource is a string
+Check if the name of the \link{OntologySource} is a string
 }
 
 }
@@ -129,12 +130,12 @@ Check if the name of the OntologySource is a string
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{name}}{The name of the OntologySource}
+\item{\code{name}}{The name of the \link{OntologySource}}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-set the name of the OntologySource if valid
+set the name of the \link{OntologySource} if valid
 }
 
 }
@@ -149,12 +150,12 @@ set the name of the OntologySource if valid
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{file}}{The file of the OntologySource}
+\item{\code{file}}{The file of the \link{OntologySource}}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Check if the file of the OntologySource is a string
+Check if the file of the \link{OntologySource} is a string
 }
 
 }
@@ -169,12 +170,12 @@ Check if the file of the OntologySource is a string
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{file}}{The file of the OntologySource}
+\item{\code{file}}{The file of the \link{OntologySource}}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-set the file of the OntologySource if valid
+set the file of the \link{OntologySource} if valid
 }
 
 }
@@ -189,12 +190,12 @@ set the file of the OntologySource if valid
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{file_type}}{The file_type of the OntologySource}
+\item{\code{file_type}}{The file_type of the \link{OntologySource}}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Check if the file_type of the OntologySource is a string
+Check if the file_type of the \link{OntologySource} is a string
 }
 
 }
@@ -209,12 +210,12 @@ Check if the file_type of the OntologySource is a string
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{file_type}}{The file_type of the OntologySource}
+\item{\code{file_type}}{The file_type of the \link{OntologySource}}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-set the file_type of the OntologySource if valid
+set the file_type of the \link{OntologySource} if valid
 }
 
 }
@@ -229,12 +230,12 @@ set the file_type of the OntologySource if valid
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{url}}{The url of the OntologySource}
+\item{\code{url}}{The url of the \link{OntologySource}}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Check if the url of the OntologySource is a string
+Check if the url of the \link{OntologySource} is a string
 }
 
 }
@@ -249,12 +250,12 @@ Check if the url of the OntologySource is a string
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{url}}{The url of the OntologySource}
+\item{\code{url}}{The url of the \link{OntologySource}}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-set the url of the OntologySource if valid
+set the url of the \link{OntologySource} if valid
 }
 
 }
@@ -269,12 +270,12 @@ set the url of the OntologySource if valid
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{version}}{The version of the OntologySource}
+\item{\code{version}}{The version of the \link{OntologySource}}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Check if the version of the OntologySource is a string
+Check if the version of the \link{OntologySource} is a string
 }
 
 }
@@ -289,12 +290,12 @@ Check if the version of the OntologySource is a string
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{version}}{The version of the OntologySource}
+\item{\code{version}}{The version of the \link{OntologySource}}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-set the version of the OntologySource if valid
+set the version of the \link{OntologySource} if valid
 }
 
 }
@@ -309,12 +310,12 @@ set the version of the OntologySource if valid
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{description}}{The description of the OntologySource}
+\item{\code{description}}{The description of the \link{OntologySource}}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Check if the description of the OntologySource is a string
+Check if the description of the \link{OntologySource} is a string
 }
 
 }
@@ -329,12 +330,12 @@ Check if the description of the OntologySource is a string
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{description}}{The description of the OntologySource}
+\item{\code{description}}{The description of the \link{OntologySource}}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-set the description of the OntologySource if valid
+set the description of the \link{OntologySource} if valid
 }
 
 }
@@ -414,7 +415,20 @@ make an R list convertible to json
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Make \code{[OntologySource]} from list
+Make \link{OntologySource} from list
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OntologySource-print"></a>}}
+\if{latex}{\out{\hypertarget{method-OntologySource-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OntologySource$print()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+prints a pretty representation of the contents of the object
 }
 
 }

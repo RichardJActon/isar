@@ -6,7 +6,7 @@
 
 #' R6 class for the source of ontology terms
 #'
-#' An \code{[OntologySource]} describes the resource from which the value of an \code{[OntologyAnnotation]} is derived from.
+#' An [OntologySource] describes the resource from which the value of an [OntologyAnnotation] is derived from.
 #'
 #' @field name The name of the source of a term; i.e. the source controlled vocabulary or ontology.
 #' @field file A file name or a URI of an official resource.
@@ -20,6 +20,10 @@
 #'
 #' @importFrom glue glue
 #' @importFrom R6 R6Class
+#' @importFrom checkmate check_string qtest
+#' @importFrom crayon green yellow bold italic
+#' @importFrom purrr iwalk
+#' @importFrom stringr str_wrap
 #'
 #' @export
 OntologySource <- R6::R6Class(
@@ -127,90 +131,90 @@ OntologySource <- R6::R6Class(
 
 		},
 		#' @details
-		#' Check if the name of the OntologySource is a string
-		#' @param name The name of the OntologySource
+		#' Check if the name of the [OntologySource] is a string
+		#' @param name The name of the [OntologySource]
 		check_name = function(name) {
 			check <- checkmate::check_string(name, min.chars = 1L)
 			error_with_check_message_on_failure(check)
 		},
 		#' @details
-		#' set the name of the OntologySource if valid
-		#' @param name The name of the OntologySource
+		#' set the name of the [OntologySource] if valid
+		#' @param name The name of the [OntologySource]
 		set_name = function(name) {
 			if (self$check_name(name)) {
 				self$name <- name
 			}
 		},
 		#' @details
-		#' Check if the file of the OntologySource is a string
-		#' @param file The file of the OntologySource
+		#' Check if the file of the [OntologySource] is a string
+		#' @param file The file of the [OntologySource]
 		check_file = function(file) {
 			check <- checkmate::check_string(file, min.chars = 1L)
 			error_with_check_message_on_failure(check)
 		},
 		#' @details
-		#' set the file of the OntologySource if valid
-		#' @param file The file of the OntologySource
+		#' set the file of the [OntologySource] if valid
+		#' @param file The file of the [OntologySource]
 		set_file = function(file) {
 			if (self$check_file(file)) {
 				self$file <- file
 			}
 		},
 		#' @details
-		#' Check if the file_type of the OntologySource is a string
-		#' @param file_type The file_type of the OntologySource
+		#' Check if the file_type of the [OntologySource] is a string
+		#' @param file_type The file_type of the [OntologySource]
 		check_file_type = function(file_type) {
 			check <- checkmate::check_string(file_type, min.chars = 1L)
 			error_with_check_message_on_failure(check)
 		},
 		#' @details
-		#' set the file_type of the OntologySource if valid
-		#' @param file_type The file_type of the OntologySource
+		#' set the file_type of the [OntologySource] if valid
+		#' @param file_type The file_type of the [OntologySource]
 		set_file_type = function(file_type) {
 			if (self$check_file_type(file_type)) {
 				self$file_type <- file_type
 			}
 		},
 		#' @details
-		#' Check if the url of the OntologySource is a string
-		#' @param url The url of the OntologySource
+		#' Check if the url of the [OntologySource] is a string
+		#' @param url The url of the [OntologySource]
 		check_url = function(url) {
 			check <- checkmate::check_string(url, min.chars = 1L)
 			error_with_check_message_on_failure(check)
 		},
 		#' @details
-		#' set the url of the OntologySource if valid
-		#' @param url The url of the OntologySource
+		#' set the url of the [OntologySource] if valid
+		#' @param url The url of the [OntologySource]
 		set_url = function(url) {
 			if (self$check_url(url)) {
 				self$url <- url
 			}
 		},
 		#' @details
-		#' Check if the version of the OntologySource is a string
-		#' @param version The version of the OntologySource
+		#' Check if the version of the [OntologySource] is a string
+		#' @param version The version of the [OntologySource]
 		check_version = function(version) {
 			check <- checkmate::check_string(version, min.chars = 1L)
 			error_with_check_message_on_failure(check)
 		},
 		#' @details
-		#' set the version of the OntologySource if valid
-		#' @param version The version of the OntologySource
+		#' set the version of the [OntologySource] if valid
+		#' @param version The version of the [OntologySource]
 		set_version = function(version) {
 			if (self$check_version(version)) {
 				self$version <- version
 			}
 		},
 		#' @details
-		#' Check if the description of the OntologySource is a string
-		#' @param description The description of the OntologySource
+		#' Check if the description of the [OntologySource] is a string
+		#' @param description The description of the [OntologySource]
 		check_description = function(description) {
 			check <- checkmate::check_string(description, min.chars = 1L)
 			error_with_check_message_on_failure(check)
 		},
 		#' @details
-		#' set the description of the OntologySource if valid
-		#' @param description The description of the OntologySource
+		#' set the description of the [OntologySource] if valid
+		#' @param description The description of the [OntologySource]
 		set_description = function(description) {
 			if (self$check_description(description)) {
 				self$description <- description
@@ -251,7 +255,7 @@ OntologySource <- R6::R6Class(
 
 		#' @details
 		#'
-		#' Make \code{[OntologySource]} from list
+		#' Make [OntologySource] from list
 		#'
 		#' @param lst an ontology source object serialized to a list
 		from_list = function(lst) {
@@ -266,16 +270,51 @@ OntologySource <- R6::R6Class(
 			self$get_terms_list = unserialize(charToRaw(
 				lst[["get_terms_list"]]
 			))
+		},
+
+		#' @details
+		#' prints a pretty representation of the contents of the object
+		print = function(){
+			cat(
+				paste0(crayon::green(crayon::bold("Name: ")), self$name),
+				paste0(crayon::green(crayon::bold("File: ")), self$file),
+				paste0(crayon::green(crayon::bold(
+					"File Type: "
+				)), self$file_type),
+				paste0(crayon::green(crayon::bold("URL: ")), self$url),
+				paste0(crayon::green(crayon::bold("Version: ")), self$version),
+				crayon::green(crayon::bold("Description: ")),
+				sep = "\n"
+			)
+				#paste0("Description: ", self$description),
+			cat(
+				stringr::str_wrap(self$description, indent = 4, exdent = 4),
+				sep = "\n"
+			)
+			cat(crayon::green(crayon::bold("Comments:\n")))
+			purrr::iwalk(
+				self$comments, ~cat(paste0(
+					"    ", crayon::bold(.x), ": ", .y
+				), sep = "\n")
+			)
+			cat(crayon::green(crayon::bold("Terms:")), sep = "\n")
+			purrr::iwalk(
+				head(self$terms_list),
+				~cat(paste0("    ", crayon::bold(.y), ": ", .x), sep = "\n")
+			)
+			cat(crayon::yellow(crayon::italic(
+				"    ... of: ", format(length(self$terms_list), big.mark = ",")
+			)))
 		}
 	)
 )
 
 #' identical.OntologySource
 #'
-#' Allows checking for the identity of \code{[OntologySource]} objects
+#' Allows checking for the identity of [OntologySource] objects
 #'
-#' @param x a \code{[OntologySource]} object
-#' @param y a \code{[OntologySource]} object
+#' @param x a [OntologySource] object
+#' @param y a [OntologySource] object
 #' @export
 identical.OntologySource <- s3_identical_maker(c(
 	"name",

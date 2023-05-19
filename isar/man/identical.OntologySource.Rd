@@ -7,10 +7,10 @@
 identical.OntologySource(x, y)
 }
 \arguments{
-\item{x}{a \code{[OntologySource]} object}
+\item{x}{a \link{OntologySource} object}
 
-\item{y}{a \code{[OntologySource]} object}
+\item{y}{a \link{OntologySource} object}
 }
 \description{
-Allows checking for the identity of \code{[OntologySource]} objects
+Allows checking for the identity of \link{OntologySource} objects
 }
