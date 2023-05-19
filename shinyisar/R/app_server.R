@@ -10,33 +10,6 @@ app_server <- function(input, output, session) {
   # Your application server logic
 	#investigation <- isar::Investigation$new()
 
-	CRediT <- OntologySource$new(
-		name = "CRediT",
-		url = "https://credit.niso.org/",
-		description = "CRediT (Contributor Roles Taxonomy) is a high-level taxonomy, including 14 roles, that can be used to represent the roles typically played by contributors to research outputs. The roles describe each contributor’s specific contribution to the scholarly output.",
-		terms_list = list(
-			"Conceptualization" = "https://credit.niso.org/contributor-roles/conceptualization/",
-			"Data curation" = "https://credit.niso.org/contributor-roles/data-curation/",
-			"Formal analysis" = "https://credit.niso.org/contributor-roles/formal-analysis/",
-			"Funding acquisition" = "https://credit.niso.org/contributor-roles/funding-acquisition/",
-			"Investigation" = "https://credit.niso.org/contributor-roles/investigation/",
-			"Methodology" = "https://credit.niso.org/contributor-roles/methodology/",
-			"Project administration" = "https://credit.niso.org/contributor-roles/project-administration/",
-			"Resources" = "https://credit.niso.org/contributor-roles/resources/",
-			"Software" = "https://credit.niso.org/contributor-roles/software/",
-			"Supervision" = "https://credit.niso.org/contributor-roles/supervision/",
-			"Validation" = "https://credit.niso.org/contributor-roles/validation/",
-			"Visualization" = "https://credit.niso.org/contributor-roles/visualization/",
-			"Writing – original draft" = "https://credit.niso.org/contributor-roles/writing-original-draft/",
-			"Writing – review & editing" = "https://credit.niso.org/contributor-roles/writing-review-editing/"
-		)
-	)
-
-	Conceptualization <- OntologyAnnotation$new(term = "Conceptualization", term_source = CRediT)
-	Conceptualization$set_id("8b73531f-db56-4914-9502-4cc4d4d8ed73")
-	Validation <- OntologyAnnotation$new(term = "Validation", term_source = CRediT)
-	Validation$set_id("4b1bf348-faf2-4fc4-bd66-4cd3a84b9d44")
-
 	Jane_Doe <- Person$new(
 		last_name = "Doe", first_name = "Jane", mid_initials = "C.",
 		phone = "01234567890", fax = "12345",
