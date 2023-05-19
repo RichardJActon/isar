@@ -21,7 +21,7 @@ StudyFactor$new()
 \describe{
 \item{\code{name}}{The name of the factor}
 
-\item{\code{factor_type}}{An \code{[OntologySource]} reference of the study factor type}
+\item{\code{factor_type}}{An \code{[OntologyAnnotation]} reference of the study factor type}
 
 \item{\code{comments}}{Comments associated with instances of this class.}
 }
@@ -55,7 +55,7 @@ StudyFactor$new()
 \describe{
 \item{\code{name}}{The name of the factor}
 
-\item{\code{factor_type}}{An \code{[OntologySource]} reference of the study factor_type}
+\item{\code{factor_type}}{An \code{[OntologyAnnotation]} reference of the study factor_type}
 
 \item{\code{comments}}{Comments associated with instances of this class.}
 }
