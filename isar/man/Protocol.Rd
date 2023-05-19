@@ -35,33 +35,33 @@ An experimental Protocol used in the study.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-NA-new}{\code{Protocol$new()}}
-\item \href{#method-NA-check_name}{\code{Protocol$check_name()}}
-\item \href{#method-NA-set_name}{\code{Protocol$set_name()}}
-\item \href{#method-NA-check_description}{\code{Protocol$check_description()}}
-\item \href{#method-NA-set_description}{\code{Protocol$set_description()}}
-\item \href{#method-NA-check_uri}{\code{Protocol$check_uri()}}
-\item \href{#method-NA-set_uri}{\code{Protocol$set_uri()}}
-\item \href{#method-NA-check_version}{\code{Protocol$check_version()}}
-\item \href{#method-NA-set_version}{\code{Protocol$set_version()}}
-\item \href{#method-NA-check_protocol_type}{\code{Protocol$check_protocol_type()}}
-\item \href{#method-NA-set_protocol_type}{\code{Protocol$set_protocol_type()}}
-\item \href{#method-NA-check_parameters}{\code{Protocol$check_parameters()}}
-\item \href{#method-NA-set_parameters}{\code{Protocol$set_parameters()}}
-\item \href{#method-NA-check_components}{\code{Protocol$check_components()}}
-\item \href{#method-NA-set_components}{\code{Protocol$set_components()}}
-\item \href{#method-NA-check_comments}{\code{Protocol$check_comments()}}
-\item \href{#method-NA-set_comments}{\code{Protocol$set_comments()}}
-\item \href{#method-NA-to_list}{\code{Protocol$to_list()}}
-\item \href{#method-NA-from_list}{\code{Protocol$from_list()}}
-\item \href{#method-NA-get_id}{\code{Protocol$get_id()}}
-\item \href{#method-NA-set_id}{\code{Protocol$set_id()}}
-\item \href{#method-unknown-clone}{\code{Protocol$clone()}}
+\item \href{#method-Protocol-new}{\code{Protocol$new()}}
+\item \href{#method-Protocol-check_name}{\code{Protocol$check_name()}}
+\item \href{#method-Protocol-set_name}{\code{Protocol$set_name()}}
+\item \href{#method-Protocol-check_description}{\code{Protocol$check_description()}}
+\item \href{#method-Protocol-set_description}{\code{Protocol$set_description()}}
+\item \href{#method-Protocol-check_uri}{\code{Protocol$check_uri()}}
+\item \href{#method-Protocol-set_uri}{\code{Protocol$set_uri()}}
+\item \href{#method-Protocol-check_version}{\code{Protocol$check_version()}}
+\item \href{#method-Protocol-set_version}{\code{Protocol$set_version()}}
+\item \href{#method-Protocol-check_protocol_type}{\code{Protocol$check_protocol_type()}}
+\item \href{#method-Protocol-set_protocol_type}{\code{Protocol$set_protocol_type()}}
+\item \href{#method-Protocol-check_parameters}{\code{Protocol$check_parameters()}}
+\item \href{#method-Protocol-set_parameters}{\code{Protocol$set_parameters()}}
+\item \href{#method-Protocol-check_components}{\code{Protocol$check_components()}}
+\item \href{#method-Protocol-set_components}{\code{Protocol$set_components()}}
+\item \href{#method-Protocol-check_comments}{\code{Protocol$check_comments()}}
+\item \href{#method-Protocol-set_comments}{\code{Protocol$set_comments()}}
+\item \href{#method-Protocol-to_list}{\code{Protocol$to_list()}}
+\item \href{#method-Protocol-from_list}{\code{Protocol$from_list()}}
+\item \href{#method-Protocol-get_id}{\code{Protocol$get_id()}}
+\item \href{#method-Protocol-set_id}{\code{Protocol$set_id()}}
+\item \href{#method-Protocol-clone}{\code{Protocol$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-NA-new"></a>}}
-\if{latex}{\out{\hypertarget{method-NA-new}{}}}
+\if{html}{\out{<a id="method-Protocol-new"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Protocol$new(
@@ -103,8 +103,8 @@ Create a new Protocol object
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-NA-check_name"></a>}}
-\if{latex}{\out{\hypertarget{method-NA-check_name}{}}}
+\if{html}{\out{<a id="method-Protocol-check_name"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-check_name}{}}}
 \subsection{Method \code{check_name()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Protocol$check_name(name)}\if{html}{\out{</div>}}
@@ -123,8 +123,8 @@ Check that name is a single string
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-NA-set_name"></a>}}
-\if{latex}{\out{\hypertarget{method-NA-set_name}{}}}
+\if{html}{\out{<a id="method-Protocol-set_name"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-set_name}{}}}
 \subsection{Method \code{set_name()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Protocol$set_name(name)}\if{html}{\out{</div>}}
@@ -143,8 +143,8 @@ Set name if it passes validation
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-NA-check_description"></a>}}
-\if{latex}{\out{\hypertarget{method-NA-check_description}{}}}
+\if{html}{\out{<a id="method-Protocol-check_description"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-check_description}{}}}
 \subsection{Method \code{check_description()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Protocol$check_description(description)}\if{html}{\out{</div>}}
@@ -163,8 +163,8 @@ Check that description is a single string
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-NA-set_description"></a>}}
-\if{latex}{\out{\hypertarget{method-NA-set_description}{}}}
+\if{html}{\out{<a id="method-Protocol-set_description"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-set_description}{}}}
 \subsection{Method \code{set_description()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Protocol$set_description(description)}\if{html}{\out{</div>}}
@@ -183,8 +183,8 @@ Set description if it passes validation
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-NA-check_uri"></a>}}
-\if{latex}{\out{\hypertarget{method-NA-check_uri}{}}}
+\if{html}{\out{<a id="method-Protocol-check_uri"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-check_uri}{}}}
 \subsection{Method \code{check_uri()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Protocol$check_uri(uri)}\if{html}{\out{</div>}}
@@ -203,8 +203,8 @@ Check that uri is a single string
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-NA-set_uri"></a>}}
-\if{latex}{\out{\hypertarget{method-NA-set_uri}{}}}
+\if{html}{\out{<a id="method-Protocol-set_uri"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-set_uri}{}}}
 \subsection{Method \code{set_uri()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Protocol$set_uri(uri)}\if{html}{\out{</div>}}
@@ -223,8 +223,8 @@ Set uri if it passes validation
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-NA-check_version"></a>}}
-\if{latex}{\out{\hypertarget{method-NA-check_version}{}}}
+\if{html}{\out{<a id="method-Protocol-check_version"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-check_version}{}}}
 \subsection{Method \code{check_version()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Protocol$check_version(version)}\if{html}{\out{</div>}}
@@ -243,8 +243,8 @@ Check that version is a single string
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-NA-set_version"></a>}}
-\if{latex}{\out{\hypertarget{method-NA-set_version}{}}}
+\if{html}{\out{<a id="method-Protocol-set_version"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-set_version}{}}}
 \subsection{Method \code{set_version()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Protocol$set_version(version)}\if{html}{\out{</div>}}
@@ -263,8 +263,8 @@ Set version if it passes validation
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-NA-check_protocol_type"></a>}}
-\if{latex}{\out{\hypertarget{method-NA-check_protocol_type}{}}}
+\if{html}{\out{<a id="method-Protocol-check_protocol_type"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-check_protocol_type}{}}}
 \subsection{Method \code{check_protocol_type()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Protocol$check_protocol_type(protocol_type)}\if{html}{\out{</div>}}
@@ -283,8 +283,8 @@ Check that protocol_type is an \code{[OntologyAnnotation]} object
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-NA-set_protocol_type"></a>}}
-\if{latex}{\out{\hypertarget{method-NA-set_protocol_type}{}}}
+\if{html}{\out{<a id="method-Protocol-set_protocol_type"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-set_protocol_type}{}}}
 \subsection{Method \code{set_protocol_type()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Protocol$set_protocol_type(protocol_type)}\if{html}{\out{</div>}}
@@ -303,8 +303,8 @@ Set protocol_type if input is valid
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-NA-check_parameters"></a>}}
-\if{latex}{\out{\hypertarget{method-NA-check_parameters}{}}}
+\if{html}{\out{<a id="method-Protocol-check_parameters"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-check_parameters}{}}}
 \subsection{Method \code{check_parameters()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Protocol$check_parameters(parameters)}\if{html}{\out{</div>}}
@@ -323,8 +323,8 @@ Set parameters if input is valid
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-NA-set_parameters"></a>}}
-\if{latex}{\out{\hypertarget{method-NA-set_parameters}{}}}
+\if{html}{\out{<a id="method-Protocol-set_parameters"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-set_parameters}{}}}
 \subsection{Method \code{set_parameters()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Protocol$set_parameters(parameters)}\if{html}{\out{</div>}}
@@ -343,8 +343,8 @@ Set parameters if input is valid
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-NA-check_components"></a>}}
-\if{latex}{\out{\hypertarget{method-NA-check_components}{}}}
+\if{html}{\out{<a id="method-Protocol-check_components"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-check_components}{}}}
 \subsection{Method \code{check_components()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Protocol$check_components(components)}\if{html}{\out{</div>}}
@@ -363,8 +363,8 @@ check components is a list of \code{[OntologyAnnotation]} objects
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-NA-set_components"></a>}}
-\if{latex}{\out{\hypertarget{method-NA-set_components}{}}}
+\if{html}{\out{<a id="method-Protocol-set_components"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-set_components}{}}}
 \subsection{Method \code{set_components()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Protocol$set_components(components)}\if{html}{\out{</div>}}
@@ -383,8 +383,8 @@ set components if components is a list of \code{[Study]} objects
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-NA-check_comments"></a>}}
-\if{latex}{\out{\hypertarget{method-NA-check_comments}{}}}
+\if{html}{\out{<a id="method-Protocol-check_comments"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-check_comments}{}}}
 \subsection{Method \code{check_comments()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Protocol$check_comments(comments)}\if{html}{\out{</div>}}
@@ -403,8 +403,8 @@ checks if comments are a named list of character vectors
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-NA-set_comments"></a>}}
-\if{latex}{\out{\hypertarget{method-NA-set_comments}{}}}
+\if{html}{\out{<a id="method-Protocol-set_comments"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-set_comments}{}}}
 \subsection{Method \code{set_comments()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Protocol$set_comments(comments)}\if{html}{\out{</div>}}
@@ -423,17 +423,19 @@ Sets comments if they are in a valid format
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-NA-to_list"></a>}}
-\if{latex}{\out{\hypertarget{method-NA-to_list}{}}}
+\if{html}{\out{<a id="method-Protocol-to_list"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-to_list}{}}}
 \subsection{Method \code{to_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Protocol$to_list(ld = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Protocol$to_list(ld = FALSE, recursive = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{ld}}{linked data (default FALSE)}
+
+\item{\code{recursive}}{use the \code{from_list()} method on list items that are also isar objects (default = TRUE)}
 }
 \if{html}{\out{</div>}}
 }
@@ -443,17 +445,19 @@ An R list representation of a \code{[Process]} object
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-NA-from_list"></a>}}
-\if{latex}{\out{\hypertarget{method-NA-from_list}{}}}
+\if{html}{\out{<a id="method-Protocol-from_list"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Protocol$from_list(lst)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Protocol$from_list(lst, recursive = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{lst}}{an Protocol object serialized to a list}
+
+\item{\code{recursive}}{use the \code{from_list()} method on list items that are also isar objects (default = TRUE)}
 }
 \if{html}{\out{</div>}}
 }
@@ -463,8 +467,8 @@ Make \code{[Protocol]} object from list
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-NA-get_id"></a>}}
-\if{latex}{\out{\hypertarget{method-NA-get_id}{}}}
+\if{html}{\out{<a id="method-Protocol-get_id"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-get_id}{}}}
 \subsection{Method \code{get_id()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Protocol$get_id()}\if{html}{\out{</div>}}
@@ -479,8 +483,8 @@ a uuid
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-NA-set_id"></a>}}
-\if{latex}{\out{\hypertarget{method-NA-set_id}{}}}
+\if{html}{\out{<a id="method-Protocol-set_id"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-set_id}{}}}
 \subsection{Method \code{set_id()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Protocol$set_id(id = uuid::UUIDgenerate(), suffix = character())}\if{html}{\out{</div>}}
@@ -501,8 +505,8 @@ set the uuid of this object
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-unknown-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-unknown-clone}{}}}
+\if{html}{\out{<a id="method-Protocol-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
