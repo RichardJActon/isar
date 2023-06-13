@@ -29,6 +29,7 @@ RUN apt-get -y update && \
     htop \
     curl \
     librsvg2-2 \
+    librsvg2-bin \
     librsvg2-dev \
     librsvg2-common
 

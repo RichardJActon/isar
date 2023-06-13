@@ -118,12 +118,37 @@ investigation_tab <- bs4Dash::tabItem(
 	),
 	shiny::fluidRow(
 		bs4Dash::box(
-			title = "Publications", width = 6
+			title = "Publications", width = 6,
+			bs4Dash::bs4Accordion(
+				id = "Publications_accordian",
+				bs4Dash::bs4AccordionItem(
+					title = "The title of papers are imaginary in this context",
+					"10.1000/100"
+				),
+				bs4Dash::bs4AccordionItem(
+					title = "Are the title of papers are imaginary in this context?",
+					"10.1000/101"
+				)
+			)
+			# bs4Dash::userList(
+			# 	bs4Dash::userListItem(
+			# 		image = NULL,
+			# 		title = "The title of papers are imaginary in this context",
+			# 		subtitle = "10.1000/100"
+			# 	),
+			# 	bs4Dash::userListItem(
+			# 		image = NULL,
+			# 		title = "Are the title of papers are imaginary in this context?",
+			# 		subtitle = "10.1000/101"
+			# 	)
+			# )
 		),
 		bs4Dash::box(
 			title = "Contacts", width = 6,
 			bs4Dash::userList(
 				bs4Dash::userListItem(
+					# no icons apparently, also path issue, not pointing to local files
+					#image = "http://cdn.onlinewebfonts.com/svg/img_257423.png",
 					image = NULL,
 					title = "Steve",
 					subtitle = "0000-0000-0000-0000"
@@ -136,7 +161,29 @@ investigation_tab <- bs4Dash::tabItem(
 			)
 		),
 		bs4Dash::box(
-			title = "Factors", width = 6
+			title = "Factors", width = 6,
+			bs4Dash::bs4Accordion(
+				id = "Factors_accordian",
+				bs4Dash::bs4AccordionItem(
+					title = "Book density",
+					""
+				),
+				bs4Dash::bs4AccordionItem(
+					title = "Wood Type",
+					""
+				)
+			)
+			# bs4Dash::productList(
+			# 	bs4Dash::productListItem(
+			# 		image = NULL,
+			# 		title = "x",
+			# 		subtitle = "...",
+			# 		#color = ,
+			# 	)#,
+			# 	# productListItem(
+			# 	#
+			# 	# )
+			# )
 		),
 		bs4Dash::box(
 			title = "Protocols", width = 6
