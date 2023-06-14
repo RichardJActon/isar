@@ -169,7 +169,14 @@ Assay <- R6::R6Class(
 		set_comments = function(comments) {
 			if(self$check_comments(comments)) { self$comments <- comments }
 		},
-
+		#' @details
+		#' Add comment if it is in a valid format
+		#' @param comment a list of comments
+		add_comment = function(comment) {
+			if(self$check_comments(comment)) {
+				self$comments <- c(comments, comment)
+			}
+		},
 		# # Getters
 		# ## Shiny
 		# 		# #' @details

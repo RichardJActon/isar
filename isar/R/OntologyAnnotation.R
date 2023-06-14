@@ -208,6 +208,14 @@ OntologyAnnotation <- R6::R6Class(
 			if(self$check_comments(comments)) { self$comments <- comments }
 		},
 		#' @details
+		#' Add comment if it is in a valid format
+		#' @param comment a list of comments
+		add_comment = function(comment) {
+			if(self$check_comments(comment)) {
+				self$comments <- c(comments, comment)
+			}
+		},
+		#' @details
 		#' generate an R list representation translatable to JSON
 		#' @param ld logical json-ld
 		#' @param recursive call to_list methods of any objects within this object (default FALSE)

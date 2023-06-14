@@ -33,6 +33,7 @@ R6 object to represent Materials
 \item \href{#method-Material-set_characteristics}{\code{Material$set_characteristics()}}
 \item \href{#method-Material-check_comments}{\code{Material$check_comments()}}
 \item \href{#method-Material-set_comments}{\code{Material$set_comments()}}
+\item \href{#method-Material-add_comment}{\code{Material$add_comment()}}
 \item \href{#method-Material-to_list}{\code{Material$to_list()}}
 \item \href{#method-Material-from_list}{\code{Material$from_list()}}
 \item \href{#method-Material-get_id}{\code{Material$get_id()}}
@@ -228,6 +229,26 @@ checks if comments are a named list of character vectors
 }
 \subsection{Details}{
 Sets comments if they are in a valid format
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Material-add_comment"></a>}}
+\if{latex}{\out{\hypertarget{method-Material-add_comment}{}}}
+\subsection{Method \code{add_comment()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Material$add_comment(comment)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comment}}{a list of comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Add comment if it is in a valid format
 }
 
 }

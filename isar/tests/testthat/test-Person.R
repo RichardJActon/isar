@@ -1,6 +1,9 @@
 test_that("Person works", {
 	test_person <- Person$new()
 
+	## Comments ----
+	test_comments(test_person)
+
 	good_email <- "person@example.com"
 	bad_email <- "person@@example.com"
 	good_orcid <- "0000-0000-0000-0000"

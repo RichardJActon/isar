@@ -33,7 +33,7 @@ An investigation maintains metadata about the project context and links to one o
 
 \item{\code{public_release_date}}{The date on which the investigation should be released publicly. This should be ISO8601 formatted.}
 
-\item{\code{ontology_source_references}}{\link{OntologySources} to be referenced by \link{OntologyAnnotations} used in this ISA descriptor.}
+\item{\code{ontology_source_references}}{\link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor.}
 
 \item{\code{publications}}{a list of \link{Publication} objects}
 
@@ -65,6 +65,7 @@ An investigation maintains metadata about the project context and links to one o
 \item \href{#method-Investigation-set_submission_date}{\code{Investigation$set_submission_date()}}
 \item \href{#method-Investigation-check_comments}{\code{Investigation$check_comments()}}
 \item \href{#method-Investigation-set_comments}{\code{Investigation$set_comments()}}
+\item \href{#method-Investigation-add_comment}{\code{Investigation$add_comment()}}
 \item \href{#method-Investigation-to_list}{\code{Investigation$to_list()}}
 \item \href{#method-Investigation-from_list}{\code{Investigation$from_list()}}
 \item \href{#method-Investigation-get_id}{\code{Investigation$get_id()}}
@@ -438,6 +439,26 @@ checks if comments are a named list of character vectors
 }
 \subsection{Details}{
 Sets comments if they are in a valid format
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Investigation-add_comment"></a>}}
+\if{latex}{\out{\hypertarget{method-Investigation-add_comment}{}}}
+\subsection{Method \code{add_comment()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$add_comment(comment)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comment}}{a list of comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Add comment if it is in a valid format
 }
 
 }

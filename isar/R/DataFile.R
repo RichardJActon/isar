@@ -16,6 +16,7 @@
 #' @importFrom checkmate check_r6
 #' @importFrom uuid UUIDgenerate
 #' @importFrom digest digest
+#' @importFrom fs path_file file_exists
 DataFile <- R6::R6Class(
 	"DataFile",
 	public = list(
@@ -164,7 +165,14 @@ DataFile <- R6::R6Class(
 		set_comments = function(comments) {
 			if(self$check_comments(comments)) { self$comments <- comments }
 		},
-
+		#' @details
+		#' Add comment if it is in a valid format
+		#' @param comment a list of comments
+		add_comment = function(comment) {
+			if(self$check_comments(comment)) {
+				self$comments <- c(comments, comment)
+			}
+		},
 		#' @details
 		#'
 		#' Checks that the hash of the file at filepath matches the stored

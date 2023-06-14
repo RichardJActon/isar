@@ -18,15 +18,7 @@ test_that("ProtocolComponent works", {
 	expect_error(test_protocol_component$set_component_type(""), regexp = "Must be an R6 class, not character")
 
 	## Comments ----
-	expect_true(test_protocol_component$check_comments(list("a" = "b")))
-	expect_true(test_protocol_component$check_comments(list("a" = "1", "b" = "2")))
-
-	expect_error(test_protocol_component$check_comments(list("b")), regexp = "Must have names")
-	expect_error(test_protocol_component$check_comments("b"), regexp = "Must be of type 'list' \\(or 'NULL'\\), not 'character'")
-	expect_error(test_protocol_component$check_comments(list("a" = 1L)), regexp = "May only contain the following types: \\{character\\}, but element 1 has type 'integer'")
-
-	expect_error(test_protocol_component$set_comments(list("b")), regexp = "Must have names")
-	expect_error(test_protocol_component$set_comments("b"), regexp = "Must be of type 'list' \\(or 'NULL'\\), not 'character'")
+	test_comments(test_protocol_component)
 
 	## ID ----
 	expect_true(uuid::UUIDvalidate(test_protocol_component$get_id()))

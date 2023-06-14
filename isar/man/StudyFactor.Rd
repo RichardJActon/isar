@@ -35,6 +35,7 @@ StudyFactor$new()
 \item \href{#method-StudyFactor-set_name}{\code{StudyFactor$set_name()}}
 \item \href{#method-StudyFactor-check_comments}{\code{StudyFactor$check_comments()}}
 \item \href{#method-StudyFactor-set_comments}{\code{StudyFactor$set_comments()}}
+\item \href{#method-StudyFactor-add_comment}{\code{StudyFactor$add_comment()}}
 \item \href{#method-StudyFactor-to_list}{\code{StudyFactor$to_list()}}
 \item \href{#method-StudyFactor-from_list}{\code{StudyFactor$from_list()}}
 \item \href{#method-StudyFactor-get_id}{\code{StudyFactor$get_id()}}
@@ -143,6 +144,26 @@ checks if comments are a named list of character vectors
 }
 \subsection{Details}{
 Sets comments if they are in a valid format
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-StudyFactor-add_comment"></a>}}
+\if{latex}{\out{\hypertarget{method-StudyFactor-add_comment}{}}}
+\subsection{Method \code{add_comment()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{StudyFactor$add_comment(comment)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comment}}{a list of comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Add comment if it is in a valid format
 }
 
 }

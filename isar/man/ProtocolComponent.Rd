@@ -32,6 +32,7 @@ A component used in a protocol.
 \item \href{#method-ProtocolComponent-set_component_type}{\code{ProtocolComponent$set_component_type()}}
 \item \href{#method-ProtocolComponent-check_comments}{\code{ProtocolComponent$check_comments()}}
 \item \href{#method-ProtocolComponent-set_comments}{\code{ProtocolComponent$set_comments()}}
+\item \href{#method-ProtocolComponent-add_comment}{\code{ProtocolComponent$add_comment()}}
 \item \href{#method-ProtocolComponent-to_list}{\code{ProtocolComponent$to_list()}}
 \item \href{#method-ProtocolComponent-from_list}{\code{ProtocolComponent$from_list()}}
 \item \href{#method-ProtocolComponent-get_id}{\code{ProtocolComponent$get_id()}}
@@ -184,6 +185,26 @@ checks if comments are a named list of character vectors
 }
 \subsection{Details}{
 Sets comments if they are in a valid format
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ProtocolComponent-add_comment"></a>}}
+\if{latex}{\out{\hypertarget{method-ProtocolComponent-add_comment}{}}}
+\subsection{Method \code{add_comment()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ProtocolComponent$add_comment(comment)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comment}}{a list of comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Add comment if it is in a valid format
 }
 
 }

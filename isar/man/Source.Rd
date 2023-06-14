@@ -27,6 +27,7 @@ R6 class for a Source
 \item \href{#method-Source-set_characteristics}{\code{Source$set_characteristics()}}
 \item \href{#method-Source-check_comments}{\code{Source$check_comments()}}
 \item \href{#method-Source-set_comments}{\code{Source$set_comments()}}
+\item \href{#method-Source-add_comment}{\code{Source$add_comment()}}
 \item \href{#method-Source-to_list}{\code{Source$to_list()}}
 \item \href{#method-Source-from_list}{\code{Source$from_list()}}
 \item \href{#method-Source-get_id}{\code{Source$get_id()}}
@@ -131,6 +132,26 @@ checks if comments are a named list of character vectors
 }
 \subsection{Details}{
 Sets comments if they are in a valid format
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Source-add_comment"></a>}}
+\if{latex}{\out{\hypertarget{method-Source-add_comment}{}}}
+\subsection{Method \code{add_comment()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Source$add_comment(comment)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comment}}{a list of comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Add comment if it is in a valid format
 }
 
 }

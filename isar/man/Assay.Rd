@@ -52,6 +52,7 @@ experimental workflow described by a particular protocol.
 \item \href{#method-Assay-set_filename}{\code{Assay$set_filename()}}
 \item \href{#method-Assay-check_comments}{\code{Assay$check_comments()}}
 \item \href{#method-Assay-set_comments}{\code{Assay$set_comments()}}
+\item \href{#method-Assay-add_comment}{\code{Assay$add_comment()}}
 \item \href{#method-Assay-to_list}{\code{Assay$to_list()}}
 \item \href{#method-Assay-from_list}{\code{Assay$from_list()}}
 \item \href{#method-Assay-clone}{\code{Assay$clone()}}
@@ -303,6 +304,26 @@ checks if comments are a named list of character vectors
 }
 \subsection{Details}{
 Sets comments if they are in a valid format
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Assay-add_comment"></a>}}
+\if{latex}{\out{\hypertarget{method-Assay-add_comment}{}}}
+\subsection{Method \code{add_comment()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Assay$add_comment(comment)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comment}}{a list of comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Add comment if it is in a valid format
 }
 
 }

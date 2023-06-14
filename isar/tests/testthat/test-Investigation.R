@@ -1,3 +1,5 @@
-test_that("multiplication works", {
-  expect_equal(2 * 2, 4)
+test_that("Investigation works", {
+	test_investigation <- Investigation$new()
+	## Comments ----
+	test_comments(test_investigation)
 })

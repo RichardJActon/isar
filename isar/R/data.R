@@ -16,17 +16,17 @@
 #' CRediT taxonomy: Data curation
 #' @format [OntologyAnnotation] object
 #' @source <https://credit.niso.org/contributor-roles/data-curation/>
-"Data curation"
+"Data_curation"
 
 #' CRediT taxonomy: Formal analysis
 #' @format [OntologyAnnotation] object
 #' @source <https://credit.niso.org/contributor-roles/formal-analysis/>
-"Formal analysis"
+"Formal_analysis"
 
 #' CRediT taxonomy: Funding acquisition
 #' @format [OntologyAnnotation] object
 #' @source <https://credit.niso.org/contributor-roles/funding-acquisition/>
-"Funding acquisition"
+"Funding_acquisition"
 
 #' CRediT taxonomy: Investigation
 #' @format [OntologyAnnotation] object
@@ -41,7 +41,7 @@
 #' CRediT taxonomy: Project administration
 #' @format [OntologyAnnotation] object
 #' @source <https://credit.niso.org/contributor-roles/project-administration/>
-"Project administration"
+"Project_administration"
 
 #' CRediT taxonomy: Resources
 #' @format [OntologyAnnotation] object
@@ -71,9 +71,9 @@
 #' CRediT taxonomy: Writing - original draft
 #' @format [OntologyAnnotation] object
 #' @source <https://credit.niso.org/contributor-roles/writing-original-draft/>
-"Writing - original draft"
+"Writing_original_draft"
 
 #' CRediT taxonomy: Writing - review & editing
 #' @format [OntologyAnnotation] object
 #' @source <https://credit.niso.org/contributor-roles/writing-review-editing/>
-"Writing - review & editing"
+"Writing_review_editing"

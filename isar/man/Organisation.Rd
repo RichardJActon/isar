@@ -29,6 +29,7 @@ Organisation$new()
 \item \href{#method-Organisation-new}{\code{Organisation$new()}}
 \item \href{#method-Organisation-check_comments}{\code{Organisation$check_comments()}}
 \item \href{#method-Organisation-set_comments}{\code{Organisation$set_comments()}}
+\item \href{#method-Organisation-add_comment}{\code{Organisation$add_comment()}}
 \item \href{#method-Organisation-to_list}{\code{Organisation$to_list()}}
 \item \href{#method-Organisation-from_list}{\code{Organisation$from_list()}}
 \item \href{#method-Organisation-get_id}{\code{Organisation$get_id()}}
@@ -93,6 +94,26 @@ checks if comments are a named list of character vectors
 }
 \subsection{Details}{
 Sets comments if they are in a valid format
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Organisation-add_comment"></a>}}
+\if{latex}{\out{\hypertarget{method-Organisation-add_comment}{}}}
+\subsection{Method \code{add_comment()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Organisation$add_comment(comment)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comment}}{a list of comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Add comment if it is in a valid format
 }
 
 }

@@ -1,3 +1,5 @@
-test_that("multiplication works", {
-  expect_equal(2 * 2, 4)
+test_that("Material works", {
+	test_material <- Material$new()
+	## Comments ----
+	test_comments(test_material)
 })

@@ -31,6 +31,7 @@ A Characteristic acts as a qualifying property to a material object.
 \item \href{#method-Characteristic-set_unit}{\code{Characteristic$set_unit()}}
 \item \href{#method-Characteristic-check_comments}{\code{Characteristic$check_comments()}}
 \item \href{#method-Characteristic-set_comments}{\code{Characteristic$set_comments()}}
+\item \href{#method-Characteristic-add_comment}{\code{Characteristic$add_comment()}}
 \item \href{#method-Characteristic-to_list}{\code{Characteristic$to_list()}}
 \item \href{#method-Characteristic-from_list}{\code{Characteristic$from_list()}}
 \item \href{#method-Characteristic-get_id}{\code{Characteristic$get_id()}}
@@ -221,6 +222,26 @@ checks if comments are a named list of character vectors
 }
 \subsection{Details}{
 Sets comments if they are in a valid format
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Characteristic-add_comment"></a>}}
+\if{latex}{\out{\hypertarget{method-Characteristic-add_comment}{}}}
+\subsection{Method \code{add_comment()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$add_comment(comment)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comment}}{a list of comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Add comment if it is in a valid format
 }
 
 }

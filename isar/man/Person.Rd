@@ -51,6 +51,7 @@ Person$new()
 \item \href{#method-Person-set_orcid}{\code{Person$set_orcid()}}
 \item \href{#method-Person-check_comments}{\code{Person$check_comments()}}
 \item \href{#method-Person-set_comments}{\code{Person$set_comments()}}
+\item \href{#method-Person-add_comment}{\code{Person$add_comment()}}
 \item \href{#method-Person-to_list}{\code{Person$to_list()}}
 \item \href{#method-Person-from_list}{\code{Person$from_list()}}
 \item \href{#method-Person-get_id}{\code{Person$get_id()}}
@@ -231,6 +232,26 @@ checks if comments are a named list of character vectors
 }
 \subsection{Details}{
 Sets comments if they are in a valid format
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Person-add_comment"></a>}}
+\if{latex}{\out{\hypertarget{method-Person-add_comment}{}}}
+\subsection{Method \code{add_comment()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Person$add_comment(comment)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comment}}{a list of comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Add comment if it is in a valid format
 }
 
 }

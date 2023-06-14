@@ -14,15 +14,7 @@ test_that("Characteristic works", {
 	checkmate::expect_r6(test_characteristic, "Characteristic")
 
 	## Comments ----
-	expect_true(test_characteristic$check_comments(list("a" = "b")))
-	expect_true(test_characteristic$check_comments(list("a" = "1", "b" = "2")))
-
-	expect_error(test_characteristic$check_comments(list("b")), regexp = "Must have names")
-	expect_error(test_characteristic$check_comments("b"), regexp = "Must be of type 'list' \\(or 'NULL'\\), not 'character'")
-	expect_error(test_characteristic$check_comments(list("a" = 1L)), regexp = "May only contain the following types: \\{character\\}, but element 1 has type 'integer'")
-
-	expect_error(test_characteristic$set_comments(list("b")), regexp = "Must have names")
-	expect_error(test_characteristic$set_comments("b"), regexp = "Must be of type 'list' \\(or 'NULL'\\), not 'character'")
+	test_comments(test_characteristic)
 
 	## ID ----
 	expect_true(uuid::UUIDvalidate(test_characteristic$get_id()))

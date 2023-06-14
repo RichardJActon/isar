@@ -1,4 +1,4 @@
-# ProtocolParameter
+# ProtocolParameter ----
 test_that("ProtocolParameter works", {
 	test_protocol_parameter <- ProtocolParameter$new()
 
@@ -10,15 +10,7 @@ test_that("ProtocolParameter works", {
 	checkmate::expect_r6(test_protocol_parameter$parameter_name, "OntologyAnnotation")
 
 	## Comments ----
-	expect_true(test_protocol_parameter$check_comments(list("a" = "b")))
-	expect_true(test_protocol_parameter$check_comments(list("a" = "1", "b" = "2")))
-
-	expect_error(test_protocol_parameter$check_comments(list("b")), regexp = "Must have names")
-	expect_error(test_protocol_parameter$check_comments("b"), regexp = "Must be of type 'list' \\(or 'NULL'\\), not 'character'")
-	expect_error(test_protocol_parameter$check_comments(list("a" = 1L)), regexp = "May only contain the following types: \\{character\\}, but element 1 has type 'integer'")
-
-	expect_error(test_protocol_parameter$set_comments(list("b")), regexp = "Must have names")
-	expect_error(test_protocol_parameter$set_comments("b"), regexp = "Must be of type 'list' \\(or 'NULL'\\), not 'character'")
+	test_comments(test_protocol_parameter)
 
 	## ID ----
 	expect_true(uuid::UUIDvalidate(test_protocol_parameter$get_id()))

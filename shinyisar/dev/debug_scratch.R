@@ -95,15 +95,15 @@ server <- function(input, output, session) {
 			list(title = "test", id = 1), list(title = "b", id = 2)
 		)
 	)
-	gargoyle::init("update_investigation")
-	shiny::observeEvent(
-		gargoyle::watch("update_investigation"), {
+	# gargoyle::init("update_investigation")
+	# shiny::observeEvent(
+	# 	gargoyle::watch("update_investigation"), {
 			output$ui <- shiny::renderUI({
 				lst_of_tabs <- switch(
 					ifelse(is.null(exr6i$example),"1","2"),
 					"1" = NULL, "2" = {
 						purrr::map(exr6i$example, ~{
-							output[[paste0("tab_", .x$id)]] <- shiny::renderUI({
+						output[[paste0("tab_", .x$id)]] <- shiny::renderUI({
 								shiny::tagList(
 									shiny::textInput(
 										inputId = .x$title,
@@ -112,10 +112,10 @@ server <- function(input, output, session) {
 										# text = .x$title,
 										# tabName = paste0("tab_", .x$id)
 									),
-									shiny::textOutput(.x$title, inline = TRUE)
+									shiny::textOutput(.x$title, inline = TRUE),
+									#shiny::uiOutput(paste0("tab_", .x$id))
 								)
 							})
-							shiny::uiOutput(paste0("tab_", .x$id))
 						})
 					}
 				)
@@ -132,7 +132,8 @@ server <- function(input, output, session) {
 				# 		.list = lst_of_tabs
 				# 	)
 				# )
-			})
+		# 		
+		# 	})
 		}
 	)
 

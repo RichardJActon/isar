@@ -1,4 +1,9 @@
 test_that("factor_values checking works", {
+	test_sample <- Sample$new()
+	## Comments ----
+	test_comments(test_sample)
+	
+	## factor value ----
 	expect_error(
 		test_sample <- Sample$new(
 			name = "test",

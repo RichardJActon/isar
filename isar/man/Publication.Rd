@@ -33,6 +33,8 @@ checks if comments are a named list of character vectors
 
 Sets comments if they are in a valid format
 
+Add comment if it is in a valid format
+
 convert the Publication object to a list
 
 Generate a \code{[Publication]} object from a list
@@ -68,6 +70,7 @@ Generate a \code{[Publication]} object from a list
 \item \href{#method-Publication-set_title}{\code{Publication$set_title()}}
 \item \href{#method-Publication-check_comments}{\code{Publication$check_comments()}}
 \item \href{#method-Publication-set_comments}{\code{Publication$set_comments()}}
+\item \href{#method-Publication-add_comment}{\code{Publication$add_comment()}}
 \item \href{#method-Publication-to_list}{\code{Publication$to_list()}}
 \item \href{#method-Publication-from_list}{\code{Publication$from_list()}}
 \item \href{#method-Publication-clone}{\code{Publication$clone()}}
@@ -262,6 +265,22 @@ Generate a \code{[Publication]} object from a list
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{comments}}{a list of comments}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Publication-add_comment"></a>}}
+\if{latex}{\out{\hypertarget{method-Publication-add_comment}{}}}
+\subsection{Method \code{add_comment()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Publication$add_comment(comment)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comment}}{a list of comments}
 }
 \if{html}{\out{</div>}}
 }

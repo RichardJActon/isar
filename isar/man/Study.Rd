@@ -68,6 +68,7 @@ study is the central unit, containing information on the subject under study, it
 \item \href{#method-Study-set_contacts}{\code{Study$set_contacts()}}
 \item \href{#method-Study-check_comments}{\code{Study$check_comments()}}
 \item \href{#method-Study-set_comments}{\code{Study$set_comments()}}
+\item \href{#method-Study-add_comment}{\code{Study$add_comment()}}
 \item \href{#method-Study-to_list}{\code{Study$to_list()}}
 \item \href{#method-Study-from_list}{\code{Study$from_list()}}
 \item \href{#method-Study-get_id}{\code{Study$get_id()}}
@@ -425,6 +426,26 @@ checks if comments are a named list of character vectors
 }
 \subsection{Details}{
 Sets comments if they are in a valid format
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Study-add_comment"></a>}}
+\if{latex}{\out{\hypertarget{method-Study-add_comment}{}}}
+\subsection{Method \code{add_comment()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Study$add_comment(comment)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comment}}{a list of comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Add comment if it is in a valid format
 }
 
 }

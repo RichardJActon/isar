@@ -46,6 +46,7 @@ FactorValue$new(
 \item \href{#method-FactorValue-set_unit}{\code{FactorValue$set_unit()}}
 \item \href{#method-FactorValue-check_comments}{\code{FactorValue$check_comments()}}
 \item \href{#method-FactorValue-set_comments}{\code{FactorValue$set_comments()}}
+\item \href{#method-FactorValue-add_comment}{\code{FactorValue$add_comment()}}
 \item \href{#method-FactorValue-to_list}{\code{FactorValue$to_list()}}
 \item \href{#method-FactorValue-from_list}{\code{FactorValue$from_list()}}
 \item \href{#method-FactorValue-clone}{\code{FactorValue$clone()}}
@@ -168,6 +169,26 @@ checks if comments are a named list of character vectors
 }
 \subsection{Details}{
 Sets comments if they are in a valid format
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-FactorValue-add_comment"></a>}}
+\if{latex}{\out{\hypertarget{method-FactorValue-add_comment}{}}}
+\subsection{Method \code{add_comment()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{FactorValue$add_comment(comment)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comment}}{a list of comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Add comment if it is in a valid format
 }
 
 }

@@ -1,3 +1,5 @@
-test_that("multiplication works", {
-  expect_equal(2 * 2, 4)
+test_that("Process works", {
+	test_process <- Process$new()
+	## Comments ----
+	test_comments(test_process)
 })

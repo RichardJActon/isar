@@ -44,6 +44,7 @@ OA <- OntologyAnnotation$new()
 \item \href{#method-OntologyAnnotation-set_term_accession}{\code{OntologyAnnotation$set_term_accession()}}
 \item \href{#method-OntologyAnnotation-check_comments}{\code{OntologyAnnotation$check_comments()}}
 \item \href{#method-OntologyAnnotation-set_comments}{\code{OntologyAnnotation$set_comments()}}
+\item \href{#method-OntologyAnnotation-add_comment}{\code{OntologyAnnotation$add_comment()}}
 \item \href{#method-OntologyAnnotation-to_list}{\code{OntologyAnnotation$to_list()}}
 \item \href{#method-OntologyAnnotation-from_list}{\code{OntologyAnnotation$from_list()}}
 \item \href{#method-OntologyAnnotation-get_id}{\code{OntologyAnnotation$get_id()}}
@@ -249,6 +250,26 @@ checks if comments are a named list of character vectors
 }
 \subsection{Details}{
 Sets comments if they are in a valid format
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OntologyAnnotation-add_comment"></a>}}
+\if{latex}{\out{\hypertarget{method-OntologyAnnotation-add_comment}{}}}
+\subsection{Method \code{add_comment()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OntologyAnnotation$add_comment(comment)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comment}}{a list of comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Add comment if it is in a valid format
 }
 
 }

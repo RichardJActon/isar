@@ -75,6 +75,14 @@ ProtocolComponent <- R6::R6Class(
 			if(self$check_comments(comments)) { self$comments <- comments }
 		},
 		#' @details
+		#' Add comment if it is in a valid format
+		#' @param comment a list of comments
+		add_comment = function(comment) {
+			if(self$check_comments(comment)) {
+				self$comments <- c(comments, comment)
+			}
+		},
+		#' @details
 		#' An R list representation of a \code{[ProtocolComponent]} object
 		#' @param ld linked data (default FALSE)
 		#' @param recursive use the `from_list()` method on list items that are also isar objects (default = TRUE)

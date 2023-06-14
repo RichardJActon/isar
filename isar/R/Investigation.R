@@ -12,7 +12,7 @@
 #' @field description A textual description of the investigation.
 #' @field submission_date date on which the investigation was reported to the repository. This should be ISO8601 formatted.
 #' @field public_release_date The date on which the investigation should be released publicly. This should be ISO8601 formatted.
-#' @field ontology_source_references [OntologySources] to be referenced by [OntologyAnnotations] used in this ISA descriptor.
+#' @field ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor.
 #' @field publications a list of [Publication] objects
 #' @field contacts A list of People/contacts associated with an Investigation.
 #' @field studies [Study] is the central unit, containing information on the subject under study.
@@ -244,6 +244,14 @@ Investigation <- R6::R6Class(
 		#' @param comments a list of comments
 		set_comments = function(comments) {
 			if(self$check_comments(comments)) { self$comments <- comments }
+		},
+		#' @details
+		#' Add comment if it is in a valid format
+		#' @param comment a list of comments
+		add_comment = function(comment) {
+			if(self$check_comments(comment)) {
+				self$comments <- c(comments, comment)
+			}
 		},
 		#' @details
 		#' generate an R list representation translatable to JSON

@@ -59,13 +59,16 @@ CRediT_role_descriptions <- c(
 	"Writing - review & editing" = "Preparation, creation and/or presentation of the published work by those from the original research group, specifically critical review, commentary or revision – including pre- or post-publication stages."
 )
 
-for (role in names(CRediT_role_uuids)) {
-	assign(role, {
+CRediT_names <- names(CRediT_role_uuids)
+CRediT_names_clean <- gsub("[\\& -]+", "_", CRediT_names)
+
+for (i in seq_along(CRediT_names_clean)) {
+	assign(CRediT_names_clean[i], {
 		x <- OntologyAnnotation$new(
-			term = role, term_source = CRediT,
-			comments = list("description" = CRediT_role_descriptions[role])
+			term = CRediT_names[i], term_source = CRediT,
+			comments = list("description" = CRediT_role_descriptions[i])
 		)
-		x$set_id(CRediT_role_uuids[role])
+		x$set_id(CRediT_role_uuids[i])
 		x
 	})
 }
@@ -73,28 +76,48 @@ for (role in names(CRediT_role_uuids)) {
 # 'enbacktack'
 #cat(paste0("`",names(CRediT_role_uuids),"`"), sep = "\n")
 
-usethis::use_data(`Conceptualization`, overwrite = TRUE)
-usethis::use_data(`Data curation`, overwrite = TRUE)
-usethis::use_data(`Formal analysis`, overwrite = TRUE)
-usethis::use_data(`Funding acquisition`, overwrite = TRUE)
-usethis::use_data(`Investigation`, overwrite = TRUE)
-usethis::use_data(`Methodology`, overwrite = TRUE)
-usethis::use_data(`Project administration`, overwrite = TRUE)
-usethis::use_data(`Resources`, overwrite = TRUE)
-usethis::use_data(`Software`, overwrite = TRUE)
-usethis::use_data(`Supervision`, overwrite = TRUE)
-usethis::use_data(`Validation`, overwrite = TRUE)
-usethis::use_data(`Visualization`, overwrite = TRUE)
-usethis::use_data(`Writing - original draft`, overwrite = TRUE)
-usethis::use_data(`Writing - review & editing`, overwrite = TRUE)
+# usethis::use_data(`Conceptualization`, overwrite = TRUE)
+# usethis::use_data(`Data curation`, overwrite = TRUE)
+# usethis::use_data(`Formal analysis`, overwrite = TRUE)
+# usethis::use_data(`Funding acquisition`, overwrite = TRUE)
+# usethis::use_data(`Investigation`, overwrite = TRUE)
+# usethis::use_data(`Methodology`, overwrite = TRUE)
+# usethis::use_data(`Project administration`, overwrite = TRUE)
+# usethis::use_data(`Resources`, overwrite = TRUE)
+# usethis::use_data(`Software`, overwrite = TRUE)
+# usethis::use_data(`Supervision`, overwrite = TRUE)
+# usethis::use_data(`Validation`, overwrite = TRUE)
+# usethis::use_data(`Visualization`, overwrite = TRUE)
+# usethis::use_data(`Writing - original draft`, overwrite = TRUE)
+# usethis::use_data(`Writing - review & editing`, overwrite = TRUE)
 
-# generate documentation for dara.R
+# fs::file_delete(paste0("data/", CRediT_names[grepl(" ", CRediT_names)],".rda"))
+
+# cat(paste0("usethis::use_data(",CRediT_names_clean,", overwrite = TRUE)"), sep = "\n")
+usethis::use_data(Conceptualization, overwrite = TRUE)
+usethis::use_data(Data_curation, overwrite = TRUE)
+usethis::use_data(Formal_analysis, overwrite = TRUE)
+usethis::use_data(Funding_acquisition, overwrite = TRUE)
+usethis::use_data(Investigation, overwrite = TRUE)
+usethis::use_data(Methodology, overwrite = TRUE)
+usethis::use_data(Project_administration, overwrite = TRUE)
+usethis::use_data(Resources, overwrite = TRUE)
+usethis::use_data(Software, overwrite = TRUE)
+usethis::use_data(Supervision, overwrite = TRUE)
+usethis::use_data(Validation, overwrite = TRUE)
+usethis::use_data(Visualization, overwrite = TRUE)
+usethis::use_data(Writing_original_draft, overwrite = TRUE)
+usethis::use_data(Writing_review_editing, overwrite = TRUE)
+
+# generate documentation for data.R
 # glue::glue(
 # 	"#' CRediT taxonomy: {role}",
 # 	"#' @format [OntologyAnnotation] object",
 # 	"#' @source <https://credit.niso.org/contributor-roles/{role_url}/>",
-# 	'"{role}"',
+# 	'"{obj_name}"',
+# 	"\n",
 # 	.sep = "\n",
 # 	role = names(CRediT_role_uuids),
+# 	obj_name = CRediT_names_clean,
 # 	role_url = gsub("[ &-]+","-",tolower(names(CRediT_role_uuids)))
 # )

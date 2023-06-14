@@ -42,6 +42,7 @@ Represents a data file in an experimental graph.
 \item \href{#method-DataFile-set_generated_from}{\code{DataFile$set_generated_from()}}
 \item \href{#method-DataFile-check_comments}{\code{DataFile$check_comments()}}
 \item \href{#method-DataFile-set_comments}{\code{DataFile$set_comments()}}
+\item \href{#method-DataFile-add_comment}{\code{DataFile$add_comment()}}
 \item \href{#method-DataFile-validate_file}{\code{DataFile$validate_file()}}
 \item \href{#method-DataFile-to_list}{\code{DataFile$to_list()}}
 \item \href{#method-DataFile-from_list}{\code{DataFile$from_list()}}
@@ -267,6 +268,26 @@ checks if comments are a named list of character vectors
 }
 \subsection{Details}{
 Sets comments if they are in a valid format
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DataFile-add_comment"></a>}}
+\if{latex}{\out{\hypertarget{method-DataFile-add_comment}{}}}
+\subsection{Method \code{add_comment()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DataFile$add_comment(comment)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comment}}{a list of comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Add comment if it is in a valid format
 }
 
 }

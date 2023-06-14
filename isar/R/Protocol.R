@@ -196,6 +196,14 @@ Protocol <- R6::R6Class(
 			if(self$check_comments(comments)) { self$comments <- comments }
 		},
 		#' @details
+		#' Add comment if it is in a valid format
+		#' @param comment a list of comments
+		add_comment = function(comment) {
+			if(self$check_comments(comment)) {
+				self$comments <- c(comments, comment)
+			}
+		},
+		#' @details
 		#' An R list representation of a \code{[Process]} object
 		#' @param ld linked data (default FALSE)
 		#' @param recursive use the `from_list()` method on list items that are also isar objects (default = TRUE)
@@ -213,12 +221,16 @@ Protocol <- R6::R6Class(
 				"parameters" = switch(
 					as.character(recursive),
 					"TRUE" = purrr::map(self$parameters, ~.x$to_list()),
-					"FALSE" = purrr::map(self$parameters, ~.x$term)
+					"FALSE" = if (!is.null(self$components)) {
+						purrr::map(self$parameters, ~.x$term)
+					} else {NULL}
 				),
 				"components" = switch(
 					as.character(recursive),
 					"TRUE" = purrr::map(self$components, ~.x$to_list()),
-					"FALSE" = purrr::map(self$components, ~.x$parameter_name)
+					"FALSE" = if (!is.null(self$components)) {
+						purrr::map(self$components, ~.x$parameter_name)
+					} else {NULL}
 				),
 				"comments" = self$comments
 			)
@@ -232,20 +244,28 @@ Protocol <- R6::R6Class(
 			self$name <- lst[["name"]]
 			private$id <- lst[["id"]]
 
-			self$protocol_type <- OntologyAnnotation$new()
-			self$protocol_type$from_list(lst[["protocol_type"]])
+			if (recursive) {
+				self$protocol_type <- OntologyAnnotation$new()
+				self$protocol_type$from_list(lst[["protocol_type"]])
+			} else {
+				self$protocol_type <- lst[["protocol_type"]]
+			}
 
 			self$description <- lst[["description"]]
 			self$uri <- lst[["uri"]]
 			self$version <- lst[["version"]]
 
 			self$parameters <- lst[["parameters"]]
-
-			self$components <- purrr::map(lst[["components"]], ~{
-				oa <- OntologyAnnotation$new()
-				oa$from_list(.x)
-				oa
-			})
+			
+			if (recursive) {
+				self$components <- purrr::map(lst[["components"]], ~{
+					oa <- OntologyAnnotation$new()
+					oa$from_list(.x)
+					oa
+				})
+			} else {
+				self$components <- lst[["components"]]
+			}
 			self$comments <- lst[["comments"]]
 		},
 

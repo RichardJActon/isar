@@ -52,6 +52,7 @@ An experimental Protocol used in the study.
 \item \href{#method-Protocol-set_components}{\code{Protocol$set_components()}}
 \item \href{#method-Protocol-check_comments}{\code{Protocol$check_comments()}}
 \item \href{#method-Protocol-set_comments}{\code{Protocol$set_comments()}}
+\item \href{#method-Protocol-add_comment}{\code{Protocol$add_comment()}}
 \item \href{#method-Protocol-to_list}{\code{Protocol$to_list()}}
 \item \href{#method-Protocol-from_list}{\code{Protocol$from_list()}}
 \item \href{#method-Protocol-get_id}{\code{Protocol$get_id()}}
@@ -419,6 +420,26 @@ checks if comments are a named list of character vectors
 }
 \subsection{Details}{
 Sets comments if they are in a valid format
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Protocol-add_comment"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-add_comment}{}}}
+\subsection{Method \code{add_comment()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Protocol$add_comment(comment)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comment}}{a list of comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Add comment if it is in a valid format
 }
 
 }

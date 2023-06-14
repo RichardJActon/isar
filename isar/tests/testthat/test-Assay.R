@@ -1,5 +1,9 @@
 test_that("Assay works", {
 	test_assay <- Assay$new()
+	
+	## Comments ----
+	test_comments(test_assay)
+	
 	techtype <- OntologySource$new("techtype", terms_list = list(Human = "clay tablet", Alien = "£$&%$%^&*"))
 	cowsphericity <- OntologySource$new("cowsphericity", terms_list = list(High = "Physics", Low = "Biology"))
 	human <- OntologyAnnotation$new("Human", techtype)

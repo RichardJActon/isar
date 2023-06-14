@@ -44,6 +44,7 @@ Process nodes represent the application of a protocol to some input material (e.
 \item \href{#method-Process-set_performer}{\code{Process$set_performer()}}
 \item \href{#method-Process-check_comments}{\code{Process$check_comments()}}
 \item \href{#method-Process-set_comments}{\code{Process$set_comments()}}
+\item \href{#method-Process-add_comment}{\code{Process$add_comment()}}
 \item \href{#method-Process-to_list}{\code{Process$to_list()}}
 \item \href{#method-Process-from_list}{\code{Process$from_list()}}
 \item \href{#method-Process-get_id}{\code{Process$get_id()}}
@@ -251,6 +252,26 @@ checks if comments are a named list of character vectors
 }
 \subsection{Details}{
 Sets comments if they are in a valid format
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Process-add_comment"></a>}}
+\if{latex}{\out{\hypertarget{method-Process-add_comment}{}}}
+\subsection{Method \code{add_comment()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Process$add_comment(comment)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comment}}{a list of comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Add comment if it is in a valid format
 }
 
 }

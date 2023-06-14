@@ -41,6 +41,7 @@ Sample$new()
 \item \href{#method-Sample-set_characteristics}{\code{Sample$set_characteristics()}}
 \item \href{#method-Sample-check_comments}{\code{Sample$check_comments()}}
 \item \href{#method-Sample-set_comments}{\code{Sample$set_comments()}}
+\item \href{#method-Sample-add_comment}{\code{Sample$add_comment()}}
 \item \href{#method-Sample-to_list}{\code{Sample$to_list()}}
 \item \href{#method-Sample-from_list}{\code{Sample$from_list()}}
 \item \href{#method-Sample-get_id}{\code{Sample$get_id()}}
@@ -241,6 +242,26 @@ checks if comments are a named list of character vectors
 }
 \subsection{Details}{
 Sets comments if they are in a valid format
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Sample-add_comment"></a>}}
+\if{latex}{\out{\hypertarget{method-Sample-add_comment}{}}}
+\subsection{Method \code{add_comment()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Sample$add_comment(comment)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comment}}{a list of comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Add comment if it is in a valid format
 }
 
 }

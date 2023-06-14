@@ -29,6 +29,7 @@ Role$new()
 \item \href{#method-Role-new}{\code{Role$new()}}
 \item \href{#method-Role-check_comments}{\code{Role$check_comments()}}
 \item \href{#method-Role-set_comments}{\code{Role$set_comments()}}
+\item \href{#method-Role-add_comment}{\code{Role$add_comment()}}
 \item \href{#method-Role-to_list}{\code{Role$to_list()}}
 \item \href{#method-Role-from_list}{\code{Role$from_list()}}
 \item \href{#method-Role-get_id}{\code{Role$get_id()}}
@@ -93,6 +94,26 @@ checks if comments are a named list of character vectors
 }
 \subsection{Details}{
 Sets comments if they are in a valid format
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Role-add_comment"></a>}}
+\if{latex}{\out{\hypertarget{method-Role-add_comment}{}}}
+\subsection{Method \code{add_comment()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Role$add_comment(comment)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comment}}{a list of comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Add comment if it is in a valid format
 }
 
 }

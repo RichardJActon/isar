@@ -32,6 +32,7 @@ A ParameterValue represents the instance value of a \code{[ProtocolParameter]}, 
 \item \href{#method-ParameterValue-set_unit}{\code{ParameterValue$set_unit()}}
 \item \href{#method-ParameterValue-check_comments}{\code{ParameterValue$check_comments()}}
 \item \href{#method-ParameterValue-set_comments}{\code{ParameterValue$set_comments()}}
+\item \href{#method-ParameterValue-add_comment}{\code{ParameterValue$add_comment()}}
 \item \href{#method-ParameterValue-to_list}{\code{ParameterValue$to_list()}}
 \item \href{#method-ParameterValue-from_list}{\code{ParameterValue$from_list()}}
 \item \href{#method-ParameterValue-get_id}{\code{ParameterValue$get_id()}}
@@ -142,6 +143,26 @@ checks if comments are a named list of character vectors
 }
 \subsection{Details}{
 Sets comments if they are in a valid format
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ParameterValue-add_comment"></a>}}
+\if{latex}{\out{\hypertarget{method-ParameterValue-add_comment}{}}}
+\subsection{Method \code{add_comment()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ParameterValue$add_comment(comment)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comment}}{a list of comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Add comment if it is in a valid format
 }
 
 }
