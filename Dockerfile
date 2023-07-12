@@ -15,6 +15,7 @@ RUN apt-get -y update && \
   apt-get clean && \
   apt-get install -y --no-install-recommends \
   apt-utils \
+    man-db \
     libncurses5-dev \
     libncursesw5-dev \
     parallel \
