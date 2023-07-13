@@ -3,6 +3,10 @@
 #' @source <https://raw.githubusercontent.com/HajoRijgersberg/OM/master/om-2.0.rdf>
 "OM"
 
+#' isa_tab_section_headings
+#' @format named character vector
+#' @source https://github.com/ISA-tools/isa-specs/blob/master/source/isatab.rst
+
 #' CRediT taxonomy
 #' @format [OntologySource] object
 #' @source <https://credit.niso.org/>
