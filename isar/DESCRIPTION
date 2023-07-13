@@ -16,16 +16,19 @@ Imports:
     checkmate,
     crayon,
     digest,
+    dplyr,
     fs,
     glue,
     purrr,
     qs,
+    readr,
     rjson,
     shiny,
     shinyWidgets,
     stringr,
     testthat,
     tibble,
+    tidyr,
     uuid
 Depends:
     R (>= 2.10),
@@ -42,6 +45,7 @@ Collate:
     'Characteristic.R'
     'FactorValue.R'
     'Investigation.R'
+    'isatab-parser.R'
     'Material.R'
     'OntologyAnnotation.R'
     'OntologySource.R'
