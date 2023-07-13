@@ -103,6 +103,9 @@ Person <- R6::R6Class(
 				)
 			) {
 				return(TRUE)
+			} else if(checkmate::qtest(email, "S[0]")) {
+				warning("Empty email field")
+				return(TRUE)
 			} else {
 				stop("Invalid email address!")
 			}

@@ -65,7 +65,9 @@ Publication <- R6::R6Class(
 		#' Check for a valid DOI (Digital Object Identifier)
 		#' @param doi a valid DOI (Digital Object Identifier)
 		check_doi = function(doi) {
-			doi_regex = '^(10[.][0-9]{2,}(?:[.][0-9]+)*/(?:(?![%"#? ])\\S)+)$'
+			#doi_regex = '^(10[.][0-9]{2,}(?:[.][0-9]+)*/(?:(?![%"#? ])\\S)+)$'
+			# allow 'doi:' prefix
+			doi_regex = '^(?:doi:)?(10[.][0-9]{2,}(?:[.][0-9]+)*/(?:(?![%"#? ])\\S)+)$'
 			# https://github.com/regexhq/doi-regex/blob/main/index.js
 			if(grepl(doi_regex, doi, perl = TRUE)) { return(TRUE) } else {
 				stop("Invalid DOI!")
@@ -86,8 +88,12 @@ Publication <- R6::R6Class(
 				all(
 					purrr::map_lgl(author_list, ~checkmate::test_r6(.x, "Person"))
 				)
-			) { return(TRUE) } else {
-				stop("All authors must be 'Person' objects")
+			) { return(TRUE) } else if (checkmate::test_string(author_list)) {
+				## !!! strict mode which stops this?
+				return(TRUE)
+			} else {
+				#stop("All authors must be 'Person' objects")
+				stop("authors must be a single string or a list of 'Person' objects")
 			}
 		},
 		#' @details

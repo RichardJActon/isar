@@ -78,7 +78,7 @@ clear_all_na_cols <- function(tbl) {
 #'
 #' @examples
 #' 
-#' transpose_first_to_title(tibble::tibble(x = c("A", "B"), y = c(1,2)))
+#' transpose_first_to_title(tibble::tibble(X1 = c("A a", "B B"), X2 = c(1,2)))
 #' 
 #' @importFrom dplyr `%>%` slice
 #' @importFrom tibble remove_rownames as_tibble
@@ -97,7 +97,10 @@ transpose_first_to_title <- function(tbl) {
 #' clear_na_cols_and_transpose
 #' 
 #' convenience wrapper for doing first removal of columns with all NA values
-#'	and transposition of a tibble where first row becomes the column names
+#' and transposition of a tibble where first row becomes the column names.
+#' This function also adds the step of removing the first (redundant) word from
+#' the sub-section names, this makes it easier to use the same parser for
+#' fields which are in both Study and Investigation such as people and contacts
 #'
 #' @param tbl a tibble
 #'
@@ -109,7 +112,10 @@ transpose_first_to_title <- function(tbl) {
 #'
 #' @importFrom dplyr `%>%`
 clear_na_cols_and_transpose <- function(tbl) {
-	tbl %>% clear_all_na_cols() %>% transpose_first_to_title()
+	tbl %>% 
+		clear_all_na_cols() %>% 
+		dplyr::mutate(X1 = sub("\\w+ (.*)","\\1", X1)) %>%
+		transpose_first_to_title()
 }
 
 # a dataset in the package see: data-raw/isa_tab_section_headings.R
@@ -241,3 +247,116 @@ lex_investigation <- function(
 
 # lex_investigation("../data/example-isatab-data/BII-I-1/i_Investigation.txt")
 
+tbl_to_ontology_source <- function(data) {
+	fx <- function(
+		`Source Name`,
+		`Source File`,
+		`Source Version`,
+		`Source Description`
+	) {
+		OntologySource$new(
+			name = `Source Name`,
+			file = `Source File`,
+			version = `Source Version`,
+			description = `Source Description`
+		)
+	}
+	purrr::pmap(data %>% tidyr::replace_na(
+		replace = list(
+			`Source Name` = "",
+			`Source File` = "",
+			`Source Version` = "",
+			`Source Description` = ""
+		)), fx)
+}
+
+# tmp %>%
+# 	dplyr::filter(grepl("PUBLICATIONS", section))
+
+tbl_to_publication <- function(data) {
+	fx <- function(
+		`PubMed ID`,
+		`Publication DOI`,
+		`Publication Author list`,
+		`Publication Title`,
+		`Publication Status`,
+		`Publication Status Term Accession Number`,
+		`Publication Status Term Source REF`
+	) {
+		Publication$new(
+			pubmed_id = `PubMed ID`,
+			doi = `Publication DOI`,
+			author_list = `Publication Author list`,
+			title = `Publication Title`,
+			status = `Publication Status`
+		)
+	}
+	purrr::pmap(
+		data %>%
+			dplyr::mutate(`PubMed ID` = as.integer(`PubMed ID`)) %>%
+			tidyr::replace_na(
+				replace = list(
+					`Publication DOI` = "",
+					`Publication Author list` = "",
+					`Publication Title` = "",
+					`Publication Status` = "",
+					`Publication Status Term Accession Number` = "",
+					`Publication Status Term Source REF` = ""
+				)
+			),
+		fx
+	)
+}
+# 
+# tbl_to_publication(tmp$data[[3]])
+# 
+# tmp$data[[7]]
+tbl_to_person <- function(data) {
+	fx <- function(
+		`Person Last Name`,
+		`Person First Name`,
+		`Person Mid Initials`,
+		`Person Email`,
+		`Person Phone`,
+		`Person Fax`,
+		`Person Address`,
+		`Person Affiliation`,
+		`Person Roles`,
+		`Person Roles Term Accession Number`,
+		`Person Roles Term Source REF`
+	) {
+		Person$new(
+			last_name = `Person Last Name`,
+			first_name = `Person First Name`,
+			mid_initials = `Person Mid Initials`,
+			email = `Person Email`,
+			phone = `Person Phone`,
+			fax = `Person Fax`,
+			address = `Person Address`,
+			affiliation = `Person Affiliation`,
+			# orcid = ,
+			roles = `Person Roles`
+		)
+	}
+	purrr::pmap(
+		data %>%
+			tidyr::replace_na(
+			replace = list(
+				`Person Last Name` = "",
+				`Person First Name` = "",
+				`Person Mid Initials` = "",
+				`Person Email` = "",
+				`Person Phone` = "",
+				`Person Fax` = "",
+				`Person Address` = "",
+				`Person Affiliation` = "",
+				`Person Roles` = "",
+				`Person Roles Term Accession Number` = "",
+				`Person Roles Term Source REF` = ""
+			)
+		),
+		fx
+	)
+}
+
+# tbl_to_person(tmp$data[[4]])
