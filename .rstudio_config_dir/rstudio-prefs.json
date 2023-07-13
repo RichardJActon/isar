@@ -54,5 +54,6 @@
     "visual_markdown_code_editor_line_numbers": true,
     "visual_markdown_editing_max_content_width": 800,
     "visual_markdown_editing_canonical": true,
-    "source_with_echo": true
+    "source_with_echo": true,
+    "num_spaces_for_tab": 4
 }
