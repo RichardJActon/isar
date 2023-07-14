@@ -128,3 +128,72 @@ check_id <- function(id) {
 		return("id must be a valid uuid or a valid uuid with a suffix")
 	}
 }
+
+
+#' date_string_conversion
+#'
+#' @param date_string a string to be converted to a date
+#'
+#' @return a Date object
+#' @export
+#'
+#' @examples
+#' date_string_conversion("2012-08-01")
+#' date_string_conversion("1Jan2009")
+#' 
+#' 
+date_string_conversion <- function(date_string) {
+	date <- tryCatch({
+			stopifnot(grepl(
+				"^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$",
+				date_string
+			))
+			as.Date.character(date_string, tryFormats = "%Y-%m-%d")
+		},
+		error = function(res) {
+			warning(paste0(
+				"\n",
+				#emo::ji("rage"),
+				"😡",
+				crayon::red(crayon::bold(" Date is not formated correctly!\n")),
+				#emo::ji("halo"),
+				"😇",
+				crayon::green(
+					" Please use ISO8601 compliant date strings: YYYY-mm-dd\n"
+				),
+				#emo::ji("worried"),
+				"😟",
+				crayon::yellow(
+					" Attempting other date formats...\n"
+					
+				),
+				crayon::yellow(crayon::bold(
+				"This may result in errors!\n"
+				)),
+				crayon::yellow(
+					"There may be ambiguity in other date formats please use the correct one!"
+				)
+			))
+		}
+	)
+	if (!checkmate::test_date(date)) {
+		date <- tryCatch(
+			as.Date.character(
+				date_string, tryFormats = c(
+					"%Y-%m-%d",
+					"%d/%m/%Y", "%d-%m-%Y", "%d_%m_%Y",
+					"%m/%d/%Y", "%m-%d-%Y", "%m_%d_%Y",
+					"%d %b %Y", "%d%b%Y"
+				)
+			),
+			error = function(res) {
+				stop(paste0(
+					#emo::ji("disappointed"),
+					"😞",
+					crayon::red(" No Valid Date format found!")
+				))
+			}
+		)
+	}
+	return(date)
+}
