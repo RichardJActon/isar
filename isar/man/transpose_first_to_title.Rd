@@ -18,6 +18,6 @@ as the column names of the new tibble
 }
 \examples{
 
-transpose_first_to_title(tibble::tibble(x = c("A", "B"), y = c(1,2)))
+transpose_first_to_title(tibble::tibble(X1 = c("A a", "B B"), X2 = c(1,2)))
 
 }

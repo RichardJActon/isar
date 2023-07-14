@@ -14,7 +14,10 @@ a tibble
 }
 \description{
 convenience wrapper for doing first removal of columns with all NA values
-and transposition of a tibble where first row becomes the column names
+and transposition of a tibble where first row becomes the column names.
+This function also adds the step of removing the first (redundant) word from
+the sub-section names, this makes it easier to use the same parser for
+fields which are in both Study and Investigation such as people and contacts
 }
 \examples{
 clear_na_cols_and_transpose(tibble::tibble(A = c(NA, NA), B = 1:2, C = c(NA, FALSE)))

@@ -1,3 +1,5 @@
+# Get ISA-tab files ----
+
 #' get_isatab_files
 #' 
 #' Generates a table listing the files of an ISA-tab dataset from the directory
@@ -16,6 +18,10 @@
 #' @importFrom tibble tibble
 #' @importFrom glue glue
 get_isatab_files <- function(path, verbose = FALSE) {
+	# todo check .txt extension
+	# files names have only: A-Za-z0-9._!#$%&+,;=@^(){}'[]
+	# warn on (){}'[]$."
+	
 	isatab_files <- path %>%
 		fs::dir_ls() %>% 
 		tibble::tibble(paths = .) %>%
@@ -42,6 +48,8 @@ get_isatab_files <- function(path, verbose = FALSE) {
 	
 	return(isatab_files)
 }
+
+# Investigation Parsing Helper functions ----
 
 #' clear_all_na_cols
 #' 
@@ -154,7 +162,9 @@ read_investigation_and_assign_lines_to_sections <- function(
 	
 	#i_tab_with_section_type <- 
 	path %>% 
-		readr::read_tsv(col_names = FALSE, show_col_types = FALSE) %>%
+		readr::read_tsv(
+			col_names = FALSE, show_col_types = FALSE, comment = "#"
+		) %>%
 		dplyr::mutate(
 			section = dplyr::case_when(
 				X1 %in% section_headings ~ section_headings[X1]
@@ -209,7 +219,9 @@ index_repeated_sections <- function(i_tab_with_section_type) {
 	i_tab_with_section_type %>% tidyr::fill(section_index)
 }
 
-#' lex_investigation
+# Investigation Parsing ----
+
+#' parse_investigation
 #'
 #' @param path the path to an investigation file
 #' @param section_headings named character vector of section headings
@@ -221,7 +233,7 @@ index_repeated_sections <- function(i_tab_with_section_type) {
 #' @importFrom tidyr nest
 #' @importFrom purrr map
 # #' @examples
-lex_investigation <- function(
+parse_investigation <- function(
 	path, section_headings = isa_tab_section_headings
 ) {
 	# Read the ISA-tab investigation as a tibble
@@ -245,7 +257,9 @@ lex_investigation <- function(
 	return(i_tab_with_section_type_nested_transposed)
 }
 
-# lex_investigation("../data/example-isatab-data/BII-I-1/i_Investigation.txt")
+# parse_investigation("../data/example-isatab-data/BII-I-1/i_Investigation.txt")
+
+# parse tree to object conversion ----
 
 tbl_to_ontology_source <- function(data) {
 	fx <- function(
@@ -360,3 +374,89 @@ tbl_to_person <- function(data) {
 }
 
 # tbl_to_person(tmp$data[[4]])
+
+tbl_to_study <- function(data) {
+	fx <- function(
+		`Identifier`,
+		`Title`,
+		`Submission Date`,
+		`Public Release Date`,
+		`Description`,
+		`File Name`
+	) {
+		Study$new(
+			filename = `File Name`,
+			title = `Title`,
+			description = `Description`,
+			submission_date = `Submission Date`,
+			public_release_date = `Public Release Date`#,
+			# contacts = ,
+			# design_descriptors = ,
+			# publications = ,
+			# factors = ,
+			# protocols = ,
+			# assays = ,
+			# sources = ,
+			# samples = ,
+			# process_sequence = ,
+			# other_material = ,
+			# characteristic_categories = ,
+			# comments = ,
+			# units = 
+		)
+	}
+	purrr::pmap(data, fx)
+}
+
+
+# Study & Assay shared parser helper functions ---
+
+parse_characteristic <- function() {
+	
+}
+
+parse_parameter_value <- function() {
+	
+}
+
+parse_factor_value <- function() {
+	
+}
+
+# Study ----
+
+# ? parse_protocol <- 
+
+parse_source <- function() {
+	
+}
+
+
+parse_study <- function(path) {
+	study_tbl <- readr::read_tsv(path, show_col_types = FALSE, comment = "#")
+	study_tbl
+}
+
+# Assay ----
+
+
+
+parse_assay <- function(path) {
+	assay_tbl <- readr::read_tsv(path, show_col_types = FALSE, comment = "#")
+	assay_tbl
+}
+
+
+
+# read_tsv("../data/example-isatab-data/BII-I-1/s_BII-S-1.txt") %>% colnames() -> stmpcn
+# stmpcn
+
+# attribute - characteristics, Factor Type, Comment, Label, Material type, Factor value
+# node - sample name, source name
+# node assay - assay name, data transformation name
+# processing - Protocols
+# parameter - Parameter Value
+
+
+# which(grepl("Characteristics\\[.+\\]", stmpcn))
+
