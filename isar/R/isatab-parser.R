@@ -1,5 +1,18 @@
 # Get ISA-tab files ----
 
+isa_tab_dir_validate <- function(path) {
+	isatab_paths <- path %>% fs::dir_ls()
+	isatab_files <- isatab_paths %>% fs::path_file()
+	isa_tab_prefix_files <- isatab_files[grepl("^([ias])_.*", isatab_files)]
+	isa_tab_prefix_files_extensions <- isa_tab_prefix_files %>% fs::path_ext()
+	if(!all(isa_tab_prefix_files_extensions == "txt")) {
+		stop(
+			"ISA-tab files must be prefixed i/s/a_ and have the extension .txt!"
+		)
+	}
+	
+}
+
 #' get_isatab_files
 #' 
 #' Generates a table listing the files of an ISA-tab dataset from the directory
@@ -23,7 +36,10 @@ get_isatab_files <- function(path, verbose = FALSE) {
 	# warn on (){}'[]$."
 	
 	isatab_files <- path %>%
-		fs::dir_ls() %>% 
+		fs::dir_ls()
+
+	
+	isatab_files_tab <- isatab_files %>% 
 		tibble::tibble(paths = .) %>%
 		dplyr::mutate(
 			files = fs::path_file(paths),
@@ -31,7 +47,7 @@ get_isatab_files <- function(path, verbose = FALSE) {
 		)
 	
 	if (verbose) {
-		isatab_file_type_counts <- isatab_files %>%
+		isatab_file_type_counts <- isatab_files_tab %>%
 			dplyr::count(type)
 		i_n <- isatab_file_type_counts %>% 
 			dplyr::filter(type == "i") %>% dplyr::pull(n)
@@ -46,7 +62,7 @@ get_isatab_files <- function(path, verbose = FALSE) {
 			message()
 	}
 	
-	return(isatab_files)
+	return(isatab_files_tab)
 }
 
 # Investigation Parsing Helper functions ----
@@ -447,8 +463,8 @@ parse_assay <- function(path) {
 }
 
 
-
-# read_tsv("../data/example-isatab-data/BII-I-1/s_BII-S-1.txt") %>% colnames() -> stmpcn
+# readr::read_tsv("../data/example-isatab-data/BII-I-1/s_BII-S-1.txt") -> stmp
+# stmp %>% colnames() -> stmpcn
 # stmpcn
 
 # attribute - characteristics, Factor Type, Comment, Label, Material type, Factor value
@@ -460,3 +476,88 @@ parse_assay <- function(path) {
 
 # which(grepl("Characteristics\\[.+\\]", stmpcn))
 
+# split by object
+
+#' split_study_or_assay_by_object
+#' 
+#' Objects in Study and Assay tables are 'generally'* defined by a
+#' leading column of the form: '<Entity> Name'
+#' 
+#' !! problem for reliablly identifying object boundaries in these tables
+#' !! is there a more systematic way which does not make the name assumption?
+#' !! seems like it would be complicated and by exclusion rather than a positive  ID?
+#' 
+#'
+#' @param data a 
+#' 
+#' @return a list of tibbles
+#' @export
+#'
+#' @examples
+#' 
+#' 
+#' @importFrom dplyr `%>%` select all_of
+#' @importFrom purrr map map2
+split_study_or_assay_by_object <- function(data) {
+	colnms <- data %>% colnames()
+	
+	num_cols <- data %>% ncol()
+	
+	object_col_indices <- colnms %>% grepl(".* Name$",.) %>% which() 
+	# The next column ending in 'Name' defines the end of the column range of
+	# the object hence the range in this index minus one. Thus for this to
+	# work for the last object in the table we use the number of columns plus one
+	object_col_indices_offset <- c(object_col_indices[-1], num_cols + 1)
+	
+	object_column_indices <- purrr::map2(
+		object_col_indices, object_col_indices_offset, ~seq(.x, .y - 1)
+	)
+	#object_column_indices
+	purrr::map(object_column_indices, ~{
+		data %>% dplyr::select(dplyr::all_of(.x))
+	})
+}
+
+# atmpsplit <- split_study_or_assay_by_object(atmp)
+# stmpsplit <- split_study_or_assay_by_object(stmp)
+
+# atmpsplit[[1]] <- dplyr::bind_cols(atmpsplit[[1]], tibble::tibble(`Comment[about something]` = "meh")) 
+extract_comments_from_object_columns <- function(lst) {
+	purrr::map(lst, ~{
+		tbl <- .x
+		
+		colnms <- tbl %>% colnames()
+		
+		comment_indices <- colnms %>%
+			grepl("^Comment\\[.*\\]$" ,.) %>%
+			which()
+
+		comment_names <- colnms[comment_indices] %>%
+			sub("^Comment\\[(.*)\\]$" , "\\1", .)
+		
+		purrr::map2(comment_indices, comment_names, ~{
+			tbl %>% dplyr::pull(.x) %>% list() %>% purrr::set_names(.y)
+		})
+
+	})
+}
+
+# extract_comments_from_object_columns(atmpsplit)
+
+
+remove_comments_from_object_columns <- function(lst) {
+	purrr::map(lst, ~{
+		comment_indices <- .x %>% 
+			colnames() %>%
+			grepl("^Comment\\[.*\\]$" ,.) %>%
+			which()
+		if (length(comment_indices) > 0) {
+			.x %>% dplyr::select(-dplyr::all_of(comment_indices))
+		} else {
+			.x
+		}
+	})
+}
+
+
+# remove_comments_from_object_columns(atmpsplit)
