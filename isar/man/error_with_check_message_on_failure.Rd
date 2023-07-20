@@ -7,17 +7,19 @@
 error_with_check_message_on_failure(check, nextline = NULL)
 }
 \arguments{
-\item{check}{the output from a check_* function for the checkmate package}
+\item{check}{the output from a \verb{check_*} function from the checkmate package}
 
 \item{nextline}{text to put on the line after check message}
 }
 \description{
 Used in conjunction with checkmate check_* functions
 has the behavior of returning TRUE if a check is TRUE and throwing an error
-if check produces a message.
+if check returns a string.
 }
 \details{
 assertions don't return TRUE on success but do error on failure and tests
 don't produce any information about the reason for failure.
 Checks produce a reasons on failure but don't throw an error.
+This function turns the strings returned by check functions into error
+messages, and passes through the TRUE if there is no message text.
 }

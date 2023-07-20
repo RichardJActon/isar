@@ -1,16 +1,70 @@
 # Get ISA-tab files ----
 
-isa_tab_dir_validate <- function(path) {
+#' check_isa_tab_dir
+#' 
+#' Checks if a directory exists and contains the right files for an ISA-tab
+#' description.
+#' 
+#' Follows the pattern of the `check_*` functions from the {checkmate}
+#' package.
+#'  
+#' @param path the path to an ISA-tab directory
+#'
+#' @return a string or logical
+#' @export
+#'
+#' @importFrom fs dir_exists dir_ls path_file path_ext
+#' @importFrom dplyr `%>%`
+# #' @examples
+check_isa_tab_dir <- function(path) {
+	if(!fs::dir_exists(path)) { return(paste0(
+		"Directory:'", path, "' does not exist!"
+	))}
 	isatab_paths <- path %>% fs::dir_ls()
+	if(length(isatab_paths) < 1) {return(paste0(
+		"No files found in directory: '", path, "'!"
+	))}
 	isatab_files <- isatab_paths %>% fs::path_file()
+	# get only the files with i/s/a_ prefixes
 	isa_tab_prefix_files <- isatab_files[grepl("^([ias])_.*", isatab_files)]
+	# get the file extentions of the ISA files
 	isa_tab_prefix_files_extensions <- isa_tab_prefix_files %>% fs::path_ext()
-	if(!all(isa_tab_prefix_files_extensions == "txt")) {
-		stop(
-			"ISA-tab files must be prefixed i/s/a_ and have the extension .txt!"
-		)
+	if(!all(isa_tab_prefix_files_extensions == "txt")) { return(paste0(
+		"ISA-tab files must be prefixed i/s/a_",
+		" and have the extension .txt!"
+	))}
+	# There should only be one Investigation file in a given ISA-tab directory
+	inv_files_idx <- isa_tab_prefix_files %>% grepl("i_.*\\.txt", .) %>% which()
+	n_inv <- inv_files_idx %>% length()
+	if(n_inv > 1) { return(paste(
+		sep = "\n",
+		"More than one Investigation file found!",
+		paste0(isa_tab_prefix_files[inv_files_idx], collapse = ", "),
+		"Please only use only one investigation file per ISA-tab directory."
+	))}
+	
+	n_sty <- isa_tab_prefix_files %>% 
+		grepl("s_.*\\.txt", .) %>% 
+		which() %>% 
+		length()
+	
+	n_asy <- isa_tab_prefix_files %>% 
+		grepl("a_.*\\.txt", .) %>% 
+		which() %>%
+		length()
+	
+	if(!all(n_inv > 0, n_sty > 0, n_asy > 0)) {
+		return(paste(
+			sep = "\n",
+			"There must be at least 1 investigation, 1 study, and 1 assay.",
+			"There are:",
+			paste0("\tInvestigations: ", n_inv),
+			paste0("\tStudies: ", n_sty),
+			paste0("\tAssays: ", n_asy)
+		))
 	}
 	
+	return(TRUE)
 }
 
 #' get_isatab_files
@@ -34,35 +88,42 @@ get_isatab_files <- function(path, verbose = FALSE) {
 	# todo check .txt extension
 	# files names have only: A-Za-z0-9._!#$%&+,;=@^(){}'[]
 	# warn on (){}'[]$."
+	isatab_valid <- path %>% 
+		check_isa_tab_dir() %>%
+		error_with_check_message_on_failure()
 	
-	isatab_files <- path %>%
-		fs::dir_ls()
-
-	
-	isatab_files_tab <- isatab_files %>% 
-		tibble::tibble(paths = .) %>%
-		dplyr::mutate(
-			files = fs::path_file(paths),
-			type = sub("^([ias])_.*", "\\1", files)
-		)
-	
-	if (verbose) {
-		isatab_file_type_counts <- isatab_files_tab %>%
-			dplyr::count(type)
-		i_n <- isatab_file_type_counts %>% 
-			dplyr::filter(type == "i") %>% dplyr::pull(n)
-		s_n <- isatab_file_type_counts %>% 
-			dplyr::filter(type == "s") %>% dplyr::pull(n)
-		a_n <- isatab_file_type_counts %>% 
-			dplyr::filter(type == "a") %>% dplyr::pull(n)
+	if(isTRUE(isatab_valid)) {
+		isatab_files <- path %>%
+			fs::dir_ls()
 		
-		glue::glue(
-			.sep = "\n", "{i_n} Invesigation", "{s_n} Studies", "{a_n} Assays"
-		) %>%
-			message()
+		isatab_files_tab <- isatab_files %>% 
+			tibble::tibble(paths = .) %>%
+			dplyr::mutate(
+				files = fs::path_file(paths),
+				type = sub("^([ias])_.*", "\\1", files),
+				type = factor(type, levels = c("i","s","a"), ordered = TRUE)
+			) %>%
+			dplyr::arrange(type)
+		
+		if (verbose) {
+			isatab_file_type_counts <- isatab_files_tab %>%
+				dplyr::count(type)
+			i_n <- isatab_file_type_counts %>% 
+				dplyr::filter(type == "i") %>% dplyr::pull(n)
+			s_n <- isatab_file_type_counts %>% 
+				dplyr::filter(type == "s") %>% dplyr::pull(n)
+			a_n <- isatab_file_type_counts %>% 
+				dplyr::filter(type == "a") %>% dplyr::pull(n)
+			
+			glue::glue(
+				.sep = "\n", "{i_n} Investigation", "{s_n} Studies",
+				"{a_n} Assays"
+			) %>%
+				message()
+		}
+		
+		return(isatab_files_tab)
 	}
-	
-	return(isatab_files_tab)
 }
 
 # Investigation Parsing Helper functions ----
