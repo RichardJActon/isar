@@ -334,7 +334,30 @@ parse_investigation <- function(
 	return(i_tab_with_section_type_nested_transposed)
 }
 
-# parse_investigation("../data/example-isatab-data/BII-I-1/i_Investigation.txt")
+# invtmp <- parse_investigation("../data/example-isatab-data/BII-I-1/i_Investigation.txt")
+
+tbl_to_investigation <- function(data) {
+	Investigation$new(
+		
+		# filename = ,
+		# 'Identifier'
+		
+		title = data$Title,
+		description = data$Description,
+		# ! check if date before attempting string conversion !
+		submission_date = date_string_conversion(data$`Submission Date`),
+		public_release_date = date_string_conversion(data$`Public Release Date`),
+		# ontology_source_references = ,
+		# publications = ,
+		# contacts = ,
+		# studies = ,
+		
+		
+		#comments = 
+	)
+}
+
+# tbl_to_investigation(invtmp$data[[2]])
 
 # parse tree to object conversion ----
 
@@ -524,6 +547,7 @@ parse_assay <- function(path) {
 }
 
 
+# readr::read_tsv("../data/example-isatab-data/BII-I-1/a_metabolome.txt") -> atmp
 # readr::read_tsv("../data/example-isatab-data/BII-I-1/s_BII-S-1.txt") -> stmp
 # stmp %>% colnames() -> stmpcn
 # stmpcn
