@@ -49,16 +49,37 @@ Publication <- R6::R6Class(
 		#' Check for a valid PubMed ID
 		#' @param pubmed_id an identifier from the PubMed database
 		check_pubmed_id = function(pubmed_id) {
-			if(is.integer(pubmed_id)) { return(TRUE) } else {
-				stop("PUBMED IDs must be integers!")
-			}
+			# Allow PMC? - this should not be allowed these are different identifiers
+			# but for some reason this is in the spec https://isa-specs.readthedocs.io/en/latest/isajson.html#content-rules
+
+			pmidint <- as.integer(pubmed_id)
+			if(is.na(pmidint)) {
+				stop("PUBMED ID is not an integer and cannot be coerced to one!")
+			} else { return(TRUE) }
+
+			# if(is.integer(pubmed_id)) { return(TRUE) } else {
+			# 	stop("PUBMED IDs must be integers!")
+			# }
 		},
 		#' @details
 		#' Set PubMed ID if valid
 		#' @param pubmed_id an identifier from the PubMed database
 		set_pubmed_id = function(pubmed_id) {
+			# tryCatch(
+			# 	self$check_pubmed_id(pubmed_id),
+			# 	error = function(res) {
+			# 		pmidint <- as.integer(pubmed_id)
+			# 		if(is.na(pmidint)) {
+			# 			stop("PUBMED ID is not an integer and cannot be coerced to one!")
+			# 		} else {
+			# 			warning(res)
+			# 			self$pubmed_id <- pmidint
+			# 		}
+			# 	}
+			# )
+
 			if (self$check_pubmed_id(pubmed_id)) {
-				self$pubmed_id <- pubmed_id
+				self$pubmed_id <- as.integer(pubmed_id)
 			}
 		},
 		#' @details
@@ -155,17 +176,46 @@ Publication <- R6::R6Class(
 		#' @details
 		#' Generate a \code{[Publication]} object from a list
 		#' @param lst a list suitable for conversion to a Publication Object
-		from_list = function(lst) {
-			self$pubmed_id <- lst[["pubmed_id"]]
-			self$doi <- lst[["doi"]]
-			self$author_list <- lst[["author_list"]]
-			self$author_list <- purrr::map(lst["author_list"], ~{
-				a <- Person$new()
-				a$from_list(.x)
-			})
-			self$title <- lst[["title"]]
-			self$status <- lst[["status"]]
-			self$comments <- lst[["comments"]]
+		from_list = function(lst, json = FALSE) {
+			if(json) {
+				self$set_pubmed_id(lst[["pubMedID"]])
+				self$set_doi(lst[["doi"]])
+				self$author_list <- lst[["authorList"]]
+				# self$author_list <- purrr::map(lst["author_list"], ~{
+				# 	a <- Person$new()
+				# 	a$from_list(.x)
+				# })
+				self$title <- lst[["title"]]
+				self$status <- lst[["status"]]
+				self$set_comments(lst[["comments"]])
+			} else {
+				self$set_pubmed_id(lst[["pubmed_id"]])
+				self$set_soi(lst[["doi"]])
+				self$author_list <- lst[["author_list"]]
+				self$author_list <- purrr::map(lst["author_list"], ~{
+					a <- Person$new()
+					a$from_list(.x)
+				})
+				self$title <- lst[["title"]]
+				self$status <- lst[["status"]]
+				self$set_comments(lst[["comments"]])
+			}
+		},
+		print = function() {
+			cat(
+				crayon::blue(crayon::bold("Publication")),
+				green_bold_name_plain_content("Title", self$title),
+				sep = "\n"
+			)
+				#green_bold_name_plain_content("", self$author_list),
+			cat(
+				green_bold_name_plain_content("pubmedid", self$pubmed_id),
+				green_bold_name_plain_content("DOI", self$doi),
+				# ~
+				# green_bold_name_plain_content("status", self$status),
+				sep = "\n"
+			)
+			pretty_print_comments(self$comments)
 		}
 	)
 )

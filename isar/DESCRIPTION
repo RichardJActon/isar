@@ -19,6 +19,7 @@ Imports:
     dplyr,
     fs,
     glue,
+    jsonlite,
     purrr,
     qs,
     readr,
@@ -45,6 +46,7 @@ Collate:
     'Characteristic.R'
     'FactorValue.R'
     'Investigation.R'
+    'isajson-parser.R'
     'isatab-parser.R'
     'Material.R'
     'OntologyAnnotation.R'

@@ -266,18 +266,28 @@ OntologySource <- R6::R6Class(
 		#' Make [OntologySource] from list
 		#'
 		#' @param lst an ontology source object serialized to a list
-		from_list = function(lst) {
-			self$name = lst[["name"]]
-			self$file = lst[["file"]]
-			self$file_type = lst[["file_type"]]
-			self$url = lst[["url"]]
-			self$version = lst[["version"]]
-			self$description = lst[["description"]]
-			self$comments = lst[["comments"]]
-			self$terms_list = lst[["terms_list"]]
-			self$get_terms_list = unserialize(charToRaw(
-				lst[["get_terms_list"]]
-			))
+		from_list = function(lst, json = FALSE) {
+			if(json) {
+				self$name = lst[["name"]]
+				self$file = lst[["file"]]
+				# self$file_type = lst[["file_type"]]
+				# self$url = lst[["url"]]
+				self$version = lst[["version"]]
+				self$description = lst[["description"]]
+				self$comments = lst[["comments"]]
+			} else {
+				self$name = lst[["name"]]
+				self$file = lst[["file"]]
+				self$file_type = lst[["file_type"]]
+				self$url = lst[["url"]]
+				self$version = lst[["version"]]
+				self$description = lst[["description"]]
+				self$comments = lst[["comments"]]
+				self$terms_list = lst[["terms_list"]]
+				self$get_terms_list = unserialize(charToRaw(
+					lst[["get_terms_list"]]
+				))
+			}
 		},
 
 		#' @details

@@ -192,19 +192,35 @@ Person <- R6::R6Class(
 		#' Make \code{[Person]} from list
 		#'
 		#' @param lst an \code{[Person]} object serialized to a list
-		from_list = function(lst) {
-			private$id <- lst[["id"]]
-			self$last_name <- lst[["last_name"]]
-			self$first_name <- lst[["first_name"]]
-			self$mid_initials <- lst[["mid_initials"]]
-			self$set_email(lst[["email"]])
-			self$phone <- lst[["phone"]]
-			self$fax <- lst[["fax"]]
-			self$address <- lst[["address"]]
-			self$affiliation <- lst[["affiliation"]]
-			self$set_orcid(lst[["orcid"]])
-			self$roles <- lst[["roles"]]
-			self$comments <- lst[["comments"]]
+		from_list = function(lst, json = FALSE) {
+			if(json) {
+				#private$id <- lst[["id"]]
+				self$last_name <- lst[["lastName"]]
+				self$first_name <- lst[["firstName"]]
+				self$mid_initials <- lst[["midInitials"]]
+				self$set_email(lst[["email"]])
+				self$phone <- lst[["phone"]]
+				self$fax <- lst[["fax"]]
+				self$address <- lst[["address"]]
+				self$affiliation <- lst[["affiliation"]]
+				self$roles <- lst[["roles"]]
+				self$comments <- lst[["comments"]]
+			} else {
+				private$id <- lst[["id"]]
+				self$last_name <- lst[["last_name"]]
+				self$first_name <- lst[["first_name"]]
+				self$mid_initials <- lst[["mid_initials"]]
+				self$set_email(lst[["email"]])
+				self$phone <- lst[["phone"]]
+				self$fax <- lst[["fax"]]
+				self$address <- lst[["address"]]
+				self$affiliation <- lst[["affiliation"]]
+				if (!is.null(lst[["orcid"]])) {
+					self$set_orcid(lst[["orcid"]])
+				}
+				self$roles <- lst[["roles"]]
+				self$comments <- lst[["comments"]]
+			}
 		},
 		#' @details
 		#' Get the uuid of this object
