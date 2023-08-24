@@ -1,13 +1,13 @@
 # Get ISA-tab files ----
 
 #' check_isa_tab_dir
-#' 
+#'
 #' Checks if a directory exists and contains the right files for an ISA-tab
 #' description.
-#' 
+#'
 #' Follows the pattern of the `check_*` functions from the {checkmate}
 #' package.
-#'  
+#'
 #' @param path the path to an ISA-tab directory
 #'
 #' @return a string or logical
@@ -42,17 +42,17 @@ check_isa_tab_dir <- function(path) {
 		paste0(isa_tab_prefix_files[inv_files_idx], collapse = ", "),
 		"Please only use only one investigation file per ISA-tab directory."
 	))}
-	
-	n_sty <- isa_tab_prefix_files %>% 
-		grepl("s_.*\\.txt", .) %>% 
-		which() %>% 
-		length()
-	
-	n_asy <- isa_tab_prefix_files %>% 
-		grepl("a_.*\\.txt", .) %>% 
+
+	n_sty <- isa_tab_prefix_files %>%
+		grepl("s_.*\\.txt", .) %>%
 		which() %>%
 		length()
-	
+
+	n_asy <- isa_tab_prefix_files %>%
+		grepl("a_.*\\.txt", .) %>%
+		which() %>%
+		length()
+
 	if(!all(n_inv > 0, n_sty > 0, n_asy > 0)) {
 		return(paste(
 			sep = "\n",
@@ -63,15 +63,15 @@ check_isa_tab_dir <- function(path) {
 			paste0("\tAssays: ", n_asy)
 		))
 	}
-	
+
 	return(TRUE)
 }
 
 #' get_isatab_files
-#' 
+#'
 #' Generates a table listing the files of an ISA-tab dataset from the directory
 #' which contains them.
-#' 
+#'
 #' @param path path to the directory containing isatab files
 #' @param verbose produce a message listing the number of files of each type
 #' found (Default: FALSE)
@@ -79,7 +79,7 @@ check_isa_tab_dir <- function(path) {
 #' @return A tibble with the columns paths, files, type.
 #' Where path is the relative path, file is the filename, and type i,s, or a
 #' @export
-#' 
+#'
 #' @importFrom fs dir_ls path_file
 #' @importFrom dplyr `%>%` mutate count filter pull
 #' @importFrom tibble tibble
@@ -88,15 +88,15 @@ get_isatab_files <- function(path, verbose = FALSE) {
 	# todo check .txt extension
 	# files names have only: A-Za-z0-9._!#$%&+,;=@^(){}'[]
 	# warn on (){}'[]$."
-	isatab_valid <- path %>% 
+	isatab_valid <- path %>%
 		check_isa_tab_dir() %>%
 		error_with_check_message_on_failure()
-	
+
 	if(isTRUE(isatab_valid)) {
 		isatab_files <- path %>%
 			fs::dir_ls()
-		
-		isatab_files_tab <- isatab_files %>% 
+
+		isatab_files_tab <- isatab_files %>%
 			tibble::tibble(paths = .) %>%
 			dplyr::mutate(
 				files = fs::path_file(paths),
@@ -104,24 +104,24 @@ get_isatab_files <- function(path, verbose = FALSE) {
 				type = factor(type, levels = c("i","s","a"), ordered = TRUE)
 			) %>%
 			dplyr::arrange(type)
-		
+
 		if (verbose) {
 			isatab_file_type_counts <- isatab_files_tab %>%
 				dplyr::count(type)
-			i_n <- isatab_file_type_counts %>% 
+			i_n <- isatab_file_type_counts %>%
 				dplyr::filter(type == "i") %>% dplyr::pull(n)
-			s_n <- isatab_file_type_counts %>% 
+			s_n <- isatab_file_type_counts %>%
 				dplyr::filter(type == "s") %>% dplyr::pull(n)
-			a_n <- isatab_file_type_counts %>% 
+			a_n <- isatab_file_type_counts %>%
 				dplyr::filter(type == "a") %>% dplyr::pull(n)
-			
+
 			glue::glue(
 				.sep = "\n", "{i_n} Investigation", "{s_n} Studies",
 				"{a_n} Assays"
 			) %>%
 				message()
 		}
-		
+
 		return(isatab_files_tab)
 	}
 }
@@ -129,7 +129,7 @@ get_isatab_files <- function(path, verbose = FALSE) {
 # Investigation Parsing Helper functions ----
 
 #' clear_all_na_cols
-#' 
+#'
 #' Removes columns the contents of which are all NA
 #'
 #' @param tbl a tibble
@@ -138,9 +138,9 @@ get_isatab_files <- function(path, verbose = FALSE) {
 #' @export
 #'
 #' @examples
-#' 
+#'
 #' clear_all_na_cols(tibble::tibble(A = c(NA, NA), B = 1:2, C = c(NA, FALSE)))
-#' 
+#'
 #' @importFrom purrr map_lgl
 #' @importFrom dplyr `%>%` select all_of
 clear_all_na_cols <- function(tbl) {
@@ -152,19 +152,19 @@ clear_all_na_cols <- function(tbl) {
 }
 
 #' transpose_first_to_title
-#' 
+#'
 #' Transposes a tibble and then used the first row of the transposed tibble
 #' as the column names of the new tibble
-#' 
-#' @param tbl 
+#'
+#' @param tbl
 #'
 #' @return a tibble
 #' @export
 #'
 #' @examples
-#' 
+#'
 #' transpose_first_to_title(tibble::tibble(X1 = c("A a", "B B"), X2 = c(1,2)))
-#' 
+#'
 #' @importFrom dplyr `%>%` slice
 #' @importFrom tibble remove_rownames as_tibble
 transpose_first_to_title <- function(tbl) {
@@ -172,15 +172,15 @@ transpose_first_to_title <- function(tbl) {
 		t() %>%
 		as.data.frame() %>%
 		tibble::remove_rownames()
-	
+
 	colnames(transposed_section) <- transposed_section %>% dplyr::slice(1)
 	transposed_section <- transposed_section %>% dplyr::slice(-1)
-	
+
 	transposed_section %>% tibble::as_tibble()
 }
 
 #' clear_na_cols_and_transpose
-#' 
+#'
 #' convenience wrapper for doing first removal of columns with all NA values
 #' and transposition of a tibble where first row becomes the column names.
 #' This function also adds the step of removing the first (redundant) word from
@@ -197,8 +197,8 @@ transpose_first_to_title <- function(tbl) {
 #'
 #' @importFrom dplyr `%>%`
 clear_na_cols_and_transpose <- function(tbl) {
-	tbl %>% 
-		clear_all_na_cols() %>% 
+	tbl %>%
+		clear_all_na_cols() %>%
 		dplyr::mutate(X1 = sub("\\w+ (.*)","\\1", X1)) %>%
 		transpose_first_to_title()
 }
@@ -235,10 +235,10 @@ read_investigation_and_assign_lines_to_sections <- function(
 	path, section_headings = isa_tab_section_headings
 ) {
 	# Read the ISA-tab investigation as a tibble
-	# Create a new column with the section type 
-	
-	#i_tab_with_section_type <- 
-	path %>% 
+	# Create a new column with the section type
+
+	#i_tab_with_section_type <-
+	path %>%
 		readr::read_tsv(
 			col_names = FALSE, show_col_types = FALSE, comment = "#"
 		) %>%
@@ -253,15 +253,15 @@ read_investigation_and_assign_lines_to_sections <- function(
 }
 
 #' index_repeated_sections
-#' 
+#'
 #' If there are multiple copies of a section headings assign them an index
 #' number to distinguish them, this should generally only apply to studies.
-#' 
-#' @param i_tab_with_section_type 
+#'
+#' @param i_tab_with_section_type
 #'
 #' @return a tibble
 #' @export
-#' 
+#'
 #' @importFrom dplyr `%>%` filter select count pull
 #' @importFrom tidyr fill
 # #' @examples
@@ -271,27 +271,27 @@ index_repeated_sections <- function(i_tab_with_section_type) {
 		dplyr::filter(section == X1) %>% # just the section type rows
 		dplyr::select(section) %>%
 		dplyr::count(section) # how many of each type of section header
-	
+
 	# Vector of section types to keep track of the number of sections of each type
 	named_section_counts <- integer(length = nrow(section_counts))
 	names(named_section_counts) <- section_counts %>%
 		dplyr::pull(section)
-	
+
 	# for each row in the table
 	for(i in seq_along(i_tab_with_section_type[[1]])) {
 		# get the section names
 		section_name <- i_tab_with_section_type[[2]][[i]] # i_tab_with_section_type[["X1]]
-		# If it is on we need to keep track of the count for
+		# If it is one we need to keep track of the count for
 		if(section_name %in% names(named_section_counts)) {
 			# add 1 to the count
-			named_section_counts[section_name] <- 
+			named_section_counts[section_name] <-
 				named_section_counts[section_name] + 1L
 			# Record this count by the section heading in the table
-			i_tab_with_section_type[["section_index"]][[i]] <- 
+			i_tab_with_section_type[["section_index"]][[i]] <-
 				named_section_counts[section_name]
 		}
 	}
-	# Count is only recorded on section heading lines 
+	# Count is only recorded on section heading lines
 	# So fill it down to all the other lines without section headings
 	i_tab_with_section_type %>% tidyr::fill(section_index)
 }
@@ -305,7 +305,7 @@ index_repeated_sections <- function(i_tab_with_section_type) {
 #'
 #' @return a nested tibble
 #' @export
-#' 
+#'
 #' @importFrom dplyr `%>%` filter group_by
 #' @importFrom tidyr nest
 #' @importFrom purrr map
@@ -314,23 +314,23 @@ parse_investigation <- function(
 	path, section_headings = isa_tab_section_headings
 ) {
 	# Read the ISA-tab investigation as a tibble
-	# Create a new column with the section type 
-	i_tab_with_section_type <- path %>% 
+	# Create a new column with the section type
+	i_tab_with_section_type <- path %>%
 		read_investigation_and_assign_lines_to_sections(section_headings) %>%
 		index_repeated_sections()
 
 	i_tab_with_section_type_nested <- i_tab_with_section_type %>%
 		# Remove the section heading lines, these will be redundant with the groups
 		dplyr::filter(!X1 %in% section_headings) %>%
-		# Group by section heading and index 
+		# Group by section heading and index
 		# so that repeated sections are not grouped together
 		dplyr::group_by(section, section_index) %>%
 		tidyr::nest()
-	
-	i_tab_with_section_type_nested_transposed <- 
+
+	i_tab_with_section_type_nested_transposed <-
 		i_tab_with_section_type_nested %>%
 		dplyr::mutate(data = purrr::map(data, clear_na_cols_and_transpose))
-	
+
 	return(i_tab_with_section_type_nested_transposed)
 }
 
@@ -338,10 +338,10 @@ parse_investigation <- function(
 
 tbl_to_investigation <- function(data) {
 	Investigation$new(
-		
+
 		# filename = ,
 		# 'Identifier'
-		
+
 		title = data$Title,
 		description = data$Description,
 		# ! check if date before attempting string conversion !
@@ -351,9 +351,9 @@ tbl_to_investigation <- function(data) {
 		# publications = ,
 		# contacts = ,
 		# studies = ,
-		
-		
-		#comments = 
+
+
+		#comments =
 	)
 }
 
@@ -421,9 +421,9 @@ tbl_to_publication <- function(data) {
 		fx
 	)
 }
-# 
+#
 # tbl_to_publication(tmp$data[[3]])
-# 
+#
 # tmp$data[[7]]
 tbl_to_person <- function(data) {
 	fx <- function(
@@ -502,7 +502,7 @@ tbl_to_study <- function(data) {
 			# other_material = ,
 			# characteristic_categories = ,
 			# comments = ,
-			# units = 
+			# units =
 		)
 	}
 	purrr::pmap(data, fx)
@@ -512,23 +512,23 @@ tbl_to_study <- function(data) {
 # Study & Assay shared parser helper functions ---
 
 parse_characteristic <- function() {
-	
+
 }
 
 parse_parameter_value <- function() {
-	
+
 }
 
 parse_factor_value <- function() {
-	
+
 }
 
 # Study ----
 
-# ? parse_protocol <- 
+# ? parse_protocol <-
 
 parse_source <- function() {
-	
+
 }
 
 
@@ -632,7 +632,7 @@ extract_comments_from_object_columns <- function(lst) {
 
 remove_comments_from_object_columns <- function(lst) {
 	purrr::map(lst, ~{
-		comment_indices <- .x %>% 
+		comment_indices <- .x %>%
 			colnames() %>%
 			grepl("^Comment\\[.*\\]$" ,.) %>%
 			which()
