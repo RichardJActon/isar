@@ -552,7 +552,7 @@ parse_assay <- function(path) {
 # stmp %>% colnames() -> stmpcn
 # stmpcn
 
-# attribute - characteristics, Factor Type, Comment, Label, Material type, Factor value
+# attribute - Characteristics, Factor Type, Comment, Label, Material type, Factor value
 # node - sample name, source name
 # node assay - assay name, data transformation name
 # processing - Protocols
@@ -650,4 +650,8 @@ remove_comments_from_object_columns <- function(lst) {
 }
 
 
-# remove_comments_from_object_columns(atmpsplit)
+# "Comment",
+
+attributes <- list(
+	"Characteristics", "Factor Type", "Label", "Material Type", "Factor Value"
+)
