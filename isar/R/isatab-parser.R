@@ -598,9 +598,14 @@ split_study_or_assay_by_object <- function(data) {
 		object_col_indices, object_col_indices_offset, ~seq(.x, .y - 1)
 	)
 	#object_column_indices
-	purrr::map(object_column_indices, ~{
+	objects <- purrr::map(object_column_indices, ~{
 		data %>% dplyr::select(dplyr::all_of(.x))
 	})
+
+	tibble::tibble(
+		name = colnms[object_col_indices] %>% sub(" Name$", "", .),
+		data = objects
+	)
 }
 
 # atmpsplit <- split_study_or_assay_by_object(atmp)
