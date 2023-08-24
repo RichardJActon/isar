@@ -218,7 +218,31 @@ Person <- R6::R6Class(
 		#' @param suffix a human readable suffix
 		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
 			private$id <- generate_id(id, suffix)
-		}
+		},
+		print = function() {
+			cat(
+				crayon::blue(crayon::bold("Person")), #👤
+				green_bold_name_plain_content("Name", self$get_full_name()),
+				#green_bold_name_plain_content("Name", paste(self$first_name, self$mid_initials, self$last_name)),
+				green_bold_name_plain_content("orcid", self$orcid),
+				green_bold_name_plain_content("email", self$email), # ✉️
+				green_bold_name_plain_content("phone", self$phone), #📞
+				green_bold_name_plain_content("id", private$id),
+				green_bold_name_plain_content("affiliation", self$affiliation),
+				green_bold_name_plain_content("fax", self$fax), # 🖷
+				green_bold_name_plain_content("address", self$address), # 🏢
+				# green_bold_name_plain_content("roles", self$roles),
+				sep = "\n"
+			)
+			pretty_print_comments(self$comments)
+		},
+		#' @details
+		#' Combine first name, middle initials, & last name
+		#' @return string of full name
+		get_full_name = function() { paste(
+			c(self$first_name, self$mid_initials, self$last_name),
+			collapse = " "
+		) }
 	),
 	private = list(
 		id = generate_id()

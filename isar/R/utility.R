@@ -38,7 +38,7 @@ check_comments <- function(comments) {
 #' assertions don't return TRUE on success but do error on failure and tests
 #' don't produce any information about the reason for failure.
 #' Checks produce a reasons on failure but don't throw an error.
-#' This function turns the strings returned by check functions into error 
+#' This function turns the strings returned by check functions into error
 #' messages, and passes through the TRUE if there is no message text.
 #'
 #' @param check the output from a `check_*` function from the checkmate package
@@ -142,8 +142,8 @@ check_id <- function(id) {
 #' @examples
 #' date_string_conversion("2012-08-01")
 #' date_string_conversion("1Jan2009")
-#' 
-#' 
+#'
+#'
 date_string_conversion <- function(date_string) {
 	date <- tryCatch({
 			stopifnot(grepl(
@@ -167,7 +167,7 @@ date_string_conversion <- function(date_string) {
 				"😟",
 				crayon::yellow(
 					" Attempting other date formats...\n"
-					
+
 				),
 				crayon::yellow(crayon::bold(
 				"This may result in errors!\n"
@@ -198,4 +198,51 @@ date_string_conversion <- function(date_string) {
 		)
 	}
 	return(date)
+}
+
+
+#' green_bold
+#'
+#' make text green and bold with crayon
+#'
+#' @param string
+#'
+#' @export
+#'
+green_bold <- function(string) {
+	crayon::green(crayon::bold(string))
+}
+
+#' green_bold_name_plain_content
+#'
+#' make text green and bold with crayon
+#'
+#' @param label
+#' @param content
+#'
+#' @export
+green_bold_name_plain_content <- function(label, content) {
+	paste0(green_bold(paste0(label, ": ")), content)
+}
+
+
+#' pretty_print_comments
+#'
+#' Green bold section heading
+#' indented comments with bold titles and wrapped contents
+#'
+#' @param comments a named list
+#'
+#' @export
+pretty_print_comments <- function(comments) {
+	cat(green_bold("Comments:\n")) # 🗩
+	purrr::iwalk(
+		# Improve comment formatting for longer comments
+		comments, ~cat(
+			#paste0("    ", crayon::bold(.x), ": ", .y),
+			paste0("    ", crayon::bold(.y), ": "),
+			stringr::str_wrap(.x, indent = 4, exdent = 4),
+			sep = "\n"
+		)
+	)
 }

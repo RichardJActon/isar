@@ -284,14 +284,13 @@ OntologySource <- R6::R6Class(
 		#' prints a pretty representation of the contents of the object
 		print = function(){
 			cat(
-				paste0(crayon::green(crayon::bold("Name: ")), self$name),
-				paste0(crayon::green(crayon::bold("File: ")), self$file),
-				paste0(crayon::green(crayon::bold(
-					"File Type: "
-				)), self$file_type),
-				paste0(crayon::green(crayon::bold("URL: ")), self$url),
-				paste0(crayon::green(crayon::bold("Version: ")), self$version),
-				crayon::green(crayon::bold("Description: ")),
+				crayon::blue(crayon::bold("Ontology Source")),
+				green_bold_name_plain_content("Name", self$name),
+				green_bold_name_plain_content("File", self$file),
+				green_bold_name_plain_content("File Type", self$file_type),
+				green_bold_name_plain_content("URL", self$url),
+				green_bold_name_plain_content("Version", self$version),
+				green_bold("Description: "),
 				sep = "\n"
 			)
 				#paste0("Description: ", self$description),
@@ -299,14 +298,8 @@ OntologySource <- R6::R6Class(
 				stringr::str_wrap(self$description, indent = 4, exdent = 4),
 				sep = "\n"
 			)
-			cat(crayon::green(crayon::bold("Comments:\n")))
-			purrr::iwalk(
-				# Improve comment formatting for longer comments
-				self$comments, ~cat(paste0(
-					"    ", crayon::bold(.x), ": ", .y
-				), sep = "\n")
-			)
-			cat(crayon::green(crayon::bold("Terms:")), sep = "\n")
+			pretty_print_comments(self$comments)
+			cat(green_bold("Terms:"), sep = "\n")
 			purrr::iwalk(
 				head(self$terms_list),
 				~cat(paste0("    ", crayon::bold(.y), ": ", .x), sep = "\n")

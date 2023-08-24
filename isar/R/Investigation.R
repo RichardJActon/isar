@@ -316,6 +316,55 @@ Investigation <- R6::R6Class(
 		#' @param suffix a human readable suffix
 		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
 			private$id <- generate_id(id, suffix)
+		},
+		print = function() {
+			cat(
+				crayon::blue(crayon::bold("Investigation")), # 📋
+				green_bold_name_plain_content("Filename", self$filename), # 📄
+				green_bold_name_plain_content("ID", private$id),
+				green_bold_name_plain_content("Title", self$title),
+				green_bold("Description: "),
+				sep = "\n"
+			)
+			cat(
+				stringr::str_wrap(self$description, indent = 4, exdent = 4),
+				sep = "\n"
+			)
+			cat(
+				# interestingly - emoji seem to massivly slow down printing speed
+				# green_bold_name_plain_content("Submission date 🗓️", self$submission_date),
+				# green_bold_name_plain_content("Public release date 🗓️", self$public_release_date),
+				green_bold_name_plain_content("Submission date️", self$submission_date),
+				green_bold_name_plain_content("Public release date️", self$public_release_date),
+
+				# green_bold_name_plain_content("Ontology source references", self$ontology_source_references),
+				# green_bold_name_plain_content("Publications", self$publications),
+				# green_bold_name_plain_content("Contacts", self$contacts),
+				# green_bold_name_plain_content("Studies", self$studies),
+				sep = "\n"
+			)
+			cat(green_bold("Publications:\n")) # 🔎
+			purrr::walk(
+				# Improve comment formatting for longer comments
+				self$publications, ~cat(paste0(
+					"    ", crayon::bold("Title: "), .x$title
+				), sep = "\n")
+			)
+			cat(green_bold("Contacts:\n")) # 🔎
+			purrr::walk(
+				# Improve comment formatting for longer comments
+				self$contacts, ~cat(paste0(
+					"    ", crayon::bold("Contacts: "), .x$get_full_name()
+				), sep = "\n")
+			)
+			cat(green_bold("Studies:\n")) # 🔎
+			purrr::walk(
+				# Improve comment formatting for longer comments
+				self$studies, ~cat(paste0(
+					"    ", crayon::bold("Title: "), .x$title
+				), sep = "\n")
+			)
+			pretty_print_comments(self$comments)
 		}
 	),
 	private = list(
