@@ -241,25 +241,37 @@ OntologyAnnotation <- R6::R6Class(
 		#' Make \code{[OntologyAnnotation]} from list
 		#' @param lst an ontology source object serialized to a list
 		#' @param recursive call to_list methods of any objects within this object (default FALSE)
-		from_list = function(lst, recursive = TRUE) {
-			private$id = lst[["id"]]
-			self$term = lst[["annotation_value"]]
-			if(recursive) {
-				self$term_source <- OntologySource$new()
-				self$term_source$from_list(lst[["term_source"]])
-			} else {
-				if(checkmate::test_r6(
-					lst[["term_source"]], "OntologySource"
-				)) {
-					stop("not a list contains raw OntologySource object")
-				} else if(is.null(lst[["term_source"]])) {
-					self$term_source <- NULL
-				} else {
-					self$term_source$name <- lst[["term_source"]]
+		from_list = function(lst, recursive = TRUE, json = FALSE) {
+			if(json) {
+				# recursive?
+				self$term_source$name <- lst[["termSource"]]
+				self$term_accession <- lst[["termAccession"]]
+				self$term <- lst[["annotationValue"]]
+				if(!is.null(lst[["comments"]])) {
+					self$comments <- lst[["comments"]]
 				}
+			} else {
+				private$id <- lst[["id"]]
+				self$term <- lst[["annotation_value"]]
+				if(recursive) {
+					self$term_source <- OntologySource$new()
+					if(!is.null(lst[["term_source"]])) {
+						self$term_source$from_list(lst[["term_source"]])
+					}
+				} else {
+					if(checkmate::test_r6(
+						lst[["term_source"]], "OntologySource"
+					)) {
+						stop("not a list contains raw OntologySource object")
+					} else if(is.null(lst[["term_source"]])) {
+						self$term_source <- NULL
+					} else {
+						self$term_source$name <- lst[["term_source"]]
+					}
+				}
+				self$term_accession <- lst[["term_accession"]]
+				self$comments <- lst[["comments"]]
 			}
-			self$term_accession = lst[["term_accession"]]
-			self$comments = lst[["comments"]]
 		},
 
 		#' @details
@@ -275,6 +287,18 @@ OntologyAnnotation <- R6::R6Class(
 		#' @param suffix a human readable suffix
 		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
 			private$id <- generate_id(id, suffix)
+		},
+
+		print = function() {
+			cat(
+				crayon::blue(crayon::bold("Ontology Annotation")),
+				green_bold_name_plain_content("Term", self$term),
+				green_bold_name_plain_content("Term Accession", self$term_accession),
+				green_bold_name_plain_content("Term Source", self$term_source),
+				green_bold_name_plain_content("ID", private$id),
+				sep = "\n"
+			)
+			pretty_print_comments(self$comments)
 		}
 	),
 	private = list(

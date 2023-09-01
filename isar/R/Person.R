@@ -39,6 +39,7 @@ Person <- R6::R6Class(
 		orcid = character(),
 		roles = NULL,
 		comments = NULL,
+		`@id` = character(),
 
 		#' @details
 		#' person
@@ -64,7 +65,8 @@ Person <- R6::R6Class(
 			affiliation = character(),
 			orcid = character(),
 			roles = NULL,
-			comments = NULL
+			comments = NULL,
+			`@id` = character()
 		) {
 			self$last_name <- last_name
 			self$first_name <- first_name
@@ -86,6 +88,7 @@ Person <- R6::R6Class(
 			}
 			self$roles <- roles
 			self$comments <- comments
+			self$`@id` <- paste0("#person/", self$last_name)
 		},
 		# Checks
 
@@ -182,7 +185,8 @@ Person <- R6::R6Class(
 				"affiliation" = self$affiliation,
 				"orcid" = self$orcid,
 				"roles" = self$roles,
-				"comments" = self$comments
+				"comments" = self$comments,
+				"@id" = self$`@id`
 			)
 			return(person)
 		},
@@ -195,6 +199,7 @@ Person <- R6::R6Class(
 		from_list = function(lst, json = FALSE) {
 			if(json) {
 				#private$id <- lst[["id"]]
+				self$`@id` <- lst[["@id"]]
 				self$last_name <- lst[["lastName"]]
 				self$first_name <- lst[["firstName"]]
 				self$mid_initials <- lst[["midInitials"]]
@@ -244,6 +249,7 @@ Person <- R6::R6Class(
 				green_bold_name_plain_content("email", self$email), # ✉️
 				green_bold_name_plain_content("phone", self$phone), #📞
 				green_bold_name_plain_content("id", private$id),
+				green_bold_name_plain_content("@id", self$`@id`),
 				green_bold_name_plain_content("affiliation", self$affiliation),
 				green_bold_name_plain_content("fax", self$fax), # 🖷
 				green_bold_name_plain_content("address", self$address), # 🏢

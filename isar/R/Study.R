@@ -159,7 +159,9 @@ Study <- R6::R6Class(
 		#' set the description of the study if valid
 		#' @param description The description of the study
 		set_description = function(description) {
-			if (self$check_description(description)) { self$description <- description }
+			if (self$check_description(description)) {
+				self$description <- description
+			}
 		},
 		#' @details
 		#' Check public_release_date is a Date object
@@ -290,30 +292,64 @@ Study <- R6::R6Class(
 		#' @details
 		#' Make \code{[Material]} object from list
 		#' @param lst an Material object serialized to a list
-		from_list = function(lst) {
-			private$id <- lst[["id"]]
-			self$filename <- lst[["filename"]]
-			self$title <- lst[["title"]]
-			self$description <- lst[["description"]]
-			self$submission_date <- lst[["submission_date"]]
-			self$public_release_date <- lst[["public_release_date"]]
-			self$contacts <- lst[["contacts"]]
-			self$design_descriptors <- lst[["design_descriptors"]]
-			self$publications <- purrr::map(lst[["publications"]], ~{
-				p <- Publication$new()
-				p$from_list()
-				p
-			})
-			self$factors <- lst[["factors"]]
-			self$protocols <- lst[["protocols"]]
-			self$assays <- lst[["assays"]]
-			self$sources <- lst[["sources"]]
-			self$samples <- lst[["samples"]]
-			self$process_sequence <- lst[["process_sequence"]]
-			self$other_material <- lst[["other_material"]]
-			self$characteristic_categories <- lst[["characteristic_categories"]]
-			self$comments <- lst[["comments"]]
-			self$units <- lst[["units"]]
+		from_list = function(lst, recursive = TRUE, json = FALSE) {
+			if(json) {
+				private$id <- lst[["id"]]
+				self$filename <- lst[["filename"]]
+				self$title <- lst[["title"]]
+				self$description <- lst[["description"]]
+				self$submission_date <- lst[["submissionDate"]]
+				self$public_release_date <- lst[["publicReleaseDate"]]
+				self$contacts <- purrr::map(lst[["people"]], ~{
+					p <- Person$new()
+					p$from_list(.x, json = TRUE)
+					p
+				})
+				self$design_descriptors <- lst[["designDescriptors"]]
+				if (recursive) {
+					self$publications <- purrr::map(lst[["publications"]], ~{
+						p <- Publication$new()
+						p$from_list(.x, recursive = TRUE, json = TRUE)
+						p
+					})
+				}
+				# self$factors <- lst[["factors"]]
+				# self$protocols <- lst[["protocols"]]
+				# self$assays <- lst[["assays"]]
+				# self$sources <- lst[["sources"]]
+				# self$samples <- lst[["samples"]]
+				# self$process_sequence <- lst[["processSequence"]]
+				# self$other_material <- lst[["otherMaterial"]]
+				# self$characteristic_categories <- lst[["characteristicCategories"]]
+				self$comments <- lst[["comments"]]
+				#self$units <- lst[["units"]]
+			} else {
+				private$id <- lst[["id"]]
+				self$filename <- lst[["filename"]]
+				self$title <- lst[["title"]]
+				self$description <- lst[["description"]]
+				self$submission_date <- lst[["submission_date"]]
+				self$public_release_date <- lst[["public_release_date"]]
+				self$contacts <- lst[["contacts"]]
+				self$design_descriptors <- lst[["design_descriptors"]]
+				if (recursive) {
+					self$publications <- purrr::map(lst[["publications"]], ~{
+						p <- Publication$new()
+						p$from_list(.x, recursive = FALSE, json = FALSE)
+						p
+					})
+				}
+				self$factors <- lst[["factors"]]
+				self$protocols <- lst[["protocols"]]
+				self$assays <- lst[["assays"]]
+				self$sources <- lst[["sources"]]
+				self$samples <- lst[["samples"]]
+				self$process_sequence <- lst[["process_sequence"]]
+				self$other_material <- lst[["other_material"]]
+				self$characteristic_categories <- lst[["characteristic_categories"]]
+				self$comments <- lst[["comments"]]
+				self$units <- lst[["units"]]
+			}
 		},
 		#' @details
 		#' Get the uuid of this object
@@ -327,6 +363,33 @@ Study <- R6::R6Class(
 		#' @param suffix a human readable suffix
 		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
 			private$id <- generate_id(id, suffix)
+		},
+		print = function() {
+			cat(
+				crayon::blue(crayon::bold("Study")),
+				green_bold_name_plain_content("Title", self$title),
+				green_bold_name_plain_content("ID", private$id),
+				green_bold("Description: "),
+				# green_bold_name_plain_content("Title", self$title),
+				sep = "\n"
+			)
+			cat(
+				stringr::str_wrap(self$description, indent = 4, exdent = 4),
+				sep = "\n"
+			)
+			cat(
+				green_bold_name_plain_content("Submission Date", self$submission_date),
+				green_bold_name_plain_content("Public Release Date", self$public_release_date),
+				sep = "\n"
+			)
+			cat(green_bold("Publications:\n")) # 🔎
+			purrr::walk(
+				# Improve comment formatting for longer comments
+				self$publications, ~cat(paste0(
+					"    ", crayon::bold("Title: "), .x$title
+				), sep = "\n")
+			)
+			pretty_print_comments(self$comments)
 		}
 	),
 	private = list(

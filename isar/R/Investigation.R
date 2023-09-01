@@ -278,30 +278,61 @@ Investigation <- R6::R6Class(
 		#' Make [Investigation] from list
 		#'
 		#' @param lst an ontology source object serialized to a list
-		from_list = function(lst) {
-			self$filename <- lst[["filename"]]
-			private$id <- lst[["id"]]
-			self$title <- lst[["title"]]
-			self$description <- lst[["description"]]
-			self$submission_date <- lst[["submission_date"]]
-			self$public_release_date <- lst[["public_release_date"]]
-			self$ontology_source_references <- lst[["ontology_source_references"]]
-			self$publications <- purrr::map(lst[["publications"]], ~{
-				p <- Publication$new()
-				p$from_list(.x)
-				p
-			})
-			self$contacts <- purrr::map(lst[["contacts"]], ~{
-				p <- Person$new()
-				p$from_list(.x)
-				p
-			})
-			self$studies <- purrr::map(lst[["studies"]], ~{
-				s <- Study$new()
-				s$from_list(.x)
-				s
-			})
-			self$comments <- lst[["comments"]]
+		from_list = function(lst, recursive = TRUE, json = FALSE) {
+			if(json) {
+				self$filename <- lst[["filename"]]
+				#private$id <- lst[["id"]]
+				self$title <- lst[["title"]]
+				self$description <- lst[["description"]]
+				self$submission_date <- lst[["submissionDate"]]
+				self$public_release_date <- lst[["publicReleaseDate"]]
+				self$ontology_source_references <- lst[["ontologySourceReferences"]]
+				#if (recursive) {
+					self$publications <- purrr::map(lst[["publications"]], ~{
+						p <- Publication$new()
+						p$from_list(.x, recursive = TRUE, json = TRUE)
+						p
+					})
+					self$contacts <- purrr::map(lst[["people"]], ~{
+						p <- Person$new()
+						p$from_list(.x, json = TRUE)
+						p
+					})
+					self$studies <- purrr::map(lst[["studies"]], ~{
+						s <- Study$new()
+						#s$from_list(.x, recursive, json)
+						s$from_list(.x, TRUE, json = TRUE)
+						s
+					})
+				#}
+				self$comments <- lst[["comments"]]
+			} else {
+				self$filename <- lst[["filename"]]
+				private$id <- lst[["id"]]
+				self$title <- lst[["title"]]
+				self$description <- lst[["description"]]
+				self$submission_date <- lst[["submission_date"]]
+				self$public_release_date <- lst[["public_release_date"]]
+				self$ontology_source_references <- lst[["ontology_source_references"]]
+				if (recursive) {
+					self$publications <- purrr::map(lst[["publications"]], ~{
+						p <- Publication$new()
+						p$from_list(.x)
+						p
+					})
+					self$contacts <- purrr::map(lst[["contacts"]], ~{
+						p <- Person$new()
+						p$from_list(.x)
+						p
+					})
+					self$studies <- purrr::map(lst[["studies"]], ~{
+						s <- Study$new()
+						s$from_list(.x)
+						s
+					})
+				}
+				self$comments <- lst[["comments"]]
+			}
 		},
 
 		#' @details

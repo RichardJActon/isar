@@ -90,7 +90,12 @@ Publication <- R6::R6Class(
 			# allow 'doi:' prefix
 			doi_regex = '^(?:doi:)?(10[.][0-9]{2,}(?:[.][0-9]+)*/(?:(?![%"#? ])\\S)+)$'
 			# https://github.com/regexhq/doi-regex/blob/main/index.js
-			if(grepl(doi_regex, doi, perl = TRUE)) { return(TRUE) } else {
+			if(grepl(doi_regex, doi, perl = TRUE)) {
+				return(TRUE)
+			} else if (doi == "") {
+				warning("Empty DOI!")
+				return(TRUE)
+			} else {
 				stop("Invalid DOI!")
 			}
 		},
@@ -176,7 +181,7 @@ Publication <- R6::R6Class(
 		#' @details
 		#' Generate a \code{[Publication]} object from a list
 		#' @param lst a list suitable for conversion to a Publication Object
-		from_list = function(lst, json = FALSE) {
+		from_list = function(lst, recursive = TRUE, json = FALSE) {
 			if(json) {
 				self$set_pubmed_id(lst[["pubMedID"]])
 				self$set_doi(lst[["doi"]])
@@ -190,12 +195,15 @@ Publication <- R6::R6Class(
 				self$set_comments(lst[["comments"]])
 			} else {
 				self$set_pubmed_id(lst[["pubmed_id"]])
-				self$set_soi(lst[["doi"]])
-				self$author_list <- lst[["author_list"]]
-				self$author_list <- purrr::map(lst["author_list"], ~{
-					a <- Person$new()
-					a$from_list(.x)
-				})
+				self$set_doi(lst[["doi"]])
+				if (recursive) {
+					self$author_list <- purrr::map(lst["author_list"], ~{
+						a <- Person$new()
+						a$from_list(.x)
+					})
+				} else {
+					self$author_list <- lst[["author_list"]]
+				}
 				self$title <- lst[["title"]]
 				self$status <- lst[["status"]]
 				self$set_comments(lst[["comments"]])
@@ -209,7 +217,7 @@ Publication <- R6::R6Class(
 			)
 				#green_bold_name_plain_content("", self$author_list),
 			cat(
-				green_bold_name_plain_content("pubmedid", self$pubmed_id),
+				green_bold_name_plain_content("pubmed id", self$pubmed_id),
 				green_bold_name_plain_content("DOI", self$doi),
 				# ~
 				# green_bold_name_plain_content("status", self$status),

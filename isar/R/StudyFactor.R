@@ -20,7 +20,7 @@ StudyFactor <- R6::R6Class(
 		name = character(),
 		factor_type = NULL,
 		comments = NULL,
-
+		`@id` = character(),
 		#' @details
 		#'
 		#' create a new study factor
@@ -32,7 +32,8 @@ StudyFactor <- R6::R6Class(
 		initialize = function(
 			name = character(),
 			factor_type = NULL,
-			comments = NULL
+			comments = NULL,
+			`@id` = character()
 		) {
 			if (checkmate::qtest(name, "S[0]")) { self$name <- name } else {
 				self$set_name(name)
@@ -45,6 +46,10 @@ StudyFactor <- R6::R6Class(
 				stop("factor_type is not and ontology_annotation object or NULL!")
 			}
 			self$comments <- comments
+			# id format checking?
+			self$`@id` <- paste0(
+				"#factor/", sub("[^A-Za-z0-9]+", "_", self$name)
+			)
 		},
 		#' @details
 		#' Check if the name of the material is a string
@@ -97,12 +102,19 @@ StudyFactor <- R6::R6Class(
 		#' Make \code{[OntologyAnnotation]} from list
 		#'
 		#' @param lst a list serialization of a study factor object
-		from_list = function(lst) {
-			self$name = lst[["name"]]
-			private$id <- lst[["id"]]
-			self$factor_type <- OntologyAnnotation$new()
-			self$factor_type$from_list(lst[["factor_type"]])
-			self$comments = lst[["comments"]]
+		from_list = function(lst, recursive = TRUE, json = FALSE) {
+			if(json) {
+				self$name = lst[["name"]]
+				self$`@id` <- lst[["@id"]]
+				self$factor_type$from_list(lst[["factorType"]])
+				self$comments = lst[["comments"]]
+			} else {
+				self$name = lst[["name"]]
+				private$id <- lst[["id"]]
+				self$factor_type <- OntologyAnnotation$new()
+				self$factor_type$from_list(lst[["factor_type"]])
+				self$comments = lst[["comments"]]
+			}
 		},
 
 		#' @details
@@ -117,8 +129,22 @@ StudyFactor <- R6::R6Class(
 		#' @param suffix a human readable suffix
 		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
 			private$id <- generate_id(id, suffix)
+		},
+
+		print = function() {
+			cat(
+				crayon::blue(crayon::bold("Study Factor")),
+				green_bold_name_plain_content("@id", self$`@id`),
+				green_bold_name_plain_content("id", private$id),
+				green_bold_name_plain_content("name", self$name),
+				green_bold_name_plain_content("factor_type", self$factor_type),
+				sep = "\n"
+			)
+			pretty_print_comments(self$comments)
 		}
 	),
+	# active = list(
+	# ),
 	private = list(
 		id = generate_id()
 	)
