@@ -64,7 +64,8 @@ Assay <- R6::R6Class(
 			characteristic_categories = NULL,
 			process_sequence = NULL,
 			comments = NULL,
-			graph = NULL
+			graph = NULL,
+			data_files = NULL,
 		) {
 			if (is.null(measurement_type)) {
 				self$measurement_type <- measurement_type
@@ -92,7 +93,7 @@ Assay <- R6::R6Class(
 			self$process_sequence <- process_sequence
 			self$comments <- comments
 			self$graph <- graph
-
+			self$data_files <- data_files
 			# self$string()
 		},
 		#' @details
@@ -235,20 +236,48 @@ Assay <- R6::R6Class(
 		#' Make \code{[Assay]} from list
 		#'
 		#' @param lst an ontology source object serialized to a list
-		from_list = function(lst) {
-			self$measurement_type <- lst[["measurement_type"]]
-			self$technology_type <- lst[["technology_type"]]
+		from_list = function(lst, recursive = TRUE, json = FALSE) {
+			if (json) {
+				# if (recursive) {}
+				self$measurement_type <- OntologyAnnotation$new()
+				self$measurement_type$from_list(
+					lst[["measurementType"]], recursive = TRUE, json = TRUE
+				)
+				self$technology_type <- OntologyAnnotation$new()
+				self$technology_type$from_list(
+					lst[["technologyType"]], recursive = TRUE, json = TRUE
+				)
+				#self$data_files <- lst[["dataFiles"]]
+				self$data_files <- purrr::map(lst[["dataFiles"]], ~{
+					df <- DataFile$new()
+					df$from_list(.x, recursive = TRUE, json = TRUE)
+				})
 
-			self$technology_platform <- lst[["technology_platform"]]
-			self$filename <- lst[["filename"]]
-			self$materials <- lst[["materials"]]
+				self$technology_platform <- lst[["technologyPlatform"]]
+				self$filename <- lst[["filename"]]
+				self$materials <- lst[["materials"]]
 
-			self$units <- lst[["units"]]
-			self$characteristic_categories <- lst[["characteristic_categories"]]
+				self$units <- lst[["unitCategories"]]
+				self$characteristic_categories <- lst[["characteristicCategories"]]
 
-			self$process_sequence <- lst[["process_sequence"]]
-			self$comments <- lst[["comments"]]
-			self$graph <- lst[["graph"]]
+				self$process_sequence <- lst[["processSequence"]]
+				self$comments <- lst[["comments"]]
+				self$graph <- lst[["graph"]]
+			} else {
+				self$measurement_type <- lst[["measurement_type"]]
+				self$technology_type <- lst[["technology_type"]]
+
+				self$technology_platform <- lst[["technology_platform"]]
+				self$filename <- lst[["filename"]]
+				self$materials <- lst[["materials"]]
+
+				self$units <- lst[["units"]]
+				self$characteristic_categories <- lst[["characteristic_categories"]]
+
+				self$process_sequence <- lst[["process_sequence"]]
+				self$comments <- lst[["comments"]]
+				self$graph <- lst[["graph"]]
+			}
 		}
 
 		# #' @details

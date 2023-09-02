@@ -36,6 +36,11 @@
 # datafile
 # BII_I_1_jsonlite$studies[[1]]$assays[[1]]$dataFiles[[1]]
 # df <- DataFile$new()
-df$from_list(BII_I_1_jsonlite$studies[[1]]$assays[[1]]$dataFiles[[1]])
+# df$from_list(BII_I_1_jsonlite$studies[[1]]$assays[[1]]$dataFiles[[1]])
 
+# measurement type
+# mt <- OntologyAnnotation$new()
+# mt$from_list(BII_I_1_jsonlite$studies[[1]]$assays[[1]]$measurementType, recursive = TRUE, json = TRUE)
 
+# tt <- OntologyAnnotation$new()
+# tt$from_list(BII_I_1_jsonlite$studies[[1]]$assays[[1]]$technologyType, recursive = TRUE, json = TRUE)
