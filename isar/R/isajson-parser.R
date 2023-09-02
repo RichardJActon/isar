@@ -33,4 +33,9 @@
 # oa1$from_list(BII_I_1_jsonlite$studies[[1]]$factors[[1]]$factorType, json = TRUE)
 
 
+# datafile
 # BII_I_1_jsonlite$studies[[1]]$assays[[1]]$dataFiles[[1]]
+# df <- DataFile$new()
+df$from_list(BII_I_1_jsonlite$studies[[1]]$assays[[1]]$dataFiles[[1]])
+
+

@@ -28,6 +28,8 @@ DataFile <- R6::R6Class(
 		label = NULL,
 		generated_from = NULL,
 		comments = NULL,
+		type = NULL,
+		`@id` = character(),
 		#' @details
 		#' Make a new DataFile object
 		#' @param filename A name/reference for the data file.
@@ -38,6 +40,8 @@ DataFile <- R6::R6Class(
 		#' @param label The data file type, as indicated by a label such as 'Array Data File' or 'Raw Data File'
 		#' @param generated_from Reference to Sample(s) the DataFile is generated from
 		#' @param comments Comments associated with instances of this class.
+		#' @param type type
+		#' @param `@id` json LD id
 		initialize = function(
 			filename = character(),
 			file_path = character(),
@@ -46,7 +50,9 @@ DataFile <- R6::R6Class(
 			hash_algo = "md5",
 			label = NULL,
 			generated_from = NULL,
-			comments = NULL
+			comments = NULL,
+			type = NULL,
+			`@id` = character()
 		) {
 			if (checkmate::qtest(filename, "S[0]")) {
 				self$filename <- filename
@@ -91,7 +97,6 @@ DataFile <- R6::R6Class(
 			self$compute_hash <- compute_hash
 			self$hash_algo <- hash_algo
 
-
 			self$label <- label
 			if (is.null(generated_from)) {
 				self$generated_from <- generated_from
@@ -99,6 +104,11 @@ DataFile <- R6::R6Class(
 				self$set_generated_from(generated_from)
 			}
 			self$comments <- comments
+			self$type <- type
+
+			self$`@id` <- paste0(
+				"#data/", fs::path_join(c(self$file_path, self$filename))
+			)
 		},
 		#' @details
 		#' Check if the filename of the \code{[DataFile]} is a string
@@ -191,6 +201,7 @@ DataFile <- R6::R6Class(
 		#' @param ld linked data (default FALSE)
 		to_list = function(ld = FALSE){
 			date_file <- list(
+				"@id" = self$`@id`,
 				"id" = private$id,
 				"filename" = self$filename,
 				"file_path" = self$file_path,
@@ -199,6 +210,7 @@ DataFile <- R6::R6Class(
 				"hash_algo" = self$hash_algo,
 				"label" = self$label,
 				"generated_from" = self$generated_from,
+				"type" = self$type,
 				"comments" = self$comments
 			)
 			return(date_file)
@@ -206,16 +218,41 @@ DataFile <- R6::R6Class(
 		#' @details
 		#' Make \code{[DataFile]} object from list
 		#' @param lst an Characteristic object serialized to a list
-		from_list = function(lst) {
-			private$id <- lst[["id"]]
-			self$filename <- lst[["filename"]]
-			self$file_path <- lst[["file_path"]]
-			self$check_file_exists <- lst[["check_file_exists"]]
-			self$compute_hash <- lst[["compute_hash"]]
-			self$hash_algo <- lst[["hash_algo"]]
-			self$label <- lst[["label"]]
-			self$generated_from <- lst[["generated_from"]]
-			self$comments <- lst[["comments"]]
+		from_list = function(lst, json = FALSE) {
+			if (json) {
+				#self$name <- lst[["name"]]
+				self$filename <- lst[["name"]]
+				self$type <- lst[["type"]]
+				self$`@id` <- lst[["@id"]]
+				self$comments <- lst[["comments"]]
+			} else {
+				private$id <- lst[["id"]]
+				self$filename <- lst[["filename"]]
+				self$file_path <- lst[["file_path"]]
+				self$check_file_exists <- lst[["check_file_exists"]]
+				self$compute_hash <- lst[["compute_hash"]]
+				self$hash_algo <- lst[["hash_algo"]]
+				self$label <- lst[["label"]]
+				self$generated_from <- lst[["generated_from"]]
+				self$comments <- lst[["comments"]]
+				self$type <- lst[["type"]]
+			}
+		},
+		print = function() {
+			cat(
+				crayon::blue(crayon::bold("Data File")),
+				green_bold_name_plain_content("@id", self$`@id`),
+				green_bold_name_plain_content("ID", private$id),
+				green_bold_name_plain_content("Hash Algorithm", private$hash_algo),
+				green_bold_name_plain_content("Hash", private$hash),
+				green_bold_name_plain_content("Filename", self$filename),
+				green_bold_name_plain_content("File path", self$file_path),
+				green_bold_name_plain_content("Type", self$type),
+				# green_bold_name_plain_content("Label", self$label),
+				green_bold_name_plain_content("Generated From", self$generated_from),
+				sep = "\n"
+			)
+			pretty_print_comments(self$comments)
 		},
 		#' @details
 		#' Get the hash of the file
