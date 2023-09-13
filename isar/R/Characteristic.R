@@ -162,6 +162,17 @@ Characteristic <- R6::R6Class(
 		#' @param suffix a human readable suffix
 		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
 			private$id <- generate_id(id, suffix)
+		},
+		print = function() {
+			cat(
+				crayon::blue(crayon::bold("Characteristic")),
+				green_bold_name_plain_content("ID", self$get_id()),
+				green_bold_name_plain_content("category", self$category),
+				green_bold_name_plain_content("value", self$value),
+				green_bold_name_plain_content("unit", self$unit),
+				sep = "\n"
+			)
+			pretty_print_comments(self$comments)
 		}
 	),
 	private = list(
