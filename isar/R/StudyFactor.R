@@ -91,8 +91,8 @@ StudyFactor <- R6::R6Class(
 			study_factor = list(
 				"name" = self$name,
 				"factor_type" = self$factor_type$to_list(),
-				"id" = private$id,
-				"comments" = self$comments
+				"id" = private$id#,
+				#"comments" = self$comments
 			)
 			return(study_factor)
 		},
@@ -104,10 +104,11 @@ StudyFactor <- R6::R6Class(
 		#' @param lst a list serialization of a study factor object
 		from_list = function(lst, recursive = TRUE, json = FALSE) {
 			if(json) {
-				self$name = lst[["name"]]
+				self$name = lst[["factorName"]]
 				self$`@id` <- lst[["@id"]]
+				self$factor_type <- OntologyAnnotation$new()
 				self$factor_type$from_list(lst[["factorType"]])
-				self$comments = lst[["comments"]]
+				# self$comments = lst[["comments"]]
 			} else {
 				self$name = lst[["name"]]
 				private$id <- lst[["id"]]
@@ -137,10 +138,10 @@ StudyFactor <- R6::R6Class(
 				green_bold_name_plain_content("@id", self$`@id`),
 				green_bold_name_plain_content("id", private$id),
 				green_bold_name_plain_content("name", self$name),
-				green_bold_name_plain_content("factor_type", self$factor_type),
+				green_bold_name_plain_content("factor_type", self$factor_type$term),
 				sep = "\n"
 			)
-			pretty_print_comments(self$comments)
+			#pretty_print_comments(self$comments)
 		}
 	),
 	# active = list(
