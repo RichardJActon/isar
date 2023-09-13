@@ -65,7 +65,7 @@ Assay <- R6::R6Class(
 			process_sequence = NULL,
 			comments = NULL,
 			graph = NULL,
-			data_files = NULL,
+			data_files = NULL
 		) {
 			if (is.null(measurement_type)) {
 				self$measurement_type <- measurement_type
