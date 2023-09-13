@@ -314,6 +314,13 @@ Study <- R6::R6Class(
 					})
 				}
 				# self$factors <- lst[["factors"]]
+				if (recursive) {
+					self$factors <- purrr::map(lst[["factors"]], ~{
+						sf <- StudyFactor$new()
+						sf$from_list(.x, recursive = TRUE, json = TRUE)
+						sf
+					})
+				}
 				# self$protocols <- lst[["protocols"]]
 				# self$assays <- lst[["assays"]]
 				# self$sources <- lst[["sources"]]
@@ -387,6 +394,13 @@ Study <- R6::R6Class(
 				# Improve comment formatting for longer comments
 				self$publications, ~cat(paste0(
 					"    ", crayon::bold("Title: "), .x$title
+				), sep = "\n")
+			)
+			cat(green_bold("Factors:\n")) # 🔎
+			purrr::walk(
+				# Improve comment formatting for longer comments
+				self$factors, ~cat(paste0(
+					"    ", crayon::bold("Name: "), .x$name
 				), sep = "\n")
 			)
 			pretty_print_comments(self$comments)
