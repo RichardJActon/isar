@@ -210,7 +210,8 @@ date_string_conversion <- function(date_string) {
 #' @export
 #'
 green_bold <- function(string) {
-	crayon::green(crayon::bold(string))
+	#crayon::green(crayon::bold(string))
+	cli::col_green(cli::style_bold(string))
 }
 
 #' green_bold_name_plain_content
@@ -222,7 +223,7 @@ green_bold <- function(string) {
 #'
 #' @export
 green_bold_name_plain_content <- function(label, content) {
-	paste0(green_bold(paste0(label, ": ")), content)
+	cli::cli_text(paste0(green_bold(paste0(label, ": ")), content))
 }
 
 
@@ -235,14 +236,18 @@ green_bold_name_plain_content <- function(label, content) {
 #'
 #' @export
 pretty_print_comments <- function(comments) {
-	cat(green_bold("Comments:\n")) # 🗩
+	cli::cli_h2(cli::col_green("Comments 🗩"))
+	#cat(green_bold("Comments:\n")) # 🗩
 	purrr::iwalk(
 		# Improve comment formatting for longer comments
-		comments, ~cat(
-			#paste0("    ", crayon::bold(.x), ": ", .y),
-			paste0("    ", crayon::bold(.y), ": "),
-			stringr::str_wrap(.x, indent = 4, exdent = 4),
-			sep = "\n"
-		)
+		# comments, ~cat(
+		# 	paste0("    ", crayon::bold(.y), ": "),
+		# 	stringr::str_wrap(.x, indent = 4, exdent = 4),
+		# 	sep = "\n"
+		# )
+		comments, ~{
+			cli::cli_h3(.y)
+			cli::cli_text(.x)
+		}
 	)
 }

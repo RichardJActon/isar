@@ -15,6 +15,7 @@ Characteristic <- R6::R6Class(
 		value = NULL,
 		unit = NULL,
 		comments = NULL,
+		#`@id` = NULL,
 		#' @details
 		#' Create a new \code{[Characteristics]} object
 		#' @param category The classifier of the type of characteristic being described.
@@ -25,7 +26,8 @@ Characteristic <- R6::R6Class(
 			category = NULL,
 			value = NULL,
 			unit = NULL,
-			comments = NULL
+			comments = NULL#,
+			#`@id` = NULL,
 		) {
 			if(is.null(category)) {
 				self$category <- category
@@ -35,6 +37,7 @@ Characteristic <- R6::R6Class(
 			self$value <- value
 			self$unit <- unit
 			self$comments <- comments
+			#self$`@id` <- paste0("#characteristic_category/", self$)
 		},
 		#' @details
 		#' Check that category is an \code{[OntologyAnnotation]} object
@@ -164,14 +167,11 @@ Characteristic <- R6::R6Class(
 			private$id <- generate_id(id, suffix)
 		},
 		print = function() {
-			cat(
-				crayon::blue(crayon::bold("Characteristic")),
-				green_bold_name_plain_content("ID", self$get_id()),
-				green_bold_name_plain_content("category", self$category),
-				green_bold_name_plain_content("value", self$value),
-				green_bold_name_plain_content("unit", self$unit),
-				sep = "\n"
-			)
+			cli::cli_h1(cli::col_blue("Characteristic"))
+			green_bold_name_plain_content("ID", self$get_id())
+			green_bold_name_plain_content("category", self$category)
+			green_bold_name_plain_content("value", self$value)
+			green_bold_name_plain_content("unit", self$unit)
 			pretty_print_comments(self$comments)
 		}
 	),

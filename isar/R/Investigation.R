@@ -349,51 +349,31 @@ Investigation <- R6::R6Class(
 			private$id <- generate_id(id, suffix)
 		},
 		print = function() {
-			cat(
-				crayon::blue(crayon::bold("Investigation")), # 📋
-				green_bold_name_plain_content("Filename", self$filename), # 📄
-				green_bold_name_plain_content("ID", private$id),
-				green_bold_name_plain_content("Title", self$title),
-				green_bold("Description: "),
-				sep = "\n"
-			)
-			cat(
-				stringr::str_wrap(self$description, indent = 4, exdent = 4),
-				sep = "\n"
-			)
-			cat(
-				# interestingly - emoji seem to massivly slow down printing speed
-				# green_bold_name_plain_content("Submission date 🗓️", self$submission_date),
-				# green_bold_name_plain_content("Public release date 🗓️", self$public_release_date),
-				green_bold_name_plain_content("Submission date️", self$submission_date),
-				green_bold_name_plain_content("Public release date️", self$public_release_date),
+			cli::cli_h1(cli::col_blue("Investigation 📋"))
+			green_bold_name_plain_content("Title", self$title)
+			green_bold_name_plain_content("ID", private$id)
+			green_bold_name_plain_content("Filename", self$filename) # 📄
+			green_bold_name_plain_content("📅 Submission date️", self$submission_date)
+			green_bold_name_plain_content("📅 Public release date️", self$public_release_dat)
 
-				# green_bold_name_plain_content("Ontology source references", self$ontology_source_references),
-				# green_bold_name_plain_content("Publications", self$publications),
-				# green_bold_name_plain_content("Contacts", self$contacts),
-				# green_bold_name_plain_content("Studies", self$studies),
-				sep = "\n"
-			)
-			cat(green_bold("Publications:\n")) # 🔎
+			#green_bold("Description: ")
+			cli::cli_h2(cli::col_green("Description"))
+			cli::cli_text(self$description) # indentation?
+			cli::cli_h2(cli::col_green("Publications 📖"))
 			purrr::walk(
 				# Improve comment formatting for longer comments
-				self$publications, ~cat(paste0(
-					"    ", crayon::bold("Title: "), .x$title
-				), sep = "\n")
+				self$publications, ~cli::cli_text(
+					"    ", cli::style_bold("Title: "), .x$title
+				)
 			)
-			cat(green_bold("Contacts:\n")) # 🔎
+			cli::cli_h2(cli::col_green("Contacts 👤"))
+			cli::cli_ul(purrr::map_chr(self$contacts, ~.x$get_full_name()))
+			cli::cli_h2(cli::col_green("Studies 🔎"))
 			purrr::walk(
 				# Improve comment formatting for longer comments
-				self$contacts, ~cat(paste0(
-					"    ", crayon::bold("Contacts: "), .x$get_full_name()
-				), sep = "\n")
-			)
-			cat(green_bold("Studies:\n")) # 🔎
-			purrr::walk(
-				# Improve comment formatting for longer comments
-				self$studies, ~cat(paste0(
-					"    ", crayon::bold("Title: "), .x$title
-				), sep = "\n")
+				self$studies, ~cli::cli_text(
+					"    ", cli::style_bold("Title: "), .x$title
+				)
 			)
 			pretty_print_comments(self$comments)
 		}

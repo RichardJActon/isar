@@ -293,30 +293,31 @@ OntologySource <- R6::R6Class(
 		#' @details
 		#' prints a pretty representation of the contents of the object
 		print = function(){
-			cat(
-				crayon::blue(crayon::bold("Ontology Source")),
-				green_bold_name_plain_content("Name", self$name),
-				green_bold_name_plain_content("File", self$file),
-				green_bold_name_plain_content("File Type", self$file_type),
-				green_bold_name_plain_content("URL", self$url),
-				green_bold_name_plain_content("Version", self$version),
-				green_bold("Description: "),
-				sep = "\n"
-			)
-				#paste0("Description: ", self$description),
-			cat(
-				stringr::str_wrap(self$description, indent = 4, exdent = 4),
-				sep = "\n"
-			)
+			cli::cli_h1(cli::col_blue("Ontology Source"))
+			green_bold_name_plain_content("Name", self$name)
+			green_bold_name_plain_content("File", self$file)
+			green_bold_name_plain_content("File Type", self$file_type)
+			green_bold_name_plain_content("URL", self$url)
+			green_bold_name_plain_content("Version", self$version)
+			cli::cli_h2(cli::col_green("Description"))
+			cli::cli_text(self$description) # indentation?
 			pretty_print_comments(self$comments)
-			cat(green_bold("Terms:"), sep = "\n")
+			cli::cli_h2(cli::col_green("Terms"))
 			purrr::iwalk(
 				head(self$terms_list),
-				~cat(paste0("    ", crayon::bold(.y), ": ", .x), sep = "\n")
+				~cli::cli_text(paste0("    ", cli::style_bold(.y), ": ", .x))
 			)
-			cat(crayon::yellow(crayon::italic(
-				"    ... of: ", format(length(self$terms_list), big.mark = ",")
-			)))
+			cli::col_yellow(cli::style_italic(
+				paste0("    ... of: ", format(length(self$terms_list), big.mark = ","))
+			))
+			#cat(green_bold("Terms:"), sep = "\n")
+			# purrr::iwalk(
+			# 	head(self$terms_list),
+			# 	~cat(paste0("    ", crayon::bold(.y), ": ", .x), sep = "\n")
+			# )
+			# cat(crayon::yellow(crayon::italic(
+			# 	"    ... of: ", format(length(self$terms_list), big.mark = ",")
+			# )))
 		}
 	)
 )
@@ -336,6 +337,6 @@ identical.OntologySource <- s3_identical_maker(c(
 	"version",
 	"description",
 	"comments",
-	"terms_list",
+"terms_list",
 	"get_terms_list"
 ))

@@ -290,14 +290,11 @@ OntologyAnnotation <- R6::R6Class(
 		},
 
 		print = function() {
-			cat(
-				crayon::blue(crayon::bold("Ontology Annotation")),
-				green_bold_name_plain_content("Term", self$term),
-				green_bold_name_plain_content("Term Accession", self$term_accession),
-				green_bold_name_plain_content("Term Source", self$term_source),
-				green_bold_name_plain_content("ID", private$id),
-				sep = "\n"
-			)
+			cli::cli_h1(cli::col_blue("Ontology Annotation"))
+			green_bold_name_plain_content("Term", self$term)
+			green_bold_name_plain_content("Term Accession", self$term_accession)
+			green_bold_name_plain_content("Term Source", self$term_source)
+			green_bold_name_plain_content("ID", private$id)
 			pretty_print_comments(self$comments)
 		}
 	),

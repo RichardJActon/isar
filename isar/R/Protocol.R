@@ -21,6 +21,7 @@ Protocol <- R6::R6Class(
 		parameters = NULL,
 		components = NULL,
 		comments = NULL,
+		`@id` = character(),
 
 		#' @details
 		#' Create a new Protocol object
@@ -40,7 +41,8 @@ Protocol <- R6::R6Class(
 			version = character(),
 			parameters = NULL,
 			components = NULL,
-			comments = NULL
+			comments = NULL,
+			`@id` = NULL
 		) {
 			if (checkmate::qtest(name, "S[0]")) { self$name <- name } else {
 				self$set_name(name)
@@ -70,6 +72,7 @@ Protocol <- R6::R6Class(
 				self$aet_components(components)
 			}
 			self$check_comments(comments)
+			self$`@id` <- paste0("#protocol/", self$name)
 		},
 		#' @details
 		#' Check that name is a single string
@@ -240,33 +243,71 @@ Protocol <- R6::R6Class(
 		#' Make \code{[Protocol]} object from list
 		#' @param lst an Protocol object serialized to a list
 		#' @param recursive use the `from_list()` method on list items that are also isar objects (default = TRUE)
-		from_list = function(lst, recursive = TRUE) {
-			self$name <- lst[["name"]]
-			private$id <- lst[["id"]]
+		from_list = function(lst, recursive = TRUE, json = FALSE) {
+			if(json) {
+				self$name <- lst[["name"]]
+				self$`@id` <- lst[["@id"]]
+				if (recursive) {
+					self$protocol_type <- OntologyAnnotation$new()
+					self$protocol_type$from_list(lst[["protocolType"]])
+				} else {
+					self$protocol_type <- lst[["protocolType"]]
+				}
 
-			if (recursive) {
-				self$protocol_type <- OntologyAnnotation$new()
-				self$protocol_type$from_list(lst[["protocol_type"]])
+				self$description <- lst[["description"]]
+				self$uri <- lst[["uri"]]
+				self$version <- lst[["version"]]
+
+				self$parameters <- lst[["parameters"]]
+
+				# if (recursive) {
+				# 	self$parameters <- purrr::map(lst[["parameters"]], ~{
+				# 		pv <- ParameterValue$new()
+				# 		pv$from_list(.x)
+				# 		pv
+				# 	})
+				# } else {
+				# 	self$parameters <- lst[["parameters"]]
+				# }
+
+				if (recursive) {
+					self$components <- purrr::map(lst[["components"]], ~{
+						oa <- OntologyAnnotation$new()
+						oa$from_list(.x)
+						oa
+					})
+				} else {
+					self$components <- lst[["components"]]
+				}
+				self$comments <- lst[["comments"]]
 			} else {
-				self$protocol_type <- lst[["protocol_type"]]
-			}
+				self$name <- lst[["name"]]
+				private$id <- lst[["id"]]
 
-			self$description <- lst[["description"]]
-			self$uri <- lst[["uri"]]
-			self$version <- lst[["version"]]
+				if (recursive) {
+					self$protocol_type <- OntologyAnnotation$new()
+					self$protocol_type$from_list(lst[["protocol_type"]])
+				} else {
+					self$protocol_type <- lst[["protocol_type"]]
+				}
 
-			self$parameters <- lst[["parameters"]]
-			
-			if (recursive) {
-				self$components <- purrr::map(lst[["components"]], ~{
-					oa <- OntologyAnnotation$new()
-					oa$from_list(.x)
-					oa
-				})
-			} else {
-				self$components <- lst[["components"]]
+				self$description <- lst[["description"]]
+				self$uri <- lst[["uri"]]
+				self$version <- lst[["version"]]
+
+				self$parameters <- lst[["parameters"]]
+
+				if (recursive) {
+					self$components <- purrr::map(lst[["components"]], ~{
+						oa <- OntologyAnnotation$new()
+						oa$from_list(.x)
+						oa
+					})
+				} else {
+					self$components <- lst[["components"]]
+				}
+				self$comments <- lst[["comments"]]
 			}
-			self$comments <- lst[["comments"]]
 		},
 
 		#' @details

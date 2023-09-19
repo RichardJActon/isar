@@ -15,6 +15,7 @@ ParameterValue <- R6::R6Class(
 		value = NULL,
 		unit = NULL,
 		comments = NULL,
+		`@id` = character(),
 		#' @details
 		#' New \code{[ParameterValue]} object
 		#' @param category A link to the relevant \code{[ProtocolParameter]} that the value is set for.
@@ -25,7 +26,8 @@ ParameterValue <- R6::R6Class(
 			category = NULL,
 			value = NULL,
 			unit = NULL,
-			comments = NULL
+			comments = NULL,
+		`@id` = character()
 		){
 			self$category <- category
 			self$value <- value
@@ -33,6 +35,7 @@ ParameterValue <- R6::R6Class(
 				self$set_unit(unit)
 			}
 			self$comments <- comments
+			self$`@id` <- paste0("#parameter/", gsub(" ", "_", self$value))
 		},
 		#' @details
 		#' check if unit is a \code{[Unit]} object
@@ -84,18 +87,25 @@ ParameterValue <- R6::R6Class(
 		#' Make \code{[Person]} from list
 		#'
 		#' @param lst an \code{[Person]} object serialized to a list
-		from_list = function(lst) {
-			private$id <- lst[["id"]]
-			self$category <- lst[["category"]]
-			self$value <- lst[["value"]]
-			self$unit <- lst[["unit"]]
-			self$comments <- lst[["comments"]]
+		from_list = function(lst, recursive = TRUE, json = FALSE) {
+			if(json) {
+				self$category <- lst[["category"]]
+				self$value <- lst[["value"]]
+				self$unit <- lst[["unit"]]
+				self$comments <- lst[["comments"]]
+			} else {
+				private$id <- lst[["id"]]
+				self$category <- lst[["category"]]
+				self$value <- lst[["value"]]
+				self$unit <- lst[["unit"]]
+				self$comments <- lst[["comments"]]
+			}
 		},
 
 		#' @details
 		#' Get the uuid of this object
 		#' @return a uuid
-		get_id = function() {
+	get_id = function() {
 			private$id
 		},
 		#' @details

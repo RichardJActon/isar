@@ -239,19 +239,16 @@ DataFile <- R6::R6Class(
 			}
 		},
 		print = function() {
-			cat(
-				crayon::blue(crayon::bold("Data File")),
-				green_bold_name_plain_content("@id", self$`@id`),
-				green_bold_name_plain_content("ID", private$id),
-				green_bold_name_plain_content("Hash Algorithm", private$hash_algo),
-				green_bold_name_plain_content("Hash", private$hash),
-				green_bold_name_plain_content("Filename", self$filename),
-				green_bold_name_plain_content("File path", self$file_path),
-				green_bold_name_plain_content("Type", self$type),
-				# green_bold_name_plain_content("Label", self$label),
-				green_bold_name_plain_content("Generated From", self$generated_from),
-				sep = "\n"
-			)
+			cli::cli_h1(cli::col_blue("Data File"))
+			green_bold_name_plain_content("@id", self$`@id`)
+			green_bold_name_plain_content("ID", private$id)
+			green_bold_name_plain_content("Hash Algorithm", private$hash_algo)
+			green_bold_name_plain_content("Hash", private$hash)
+			green_bold_name_plain_content("Filename", self$filename)
+			green_bold_name_plain_content("File path", self$file_path)
+			green_bold_name_plain_content("Type", self$type)
+			# green_bold_name_plain_content("Label", self$label)
+			green_bold_name_plain_content("Generated From", self$generated_from)
 			pretty_print_comments(self$comments)
 		},
 		#' @details
