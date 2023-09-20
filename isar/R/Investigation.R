@@ -349,7 +349,7 @@ Investigation <- R6::R6Class(
 			private$id <- generate_id(id, suffix)
 		},
 		print = function() {
-			cli::cli_h1(cli::col_blue("Investigation 📋"))
+			cli::cli_h1(cli::col_blue("Investigation 🕵️"))
 			green_bold_name_plain_content("Title", self$title)
 			green_bold_name_plain_content("ID", private$id)
 			green_bold_name_plain_content("Filename", self$filename) # 📄
