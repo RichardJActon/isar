@@ -372,38 +372,61 @@ Study <- R6::R6Class(
 			private$id <- generate_id(id, suffix)
 		},
 		print = function() {
-			cat(
-				crayon::blue(crayon::bold("Study")),
-				green_bold_name_plain_content("Title", self$title),
-				green_bold_name_plain_content("ID", private$id),
-				green_bold("Description: "),
-				# green_bold_name_plain_content("Title", self$title),
-				sep = "\n"
-			)
-			cat(
-				stringr::str_wrap(self$description, indent = 4, exdent = 4),
-				sep = "\n"
-			)
-			cat(
-				green_bold_name_plain_content("Submission Date", self$submission_date),
-				green_bold_name_plain_content("Public Release Date", self$public_release_date),
-				sep = "\n"
-			)
-			cat(green_bold("Publications:\n")) # 🔎
+			cli::cli_h1(cli::col_blue("Study 🔎"))
+			green_bold_name_plain_content("Title", self$title)
+			green_bold_name_plain_content("ID", private$id)
+			green_bold_name_plain_content("Submission Date", self$submission_date)
+			green_bold_name_plain_content("Public Release Date", self$public_release_date)
+			cli::cli_h2(cli::col_green("Description"))
+			cli::cli_text(self$description)
+			cli::cli_h2(cli::col_green("Publications 📖"))
 			purrr::walk(
 				# Improve comment formatting for longer comments
-				self$publications, ~cat(paste0(
-					"    ", crayon::bold("Title: "), .x$title
-				), sep = "\n")
+				self$publications, ~cli::cli_text(
+					"    ", cli::style_bold("Title: "), .x$title
+				)
 			)
-			cat(green_bold("Factors:\n")) # 🔎
+			cli::cli_h2(cli::col_green("Factors"))
 			purrr::walk(
 				# Improve comment formatting for longer comments
-				self$factors, ~cat(paste0(
-					"    ", crayon::bold("Name: "), .x$name
-				), sep = "\n")
+				self$factors, ~cli::cli_text(
+					"    ", cli::style_bold("Name: "), .x$name
+				)
 			)
 			pretty_print_comments(self$comments)
+			# ---
+			# cat(
+			# 	crayon::blue(crayon::bold("Study")),
+			# 	green_bold_name_plain_content("Title", self$title),
+			# 	green_bold_name_plain_content("ID", private$id),
+			# 	green_bold("Description: "),
+			# 	# green_bold_name_plain_content("Title", self$title),
+			# 	sep = "\n"
+			# )
+			# cat(
+			# 	stringr::str_wrap(self$description, indent = 4, exdent = 4),
+			# 	sep = "\n"
+			# )
+			# cat(
+			# 	green_bold_name_plain_content("Submission Date", self$submission_date),
+			# 	green_bold_name_plain_content("Public Release Date", self$public_release_date),
+			# 	sep = "\n"
+			# )
+			# cat(green_bold("Publications:\n")) #
+			# purrr::walk(
+			# 	# Improve comment formatting for longer comments
+			# 	self$publications, ~cat(paste0(
+			# 		"    ", crayon::bold("Title: "), .x$title
+			# 	), sep = "\n")
+			# )
+			# cat(green_bold("Factors:\n")) # 🔎
+			# purrr::walk(
+			# 	# Improve comment formatting for longer comments
+			# 	self$factors, ~cat(paste0(
+			# 		"    ", crayon::bold("Name: "), .x$name
+			# 	), sep = "\n")
+			# )
+			# pretty_print_comments(self$comments)
 		}
 	),
 	private = list(
