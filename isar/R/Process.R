@@ -48,6 +48,7 @@ Process <- R6::R6Class(
 			self$inputs <- inputs
 			self$outputs <- outputs
 			self$comments <- comments
+			self$`@id` <- `@id`
 		},
 		#' @details
 		#' Check the the name has a non-zero length
@@ -130,23 +131,38 @@ Process <- R6::R6Class(
 				"outputs" = self$outputs,
 				"comments" = self$comments
 			)
+			if(ld) {
+				process$`@id` <- self$`@id`
+			}
 			return(process)
 		},
 		#' @details
 		#' Make \code{[Process]} object from list
 		#' @param lst an Process object serialized to a list
-		from_list = function(lst) {
+		from_list = function(lst, recursive = TRUE, json = FALSE) {
+			if(json) {
+				self$executes_protocol <- lst[["executesProtocol"]][["@id"]]
+				self$parameter_values <- lst[["parameterValues"]]
+				self$outputs <- purrr::map_chr(lst[["outputs"]], ~.x$`@id`)
+				self$inputs <- purrr::map_chr(lst[["inputs"]], ~.x$`@id`)
+			} else {
+				self$executes_protocol <- lst[["executes_protocol"]] # protocol object
+				self$parameter_values <- lst[["parameter_values"]] # ont anno?
+				self$outputs <- lst[["outputs"]] # sample obj ?
+				self$inputs <- lst[["inputs"]] # source obj
+			}
 			self$name <- lst[["name"]]
-			self$executes_protocol <- lst[["executes_protocol"]]
 			self$date <- lst[["date"]]
-			self$performer <- purrr::map(lst[["performer"]], ~{
-				p <- Person$new()
-				p$from_list(.x)
-				p
-			})
-			self$parameter_values <- lst[["parameter_values"]]
-			self$inputs <- lst[["inputs"]]
-			self$outputs <- lst[["outputs"]]
+			if(recursive && !json) {
+				self$performer <- purrr::map(lst[["performer"]], ~{
+					p <- Person$new()
+					p$from_list(.x)
+					p
+				})
+			} else {
+				self$performer <- lst[["performer"]]
+			}
+			self$`@id` <- lst[["@id"]]
 			self$comments <- lst[["comments"]]
 		},
 
@@ -162,6 +178,37 @@ Process <- R6::R6Class(
 		#' @param suffix a human readable suffix
 		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
 			private$id <- generate_id(id, suffix)
+		},
+		print = function() {
+			cli::cli_h1(cli::col_blue("Process ⚙️"))
+			green_bold_name_plain_content("Name", self$name)
+			green_bold_name_plain_content("Date", self$date)
+			green_bold_name_plain_content("@id", self$`@id`)
+			if (checkmate::test_r6(self$performer, "Person")) {
+				green_bold_name_plain_content(
+					"Performer", self$performer$get_full_name()
+				)
+			} else {
+				green_bold_name_plain_content("Performer", self$performer)
+			}
+			cli::cli_h2("Inputs")
+			cli::cli_ul(self$inputs)
+
+			cli::cli_h2("Outputs")
+			cli::cli_ul(self$outputs)
+
+			if(checkmate::test_r6(self$executes_protocol, "Protocol")){
+				green_bold_name_plain_content(
+					"Executes Protocol", self$executes_protocol$name
+				)
+			} else {
+				green_bold_name_plain_content(
+					"Executes Protocol", self$executes_protocol
+				)
+			}
+
+			cli::cli_h2("Parameter Values")
+			if(checkmate::test_r6(self$parameter_values, "ParameterValue")) {
 		}
 	),
 	private = list(
