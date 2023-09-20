@@ -19,6 +19,10 @@ Unit <- R6::R6Class(
 		#' @param unit a unit of measurement
 		initialize = function(unit = NULL) {
 			if (is.null(unit)) { self$unit <- unit } else {
+				# need a list of ontology annotations to account for
+				# composit units e.g. ms^-2 is meters and seconds
+				# need a seperate field for the unit and the ontology
+				# annotation(s) used in the unit
 				self$unit <- OntologyAnnotation$new(unit, OM)
 			}
 		},
