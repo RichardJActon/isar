@@ -20,6 +20,7 @@ Process <- R6::R6Class(
 		inputs = NULL,
 		outputs = NULL,
 		comments = NULL,
+		`@id` = NULL,
 		#' @details
 		#' Create a new \code{[Process]}
 		#' @param name If relevant, a unique name for the process to disambiguate it from other processes.
@@ -38,7 +39,8 @@ Process <- R6::R6Class(
 			parameter_values = NULL,
 			inputs = NULL,
 			outputs = NULL,
-			comments = NULL
+			comments = NULL,
+			`@id` = NULL
 		) {
 			self$name <- name
 			self$executes_protocol <- executes_protocol
@@ -209,6 +211,12 @@ Process <- R6::R6Class(
 
 			cli::cli_h2("Parameter Values")
 			if(checkmate::test_r6(self$parameter_values, "ParameterValue")) {
+				self$parameter_values$get_value_in_units()
+			} else {
+				cli::cli_ul(unlist(self$parameter_values))
+			}
+
+			pretty_print_comments(self$comments)
 		}
 	),
 	private = list(
