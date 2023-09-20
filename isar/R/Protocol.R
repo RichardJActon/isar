@@ -322,6 +322,31 @@ Protocol <- R6::R6Class(
 		#' @param suffix a human readable suffix
 		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
 			private$id <- generate_id(id, suffix)
+		},
+		print = function() {
+			cli::cli_h1(cli::col_blue("Protocol 📋"))
+
+			green_bold_name_plain_content("name", self$name)
+			green_bold_name_plain_content("@id", self$`@id`)
+			green_bold_name_plain_content("uri", self$uri)
+			green_bold_name_plain_content("version", self$version)
+			green_bold_name_plain_content("protocol_type", self$protocol_type$term)
+			cli::cli_h2(cli::col_green("Description"))
+			cli::cli_text(self$description)
+			cli::cli_par()
+			cli::cli_end()
+
+			#
+			cli::cli_h2(cli::col_green("Parameters"))
+			# needs cleaning up list not from isajson
+			cli::cli_ul(purrr::map_chr(self$parameters, ~.x$parameterName$annotationValue))
+			# model a param values of ont annotations
+			#green_bold_name_plain_content("parameters", self$parameters)
+
+			cli::cli_h2(cli::col_green("Components"))
+			cli::cli_ul(purrr::map_chr(self$components, ~.x$term))
+
+			pretty_print_comments(self$comments)
 		}
 	),
 	private = list(
