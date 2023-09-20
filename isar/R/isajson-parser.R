@@ -61,3 +61,14 @@
 #ct <- Characteristic$new()
 #ct$from_list(BII_I_1_jsonlite$studies[[1]]$materials$sources[[1]]$characteristics[[1]])
 #ct
+
+
+# protocols
+# pc <- Protocol$new()
+# pc$from_list(BII_I_1_jsonlite$studies[[1]]$protocols[[2]], recursive = TRUE, json = TRUE)
+# pc
+
+# process
+# pr <- Process$new()
+# pr$from_list(BII_I_1_jsonlite$studies[[1]]$processSequence[[1]], recursive = FALSE, json = TRUE)
+# pr
