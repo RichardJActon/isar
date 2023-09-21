@@ -63,7 +63,12 @@ Process <- R6::R6Class(
 		#' Set the name of the \code{[Process]}
 		#' @param name of the process
 		set_name = function(name) {
-			if (self$check_name(name)) { self$name <- name }
+			if(is.null(name)) {
+				warning("Process Name Missing!")
+				self$name <- ""# character()
+			} else if (self$check_name(name)) {
+				self$name <- name
+			}
 		},
 		#' @details
 		#' check performer is a list of \code{[Person]} objects
@@ -153,7 +158,7 @@ Process <- R6::R6Class(
 				self$outputs <- lst[["outputs"]] # sample obj ?
 				self$inputs <- lst[["inputs"]] # source obj
 			}
-			self$name <- lst[["name"]]
+			self$set_name(lst[["name"]])
 			self$date <- lst[["date"]]
 			if(recursive && !json) {
 				self$performer <- purrr::map(lst[["performer"]], ~{
