@@ -23,7 +23,7 @@ OntologyAnnotation <- R6::R6Class(
 		term_source = NULL, # OntologySource
 		term_accession = NULL, # str
 		comments = NULL, # comment
-
+		`@id` = character(),
 		#' @details
 		#' create a new factor value
 		#' @param term the name of ontology term
@@ -38,7 +38,8 @@ OntologyAnnotation <- R6::R6Class(
 			term = NULL, # str
 			term_source = NULL, # OntologySource
 			term_accession = NULL, # str
-			comments = NULL
+			comments = NULL,
+			`@id` = character()
 		) {
 			# transition to character() !!
 			if (is.null(term) && !is.null(term_accession)) {
@@ -62,7 +63,7 @@ OntologyAnnotation <- R6::R6Class(
 					self$set_term(term)
 				}
 			}
-
+			self$`@id` <- `@id`
 			# if(!is.null(term)) {
 			# 	# handling on not explicitly enumerated lists?
 			# 	# - check a remote resource with an API call?
@@ -250,6 +251,7 @@ OntologyAnnotation <- R6::R6Class(
 				if(!is.null(lst[["comments"]])) {
 					self$comments <- lst[["comments"]]
 				}
+				self$`@id` <- lst[["@id"]]
 			} else {
 				private$id <- lst[["id"]]
 				self$term <- lst[["annotation_value"]]
@@ -293,7 +295,8 @@ OntologyAnnotation <- R6::R6Class(
 			cli::cli_h1(cli::col_blue("Ontology Annotation"))
 			green_bold_name_plain_content("Term", self$term)
 			green_bold_name_plain_content("Term Accession", self$term_accession)
-			green_bold_name_plain_content("Term Source", self$term_source)
+			green_bold_name_plain_content("Term Source", self$term_source$name)
+			green_bold_name_plain_content("@id", self$`@id`)
 			green_bold_name_plain_content("ID", private$id)
 			pretty_print_comments(self$comments)
 		}
