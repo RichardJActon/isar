@@ -1,5 +1,8 @@
 # setup
 # BII_I_1_jsonlite <- jsonlite::read_json("../data/ISAdatasets/json/BII-I-1/BII-I-1.json")
+# BII_S_3_jsonlite <- jsonlite::read_json("../data/ISAdatasets/json/BII-S-3/BII-S-3.json")
+# BII_I_1_tab <- readr::read_tsv("../data/ISAdatasets/tab/BII-I-1/s_BII-S-1.txt")
+# BII_S_3_tab <- readr::read_tsv("../data/ISAdatasets/tab/BII-S-3/s_BII-S-3.txt")
 # library(devtools)
 # load_all()
 
@@ -66,9 +69,43 @@
 # protocols
 # pc <- Protocol$new()
 # pc$from_list(BII_I_1_jsonlite$studies[[1]]$protocols[[2]], recursive = TRUE, json = TRUE)
+# pc$from_list(BII_I_1_jsonlite$studies[[1]]$protocols[[6]], recursive = TRUE, json = TRUE)
 # pc
 
 # process
 # pr <- Process$new()
 # pr$from_list(BII_I_1_jsonlite$studies[[1]]$processSequence[[1]], recursive = FALSE, json = TRUE)
 # pr
+
+# uoa <- OntologyAnnotation$new()
+# uoa$from_list(BII_I_1_jsonlite$studies[[1]]$unitCategories[[1]], recursive = TRUE, json = TRUE)
+# uoa
+
+# BII_I_1_jsonlite$studies[[1]]$assays[[1]]$technologyType
+# BII_I_1_jsonlite$studies[[1]]$unitCategories[[1]]
+
+# BII_S_3_jsonlite$studies[[1]]$processSequence[[1]]$executesProtocol$`@id`
+# BII_S_3_jsonlite$studies[[1]]$processSequence[[1]]$`@id`
+
+#' get_process_sequence_order_from_json
+#'
+#' @param process_sequence
+#'
+#' @return an integer vector
+#' @export
+#'
+get_process_sequence_order_from_json <- function(process_sequence) {
+	purrr::map_int(process_sequence, ~{
+		protocol <- sub(
+			"#protocol/", "", .x$executesProtocol$`@id`, fixed = TRUE
+		)
+		process <- sub("#process/", "", .x$`@id`, fixed = TRUE)
+		as.integer(sub(protocol, "", process, fixed = TRUE))
+	})
+}
+# get_process_sequence_order_from_json(
+# 	BII_S_3_jsonlite$studies[[1]]$processSequence
+# )
+# get_process_sequence_order_from_json(
+# 	BII_I_1_jsonlite$studies[[1]]$processSequence
+# )
