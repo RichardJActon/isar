@@ -302,34 +302,62 @@ Study <- R6::R6Class(
 				self$public_release_date <- lst[["publicReleaseDate"]]
 				self$contacts <- purrr::map(lst[["people"]], ~{
 					p <- Person$new()
-					p$from_list(.x, json = TRUE)
+					p$from_list(.x, json = json)
 					p
 				})
-				self$design_descriptors <- lst[["designDescriptors"]]
-				if (recursive) {
-					self$publications <- purrr::map(lst[["publications"]], ~{
-						p <- Publication$new()
-						p$from_list(.x, recursive = TRUE, json = TRUE)
-						p
-					})
-				}
-				# self$factors <- lst[["factors"]]
-				if (recursive) {
-					self$factors <- purrr::map(lst[["factors"]], ~{
-						sf <- StudyFactor$new()
-						sf$from_list(.x, recursive = TRUE, json = TRUE)
-						sf
-					})
-				}
-				# self$protocols <- lst[["protocols"]]
+				self$design_descriptors <- purrr::map(
+					lst[["studyDesignDescriptors"]], ~{
+						sdd <- OntologyAnnotation$new()
+						sdd$from_list(.x, recursive = recursive, json = json)
+						sdd
+					}
+				)
+				self$publications <- purrr::map(lst[["publications"]], ~{
+					p <- Publication$new()
+					p$from_list(.x, recursive = recursive, json = json)
+					p
+				})
+
+				self$factors <- purrr::map(lst[["factors"]], ~{
+					sf <- StudyFactor$new()
+					sf$from_list(.x, recursive = recursive, json = json)
+					sf
+				})
+
+				self$protocols <- purrr::map(lst[["protocols"]], ~{
+					pc <- Protocol$new()
+					pc$from_list(.x, recursive = recursive, json = json)
+					pc
+				})
 				# self$assays <- lst[["assays"]]
 				# self$sources <- lst[["sources"]]
+				self$sources <- purrr::map(lst[["materials"]][["sources"]], ~{
+					src <- Source$new()
+					src$from_list(.x, recursive = recursive, json = json)
+					src
+				})
 				# self$samples <- lst[["samples"]]
-				# self$process_sequence <- lst[["processSequence"]]
+				process_sequence_order <- get_process_sequence_order_from_json(
+					lst[["processSequence"]]
+				)
+
+				self$process_sequence <- purrr::map(
+					lst[["processSequence"]], ~{
+					ps <- Process$new()
+					ps$from_list(.x, recursive = FALSE, json = json) # recursive!
+					ps
+				})[order(process_sequence_order)]
+
+
 				# self$other_material <- lst[["otherMaterial"]]
 				# self$characteristic_categories <- lst[["characteristicCategories"]]
+				self$units <- purrr::map(lst[["unitCategories"]],~{
+					u <- OntologyAnnotation$new()
+					u$from_list(.x, recursive = recursive, json = json)
+					u
+				})
+
 				self$comments <- lst[["comments"]]
-				#self$units <- lst[["units"]]
 			} else {
 				private$id <- lst[["id"]]
 				self$filename <- lst[["filename"]]
@@ -377,22 +405,34 @@ Study <- R6::R6Class(
 			green_bold_name_plain_content("ID", private$id)
 			green_bold_name_plain_content("Submission Date", self$submission_date)
 			green_bold_name_plain_content("Public Release Date", self$public_release_date)
+
 			cli::cli_h2(cli::col_green("Description"))
 			cli::cli_text(self$description)
+
+			cli::cli_h2(cli::col_green("Contacts"))
+			cli::cli_ul(purrr::map_chr(self$contacts, ~.x$get_full_name()))
+
 			cli::cli_h2(cli::col_green("Publications 📖"))
-			purrr::walk(
-				# Improve comment formatting for longer comments
-				self$publications, ~cli::cli_text(
-					"    ", cli::style_bold("Title: "), .x$title
-				)
-			)
+			cli::cli_ul(purrr::map_chr(self$publications, ~.x$title))
+
 			cli::cli_h2(cli::col_green("Factors"))
-			purrr::walk(
-				# Improve comment formatting for longer comments
-				self$factors, ~cli::cli_text(
-					"    ", cli::style_bold("Name: "), .x$name
-				)
-			)
+			cli::cli_ul(purrr::map_chr(self$factors, ~.x$name))
+
+			cli::cli_h2(cli::col_green("Design Descriptors"))
+			cli::cli_ul(purrr::map_chr(self$design_descriptors, ~.x$term))
+
+			cli::cli_h2(cli::col_green("Units"))
+			cli::cli_ul(purrr::map_chr(self$units, ~.x$term))
+
+			cli::cli_h2(cli::col_green("Protocols"))
+			cli::cli_ul(purrr::map_chr(self$protocols, ~.x$name))
+
+			cli::cli_h2(cli::col_green("Processes"))
+			cli::cli_ol(purrr::map_chr(self$process_sequence, ~.x$name))
+
+			cli::cli_h2(cli::col_green("Sources"))
+			cli::cli_ol(purrr::map_chr(self$sources, ~.x$name))
+
 			pretty_print_comments(self$comments)
 			# ---
 			# cat(
