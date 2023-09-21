@@ -61,10 +61,24 @@
 # tt$from_list(BII_I_1_jsonlite$studies[[1]]$assays[[1]]$technologyType, recursive = TRUE, json = TRUE)
 
 
-#ct <- Characteristic$new()
-#ct$from_list(BII_I_1_jsonlite$studies[[1]]$materials$sources[[1]]$characteristics[[1]])
-#ct
+# Characteristics
+# BII_I_1_jsonlite$studies[[1]]$characteristicCategories[[1]]#$characteristicType
+# BII_I_1_jsonlite$studies[[1]]$assays[[1]]$characteristicCategories[[1]]
+# BII_I_1_jsonlite$studies[[1]]$materials$sources[[1]]$characteristics[[1]]#$value
+# BII_I_1_jsonlite$studies[[1]]$materials$samples[[1]]$characteristics[[1]]
 
+
+# ct1 <- Characteristic$new()
+# ct1$from_list(BII_I_1_jsonlite$studies[[1]]$assays[[1]]$characteristicCategories[[1]], json = TRUE)
+# ct1
+# ct1$value
+# ct2 <- Characteristic$new()
+# ct2$from_list(BII_I_1_jsonlite$studies[[1]]$materials$sources[[1]]$characteristics[[1]], json = TRUE)
+# ct2
+# ct2$value
+
+# ctoa1 <- OntologyAnnotation$new()
+# ctoa1$from_list() BII_I_1_jsonlite$studies[[1]]$characteristicCategories[[1]]$characteristicType
 
 # protocols
 # pc <- Protocol$new()
@@ -81,11 +95,38 @@
 # uoa$from_list(BII_I_1_jsonlite$studies[[1]]$unitCategories[[1]], recursive = TRUE, json = TRUE)
 # uoa
 
+# Sources
+# src <- Source$new()
+# src$from_list(BII_I_1_jsonlite$studies[[1]]$materials$sources[[1]], recursive = TRUE, json = TRUE)
+# src
+
+# Samples
+# samp <- Sample$new()
+# samp$from_list(BII_I_1_jsonlite$studies[[1]]$materials$samples)
+# samp
+
 # BII_I_1_jsonlite$studies[[1]]$assays[[1]]$technologyType
 # BII_I_1_jsonlite$studies[[1]]$unitCategories[[1]]
 
 # BII_S_3_jsonlite$studies[[1]]$processSequence[[1]]$executesProtocol$`@id`
 # BII_S_3_jsonlite$studies[[1]]$processSequence[[1]]$`@id`
+
+
+# Factor value seems parsable as a characteristic? - what's the value of a dedicated object?
+# fvac <- Characteristic$new()
+# fvac$from_list(
+# 	BII_I_1_jsonlite$studies[[1]]$materials$samples[[1]]$factorValues[[1]],
+# 	recursive = TRUE, json = TRUE
+# )
+# fvac
+
+# sf <- StudyFactor$new()
+# sf$from_list(BII_I_1_jsonlite$studies[[1]]$factors[[1]], recursive = TRUE, json = TRUE)
+# sf
+
+# fv <- FactorValue$new()
+# fv$from_list(BII_I_1_jsonlite$studies[[1]]$materials$samples[[1]]$factorValues[[1]], recursive = TRUE, json = TRUE)
+# fv
 
 #' get_process_sequence_order_from_json
 #'

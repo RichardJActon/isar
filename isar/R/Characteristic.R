@@ -15,7 +15,7 @@ Characteristic <- R6::R6Class(
 		value = NULL,
 		unit = NULL,
 		comments = NULL,
-		#`@id` = NULL,
+		`@id` =  character(),
 		#' @details
 		#' Create a new \code{[Characteristics]} object
 		#' @param category The classifier of the type of characteristic being described.
@@ -26,8 +26,8 @@ Characteristic <- R6::R6Class(
 			category = NULL,
 			value = NULL,
 			unit = NULL,
-			comments = NULL#,
-			#`@id` = NULL,
+			comments = NULL,
+			`@id` = character()
 		) {
 			if(is.null(category)) {
 				self$category <- category
@@ -37,6 +37,7 @@ Characteristic <- R6::R6Class(
 			self$value <- value
 			self$unit <- unit
 			self$comments <- comments
+			self$`@id` <- `@id`
 			#self$`@id` <- paste0("#characteristic_category/", self$)
 		},
 		#' @details
@@ -119,38 +120,57 @@ Characteristic <- R6::R6Class(
 		#' Make \code{[Characteristic]} object from list
 		#' @param lst an Characteristic object serialized to a list
 		#' @param recursive call to_list methods of any objects within this object (default FALSE)
-		from_list = function(lst, recursive = FALSE) {
-			private$id <- lst[["id"]]
-			if(recursive) {
-				self$category <- OntologyAnnotation$new()
-				self$category$from_list(lst[["category"]])
-			} else {
-				if(checkmate::test_r6(
-					lst[["category"]], "OntologyAnnotation"
-				)) {
-					stop("not a list contains raw OntologyAnnotation object")
-				} else if(is.null(lst[["category"]])) {
-					self$category <- NULL
+		from_list = function(lst, recursive = FALSE, json = FALSE) {
+			if(json) {
+				self$set_id()
+				if(is.null(lst[["@id"]])) {
+					self$`@id` <- lst[["category"]][["@id"]]
+					ont_anno <- lst[["value"]]
 				} else {
-					self$category$term <- lst[["category"]]
+					self$`@id` <- lst[["@id"]]
+					ont_anno <- lst[["characteristicType"]]
 				}
-			}
-			self$value <- lst[["value"]]
-			if(recursive) {
-				self$unit <- Unit$new()
-				self$unit$from_list(lst[["unit"]])
+				self$category <- sub(
+					"#characteristic_category/", "", self$`@id`, fixed = TRUE
+				)
+				self$value <- OntologyAnnotation$new()
+				self$value$from_list(
+					ont_anno, recursive = recursive, json = json
+				)
+				self$set_comments(lst[["comments"]])
 			} else {
-				if(checkmate::test_r6(
-					lst[["unit"]], "Unit"
-				)) {
-					stop("not a list contains raw Unit object")
-				} else if(is.null(lst[["unit"]])) {
-					self$unit <- NULL
+				private$id <- lst[["id"]]
+				if(recursive) {
+					self$category <- OntologyAnnotation$new()
+					self$category$from_list(lst[["category"]])
 				} else {
-					self$unit$unit$term <- lst[["unit"]]
+					if(checkmate::test_r6(
+						lst[["category"]], "OntologyAnnotation"
+					)) {
+						stop("not a list contains raw OntologyAnnotation object")
+					} else if(is.null(lst[["category"]])) {
+						self$category <- NULL
+					} else {
+						self$category$term <- lst[["category"]]
+					}
 				}
+				self$value <- lst[["value"]]
+				if(recursive) {
+					self$unit <- Unit$new()
+					self$unit$from_list(lst[["unit"]])
+				} else {
+					if(checkmate::test_r6(
+						lst[["unit"]], "Unit"
+					)) {
+						stop("not a list contains raw Unit object")
+					} else if(is.null(lst[["unit"]])) {
+						self$unit <- NULL
+					} else {
+						self$unit$unit$term <- lst[["unit"]]
+					}
+				}
+				self$comments <- lst[["comments"]]
 			}
-			self$comments <- lst[["comments"]]
 		},
 
 		#' @details
@@ -168,10 +188,10 @@ Characteristic <- R6::R6Class(
 		},
 		print = function() {
 			cli::cli_h1(cli::col_blue("Characteristic"))
-			green_bold_name_plain_content("ID", self$get_id())
 			green_bold_name_plain_content("category", self$category)
-			green_bold_name_plain_content("value", self$value)
-			green_bold_name_plain_content("unit", self$unit)
+			green_bold_name_plain_content("ID", self$get_id())
+			green_bold_name_plain_content("value", self$value$term)
+			#green_bold_name_plain_content("unit", self$unit)
 			pretty_print_comments(self$comments)
 		}
 	),

@@ -195,13 +195,15 @@ Sample <- R6::R6Class(
 		#' Make \code{[sample]} from list
 		#'
 		#' @param lst a list serialization of a \code{[Sample]} factor object
-		from_list = function(lst) {
-			private$id <- lst[["id"]]
+		from_list = function(lst, recursive = FALSE, json = FALSE) {
+			if(!json) {
+				private$id <- lst[["id"]]
+			}
 			self$name <- lst[["name"]]
 			self$factor_values <- purrr::map(
 				lst[["factor_values"]], ~{
 					fv <- FactorValue$new()
-					fv$from_list(.x)
+					fv$from_list(.x, recursive = recursive, json = json)
 					fv
 				}
 			)
@@ -221,6 +223,15 @@ Sample <- R6::R6Class(
 		#' @param suffix a human readable suffix
 		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
 			private$id <- generate_id(id, suffix)
+		},
+		print = function() {
+			cli::cli_h1(cli::col_blue("Sample"))
+			green_bold_name_plain_content("Name", self$name)
+			green_bold_name_plain_content("ID", private$id)
+			cli::cli_h1(cli::col_green("Factor Values"))
+			cli::cli_ul(purrr::map_chr(self$factor_values, ~.x$category))
+
+			pretty_print_comments(self$comments)
 		}
 	),
 	private = list(

@@ -330,7 +330,6 @@ Study <- R6::R6Class(
 					pc
 				})
 				# self$assays <- lst[["assays"]]
-				# self$sources <- lst[["sources"]]
 				self$sources <- purrr::map(lst[["materials"]][["sources"]], ~{
 					src <- Source$new()
 					src$from_list(.x, recursive = recursive, json = json)

@@ -20,7 +20,7 @@ FactorValue <- R6Class(
 		value = NULL,
 		unit = NULL,
 		comments = NULL,
-
+		`@id` =  character(),
 		#' @details
 		#' create a new factor value
 		#' @param factor_name the name of the experimental factor
@@ -41,7 +41,8 @@ FactorValue <- R6Class(
 			factor_name = NULL,
 			value = NULL,
 			unit = NULL,
-			comments = NULL
+			comments = NULL,
+			`@id` = character()
 		) {
 			if (!is.null(factor_name)) {
 				if (checkmate::check_r6(factor_name, "StudyFactor")) {
@@ -79,6 +80,7 @@ FactorValue <- R6Class(
 			# }
 			self$unit <- unit
 			self$comments <- comments
+			self$`@id` <- `@id`
 		},
 		#' @details
 		#' check if unit is a \code{[Unit]} object
@@ -129,15 +131,40 @@ FactorValue <- R6Class(
 		#' Make [OntologyAnnotation] from list
 		#'
 		#' @param lst an ontology source object serialized to a list
-		from_list = function(lst) {
-			self$factor_name <- StudyFactor$new()
-			self$factor_name$from_list(lst[["factor_name"]])
-			# self$value <- self$factor_name$factor_type
-			# !! not using value direct from list but from factor ~
-			self$value <- OntologyAnnotation$new()
-			self$value$from_list(lst[["value"]])
-			self$unit = lst[["unit"]]
-			self$comments = lst[["comments"]]
+		from_list = function(lst, recursive = FALSE, json = FALSE) {
+			if(json){
+				#self$set_id()
+				self$factor_name <- StudyFactor$new()
+				# self$factor_name$from_list(
+				# 	lst[["factor_name"]], recursive = recursive, json = json
+				# )
+				self$`@id` <- lst[["category"]][["@id"]]
+				self$factor_name$name <- sub(
+					"#factor/", "", self$`@id`, fixed = TRUE
+				)
+				self$value <- OntologyAnnotation$new()
+				self$value$from_list(
+					lst[["value"]], recursive = recursive, json = json
+				)
+				self$set_comments(lst[["comments"]])
+			} else {
+				self$factor_name <- StudyFactor$new()
+				self$factor_name$from_list(lst[["factor_name"]])
+				# self$value <- self$factor_name$factor_type
+				# !! not using value direct from list but from factor ~
+				self$value <- OntologyAnnotation$new()
+				self$value$from_list(lst[["value"]])
+				self$unit <- lst[["unit"]]
+				self$comments <- lst[["comments"]]
+			}
+		},
+		print = function() {
+			cli::cli_h1(cli::col_blue("Factor Value"))
+			green_bold_name_plain_content("Name", self$factor_name$name)
+			green_bold_name_plain_content("Value", self$value$term)
+			green_bold_name_plain_content("@id", self$`@id`)
+			#green_bold_name_plain_content("ID", private$id)
+			pretty_print_comments(self$comments)
 		}
 	)
 )

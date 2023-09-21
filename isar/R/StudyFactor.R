@@ -133,14 +133,11 @@ StudyFactor <- R6::R6Class(
 		},
 
 		print = function() {
-			cat(
-				crayon::blue(crayon::bold("Study Factor")),
-				green_bold_name_plain_content("@id", self$`@id`),
-				green_bold_name_plain_content("id", private$id),
-				green_bold_name_plain_content("name", self$name),
-				green_bold_name_plain_content("factor_type", self$factor_type$term),
-				sep = "\n"
-			)
+			cli::cli_h1(cli::col_blue("Study Factor"))
+			green_bold_name_plain_content("@id", self$`@id`)
+			green_bold_name_plain_content("ID", private$id)
+			green_bold_name_plain_content("name", self$name)
+			green_bold_name_plain_content("factor_type", self$factor_type$term)
 			#pretty_print_comments(self$comments)
 		}
 	),
