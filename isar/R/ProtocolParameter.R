@@ -81,24 +81,24 @@ ProtocolParameter <- R6::R6Class(
 
 		#' @details
 		#'
-		#' Make \code{[Person]} from list
+		#' Make \code{[OntologyAnnotation]} from list
 		#'
-		#' @param lst an \code{[Person]} object serialized to a list
+		#' @param lst an \code{[OntologyAnnotation]} object serialized to a list
 		#' @param recursive use the `from_list()` method on list items that are also isar objects (default = TRUE)
 		from_list = function(lst, recursive = FALSE) {
 			private$id <- lst[["id"]]
 			if(recursive) {
 				self$parameter_name <- OntologyAnnotation$new()
-				self$parameter_name$from_list(lst[["parameter_name"]])
+				self$parameter_name$from_list(lst[["parameterName"]])
 			} else {
 				if(checkmate::test_r6(
 					lst[["parameter_name"]], "OntologyAnnotation"
 				)) {
 					stop("not a list contains raw OntologyAnnotation object")
-				} else if(is.null(lst[["parameter_name"]])) {
+				} else if(is.null(lst[["parameterName"]])) {
 					self$parameter_name <- NULL
 				} else {
-					self$parameter_name$term <- lst[["parameter_name"]]
+					self$parameter_name$term <- lst[["parameterName"]]
 				}
 			}
 			self$comments <- lst[["comments"]]

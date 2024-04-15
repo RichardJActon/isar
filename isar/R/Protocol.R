@@ -249,7 +249,9 @@ Protocol <- R6::R6Class(
 				self$`@id` <- lst[["@id"]]
 				if (recursive) {
 					self$protocol_type <- OntologyAnnotation$new()
-					self$protocol_type$from_list(lst[["protocolType"]])
+					self$protocol_type$from_list(
+						lst[["protocolType"]], json = json
+					)
 				} else {
 					self$protocol_type <- lst[["protocolType"]]
 				}
@@ -258,22 +260,25 @@ Protocol <- R6::R6Class(
 				self$uri <- lst[["uri"]]
 				self$version <- lst[["version"]]
 
-				self$parameters <- lst[["parameters"]]
+				#self$parameters <- lst[["parameters"]]
 
-				# if (recursive) {
-				# 	self$parameters <- purrr::map(lst[["parameters"]], ~{
-				# 		pv <- ParameterValue$new()
-				# 		pv$from_list(.x)
-				# 		pv
-				# 	})
-				# } else {
+				if (recursive) {
+					self$parameters <- purrr::map(lst[["parameters"]], ~{
+						pp <- ProtocolParameter$new()
+						pp$from_list(.x)
+						pp
+						# pv <- ParameterValue$new()
+						# pv$from_list(.x)
+						# pv
+					})
+				} #else {
 				# 	self$parameters <- lst[["parameters"]]
 				# }
 
 				if (recursive) {
 					self$components <- purrr::map(lst[["components"]], ~{
 						oa <- OntologyAnnotation$new()
-						oa$from_list(.x)
+						oa$from_list(.x, json = json)
 						oa
 					})
 				} else {
@@ -286,7 +291,7 @@ Protocol <- R6::R6Class(
 
 				if (recursive) {
 					self$protocol_type <- OntologyAnnotation$new()
-					self$protocol_type$from_list(lst[["protocol_type"]])
+					self$protocol_type$from_list(lst[["protocol_type"]], json = json)
 				} else {
 					self$protocol_type <- lst[["protocol_type"]]
 				}
@@ -300,7 +305,7 @@ Protocol <- R6::R6Class(
 				if (recursive) {
 					self$components <- purrr::map(lst[["components"]], ~{
 						oa <- OntologyAnnotation$new()
-						oa$from_list(.x)
+						oa$from_list(.x, json = json)
 						oa
 					})
 				} else {
