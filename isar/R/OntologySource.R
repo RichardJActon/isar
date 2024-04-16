@@ -291,6 +291,33 @@ OntologySource <- R6::R6Class(
 		},
 
 		#' @details
+		#'
+		#' test if [OntologySource] is equivalent another OntologySource
+		#' not necessarily an exactly identical object
+		#'
+		#' @param lst an ontology source object serialized to a list
+		is_same_ontology_as = function(other_ontology_source) {
+			tests_lgl <- c(
+				other_ontology_source$name == self$name,
+				other_ontology_source$file == self$file,
+				other_ontology_source$description == self$description
+			)
+			if(all(tests_lgl)) {
+				if(other_ontology_source$version == self$version) {
+					if(
+						!identical(other_ontology_source$comments, self$comments)
+					) {
+						warning("Comments differ! but everything else is the same consider merging the comments.")
+					}
+					return(TRUE)
+				} else {
+					message("Same Ontology Different Version")
+					return(FALSE)
+				}
+			} else { return(FALSE) }
+		},
+
+		#' @details
 		#' prints a pretty representation of the contents of the object
 		print = function(){
 			cli::cli_h1(cli::col_blue("Ontology Source"))
