@@ -27,6 +27,7 @@
 #' @export
 Person <- R6::R6Class(
 	"Person",
+	inherit = OntologySourceReferences,
 	public = list(
 		last_name = character(),
 		first_name = character(),
@@ -196,7 +197,8 @@ Person <- R6::R6Class(
 		#' Make \code{[Person]} from list
 		#'
 		#' @param lst an \code{[Person]} object serialized to a list
-		from_list = function(lst, json = FALSE) {
+		#' @param json default TRUE
+		from_list = function(lst, json = TRUE) {
 			if(json) {
 				#private$id <- lst[["id"]]
 				self$`@id` <- lst[["@id"]]
@@ -208,7 +210,10 @@ Person <- R6::R6Class(
 				self$fax <- lst[["fax"]]
 				self$address <- lst[["address"]]
 				self$affiliation <- lst[["affiliation"]]
+
 				self$roles <- lst[["roles"]]
+				#role_sources(enumerate_roles(lst[["roles"]])) %in% self$get_ontology_source_names()
+
 				self$comments <- lst[["comments"]]
 			} else {
 				private$id <- lst[["id"]]
