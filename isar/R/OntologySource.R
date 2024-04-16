@@ -266,7 +266,7 @@ OntologySource <- R6::R6Class(
 		#' Make [OntologySource] from list
 		#'
 		#' @param lst an ontology source object serialized to a list
-		from_list = function(lst, json = FALSE) {
+		from_list = function(lst, json = TRUE) {
 			if(json) {
 				self$name = lst[["name"]]
 				self$file = lst[["file"]]
