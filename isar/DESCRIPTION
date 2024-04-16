@@ -52,6 +52,7 @@ Collate:
     'Material.R'
     'OntologyAnnotation.R'
     'OntologySource.R'
+    'OntologySourceReferences.R'
     'Organisation.R'
     'ParameterValue.R'
     'Person.R'
