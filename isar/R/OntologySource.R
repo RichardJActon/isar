@@ -349,21 +349,3 @@ OntologySource <- R6::R6Class(
 	)
 )
 
-#' identical.OntologySource
-#'
-#' Allows checking for the identity of [OntologySource] objects
-#'
-#' @param x a [OntologySource] object
-#' @param y a [OntologySource] object
-#' @export
-identical.OntologySource <- s3_identical_maker(c(
-	"name",
-	"file",
-	"file_type",
-	"url",
-	"version",
-	"description",
-	"comments",
-"terms_list",
-	"get_terms_list"
-))
