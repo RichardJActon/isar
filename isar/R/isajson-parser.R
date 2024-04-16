@@ -6,16 +6,113 @@
 # library(devtools)
 # load_all()
 
-# Inventory
+#' enumerate_roles
+#'
+#' @param persons list of persons from isa json read in by jsonlite
+#'
+#' @return a list of roles in the form of a 3 element list with names
+#' termAccession termSource annotationValue, the components of an OntologyAnnotation
+#' @export
+#'
+enumerate_roles <- function(persons) {
+	purrr::map(persons, ~{ unlist(.x[["roles"]], recursive = FALSE) })
+}
+
+# enumerate_roles(BII_I_1_jsonlite[["people"]])
+
+#' enumerate_all_roles
+#'
+#' @param isa_json isa json read in by jsonlite
+#'
+#' @return a list of roles in the form of a 3 element list with names
+#' termAccession termSource annotationValue, the components of an OntologyAnnotation
+#' @export
+#'
+enumerate_all_roles <- function(isa_json) {
+	roles <- list()
+	if(!is.null(isa_json[["people"]])) {
+		roles <- c(roles, enumerate_roles(isa_json[["people"]]))
+	}
+	if(!is.null(isa_json[["studies"]])) {
+		roles <- c(
+			roles, unlist(
+				purrr::map(isa_json[["studies"]], ~{
+					x <- .x[["people"]]
+					enumerate_roles(x)
+				}),
+				recursive = FALSE
+			)
+		)
+	}
+}
+# Example sources of person roles from different places:
+# BII_I_1_jsonlite[["people"]][[1]][["roles"]]
+# BII_I_1_jsonlite[["studies"]][[1]][["people"]][[1]][["roles"]]
+#
+# roles <- enumerate_all_roles(BII_I_1_jsonlite)
+
+#' role_sources
+#'
+#' @param roles list of roles
+#'
+#' @return vector of unique role sources
+#' @export
+#'
+role_sources <- function(roles) {
+	unique(purrr::map_chr(roles, ~{.x$termSource}))
+}
+
+# role_sources(enumerate_roles(BII_I_1_jsonlite[["people"]]))
+
+#' generate_ontology_source_for_roles_without_one_defined
+#'
+#' @param roles list of roles
+#'
+#' @return list of [OntologySource] objects or NULL
+#' @export
+#'
+# generate_ontology_source_from_annotation_with_undefined_source
+generate_ontology_source_for_roles_without_one_defined <- function(roles) {
+	sources_lgl <- purrr::map_lgl(roles, ~{checkmate::qtest(.x, "S[0]")})
+	if(any(!sources_lgl)) {
+		roles_with_no_source <- roles[!sources_lgl]
+		os <- OntologySource$new(
+			name = "RolesOfUndefinedSource",
+			description = "Roles for Persons which lacked a source for the term",
+			terms_list = unique(purrr::map_chr(roles, ~{.x$annotationValue}))
+		)
+		return(os)
+	} else (
+		return(NULL)
+	)
+}
+# generate_ontology_source_for_roles_without_one_defined(roles)
+
+# roles_to_ontology_sources <- function(roles, investigation) {
+# 	sources_lgl <- purrr::map_lgl(roles, ~{checkmate::qtest(.x, "S[0]")})
+# 	roles_with_source <- roles[sources_lgl]
+# 	roles_with_no_source <- roles[!sources_lgl]
+#
+# 	investigation$get_ontology_source_names()
+#
+# 	if(roles_with_source) {
+# 		sources_lgl
+# 	}
+# }
+
+
+# Investigation ----
 # inv <- Investigation$new()
 # inv$from_list(BII_I_1_jsonlite, recursive = FALSE, json = TRUE)
 # inv$from_list(BII_I_1_jsonlite, recursive = TRUE, json = TRUE)
 
-# Person ~~complete~~
+# Person ----
+# ~~complete~~
 # p1 <- Person$new()
 # p1$from_list(BII_I_1_jsonlite$people[[1]], json = TRUE)
 
-# Publications ~~complete~~
+# Publications ----
+# ~~complete~~
 # BII_I_1_jsonlite$publications[[1]]
 # pub1 <- Publication$new()
 # pub1$from_list(BII_I_1_jsonlite$publications[[1]], recursive = TRUE, json = TRUE)
