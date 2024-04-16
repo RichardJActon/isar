@@ -24,6 +24,7 @@
 #' @export
 Investigation <- R6::R6Class(
 	"Investigation",
+	inherit = OntologySourceReferences,
 	public = list(
 		filename = '',
 		# identifier = '',
@@ -286,8 +287,15 @@ Investigation <- R6::R6Class(
 				self$description <- lst[["description"]]
 				self$submission_date <- lst[["submissionDate"]]
 				self$public_release_date <- lst[["publicReleaseDate"]]
-				self$ontology_source_references <- lst[["ontologySourceReferences"]]
+				#self$ontology_source_references <- lst[["ontologySourceReferences"]]
 				#if (recursive) {
+					# self$ontology_source_references <- purrr::map(
+					# 	lst[["ontologySourceReferences"]], ~{
+					# 	os <- OntologySource$new()
+					# 	os$from_list(.x, json = TRUE)
+					# 	os
+					# })
+					super$from_list(lst[["ontologySourceReferences"]])
 					self$publications <- purrr::map(lst[["publications"]], ~{
 						p <- Publication$new()
 						p$from_list(.x, recursive = TRUE, json = TRUE)
