@@ -292,7 +292,7 @@ Study <- R6::R6Class(
 		#' @details
 		#' Make \code{[Material]} object from list
 		#' @param lst an Material object serialized to a list
-		from_list = function(lst, recursive = TRUE, json = FALSE) {
+		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			if(json) {
 				private$id <- lst[["id"]]
 				self$filename <- lst[["filename"]]
