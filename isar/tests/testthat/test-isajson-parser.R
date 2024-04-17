@@ -25,13 +25,19 @@ test_uuid <- uuid::UUIDgenerate()
 # Person ----
 test_that("Person", {
 	p1 <- Person$new(`@id` = test_uuid)
-	expect_warning(
-		p1$from_list(BII_I_1_jsonlite$people[[1]]),#, json = TRUE
-		"Empty email"
+
+	w <- capture_warnings(
+		p1$from_list(BII_I_1_jsonlite$people[[1]])
 	)
-	# p1 <- Person$new()
-	# p1$set_id(test_uuid)
-	# p1$from_list(BII_S_3_jsonlite[["studies"]][[1]][["people"]][[1]])
+	expect_match(w, "Empty email", all = FALSE)
+	expect_match(w, "Found roles with undefined ontology sources", all = FALSE)
+
+	p1 <- Person$new(`@id` = test_uuid)
+	expect_warning(
+		p1$from_list(BII_S_3_jsonlite[["studies"]][[1]][["people"]][[1]]),
+		"Found roles with undefined ontology sources"
+	)
+
 	roles <- enumerate_all_roles(BII_I_1_jsonlite)
 	expect_true({
 		all(purrr::map_lgl(roles, ~checkmate::test_list( # check_list
