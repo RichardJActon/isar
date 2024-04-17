@@ -14,21 +14,21 @@ OntologySourceReferences <- R6::R6Class(
 		initialize = function(ontology_source_references = NULL) {
 			self$ontology_source_references <- ontology_source_references
 		},
-		#' @details
-		#'
-		#' Make [OntologySourceReferences] from list, defines the set of
-		#' Ontology Sources which should be exhaustive for an investigation
-		#'
-		#' @param lst an ontology source object serialized to a list
-		predefined_from_list = function(lst) {#, json = TRUE
-			self$ontology_source_references <- purrr::map(
-				lst, ~{
-					os <- OntologySource$new()
-					os$from_list(.x, json = TRUE)
-					os
-				}
-			)
-		},
+		#' #' @details
+		#' #'
+		#' #' Make [OntologySourceReferences] from list, defines the set of
+		#' #' Ontology Sources which should be exhaustive for an investigation
+		#' #'
+		#' #' @param lst an ontology source object serialized to a list
+		#' predefined_from_list = function(lst) {#, json = TRUE
+		#' 	self$ontology_source_references <- purrr::map(
+		#' 		lst, ~{
+		#' 			os <- OntologySource$new()
+		#' 			os$from_list(.x, json = TRUE)
+		#' 			os
+		#' 		}
+		#' 	)
+		#' },
 		#' @details
 		#'
 		#' Make [OntologySourceReferences] from list
@@ -43,7 +43,9 @@ OntologySourceReferences <- R6::R6Class(
 					os
 				}
 			)
-
+			# possible problems with name collisions and different versions
+			# of the same ontology! - use a unique id instead
+			names(ontology_sources) <- purrr::map_chr(ontology_sources, ~.x$name)
 			self$ontology_source_references <- ontology_sources
 		},
 		#' @details
@@ -63,7 +65,7 @@ OntologySourceReferences <- R6::R6Class(
 		#' Add ontology sources to the
 		#' @return a vector of ontology source names
 		add_ontology_sources = function(ontology_sources) {
-			if(check_ontology_sources(ontology_sources)) {
+			if(self$check_ontology_sources(ontology_sources)) {
 				self$ontology_source_references <- c(
 					self$ontology_source_references, ontology_sources
 				)
@@ -73,7 +75,7 @@ OntologySourceReferences <- R6::R6Class(
 		#' Get the names of the Ontology Sources Used in this Investigation
 		#' @return a vector of ontology source names
 		get_ontology_source_names = function() {
-			purrr::map_chr(self$ontology_source_references, ~.x$name)
+			names(self$ontology_source_references)
 		}
 	)
 )

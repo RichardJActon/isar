@@ -35,14 +35,17 @@ OntologyAnnotation <- R6::R6Class(
 		#' @examples
 		#' OA <- OntologyAnnotation$new()
 		initialize = function(
-			term = NULL, # str
+			term = character(), # str
 			term_source = NULL, # OntologySource
-			term_accession = NULL, # str
+			term_accession = character(), # str
 			comments = NULL,
 			`@id` = character()
 		) {
 			# transition to character() !!
-			if (is.null(term) && !is.null(term_accession)) {
+			if (
+				checkmate::test_string(term, max.chars = 0, min.chars = 0, null.ok = TRUE) &&
+				!checkmate::test_string(term_accession, max.chars = 0, min.chars = 0, null.ok = TRUE)
+			) {
 				self$set_term_accession(term_accession)
 			}
 
@@ -52,17 +55,33 @@ OntologyAnnotation <- R6::R6Class(
 				self$set_term_source(term_source)
 			}
 
-			if (!is.null(term) && is.null(term_accession)) {
+			if (
+				!checkmate::test_string(term, max.chars = 0, min.chars = 0, null.ok = TRUE) &&
+				checkmate::test_string(term_accession, max.chars = 0, min.chars = 0, null.ok = TRUE)
+			) {
 				self$set_term(term)
 			}
 
-			if (!is.null(term) && !is.null(term_accession)) {
+			if (
+				!checkmate::test_string(term, max.chars = 0, min.chars = 0, null.ok = TRUE) &&
+				!checkmate::test_string(term_accession, max.chars = 0, min.chars = 0, null.ok = TRUE)
+			) {
 				if (self$term_source$terms_list[[term]] != term_accession) {
 					stop("Supplied term & term accession do not match!")
 				} else {
 					self$set_term(term)
 				}
 			}
+
+			if (
+				checkmate::test_string(term, max.chars = 0, min.chars = 0, null.ok = TRUE) &&
+				checkmate::test_string(term_accession, max.chars = 0, min.chars = 0, null.ok = TRUE)
+			) {
+				term <- character()
+				term_accession <- character()
+			}
+			#-self$set_term(term)
+
 			self$`@id` <- `@id`
 			# if(!is.null(term)) {
 			# 	# handling on not explicitly enumerated lists?

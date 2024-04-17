@@ -15,7 +15,7 @@
 #' @field version vesion of the ontology
 #' @field description free text description of this source of ontology terms
 #' @field get_terms_list function to generate valid terms for file
-#' @field terms_list list of valid terms
+#' @field terms_list list of valid terms where keys are terms and values accessions
 #' @field comments comments
 #'
 #' @importFrom glue glue
@@ -50,7 +50,7 @@ OntologySource <- R6::R6Class(
 		#' @param version vesion of the ontology
 		#' @param description free text description of this source of ontology terms
 		#' @param get_terms_list function to generate valid terms for file
-		#' @param terms_list list of valid terms
+		#' @param terms_list list of valid terms where keys are terms and values accessions
 		#' @param comments comments
 		#'
 		initialize = function(
