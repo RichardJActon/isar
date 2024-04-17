@@ -204,14 +204,14 @@ generate an R list representation translatable to JSON
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{lst}}{an \code{[Person]} object serialized to a list}
+\item{\code{lst}}{an \code{[OntologyAnnotation]} object serialized to a list}
 
 \item{\code{recursive}}{use the \code{from_list()} method on list items that are also isar objects (default = TRUE)}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Make \code{[Person]} from list
+Make \code{[OntologyAnnotation]} from list
 }
 
 }

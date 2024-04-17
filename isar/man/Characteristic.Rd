@@ -36,6 +36,7 @@ A Characteristic acts as a qualifying property to a material object.
 \item \href{#method-Characteristic-from_list}{\code{Characteristic$from_list()}}
 \item \href{#method-Characteristic-get_id}{\code{Characteristic$get_id()}}
 \item \href{#method-Characteristic-set_id}{\code{Characteristic$set_id()}}
+\item \href{#method-Characteristic-print}{\code{Characteristic$print()}}
 \item \href{#method-Characteristic-clone}{\code{Characteristic$clone()}}
 }
 }
@@ -44,7 +45,13 @@ A Characteristic acts as a qualifying property to a material object.
 \if{latex}{\out{\hypertarget{method-Characteristic-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Characteristic$new(category = NULL, value = NULL, unit = NULL, comments = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$new(
+  category = NULL,
+  value = NULL,
+  unit = NULL,
+  comments = NULL,
+  `@id` = character()
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -272,7 +279,7 @@ An R list representation of a \code{[Characteristic]} object
 \if{latex}{\out{\hypertarget{method-Characteristic-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Characteristic$from_list(lst, recursive = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$from_list(lst, recursive = FALSE, json = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -324,6 +331,15 @@ a uuid
 }
 \subsection{Details}{
 set the uuid of this object
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Characteristic-print"></a>}}
+\if{latex}{\out{\hypertarget{method-Characteristic-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$print()}\if{html}{\out{</div>}}
 }
 
 }

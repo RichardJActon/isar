@@ -46,6 +46,7 @@ Sample$new()
 \item \href{#method-Sample-from_list}{\code{Sample$from_list()}}
 \item \href{#method-Sample-get_id}{\code{Sample$get_id()}}
 \item \href{#method-Sample-set_id}{\code{Sample$set_id()}}
+\item \href{#method-Sample-print}{\code{Sample$print()}}
 \item \href{#method-Sample-clone}{\code{Sample$clone()}}
 }
 }
@@ -298,7 +299,7 @@ generate an R list representation translatable to JSON
 \if{latex}{\out{\hypertarget{method-Sample-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Sample$from_list(lst)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Sample$from_list(lst, recursive = FALSE, json = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -348,6 +349,15 @@ a uuid
 }
 \subsection{Details}{
 set the uuid of this object
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Sample-print"></a>}}
+\if{latex}{\out{\hypertarget{method-Sample-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Sample$print()}\if{html}{\out{</div>}}
 }
 
 }

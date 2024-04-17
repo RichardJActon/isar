@@ -49,6 +49,7 @@ OA <- OntologyAnnotation$new()
 \item \href{#method-OntologyAnnotation-from_list}{\code{OntologyAnnotation$from_list()}}
 \item \href{#method-OntologyAnnotation-get_id}{\code{OntologyAnnotation$get_id()}}
 \item \href{#method-OntologyAnnotation-set_id}{\code{OntologyAnnotation$set_id()}}
+\item \href{#method-OntologyAnnotation-print}{\code{OntologyAnnotation$print()}}
 \item \href{#method-OntologyAnnotation-clone}{\code{OntologyAnnotation$clone()}}
 }
 }
@@ -61,7 +62,8 @@ OA <- OntologyAnnotation$new()
   term = NULL,
   term_source = NULL,
   term_accession = NULL,
-  comments = NULL
+  comments = NULL,
+  `@id` = character()
 )}\if{html}{\out{</div>}}
 }
 
@@ -300,7 +302,7 @@ generate an R list representation translatable to JSON
 \if{latex}{\out{\hypertarget{method-OntologyAnnotation-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OntologyAnnotation$from_list(lst, recursive = TRUE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{OntologyAnnotation$from_list(lst, recursive = TRUE, json = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -352,6 +354,15 @@ a uuid
 }
 \subsection{Details}{
 set the uuid of this object
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OntologyAnnotation-print"></a>}}
+\if{latex}{\out{\hypertarget{method-OntologyAnnotation-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OntologyAnnotation$print()}\if{html}{\out{</div>}}
 }
 
 }

@@ -20,6 +20,9 @@ Represents an investigation from the ISA model
 An investigation maintains metadata about the project context and links to one or more studies. There can only be 1 Investigation in an ISA descriptor.
 }
 \keyword{datasets}
+\section{Super class}{
+\code{\link[isar:OntologySourceReferences]{isar::OntologySourceReferences}} -> \code{Investigation}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -70,9 +73,19 @@ An investigation maintains metadata about the project context and links to one o
 \item \href{#method-Investigation-from_list}{\code{Investigation$from_list()}}
 \item \href{#method-Investigation-get_id}{\code{Investigation$get_id()}}
 \item \href{#method-Investigation-set_id}{\code{Investigation$set_id()}}
+\item \href{#method-Investigation-print}{\code{Investigation$print()}}
 \item \href{#method-Investigation-clone}{\code{Investigation$clone()}}
 }
 }
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="isar" data-topic="OntologySourceReferences" data-id="add_ontology_sources"><a href='../../isar/html/OntologySourceReferences.html#method-OntologySourceReferences-add_ontology_sources'><code>isar::OntologySourceReferences$add_ontology_sources()</code></a></li>
+<li><span class="pkg-link" data-pkg="isar" data-topic="OntologySourceReferences" data-id="check_ontology_sources"><a href='../../isar/html/OntologySourceReferences.html#method-OntologySourceReferences-check_ontology_sources'><code>isar::OntologySourceReferences$check_ontology_sources()</code></a></li>
+<li><span class="pkg-link" data-pkg="isar" data-topic="OntologySourceReferences" data-id="get_ontology_source_names"><a href='../../isar/html/OntologySourceReferences.html#method-OntologySourceReferences-get_ontology_source_names'><code>isar::OntologySourceReferences$get_ontology_source_names()</code></a></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Investigation-new"></a>}}
 \if{latex}{\out{\hypertarget{method-Investigation-new}{}}}
@@ -487,7 +500,7 @@ generate an R list representation translatable to JSON
 \if{latex}{\out{\hypertarget{method-Investigation-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Investigation$from_list(lst)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$from_list(lst, recursive = TRUE, json = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -537,6 +550,15 @@ a uuid
 }
 \subsection{Details}{
 set the uuid of this object
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Investigation-print"></a>}}
+\if{latex}{\out{\hypertarget{method-Investigation-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$print()}\if{html}{\out{</div>}}
 }
 
 }

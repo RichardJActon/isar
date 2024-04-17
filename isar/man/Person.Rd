@@ -14,6 +14,9 @@ Represents a person
 
 Person$new()
 }
+\section{Super class}{
+\code{\link[isar:OntologySourceReferences]{isar::OntologySourceReferences}} -> \code{Person}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -56,9 +59,20 @@ Person$new()
 \item \href{#method-Person-from_list}{\code{Person$from_list()}}
 \item \href{#method-Person-get_id}{\code{Person$get_id()}}
 \item \href{#method-Person-set_id}{\code{Person$set_id()}}
+\item \href{#method-Person-print}{\code{Person$print()}}
+\item \href{#method-Person-get_full_name}{\code{Person$get_full_name()}}
 \item \href{#method-Person-clone}{\code{Person$clone()}}
 }
 }
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="isar" data-topic="OntologySourceReferences" data-id="add_ontology_sources"><a href='../../isar/html/OntologySourceReferences.html#method-OntologySourceReferences-add_ontology_sources'><code>isar::OntologySourceReferences$add_ontology_sources()</code></a></li>
+<li><span class="pkg-link" data-pkg="isar" data-topic="OntologySourceReferences" data-id="check_ontology_sources"><a href='../../isar/html/OntologySourceReferences.html#method-OntologySourceReferences-check_ontology_sources'><code>isar::OntologySourceReferences$check_ontology_sources()</code></a></li>
+<li><span class="pkg-link" data-pkg="isar" data-topic="OntologySourceReferences" data-id="get_ontology_source_names"><a href='../../isar/html/OntologySourceReferences.html#method-OntologySourceReferences-get_ontology_source_names'><code>isar::OntologySourceReferences$get_ontology_source_names()</code></a></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Person-new"></a>}}
 \if{latex}{\out{\hypertarget{method-Person-new}{}}}
@@ -75,7 +89,8 @@ Person$new()
   affiliation = character(),
   orcid = character(),
   roles = NULL,
-  comments = NULL
+  comments = NULL,
+  `@id` = character()
 )}\if{html}{\out{</div>}}
 }
 
@@ -288,13 +303,15 @@ generate an R list representation translatable to JSON
 \if{latex}{\out{\hypertarget{method-Person-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Person$from_list(lst)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Person$from_list(lst, json = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{lst}}{an \code{[Person]} object serialized to a list}
+
+\item{\code{json}}{default TRUE}
 }
 \if{html}{\out{</div>}}
 }
@@ -340,6 +357,31 @@ a uuid
 set the uuid of this object
 }
 
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Person-print"></a>}}
+\if{latex}{\out{\hypertarget{method-Person-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Person$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Person-get_full_name"></a>}}
+\if{latex}{\out{\hypertarget{method-Person-get_full_name}{}}}
+\subsection{Method \code{get_full_name()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Person$get_full_name()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Combine first name, middle initials, & last name
+}
+
+\subsection{Returns}{
+string of full name
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Person-clone"></a>}}

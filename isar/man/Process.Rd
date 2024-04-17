@@ -49,6 +49,7 @@ Process nodes represent the application of a protocol to some input material (e.
 \item \href{#method-Process-from_list}{\code{Process$from_list()}}
 \item \href{#method-Process-get_id}{\code{Process$get_id()}}
 \item \href{#method-Process-set_id}{\code{Process$set_id()}}
+\item \href{#method-Process-print}{\code{Process$print()}}
 \item \href{#method-Process-clone}{\code{Process$clone()}}
 }
 }
@@ -65,7 +66,8 @@ Process nodes represent the application of a protocol to some input material (e.
   parameter_values = NULL,
   inputs = NULL,
   outputs = NULL,
-  comments = NULL
+  comments = NULL,
+  `@id` = NULL
 )}\if{html}{\out{</div>}}
 }
 
@@ -300,7 +302,7 @@ An R list representation of a \code{[Process]} object
 \if{latex}{\out{\hypertarget{method-Process-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Process$from_list(lst)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Process$from_list(lst, recursive = TRUE, json = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -350,6 +352,15 @@ a uuid
 }
 \subsection{Details}{
 set the uuid of this object
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Process-print"></a>}}
+\if{latex}{\out{\hypertarget{method-Process-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Process$print()}\if{html}{\out{</div>}}
 }
 
 }

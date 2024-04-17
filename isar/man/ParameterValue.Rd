@@ -36,6 +36,7 @@ A ParameterValue represents the instance value of a \code{[ProtocolParameter]}, 
 \item \href{#method-ParameterValue-to_list}{\code{ParameterValue$to_list()}}
 \item \href{#method-ParameterValue-from_list}{\code{ParameterValue$from_list()}}
 \item \href{#method-ParameterValue-get_id}{\code{ParameterValue$get_id()}}
+\item \href{#method-ParameterValue-get_value_in_units}{\code{ParameterValue$get_value_in_units()}}
 \item \href{#method-ParameterValue-set_id}{\code{ParameterValue$set_id()}}
 \item \href{#method-ParameterValue-clone}{\code{ParameterValue$clone()}}
 }
@@ -45,7 +46,13 @@ A ParameterValue represents the instance value of a \code{[ProtocolParameter]}, 
 \if{latex}{\out{\hypertarget{method-ParameterValue-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ParameterValue$new(category = NULL, value = NULL, unit = NULL, comments = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ParameterValue$new(
+  category = NULL,
+  value = NULL,
+  unit = NULL,
+  comments = NULL,
+  `@id` = character()
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -191,7 +198,7 @@ generate an R list representation translatable to JSON
 \if{latex}{\out{\hypertarget{method-ParameterValue-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ParameterValue$from_list(lst)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ParameterValue$from_list(lst, recursive = TRUE, json = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -220,6 +227,22 @@ Get the uuid of this object
 
 \subsection{Returns}{
 a uuid
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ParameterValue-get_value_in_units"></a>}}
+\if{latex}{\out{\hypertarget{method-ParameterValue-get_value_in_units}{}}}
+\subsection{Method \code{get_value_in_units()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ParameterValue$get_value_in_units()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Get the value and unit of this parameter value as a combined string
+}
+
+\subsection{Returns}{
+a string
 }
 }
 \if{html}{\out{<hr>}}

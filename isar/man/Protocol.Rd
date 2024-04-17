@@ -57,6 +57,7 @@ An experimental Protocol used in the study.
 \item \href{#method-Protocol-from_list}{\code{Protocol$from_list()}}
 \item \href{#method-Protocol-get_id}{\code{Protocol$get_id()}}
 \item \href{#method-Protocol-set_id}{\code{Protocol$set_id()}}
+\item \href{#method-Protocol-print}{\code{Protocol$print()}}
 \item \href{#method-Protocol-clone}{\code{Protocol$clone()}}
 }
 }
@@ -73,7 +74,8 @@ An experimental Protocol used in the study.
   version = character(),
   parameters = NULL,
   components = NULL,
-  comments = NULL
+  comments = NULL,
+  `@id` = NULL
 )}\if{html}{\out{</div>}}
 }
 
@@ -470,7 +472,7 @@ An R list representation of a \code{[Process]} object
 \if{latex}{\out{\hypertarget{method-Protocol-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Protocol$from_list(lst, recursive = TRUE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Protocol$from_list(lst, recursive = TRUE, json = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -522,6 +524,15 @@ a uuid
 }
 \subsection{Details}{
 set the uuid of this object
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Protocol-print"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Protocol$print()}\if{html}{\out{</div>}}
 }
 
 }

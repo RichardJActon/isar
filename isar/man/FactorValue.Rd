@@ -49,6 +49,7 @@ FactorValue$new(
 \item \href{#method-FactorValue-add_comment}{\code{FactorValue$add_comment()}}
 \item \href{#method-FactorValue-to_list}{\code{FactorValue$to_list()}}
 \item \href{#method-FactorValue-from_list}{\code{FactorValue$from_list()}}
+\item \href{#method-FactorValue-print}{\code{FactorValue$print()}}
 \item \href{#method-FactorValue-clone}{\code{FactorValue$clone()}}
 }
 }
@@ -57,7 +58,13 @@ FactorValue$new(
 \if{latex}{\out{\hypertarget{method-FactorValue-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{FactorValue$new(factor_name = NULL, value = NULL, unit = NULL, comments = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{FactorValue$new(
+  factor_name = NULL,
+  value = NULL,
+  unit = NULL,
+  comments = NULL,
+  `@id` = character()
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -217,7 +224,7 @@ generate an R list representation translatable to JSON
 \if{latex}{\out{\hypertarget{method-FactorValue-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{FactorValue$from_list(lst)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{FactorValue$from_list(lst, recursive = FALSE, json = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -229,6 +236,15 @@ generate an R list representation translatable to JSON
 }
 \subsection{Details}{
 Make \link{OntologyAnnotation} from list
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-FactorValue-print"></a>}}
+\if{latex}{\out{\hypertarget{method-FactorValue-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{FactorValue$print()}\if{html}{\out{</div>}}
 }
 
 }

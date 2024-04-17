@@ -32,6 +32,7 @@ R6 class for a Source
 \item \href{#method-Source-from_list}{\code{Source$from_list()}}
 \item \href{#method-Source-get_id}{\code{Source$get_id()}}
 \item \href{#method-Source-set_id}{\code{Source$set_id()}}
+\item \href{#method-Source-print}{\code{Source$print()}}
 \item \href{#method-Source-clone}{\code{Source$clone()}}
 }
 }
@@ -183,7 +184,7 @@ make an R list convertible to json
 \if{latex}{\out{\hypertarget{method-Source-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Source$from_list(lst)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Source$from_list(lst, recursive = FALSE, json = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -229,6 +230,15 @@ a uuid
 }
 \subsection{Details}{
 set the uuid of this object
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Source-print"></a>}}
+\if{latex}{\out{\hypertarget{method-Source-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Source$print()}\if{html}{\out{</div>}}
 }
 
 }

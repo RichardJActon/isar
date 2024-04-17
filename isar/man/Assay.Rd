@@ -73,7 +73,8 @@ experimental workflow described by a particular protocol.
   characteristic_categories = NULL,
   process_sequence = NULL,
   comments = NULL,
-  graph = NULL
+  graph = NULL,
+  data_files = NULL
 )}\if{html}{\out{</div>}}
 }
 
@@ -352,7 +353,7 @@ make an R list convertible to json
 \if{latex}{\out{\hypertarget{method-Assay-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Assay$from_list(lst)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Assay$from_list(lst, recursive = TRUE, json = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

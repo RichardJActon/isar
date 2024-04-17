@@ -1,6 +1,4 @@
 # setup
-# BII_I_1_jsonlite <- jsonlite::read_json("../data/ISAdatasets/json/BII-I-1/BII-I-1.json")
-# BII_S_3_jsonlite <- jsonlite::read_json("../data/ISAdatasets/json/BII-S-3/BII-S-3.json")
 # BII_I_1_tab <- readr::read_tsv("../data/ISAdatasets/tab/BII-I-1/s_BII-S-1.txt")
 # BII_S_3_tab <- readr::read_tsv("../data/ISAdatasets/tab/BII-S-3/s_BII-S-3.txt")
 # library(devtools)
@@ -44,6 +42,7 @@ enumerate_all_roles <- function(isa_json) {
 			)
 		)
 	}
+	return(roles)
 }
 # Example sources of person roles from different places:
 # BII_I_1_jsonlite[["people"]][[1]][["roles"]]
@@ -51,15 +50,15 @@ enumerate_all_roles <- function(isa_json) {
 #
 # roles <- enumerate_all_roles(BII_I_1_jsonlite)
 
-#' role_sources
+#' unique_role_sources
 #'
 #' @param roles list of roles
 #'
 #' @return vector of unique role sources
 #' @export
 #'
-role_sources <- function(roles) {
-	unique(purrr::map_chr(roles, ~{.x$termSource}))
+unique_role_sources <- function(roles) {
+	unique(purrr::map_chr(roles, ~.x$termSource))
 }
 
 # role_sources(enumerate_roles(BII_I_1_jsonlite[["people"]]))
@@ -79,7 +78,12 @@ generate_ontology_source_for_roles_without_one_defined <- function(roles) {
 		os <- OntologySource$new(
 			name = "RolesOfUndefinedSource",
 			description = "Roles for Persons which lacked a source for the term",
-			terms_list = unique(purrr::map_chr(roles, ~{.x$annotationValue}))
+			terms_list = c(
+				purrr::map_chr(
+					roles_with_no_source, ~{.x$annotationValue}
+				) %>% unique() %>% purrr::set_names(),
+				list("undefined" = "undefined")
+			)
 		)
 		return(os)
 	} else (
@@ -87,6 +91,57 @@ generate_ontology_source_for_roles_without_one_defined <- function(roles) {
 	)
 }
 # generate_ontology_source_for_roles_without_one_defined(roles)
+
+#' generate_ontology_source_from_annotation_with_undefined_source
+#'
+#' takes a list of ontology annotation information in the form of
+#' a 3 element list with names termAccession termSource annotationValue,
+#' the components of an OntologyAnnotation but with the source undefined.
+#' Creates a placeholder [OntologySource] object for all the annotationValues
+#' in this list where the source is undefined. Accesssion is ignored as it
+#' is meaningless in the absence of a source
+#'
+#' If the input items with undefined [OntologySource]s are of the same type
+#' this provides a quick way to make a new OntologySource object for them
+#'
+#' @param annotation_list list of 3 elements lists with the names
+#' termAccession termSource annotationValue
+#' @param source_name The name for the [OntologySource] DEFAULT UndefinedSource
+#' @param source_description The description of the [OntologySource] DEFAULT undefined source
+#' @param ... other arguments to `OntologySource$new()`
+#'
+#' @return an [OntologSource] object or NULL if there are no undefined sources
+#' @export
+#'
+generate_ontology_source_from_annotation_with_undefined_source <- function(
+	annotation_list,
+	source_name = "UndefinedSource", source_description = "undefined source",
+	...
+) {
+	sources_lgl <- purrr::map_lgl(annotation_list, ~{
+		checkmate::qtest(.x, "S[0]")
+	})
+	if(any(!sources_lgl)) {
+		annotations_with_no_source <- annotation_list[!sources_lgl]
+		os <- OntologySource$new(
+			name = source_name, description = source_description,
+			terms_list = c(
+				purrr::map_chr(
+					annotations_with_no_source, ~{.x$annotationValue}
+				) %>% unique() %>% purrr::set_names(),
+				list("undefined" = "undefined")
+			),
+			...
+		)
+		return(os)
+	} else (
+		return(NULL)
+	)
+}
+# generate_ontology_source_from_annotation_with_undefined_source(
+# 	roles, "RolesOfUndefinedSource",
+# 	"Roles for Persons which lacked a source for the term"
+# 	)
 
 # roles_to_ontology_sources <- function(roles, investigation) {
 # 	sources_lgl <- purrr::map_lgl(roles, ~{checkmate::qtest(.x, "S[0]")})

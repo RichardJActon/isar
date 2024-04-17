@@ -23,7 +23,7 @@ An \link{OntologySource} describes the resource from which the value of an \link
 
 \item{\code{get_terms_list}}{function to generate valid terms for file}
 
-\item{\code{terms_list}}{list of valid terms}
+\item{\code{terms_list}}{list of valid terms where keys are terms and values accessions}
 
 \item{\code{comments}}{comments}
 }
@@ -50,6 +50,7 @@ An \link{OntologySource} describes the resource from which the value of an \link
 \item \href{#method-OntologySource-add_comment}{\code{OntologySource$add_comment()}}
 \item \href{#method-OntologySource-to_list}{\code{OntologySource$to_list()}}
 \item \href{#method-OntologySource-from_list}{\code{OntologySource$from_list()}}
+\item \href{#method-OntologySource-is_same_ontology_as}{\code{OntologySource$is_same_ontology_as()}}
 \item \href{#method-OntologySource-print}{\code{OntologySource$print()}}
 \item \href{#method-OntologySource-clone}{\code{OntologySource$clone()}}
 }
@@ -89,7 +90,7 @@ An \link{OntologySource} describes the resource from which the value of an \link
 
 \item{\code{get_terms_list}}{function to generate valid terms for file}
 
-\item{\code{terms_list}}{list of valid terms}
+\item{\code{terms_list}}{list of valid terms where keys are terms and values accessions}
 
 \item{\code{comments}}{comments}
 }
@@ -425,7 +426,7 @@ make an R list convertible to json
 \if{latex}{\out{\hypertarget{method-OntologySource-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OntologySource$from_list(lst)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{OntologySource$from_list(lst, json = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -437,6 +438,27 @@ make an R list convertible to json
 }
 \subsection{Details}{
 Make \link{OntologySource} from list
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OntologySource-is_same_ontology_as"></a>}}
+\if{latex}{\out{\hypertarget{method-OntologySource-is_same_ontology_as}{}}}
+\subsection{Method \code{is_same_ontology_as()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OntologySource$is_same_ontology_as(other_ontology_source)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{lst}}{an ontology source object serialized to a list}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+test if \link{OntologySource} is equivalent another OntologySource
+not necessarily an exactly identical object
 }
 
 }

@@ -46,6 +46,7 @@ Represents a data file in an experimental graph.
 \item \href{#method-DataFile-validate_file}{\code{DataFile$validate_file()}}
 \item \href{#method-DataFile-to_list}{\code{DataFile$to_list()}}
 \item \href{#method-DataFile-from_list}{\code{DataFile$from_list()}}
+\item \href{#method-DataFile-print}{\code{DataFile$print()}}
 \item \href{#method-DataFile-get_hash}{\code{DataFile$get_hash()}}
 \item \href{#method-DataFile-get_id}{\code{DataFile$get_id()}}
 \item \href{#method-DataFile-set_id}{\code{DataFile$set_id()}}
@@ -65,7 +66,9 @@ Represents a data file in an experimental graph.
   hash_algo = "md5",
   label = NULL,
   generated_from = NULL,
-  comments = NULL
+  comments = NULL,
+  type = NULL,
+  `@id` = character()
 )}\if{html}{\out{</div>}}
 }
 
@@ -87,6 +90,10 @@ Represents a data file in an experimental graph.
 \item{\code{generated_from}}{Reference to Sample(s) the DataFile is generated from}
 
 \item{\code{comments}}{Comments associated with instances of this class.}
+
+\item{\code{type}}{type}
+
+\item{\code{`@id`}}{json LD id}
 }
 \if{html}{\out{</div>}}
 }
@@ -335,7 +342,7 @@ An R list representation of a \code{[DataFile]} object
 \if{latex}{\out{\hypertarget{method-DataFile-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DataFile$from_list(lst)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DataFile$from_list(lst, json = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -347,6 +354,15 @@ An R list representation of a \code{[DataFile]} object
 }
 \subsection{Details}{
 Make \code{[DataFile]} object from list
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DataFile-print"></a>}}
+\if{latex}{\out{\hypertarget{method-DataFile-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DataFile$print()}\if{html}{\out{</div>}}
 }
 
 }

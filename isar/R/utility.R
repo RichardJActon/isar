@@ -236,7 +236,7 @@ green_bold_name_plain_content <- function(label, content) {
 #'
 #' @export
 pretty_print_comments <- function(comments) {
-	cli::cli_h2(cli::col_green("Comments 🗩"))
+	cli::cli_h2(cli::col_cyan("Comments 🗩"))
 	#cat(green_bold("Comments:\n")) # 🗩
 	purrr::iwalk(
 		# Improve comment formatting for longer comments

@@ -40,6 +40,7 @@ StudyFactor$new()
 \item \href{#method-StudyFactor-from_list}{\code{StudyFactor$from_list()}}
 \item \href{#method-StudyFactor-get_id}{\code{StudyFactor$get_id()}}
 \item \href{#method-StudyFactor-set_id}{\code{StudyFactor$set_id()}}
+\item \href{#method-StudyFactor-print}{\code{StudyFactor$print()}}
 \item \href{#method-StudyFactor-clone}{\code{StudyFactor$clone()}}
 }
 }
@@ -48,7 +49,12 @@ StudyFactor$new()
 \if{latex}{\out{\hypertarget{method-StudyFactor-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{StudyFactor$new(name = character(), factor_type = NULL, comments = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{StudyFactor$new(
+  name = character(),
+  factor_type = NULL,
+  comments = NULL,
+  `@id` = character()
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -200,7 +206,7 @@ generate an R list representation translatable to JSON
 \if{latex}{\out{\hypertarget{method-StudyFactor-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{StudyFactor$from_list(lst)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{StudyFactor$from_list(lst, recursive = TRUE, json = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -250,6 +256,15 @@ a uuid
 }
 \subsection{Details}{
 set the uuid of this object
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-StudyFactor-print"></a>}}
+\if{latex}{\out{\hypertarget{method-StudyFactor-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{StudyFactor$print()}\if{html}{\out{</div>}}
 }
 
 }

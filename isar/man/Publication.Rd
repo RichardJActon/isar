@@ -73,6 +73,7 @@ Generate a \code{[Publication]} object from a list
 \item \href{#method-Publication-add_comment}{\code{Publication$add_comment()}}
 \item \href{#method-Publication-to_list}{\code{Publication$to_list()}}
 \item \href{#method-Publication-from_list}{\code{Publication$from_list()}}
+\item \href{#method-Publication-print}{\code{Publication$print()}}
 \item \href{#method-Publication-clone}{\code{Publication$clone()}}
 }
 }
@@ -306,7 +307,7 @@ Generate a \code{[Publication]} object from a list
 \if{latex}{\out{\hypertarget{method-Publication-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Publication$from_list(lst)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Publication$from_list(lst, recursive = TRUE, json = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -316,6 +317,15 @@ Generate a \code{[Publication]} object from a list
 }
 \if{html}{\out{</div>}}
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Publication-print"></a>}}
+\if{latex}{\out{\hypertarget{method-Publication-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Publication$print()}\if{html}{\out{</div>}}
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Publication-clone"></a>}}

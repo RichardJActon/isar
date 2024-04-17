@@ -73,6 +73,7 @@ study is the central unit, containing information on the subject under study, it
 \item \href{#method-Study-from_list}{\code{Study$from_list()}}
 \item \href{#method-Study-get_id}{\code{Study$get_id()}}
 \item \href{#method-Study-set_id}{\code{Study$set_id()}}
+\item \href{#method-Study-print}{\code{Study$print()}}
 \item \href{#method-Study-clone}{\code{Study$clone()}}
 }
 }
@@ -474,7 +475,7 @@ An R list representation of a \code{[Material]} object
 \if{latex}{\out{\hypertarget{method-Study-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Study$from_list(lst)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Study$from_list(lst, recursive = TRUE, json = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -524,6 +525,15 @@ a uuid
 }
 \subsection{Details}{
 set the uuid of this object
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Study-print"></a>}}
+\if{latex}{\out{\hypertarget{method-Study-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Study$print()}\if{html}{\out{</div>}}
 }
 
 }
