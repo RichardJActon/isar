@@ -59,9 +59,9 @@ OA <- OntologyAnnotation$new()
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{OntologyAnnotation$new(
-  term = NULL,
+  term = character(),
   term_source = NULL,
-  term_accession = NULL,
+  term_accession = character(),
   comments = NULL,
   `@id` = character()
 )}\if{html}{\out{</div>}}
