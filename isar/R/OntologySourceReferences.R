@@ -40,7 +40,7 @@ OntologySourceReferences <- R6::R6Class(
 		#' @param ontology_sources a list of [OntologySource] objects
 		check_ontology_sources = function(ontology_sources) {
 			if(
-				checkmate::test_list(ontology_sources, min.len = 1) &&
+				checkmate::test_list(ontology_sources, min.len = 1, names = "named") &&
 				all(purrr::map_lgl(
 					ontology_sources, ~checkmate::test_r6(.x, "OntologySource")
 				))
