@@ -295,7 +295,10 @@ Investigation <- R6::R6Class(
 					# 	os$from_list(.x, json = TRUE)
 					# 	os
 					# })
-					super$from_list(lst[["ontologySourceReferences"]])
+					super$from_list(
+						lst[["ontologySourceReferences"]],
+						explicitly_provided = TRUE
+					)
 					self$publications <- purrr::map(lst[["publications"]], ~{
 						p <- Publication$new()
 						p$from_list(.x, recursive = TRUE, json = TRUE)

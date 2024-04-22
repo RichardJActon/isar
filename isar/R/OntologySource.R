@@ -38,6 +38,7 @@ OntologySource <- R6::R6Class(
 		get_terms_list = NULL,
 		terms_list = NULL,
 		comments = NULL,
+		explicitly_provided = logical(),
 
 		#' @details
 		#'
@@ -52,6 +53,9 @@ OntologySource <- R6::R6Class(
 		#' @param get_terms_list function to generate valid terms for file
 		#' @param terms_list list of valid terms where keys are terms and values accessions
 		#' @param comments comments
+		#' @param explicitly_provided Was this [OntologySource] provided in the
+		#' list of [OntologySourceReferences] for the [Investigation] (TRUE) or was
+		#' it dynamically generated (FALSE)?
 		#'
 		initialize = function(
 			name = character(),
@@ -62,7 +66,8 @@ OntologySource <- R6::R6Class(
 			description = character(),
 			get_terms_list = NULL,
 			terms_list = NULL,
-			comments = NULL
+			comments = NULL,
+			explicitly_provided = logical()
 		) {
 			if (checkmate::qtest(name, "S[0]")) { self$name <- name } else {
 				self$set_name(name)
@@ -129,6 +134,7 @@ OntologySource <- R6::R6Class(
 				self$terms_list <- terms_list
 			}
 
+			self$explicitly_provided <- explicitly_provided
 		},
 		#' @details
 		#' Check if the name of the [OntologySource] is a string
