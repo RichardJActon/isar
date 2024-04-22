@@ -199,7 +199,7 @@ ontology_annotation_with_undefined_source_handler <- function(
 			" not defined in OntologySourceReferences!\n",
 			"Creating a placeholder OntologySource for missing sources"
 		)
-		roles[undefined_and_unavailable_lgl] %>%
+		lst[undefined_and_unavailable_lgl] %>%
 			purrr::walk(~{
 				os <- OntologySource$new(
 					name = .x$termSource,
@@ -210,7 +210,10 @@ ontology_annotation_with_undefined_source_handler <- function(
 						"a source was missing this was generated as a result"
 					)
 				)
-				self$add_ontology_sources(list(os))
+				os %>%
+					list() %>%
+					purrr::set_names(.x$termSource) %>% # member
+					self$add_ontology_sources()
 				self[[member]] <- OntologyAnnotation$new(
 					term = .x$annotationValue,
 					term_source = self$ontology_source_references[[
