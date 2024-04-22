@@ -43,8 +43,8 @@ OntologyAnnotation <- R6::R6Class(
 		) {
 			# transition to character() !!
 			if (
-				checkmate::test_string(term, max.chars = 0, min.chars = 0, null.ok = TRUE) &&
-				!checkmate::test_string(term_accession, max.chars = 0, min.chars = 0, null.ok = TRUE)
+				test_empty(term, mode = "character", null.ok = TRUE) &&
+				!test_empty(term_accession, mode = "character", null.ok = TRUE)
 			) {
 				self$set_term_accession(term_accession)
 			}
@@ -56,15 +56,15 @@ OntologyAnnotation <- R6::R6Class(
 			}
 
 			if (
-				!checkmate::test_string(term, max.chars = 0, min.chars = 0, null.ok = TRUE) &&
-				checkmate::test_string(term_accession, max.chars = 0, min.chars = 0, null.ok = TRUE)
+				!test_empty(term, mode = "character", null.ok = TRUE) &&
+				test_empty(term_accession, mode = "character", null.ok = TRUE)
 			) {
 				self$set_term(term)
 			}
 
 			if (
-				!checkmate::test_string(term, max.chars = 0, min.chars = 0, null.ok = TRUE) &&
-				!checkmate::test_string(term_accession, max.chars = 0, min.chars = 0, null.ok = TRUE)
+				!test_empty(term, mode = "character", null.ok = TRUE) &&
+				!test_empty(term_accession, mode = "character", null.ok = TRUE)
 			) {
 				if (self$term_source$terms_list[[term]] != term_accession) {
 					stop("Supplied term & term accession do not match!")
@@ -74,8 +74,8 @@ OntologyAnnotation <- R6::R6Class(
 			}
 
 			if (
-				checkmate::test_string(term, max.chars = 0, min.chars = 0, null.ok = TRUE) &&
-				checkmate::test_string(term_accession, max.chars = 0, min.chars = 0, null.ok = TRUE)
+				test_empty(term, mode = "character", null.ok = TRUE) &&
+				test_empty(term_accession, mode = "character", null.ok = TRUE)
 			) {
 				term <- character()
 				term_accession <- character()
