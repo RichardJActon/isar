@@ -246,6 +246,30 @@ OntologySource <- R6::R6Class(
 			}
 		},
 		#' @details
+		#' Add terms to the [OntologySource]
+		#' @param terms_list a list of terms with terms accessions as values
+		add_terms = function(terms_list) {
+			existing_terms_lgl <- names(terms_list) %in% names(self$terms_list)
+			if(any(existing_terms_lgl)) {
+				existing_terms <- names(terms_list[existing_terms_lgl])
+				stop(paste(
+					"These terms already exist:",
+					paste(existing_terms, sep = ", ")
+				))
+			} else if(
+				checkmate::test_list(
+					terms_list, types = "character", names = "unique"
+				) && all(purrr::map_lgl(terms_list, checkmate::test_string))
+			) {
+				self$terms_list <- c(self$terms_list, terms_list)
+			} else {
+				stop(
+					"terms must be a uniquely named list",
+					"of length 1 character vectors"
+				)
+			}
+		},
+		#' @details
 		#'
 		#' make an R list convertible to json
 		#'
