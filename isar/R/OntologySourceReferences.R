@@ -63,6 +63,16 @@ OntologySourceReferences <- R6::R6Class(
 		#' @return a vector of ontology source names
 		get_ontology_source_names = function() {
 			names(self$ontology_source_references)
+		},
+
+		#' @details
+		#' Get the provision status of Ontology Sources, where they explicitly
+		#' listed in the Investigation or not?
+		#' @return a vector of ontology source names
+		get_ontology_source_provision = function() {
+			self$ontology_source_references %>%
+				purrr::map_lgl(~.x$explicitly_provided) %>%
+				purrr::set_names(names(self$ontology_source_references))
 		}
 	)
 )
