@@ -243,21 +243,31 @@ OntologySource <- R6::R6Class(
 		#'
 		#' make an R list convertible to json
 		#'
-		#' @param ld (default FALSE)
-		to_list = function(ld = FALSE) {
-			ontology_source_ref = list(
-				"name" = self$name,
-				"file" =  self$file,
-				"file_type" =  self$file_type,
-				"url" =  self$url,
-				"version" = self$version,
-				"description" = self$description,
-				"comments" = self$comments,
-				"terms_list" = self$terms_list,
-				"get_terms_list" = rawToChar(
-					serialize(self$get_terms_list, NULL, ascii = TRUE)
+		#' @param json (default TRUE)
+		to_list = function(json = TRUE) {
+			if(json) {
+				ontology_source_ref <- list(
+					"name" = self$name,
+					"file" = self$file,
+					"version" = self$version,
+					"description" = self$description,
+					"comments" = self$comments
 				)
-			)
+			} else {
+				ontology_source_ref <- list(
+					"name" = self$name,
+					"file" =  self$file,
+					"file_type" =  self$file_type,
+					"url" =  self$url,
+					"version" = self$version,
+					"description" = self$description,
+					"comments" = self$comments,
+					"terms_list" = self$terms_list,
+					"get_terms_list" = rawToChar(
+						serialize(self$get_terms_list, NULL, ascii = TRUE)
+					)
+				)
+			}
 			return(ontology_source_ref)
 		},
 
