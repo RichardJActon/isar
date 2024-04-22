@@ -14,31 +14,18 @@ OntologySourceReferences <- R6::R6Class(
 		initialize = function(ontology_source_references = NULL) {
 			self$ontology_source_references <- ontology_source_references
 		},
-		#' #' @details
-		#' #'
-		#' #' Make [OntologySourceReferences] from list, defines the set of
-		#' #' Ontology Sources which should be exhaustive for an investigation
-		#' #'
-		#' #' @param lst an ontology source object serialized to a list
-		#' predefined_from_list = function(lst) {#, json = TRUE
-		#' 	self$ontology_source_references <- purrr::map(
-		#' 		lst, ~{
-		#' 			os <- OntologySource$new()
-		#' 			os$from_list(.x, json = TRUE)
-		#' 			os
-		#' 		}
-		#' 	)
-		#' },
 		#' @details
 		#'
 		#' Make [OntologySourceReferences] from list
 		#'
 		#' @param lst an ontology source object serialized to a list
-		from_list = function(lst) {#, json = TRUE
+		from_list = function(lst, explicitly_provided = logical()) {#, json = TRUE
 		# add_from_list = function(lst) {#, json = TRUE
 			ontology_sources <- purrr::map(
 				lst, ~{
-					os <- OntologySource$new()
+					os <- OntologySource$new(
+						explicitly_provided = explicitly_provided
+					)
 					os$from_list(.x, json = TRUE)
 					os
 				}
