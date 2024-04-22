@@ -43,6 +43,7 @@ LazyData: true
 Collate:
     'testing-utility.R'
     'utility.R'
+    'checkmate_extensions.R'
     'Assay.R'
     'Characteristic.R'
     'FactorValue.R'
