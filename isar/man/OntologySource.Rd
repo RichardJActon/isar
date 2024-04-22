@@ -69,7 +69,8 @@ An \link{OntologySource} describes the resource from which the value of an \link
   description = character(),
   get_terms_list = NULL,
   terms_list = NULL,
-  comments = NULL
+  comments = NULL,
+  explicitly_provided = logical()
 )}\if{html}{\out{</div>}}
 }
 
@@ -93,6 +94,10 @@ An \link{OntologySource} describes the resource from which the value of an \link
 \item{\code{terms_list}}{list of valid terms where keys are terms and values accessions}
 
 \item{\code{comments}}{comments}
+
+\item{\code{explicitly_provided}}{Was this \link{OntologySource} provided in the
+list of \link{OntologySourceReferences} for the \link{Investigation} (TRUE) or was
+it dynamically generated (FALSE)?}
 }
 \if{html}{\out{</div>}}
 }
@@ -406,13 +411,13 @@ Add comment if it is in a valid format
 \if{latex}{\out{\hypertarget{method-OntologySource-to_list}{}}}
 \subsection{Method \code{to_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OntologySource$to_list(ld = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{OntologySource$to_list(json = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{ld}}{(default FALSE)}
+\item{\code{json}}{(default TRUE)}
 }
 \if{html}{\out{</div>}}
 }

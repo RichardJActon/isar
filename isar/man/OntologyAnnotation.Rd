@@ -19,6 +19,9 @@ R6 class for an experimental factor value
 
 OA <- OntologyAnnotation$new()
 }
+\section{Super class}{
+\code{\link[isar:OntologySourceReferences]{isar::OntologySourceReferences}} -> \code{OntologyAnnotation}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -53,6 +56,16 @@ OA <- OntologyAnnotation$new()
 \item \href{#method-OntologyAnnotation-clone}{\code{OntologyAnnotation$clone()}}
 }
 }
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="isar" data-topic="OntologySourceReferences" data-id="add_ontology_sources"><a href='../../isar/html/OntologySourceReferences.html#method-OntologySourceReferences-add_ontology_sources'><code>isar::OntologySourceReferences$add_ontology_sources()</code></a></li>
+<li><span class="pkg-link" data-pkg="isar" data-topic="OntologySourceReferences" data-id="check_ontology_sources"><a href='../../isar/html/OntologySourceReferences.html#method-OntologySourceReferences-check_ontology_sources'><code>isar::OntologySourceReferences$check_ontology_sources()</code></a></li>
+<li><span class="pkg-link" data-pkg="isar" data-topic="OntologySourceReferences" data-id="get_ontology_source_names"><a href='../../isar/html/OntologySourceReferences.html#method-OntologySourceReferences-get_ontology_source_names'><code>isar::OntologySourceReferences$get_ontology_source_names()</code></a></li>
+<li><span class="pkg-link" data-pkg="isar" data-topic="OntologySourceReferences" data-id="get_ontology_source_provision"><a href='../../isar/html/OntologySourceReferences.html#method-OntologySourceReferences-get_ontology_source_provision'><code>isar::OntologySourceReferences$get_ontology_source_provision()</code></a></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OntologyAnnotation-new"></a>}}
 \if{latex}{\out{\hypertarget{method-OntologyAnnotation-new}{}}}

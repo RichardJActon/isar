@@ -70,6 +70,7 @@ Person$new()
 <li><span class="pkg-link" data-pkg="isar" data-topic="OntologySourceReferences" data-id="add_ontology_sources"><a href='../../isar/html/OntologySourceReferences.html#method-OntologySourceReferences-add_ontology_sources'><code>isar::OntologySourceReferences$add_ontology_sources()</code></a></li>
 <li><span class="pkg-link" data-pkg="isar" data-topic="OntologySourceReferences" data-id="check_ontology_sources"><a href='../../isar/html/OntologySourceReferences.html#method-OntologySourceReferences-check_ontology_sources'><code>isar::OntologySourceReferences$check_ontology_sources()</code></a></li>
 <li><span class="pkg-link" data-pkg="isar" data-topic="OntologySourceReferences" data-id="get_ontology_source_names"><a href='../../isar/html/OntologySourceReferences.html#method-OntologySourceReferences-get_ontology_source_names'><code>isar::OntologySourceReferences$get_ontology_source_names()</code></a></li>
+<li><span class="pkg-link" data-pkg="isar" data-topic="OntologySourceReferences" data-id="get_ontology_source_provision"><a href='../../isar/html/OntologySourceReferences.html#method-OntologySourceReferences-get_ontology_source_provision'><code>isar::OntologySourceReferences$get_ontology_source_provision()</code></a></li>
 </ul>
 </details>
 }}
