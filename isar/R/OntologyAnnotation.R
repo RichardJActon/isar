@@ -279,6 +279,14 @@ OntologyAnnotation <- R6::R6Class(
 		#' @param recursive call to_list methods of any objects within this object (default FALSE)
 		from_list = function(lst, recursive = TRUE, json = FALSE) {
 			if(json) {
+				# remediate ontology annotation lists with missing members :(
+				# such as: BII_I_1_jsonlite[["studies"]][[1]][["protocols"]][[1]][["protocolType"]]
+				if(is.null(lst[["termAccession"]])) {
+					lst[["termAccession"]] <- ""
+				}
+				if(is.null(lst[["termSource"]])) {
+					lst[["termSource"]] <- ""
+				}
 				# recursive?
 				#self$term_source$name <- lst[["termSource"]]
 				self$term_accession <- lst[["termAccession"]]
