@@ -12,6 +12,7 @@
 #' @field unit a unit of measurement
 Unit <- R6::R6Class(
 	"Unit",
+	# inherit = OntologyAnnotation, # ?
 	public = list(
 		unit = NULL,
 		#' @details
