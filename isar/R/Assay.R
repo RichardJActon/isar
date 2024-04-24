@@ -40,7 +40,7 @@ Assay <- R6::R6Class(
 		process_sequence = NULL,
 		comments = NULL,
 		graph = NULL,
-
+		data_files = NULL,
 		#' @details
 		#' Create a new assay
 		#'
@@ -236,21 +236,21 @@ Assay <- R6::R6Class(
 		#' Make \code{[Assay]} from list
 		#'
 		#' @param lst an ontology source object serialized to a list
-		from_list = function(lst, recursive = TRUE, json = FALSE) {
+		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			if (json) {
 				# if (recursive) {}
 				self$measurement_type <- OntologyAnnotation$new()
 				self$measurement_type$from_list(
-					lst[["measurementType"]], recursive = TRUE, json = TRUE
+					lst[["measurementType"]], recursive = recursive, json = json
 				)
 				self$technology_type <- OntologyAnnotation$new()
 				self$technology_type$from_list(
-					lst[["technologyType"]], recursive = TRUE, json = TRUE
+					lst[["technologyType"]], recursive = recursive, json = json
 				)
 				#self$data_files <- lst[["dataFiles"]]
 				self$data_files <- purrr::map(lst[["dataFiles"]], ~{
 					df <- DataFile$new()
-					df$from_list(.x, recursive = TRUE, json = TRUE)
+					df$from_list(.x, json = json)
 				})
 
 				self$technology_platform <- lst[["technologyPlatform"]]
@@ -260,9 +260,20 @@ Assay <- R6::R6Class(
 				self$units <- lst[["unitCategories"]]
 				self$characteristic_categories <- lst[["characteristicCategories"]]
 
-				self$process_sequence <- lst[["processSequence"]]
+				process_sequence_order <- get_process_sequence_order_from_json(
+					lst[["processSequence"]]
+				)
+
+				self$process_sequence <- purrr::map(
+					lst[["processSequence"]], ~{
+						ps <- Process$new()
+						ps$from_list(.x, recursive = recursive, json = json) # recursive!
+						ps
+					}
+				)[order(process_sequence_order)]
+
 				self$comments <- lst[["comments"]]
-				self$graph <- lst[["graph"]]
+				# self$graph <- lst[["graph"]]
 			} else {
 				self$measurement_type <- lst[["measurement_type"]]
 				self$technology_type <- lst[["technology_type"]]
