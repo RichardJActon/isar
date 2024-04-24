@@ -350,6 +350,12 @@ ontology_annotation_with_undefined_source_handler <- function(
 # fv$from_list(BII_I_1_jsonlite$studies[[1]]$materials$samples[[1]]$factorValues[[1]], recursive = TRUE, json = TRUE)
 # fv
 
+get_protocols_executed_from_json <- function(process_sequence) {
+	process_sequence %>%
+		purrr::map_chr(~.x[["executesProtocol"]][["@id"]]) %>%
+		unique()
+}
+
 #' get_process_sequence_order_from_json
 #'
 #' @param process_sequence
@@ -358,13 +364,65 @@ ontology_annotation_with_undefined_source_handler <- function(
 #' @export
 #'
 get_process_sequence_order_from_json <- function(process_sequence) {
-	purrr::map_int(process_sequence, ~{
-		protocol <- sub(
-			"#protocol/", "", .x$executesProtocol$`@id`, fixed = TRUE
-		)
-		process <- sub("#process/", "", .x$`@id`, fixed = TRUE)
-		as.integer(sub(protocol, "", process, fixed = TRUE))
-	})
+	protocols_executed <- get_protocols_executed_from_json(process_sequence)
+	# named list of protocols
+	n_protocols <- length(protocols_executed)
+	processes_by_protocol <- vector(mode = "list", length = n_protocols)
+	names(processes_by_protocol) <- protocols_executed
+
+	# assign process to their protocols
+	for (protocol in names(processes_by_protocol)) {
+		for (i in seq_along(process_sequence)) {
+			if(
+				process_sequence[[i]][["executesProtocol"]][["@id"]] == protocol
+			) {
+				processes_by_protocol[[protocol]][[
+					process_sequence[[i]][["@id"]]
+				]] <- process_sequence[[i]]
+
+			}
+		}
+	}
+
+	# to be an ordered vector of indices of the protocols
+	protocol_order <- integer(length = n_protocols)
+	# get first and last protocols
+	for (i in seq_along(processes_by_protocol)) {
+		if( # first has no previous
+			is.null(processes_by_protocol[[i]][[1]]$nextProcess$`@id`)
+		) {
+			protocol_order[1] <- i
+		} else if( # last has not next
+			is.null(processes_by_protocol[[i]][[1]]$nextProcess$`@id`))
+		{
+			protocol_order[length(protocol_order)] <- i
+		}
+	}
+
+	processes_by_protocol[[protocol_order[1]]][[1]]$nextProcess$`@id`
+
+	# fixed relation of 'columns' but no fixed 'row' order
+	# arbitrarily use first protocol order for rest?
+
+	middle_protocols[[1]]#[[1]]$nextProcess$`@id`
+
+	middle_protocols <- processes_by_protocol[
+		-protocol_order[c(1, n_protocols)] # remove first and last
+	]
+
+	for (i in seq_along(middle_protocols)) {
+		#protocol_order <-
+	}
+	# purrr::map_chr(process_sequence, ~{
+	# 	#.x$executesProtocol$`@id`
+	# 	# protocol <- sub(
+	# 	# 	"#protocol/", "", .x$executesProtocol$`@id`, fixed = TRUE
+	# 	# )
+	# 	# process <- sub("#process/", "", .x$`@id`, fixed = TRUE)
+	# 	.x$`@id`
+	# 	# process
+	# 	#sub(protocol, "", process, fixed = TRUE) # %>% as.numeric()
+	# })
 }
 # get_process_sequence_order_from_json(
 # 	BII_S_3_jsonlite$studies[[1]]$processSequence
