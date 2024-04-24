@@ -342,10 +342,11 @@ Study <- R6::R6Class(
 
 				self$process_sequence <- purrr::map(
 					lst[["processSequence"]], ~{
-					ps <- Process$new()
-					ps$from_list(.x, recursive = FALSE, json = json) # recursive!
-					ps
-				})[order(process_sequence_order)]
+						ps <- Process$new()
+						ps$from_list(.x, recursive = FALSE, json = json) # recursive!
+						ps
+					}
+				)[order(process_sequence_order)]
 
 
 				# self$other_material <- lst[["otherMaterial"]]
