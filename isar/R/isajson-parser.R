@@ -437,6 +437,9 @@ get_process_sequence_order_from_json <- function(process_sequence) {
 		nrow = length(next_processes_for_current_protocol), ncol = n_protocols
 	)
 	positions[,1] <- 1:n_protocols
+	# positions <- vector(mode = "list", length = n_protocols)
+	# names(positions) <- protocol_order
+	# positions$`1` <- 1:n_protocols
 	for (i in seq_along(processes_by_protocol[protocol_order])[-n_protocols]) {
 		next_processes <- processes_by_protocol[protocol_order][[i]] %>%
 			purrr::map_chr(~.x$nextProcess$`@id`)
@@ -444,7 +447,7 @@ get_process_sequence_order_from_json <- function(process_sequence) {
 		next_process_names <- names(
 			processes_by_protocol[protocol_order][[i + 1]]
 		)
-
+		# positions[[as.character(i + 1)]] <- base::match(next_processes, next_process_names)
 		positions[ , i + 1] <- base::match(next_processes, next_process_names)
 	}
 
