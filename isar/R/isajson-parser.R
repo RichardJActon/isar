@@ -389,7 +389,7 @@ get_process_sequence_order_from_json <- function(process_sequence) {
 	# get first and last protocols
 	for (i in seq_along(processes_by_protocol)) {
 		if( # first has no previous
-			is.null(processes_by_protocol[[i]][[1]]$nextProcess$`@id`)
+			is.null(processes_by_protocol[[i]][[1]]$previousProcess$`@id`)
 		) {
 			protocol_order[1] <- i
 		} else if( # last has not next
@@ -399,20 +399,59 @@ get_process_sequence_order_from_json <- function(process_sequence) {
 		}
 	}
 
-	processes_by_protocol[[protocol_order[1]]][[1]]$nextProcess$`@id`
 
+	# middle_protocols[[1]]#[[1]]$nextProcess$`@id`
+
+	# middle_protocols <- processes_by_protocol[
+	# 	-protocol_order[c(1, n_protocols)] # remove first and last
+	# ]
+
+	middle_protocol_indices <- which(!1:n_protocols %in% protocol_order)
 	# fixed relation of 'columns' but no fixed 'row' order
 	# arbitrarily use first protocol order for rest?
+	# processes_by_protocol[[protocol_order[1]]][[1]]$nextProcess$`@id`
+	next_processes_for_current_protocol <- purrr::map_chr(
+		processes_by_protocol[[protocol_order[1]]], ~.x$nextProcess$`@id`
+	)
 
-	middle_protocols[[1]]#[[1]]$nextProcess$`@id`
 
-	middle_protocols <- processes_by_protocol[
-		-protocol_order[c(1, n_protocols)] # remove first and last
-	]
-
-	for (i in seq_along(middle_protocols)) {
-		#protocol_order <-
+	i <- 2
+	while (any(protocol_order[-c(1,length(protocol_order))] == 0)) {
+		for(j in middle_protocol_indices) {
+			if(all(
+				next_processes_for_current_protocol %in%
+				names(processes_by_protocol[[j]])
+			)) {
+				protocol_order[i] <- j
+				i <- i + 1
+				next_processes_for_current_protocol <- purrr::map_chr(
+					processes_by_protocol[[j]], ~.x$nextProcess$`@id`
+				)
+			}
+		}
 	}
+
+	# protocol_order
+
+	positions <- matrix(
+		nrow = length(next_processes_for_current_protocol), ncol = n_protocols
+	)
+	positions[,1] <- 1:n_protocols
+	for (i in seq_along(processes_by_protocol[protocol_order])[-n_protocols]) {
+		next_processes <- processes_by_protocol[protocol_order][[i]] %>%
+			purrr::map_chr(~.x$nextProcess$`@id`)
+
+		next_process_names <- names(
+			processes_by_protocol[protocol_order][[i + 1]]
+		)
+
+		positions[ , i + 1] <- base::match(next_processes, next_process_names)
+	}
+
+	# dimensions issue - should be 4x6 in test but getting 4x4 only one 6,
+	# issue with some kind of duplication?
+
+	positions
 	# purrr::map_chr(process_sequence, ~{
 	# 	#.x$executesProtocol$`@id`
 	# 	# protocol <- sub(
