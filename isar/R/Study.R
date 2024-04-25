@@ -318,11 +318,13 @@ Study <- R6::R6Class(
 					p
 				})
 
-				self$factors <- purrr::map(lst[["factors"]], ~{
-					sf <- StudyFactor$new()
-					sf$from_list(.x, recursive = recursive, json = json)
-					sf
-				})
+				self$factors <- lst[["factors"]] %>%
+					purrr::set_names(purrr::map_chr(., ~.x$`@id`)) %>%
+					purrr::map(~{
+						sf <- StudyFactor$new()
+						sf$from_list(.x, recursive = recursive, json = json)
+						sf
+					})
 
 				self$protocols <- purrr::map(lst[["protocols"]], ~{
 					pc <- Protocol$new()
