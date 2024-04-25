@@ -22,6 +22,16 @@ test_uuid <- uuid::UUIDgenerate()
 # BII_I_1_jsonlite[["people"]][[1]][["roles"]]
 # BII_I_1_jsonlite[["studies"]][[1]][["people"]][[1]][["roles"]]
 
+test_that("Study", {
+	ts <- Study$new()
+	ts$from_list(BII_S_3_jsonlite$studies[[1]])
+
+	expect_equal(ts$submission_date, "2008-08-15")
+	expect_equal(ts$public_release_date, "2008-08-15")
+
+	# ts$factors
+})
+
 # Person ----
 test_that("Person", {
 	p1 <- Person$new(`@id` = test_uuid)
