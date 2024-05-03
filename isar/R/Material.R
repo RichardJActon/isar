@@ -18,7 +18,7 @@ Material <- R6::R6Class(
 		type = character(),
 		characteristics = NULL,
 		comments = NULL,
-
+		`@id` =  character(),
 		#' @details
 		#' Create a new \code{[Material]} object
 		#' @param name The name of the material
@@ -29,7 +29,8 @@ Material <- R6::R6Class(
 			name = character(),
 			type = character(),
 			characteristics = NULL,
-			comments = NULL
+			comments = NULL,
+			`@id` =  character()
 		) {
 			if (checkmate::qtest(name, "S[0]")) { self$name <- name } else {
 				self$set_name(name)
@@ -43,6 +44,7 @@ Material <- R6::R6Class(
 				self$check_characteristics(characteristics)
 			}
 			self$comments <- comments
+			self$`@id` <- `@id`
 		},
 		#' @details
 		#' Check if the name of the material is a string
@@ -124,12 +126,18 @@ Material <- R6::R6Class(
 		#' @details
 		#' Make \code{[Material]} object from list
 		#' @param lst an Material object serialized to a list
-		from_list = function(lst) {
+		#' @param json json  (default TRUE)
+		#' @param recursive call to_list methods of any objects within this object (default TRUE)
+		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			self$name <- lst[["name"]]
-			private$id <- lst[["id"]]
+			#private$id <- lst[["id"]]
+			self$`@id` <- lst[["@id"]]
 			self$type <- lst[["type"]]
-			self$characteristics <- Characteristic$new()
-			self$characteristics$from_list(lst[["characteristics"]])
+			self$characteristics <- purrr::map(lst[["characteristics"]], ~{
+				chr <- Characteristic$new()
+				chr$from_list(.x, json = json, recursive = recursive)
+				chr
+			})
 			self$comments <- lst[["comments"]]
 		},
 
