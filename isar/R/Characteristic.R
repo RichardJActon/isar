@@ -10,6 +10,7 @@
 #' @export
 Characteristic <- R6::R6Class(
 	"Characteristic",
+	inherit = OntologySourceReferences,
 	public = list(
 		category = NULL,
 		value = NULL,
@@ -119,8 +120,9 @@ Characteristic <- R6::R6Class(
 		#' @details
 		#' Make \code{[Characteristic]} object from list
 		#' @param lst an Characteristic object serialized to a list
-		#' @param recursive call to_list methods of any objects within this object (default FALSE)
-		from_list = function(lst, recursive = FALSE, json = FALSE) {
+		#' @param json json  (default TRUE)
+		#' @param recursive call to_list methods of any objects within this object (default TRUE)
+		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			if(json) {
 				self$set_id()
 				if(is.null(lst[["@id"]])) {
@@ -133,10 +135,14 @@ Characteristic <- R6::R6Class(
 				self$category <- sub(
 					"#characteristic_category/", "", self$`@id`, fixed = TRUE
 				)
-				self$value <- OntologyAnnotation$new()
-				self$value$from_list(
-					ont_anno, recursive = recursive, json = json
-				)
+				if (is.null(lst[["unit"]])) {
+					self$value <- OntologyAnnotation$new()
+					self$value$from_list(
+						ont_anno, recursive = recursive, json = json
+					)
+				} else {
+					self$value <- lst[["value"]]
+				}
 				self$set_comments(lst[["comments"]])
 			} else {
 				private$id <- lst[["id"]]
