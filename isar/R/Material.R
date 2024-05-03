@@ -153,6 +153,25 @@ Material <- R6::R6Class(
 		#' @param suffix a human readable suffix
 		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
 			private$id <- generate_id(id, suffix)
+		},
+		print = function() {
+			cli::cli_h1(cli::col_blue("Material"))
+			green_bold_name_plain_content("Name", self$name)
+			green_bold_name_plain_content("Type", self$type)
+			green_bold_name_plain_content("ID", self$get_id())
+			green_bold_name_plain_content("@id", self$`@id`)
+			cli::cli_h2(cli::col_cyan("Characteristics"))
+			purrr::walk(
+				self$characteristics, ~{
+					cli::cli_text(paste0("(", .x$category, ")"))
+					green_bold_name_plain_content(
+						.x$term_source$name, .x$value$term
+					)
+				}
+			)
+
+			#green_bold_name_plain_content("unit", self$unit)
+			pretty_print_comments(self$comments)
 		}
 	),
 	private = list(
