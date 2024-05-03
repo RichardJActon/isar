@@ -277,7 +277,7 @@ OntologyAnnotation <- R6::R6Class(
 		#' Make \code{[OntologyAnnotation]} from list
 		#' @param lst an ontology source object serialized to a list
 		#' @param recursive call to_list methods of any objects within this object (default FALSE)
-		from_list = function(lst, recursive = TRUE, json = FALSE) {
+		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			if(json) {
 				# remediate ontology annotation lists with missing members :(
 				# such as: BII_I_1_jsonlite[["studies"]][[1]][["protocols"]][[1]][["protocolType"]]
