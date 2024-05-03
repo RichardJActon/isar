@@ -12,13 +12,18 @@
 #' @field unit a unit of measurement
 Unit <- R6::R6Class(
 	"Unit",
+	inherit = OntologySourceReferences,
 	# inherit = OntologyAnnotation, # ?
 	public = list(
 		unit = NULL,
+		`@id` = character(),
 		#' @details
 		#' Create a new \code{[Unit]} object
 		#' @param unit a unit of measurement
-		initialize = function(unit = NULL) {
+		initialize = function(
+			unit = NULL,
+			`@id` = character()
+		) {
 			if (is.null(unit)) { self$unit <- unit } else {
 				# need a list of ontology annotations to account for
 				# composit units e.g. ms^-2 is meters and seconds
@@ -26,13 +31,15 @@ Unit <- R6::R6Class(
 				# annotation(s) used in the unit
 				self$unit <- OntologyAnnotation$new(unit, OM)
 			}
+			self$`@id` <- `@id`
 		},
 		#' @details
 		#' An R list representation of a \code{[Unit]} object
 		#' @param ld linked data (default FALSE)
 		to_list = function(ld = FALSE) {
 			unit <- list(
-				unit = self$unit$to_list()
+				unit = self$unit$to_list(),
+				"@id" = self$`@id`
 			)
 			return(unit)
 		},
@@ -40,8 +47,9 @@ Unit <- R6::R6Class(
 		#' Make \code{[Unit]} object from list
 		#' @param lst an Unit object serialized to a list
 		from_list = function(lst) {
+			self$`@id` <- lst[["@id"]]
 			self$unit <- OntologyAnnotation$new()
-			self$unit <- self$unit$from_list(lst[["unit"]])
+			self$unit <- self$unit$from_list(lst)
 		}
 	)
 )
