@@ -153,7 +153,9 @@ Characteristic <- R6::R6Class(
 					if(checkmate::test_r6(
 						lst[["category"]], "OntologyAnnotation"
 					)) {
-						stop("not a list contains raw OntologyAnnotation object")
+						stop(
+							"not a list contains raw OntologyAnnotation object"
+						)
 					} else if(is.null(lst[["category"]])) {
 						self$category <- NULL
 					} else {
