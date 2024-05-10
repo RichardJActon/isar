@@ -243,7 +243,7 @@ Protocol <- R6::R6Class(
 		#' Make \code{[Protocol]} object from list
 		#' @param lst an Protocol object serialized to a list
 		#' @param recursive use the `from_list()` method on list items that are also isar objects (default = TRUE)
-		from_list = function(lst, recursive = TRUE, json = FALSE) {
+		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			if(json) {
 				self$name <- lst[["name"]]
 				self$`@id` <- lst[["@id"]]
