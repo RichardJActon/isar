@@ -51,6 +51,7 @@ Collate:
     'isajson-parser.R'
     'isatab-parser.R'
     'Material.R'
+    'MaterialReferences.R'
     'OntologyAnnotation.R'
     'OntologySource.R'
     'OntologySourceReferences.R'

@@ -30,6 +30,7 @@
 #' @export
 Study <- R6::R6Class(
 	"Study",
+	inherit = MaterialReferences,
 	public = list(
 		filename = '',
 		# identifier = '',
@@ -332,23 +333,35 @@ Study <- R6::R6Class(
 					pc
 				})
 				# self$assays <- lst[["assays"]]
-				self$sources <- purrr::map(lst[["materials"]][["sources"]], ~{
-					src <- Source$new()
-					src$from_list(.x, recursive = recursive, json = json)
-					src
-				})
+				self$sources <- lst[["materials"]][["sources"]] %>%
+					purrr::set_names(purrr::map_chr(., ~.x[["@id"]])) %>%
+					purrr::map(~{
+						src <- Source$new()
+						src$from_list(.x, recursive = recursive, json = json)
+						src
+					})
+
+				super$add_materials(self$sources)
+
+				self$samples <- lst[["materials"]][["samples"]] %>%
+					purrr::set_names(purrr::map_chr(., ~.x[["@id"]])) %>%
+					purrr::map(~{
+						smpl <- Sample$new()
+						smpl$from_list(.x, recursive = recursive, json = json)
+						smpl
+					})
 				# self$samples <- lst[["samples"]]
-				process_sequence_order <- get_process_sequence_order_from_json(
-					lst[["processSequence"]]
-				)
+				# process_sequence_order <- get_process_sequence_order_from_json(
+				# 	lst[["processSequence"]]
+				# )
 
 				self$process_sequence <- purrr::map(
 					lst[["processSequence"]], ~{
 						ps <- Process$new()
-						ps$from_list(.x, recursive = FALSE, json = json) # recursive!
+						ps$from_list(.x, recursive = recursive, json = json) # recursive!
 						ps
 					}
-				)[order(process_sequence_order)]
+				)#[order(process_sequence_order)]
 
 
 				# self$other_material <- lst[["otherMaterial"]]

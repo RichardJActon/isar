@@ -17,7 +17,7 @@
 #' @export
 Sample <- R6::R6Class(
 	"Sample",
-	# inherit = Commentable,
+	inherit = Material,
 	public = list(
 		name = character(),
 		factor_values = NULL,
@@ -56,38 +56,6 @@ Sample <- R6::R6Class(
 			self$derives_from <- derives_from # list
 
 			self$comments <- comments
-		},
-
-		#' @details
-		#'
-		#' validates the name field is a string
-		#'
-		#' @param name sample name to validate
-		check_name = function(name) {
-			# tryCatch(
-			# 	{
-					if (checkmate::check_string(name)) {
-						return(TRUE)
-					} else {
-						#stop()
-						stop("Name was not a string!")
-					}
-			# 	},
-			# 	error = function(e) {
-			# 		stop("Name was not a string!")
-			# 		#message("Name was not a string!")
-			# 	}
-			# )
-		},
-		#' @details
-		#'
-		#' Sets the name
-		#'
-		#' @param name the name of the sample
-		set_name = function(name) {
-			if(self$check_name(name)) {
-				self$name <- name
-			}
 		},
 
 		#' @details
@@ -135,45 +103,6 @@ Sample <- R6::R6Class(
 		},
 
 		#' @details
-		#' check characteristics is a list of \code{[Characteristic]} objects
-		#' @param characteristics a list of \code{[Characteristic]} objects
-		check_characteristics = function(characteristics) {
-			if(
-				checkmate::test_list(characteristics, min.len = 1) &&
-				all(purrr::map_lgl(
-					characteristics, ~checkmate::test_r6(.x, "Characteristic")
-				))
-			) { return(TRUE) } else {
-				stop("All characteristics must be Characteristic objects")
-			}
-		},
-		#' @details
-		#' set characteristics if characteristics is a list of \code{[Characteristic]} objects
-		#' @param characteristics a list of \code{[Characteristic]} objects
-		set_characteristics = function(characteristics) {
-			if (self$check_characteristics(characteristics)) {
-				self$characteristics <- characteristics
-			}
-		},
-		#' @details
-		#' checks if comments are a named list of character vectors
-		#' @param comments comments
-		check_comments = function(comments) { check_comments(comments) },
-		#' @details
-		#' Sets comments if they are in a valid format
-		#' @param comments a list of comments
-		set_comments = function(comments) {
-			if(self$check_comments(comments)) { self$comments <- comments }
-		},
-		#' @details
-		#' Add comment if it is in a valid format
-		#' @param comment a list of comments
-		add_comment = function(comment) {
-			if(self$check_comments(comment)) {
-				self$comments <- c(comments, comment)
-			}
-		},
-		#' @details
 		#' generate an R list representation translatable to JSON
 		#' @param ld logical json-ld
 		#' @examples
@@ -195,35 +124,37 @@ Sample <- R6::R6Class(
 		#' Make \code{[sample]} from list
 		#'
 		#' @param lst a list serialization of a \code{[Sample]} factor object
-		from_list = function(lst, recursive = FALSE, json = FALSE) {
+		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			if(!json) {
 				private$id <- lst[["id"]]
 			}
 			self$name <- lst[["name"]]
 			self$factor_values <- purrr::map(
-				lst[["factor_values"]], ~{
+				lst[["factorValues"]], ~{
 					fv <- FactorValue$new()
 					fv$from_list(.x, recursive = recursive, json = json)
 					fv
 				}
 			)
-			self$characteristics <- lst[["characteristics"]]
-			self$derives_from <- lst[["derives_from"]]
+			self$characteristics <- purrr::map(lst[["characteristics"]], ~{
+				chr <- Characteristic$new()
+				chr$from_list(.x, json = json, recursive = recursive)
+				chr
+			})
+
+			self$derives_from <- purrr::map(lst[["derivesFrom"]], ~{
+				if(.x %in% super$get_material_reference_names()) {
+					super$material_references[[.x]]
+				} else {
+					warning("Unknown material!")
+					.x
+				}
+			})
+
+			# self$derives_from <- lst[["derivesFrom"]]
 			self$comments <- lst[["comments"]]
 		},
-		#' @details
-		#' Get the uuid of this object
-		#' @return a uuid
-		get_id = function() {
-			private$id
-		},
-		#' @details
-		#' set the uuid of this object
-		#' @param id a uuid
-		#' @param suffix a human readable suffix
-		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
-			private$id <- generate_id(id, suffix)
-		},
+
 		print = function() {
 			cli::cli_h1(cli::col_blue("Sample"))
 			green_bold_name_plain_content("Name", self$name)

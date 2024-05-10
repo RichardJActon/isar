@@ -13,6 +13,7 @@
 #' @export
 Material <- R6::R6Class(
 	"Material",
+	inherit = MaterialReferences,
 	public = list(
 		name = character(),
 		type = character(),
