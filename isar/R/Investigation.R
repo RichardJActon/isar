@@ -279,7 +279,7 @@ Investigation <- R6::R6Class(
 		#' Make [Investigation] from list
 		#'
 		#' @param lst an ontology source object serialized to a list
-		from_list = function(lst, recursive = TRUE, json = FALSE) {
+		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			if(json) {
 				self$filename <- lst[["filename"]]
 				#private$id <- lst[["id"]]
@@ -289,32 +289,32 @@ Investigation <- R6::R6Class(
 				self$public_release_date <- lst[["publicReleaseDate"]]
 				#self$ontology_source_references <- lst[["ontologySourceReferences"]]
 				#if (recursive) {
-					# self$ontology_source_references <- purrr::map(
-					# 	lst[["ontologySourceReferences"]], ~{
-					# 	os <- OntologySource$new()
-					# 	os$from_list(.x, json = TRUE)
-					# 	os
-					# })
-					super$from_list(
-						lst[["ontologySourceReferences"]],
-						explicitly_provided = TRUE
-					)
-					self$publications <- purrr::map(lst[["publications"]], ~{
-						p <- Publication$new()
-						p$from_list(.x, recursive = TRUE, json = TRUE)
-						p
-					})
-					self$contacts <- purrr::map(lst[["people"]], ~{
-						p <- Person$new()
-						p$from_list(.x, json = TRUE)
-						p
-					})
-					self$studies <- purrr::map(lst[["studies"]], ~{
-						s <- Study$new()
-						#s$from_list(.x, recursive, json)
-						s$from_list(.x, TRUE, json = TRUE)
-						s
-					})
+				# self$ontology_source_references <- purrr::map(
+				# 	lst[["ontologySourceReferences"]], ~{
+				# 	os <- OntologySource$new()
+				# 	os$from_list(.x, json = TRUE)
+				# 	os
+				# })
+				super$from_list(
+					lst[["ontologySourceReferences"]],
+					explicitly_provided = TRUE
+				)
+				self$publications <- purrr::map(lst[["publications"]], ~{
+					p <- Publication$new()
+					p$from_list(.x, recursive = recursive, json = json)
+					p
+				})
+				self$contacts <- purrr::map(lst[["people"]], ~{
+					p <- Person$new()
+					p$from_list(.x, json = json)
+					p
+				})
+				self$studies <- purrr::map(lst[["studies"]], ~{
+					s <- Study$new()
+					#s$from_list(.x, recursive, json)
+					s$from_list(.x, recursive = recursive, json = json)
+					s
+				})
 				#}
 				self$comments <- lst[["comments"]]
 			} else {
