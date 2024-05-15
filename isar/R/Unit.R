@@ -46,7 +46,7 @@ Unit <- R6::R6Class(
 		#' @details
 		#' Make \code{[Unit]} object from list
 		#' @param lst an Unit object serialized to a list
-		from_list = function(lst) {
+		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			self$`@id` <- lst[["@id"]]
 			self$unit <- OntologyAnnotation$new()
 			self$unit <- self$unit$from_list(lst)
