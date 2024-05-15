@@ -17,26 +17,31 @@
 StudyFactor <- R6::R6Class(
 	"StudyFactor",
 	public = list(
-		name = character(),
+		factor_name = character(),
 		factor_type = NULL,
 		comments = NULL,
 		`@id` = character(),
+		explicitly_provided = logical(),
 		#' @details
 		#'
 		#' create a new study factor
 		#'
-		#' @param name The name of the factor
+		#' @param factor_name The name of the factor
 		#' @param factor_type An \code{[OntologyAnnotation]} reference of the study factor_type
 		#' @param comments Comments associated with instances of this class.
+		#' @param explicitly_provided Explicitly listed in the study as a factor (logical)
 		#'
 		initialize = function(
-			name = character(),
+		factor_name = character(),
 			factor_type = NULL,
 			comments = NULL,
-			`@id` = character()
+			`@id` = character(),
+			explicitly_provided = logical()
 		) {
-			if (checkmate::qtest(name, "S[0]")) { self$name <- name } else {
-				self$set_name(name)
+			if (checkmate::qtest(factor_name, "S[0]")) {
+				self$factor_name <- factor_name
+			} else {
+				self$set_name(factor_name)
 			}
 			if (is.null(factor_type)) {
 				self$factor_type <- factor_type
@@ -48,21 +53,22 @@ StudyFactor <- R6::R6Class(
 			self$comments <- comments
 			# id format checking?
 			self$`@id` <- paste0(
-				"#factor/", sub("[^A-Za-z0-9]+", "_", self$name)
+				"#factor/", sub("[^A-Za-z0-9]+", "_", self$factor_name)
 			)
+			self$explicitly_provided <- explicitly_provided
 		},
 		#' @details
 		#' Check if the name of the material is a string
-		#' @param name The name of the material
-		check_name = function(name) {
-			check <- checkmate::check_string(name, min.chars = 1L)
+		#' @param factor_name The name of the material
+		check_name = function(factor_name) {
+			check <- checkmate::check_string(factor_name, min.chars = 1L)
 			error_with_check_message_on_failure(check)
 		},
 		#' @details
 		#' set the name of the material if valid
-		#' @param name The name of the material
-		set_name = function(name) {
-			if (self$check_name(name)) { self$name <- name }
+		#' @param factor_name The name of the material
+		set_name = function(factor_name) {
+			if (self$check_name(factor_name)) { self$factor_name <- factor_name }
 		},
 		#' @details
 		#' checks if comments are a named list of character vectors
@@ -89,7 +95,7 @@ StudyFactor <- R6::R6Class(
 		#' StudyFactor$new()
 		to_list = function(ld = FALSE) {
 			study_factor = list(
-				"name" = self$name,
+				"factor_name" = self$factor_name,
 				"factor_type" = self$factor_type$to_list(),
 				"id" = private$id#,
 				#"comments" = self$comments
@@ -102,15 +108,15 @@ StudyFactor <- R6::R6Class(
 		#' Make \code{[OntologyAnnotation]} from list
 		#'
 		#' @param lst a list serialization of a study factor object
-		from_list = function(lst, recursive = TRUE, json = FALSE) {
+		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			if(json) {
-				self$name = lst[["factorName"]]
+				self$factor_name = lst[["factorName"]]
 				self$`@id` <- lst[["@id"]]
 				self$factor_type <- OntologyAnnotation$new()
 				self$factor_type$from_list(lst[["factorType"]])
 				# self$comments = lst[["comments"]]
 			} else {
-				self$name = lst[["name"]]
+				self$factor_name = lst[["name"]]
 				private$id <- lst[["id"]]
 				self$factor_type <- OntologyAnnotation$new()
 				self$factor_type$from_list(lst[["factor_type"]])
@@ -136,8 +142,8 @@ StudyFactor <- R6::R6Class(
 			cli::cli_h1(cli::col_blue("Study Factor"))
 			green_bold_name_plain_content("@id", self$`@id`)
 			green_bold_name_plain_content("ID", private$id)
-			green_bold_name_plain_content("name", self$name)
-			green_bold_name_plain_content("factor_type", self$factor_type$term)
+			green_bold_name_plain_content("factor name", self$factor_name)
+			green_bold_name_plain_content("factor type", self$factor_type$term)
 			#pretty_print_comments(self$comments)
 		}
 	),
@@ -147,15 +153,3 @@ StudyFactor <- R6::R6Class(
 		id = generate_id()
 	)
 )
-#' identical.StudyFactor
-#'
-#' Allows checking for the identity of \code{[StudyFactor]} objects
-#'
-#' @param x a \code{[StudyFactor]} object
-#' @param y a \code{[StudyFactor]} object
-#' @export
-identical.StudyFactor <- s3_identical_maker(c(
-	"name",
-	"factor_type",
-	"comments"
-))
