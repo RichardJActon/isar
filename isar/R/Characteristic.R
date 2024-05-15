@@ -144,41 +144,42 @@ Characteristic <- R6::R6Class(
 					self$value <- lst[["value"]]
 				}
 				self$set_comments(lst[["comments"]])
-			} else {
-				private$id <- lst[["id"]]
-				if(recursive) {
-					self$category <- OntologyAnnotation$new()
-					self$category$from_list(lst[["category"]])
-				} else {
-					if(checkmate::test_r6(
-						lst[["category"]], "OntologyAnnotation"
-					)) {
-						stop(
-							"not a list contains raw OntologyAnnotation object"
-						)
-					} else if(is.null(lst[["category"]])) {
-						self$category <- NULL
-					} else {
-						self$category$term <- lst[["category"]]
-					}
-				}
-				self$value <- lst[["value"]]
-				if(recursive) {
-					self$unit <- Unit$new()
-					self$unit$from_list(lst[["unit"]])
-				} else {
-					if(checkmate::test_r6(
-						lst[["unit"]], "Unit"
-					)) {
-						stop("not a list contains raw Unit object")
-					} else if(is.null(lst[["unit"]])) {
-						self$unit <- NULL
-					} else {
-						self$unit$unit$term <- lst[["unit"]]
-					}
-				}
-				self$comments <- lst[["comments"]]
 			}
+			# else {
+			# 	private$id <- lst[["id"]]
+			# 	if(recursive) {
+			# 		self$category <- OntologyAnnotation$new()
+			# 		self$category$from_list(lst[["category"]])
+			# 	} else {
+			# 		if(checkmate::test_r6(
+			# 			lst[["category"]], "OntologyAnnotation"
+			# 		)) {
+			# 			stop(
+			# 				"not a list contains raw OntologyAnnotation object"
+			# 			)
+			# 		} else if(is.null(lst[["category"]])) {
+			# 			self$category <- NULL
+			# 		} else {
+			# 			self$category$term <- lst[["category"]]
+			# 		}
+			# 	}
+			# 	self$value <- lst[["value"]]
+			# 	if(recursive) {
+			# 		self$unit <- Unit$new()
+			# 		self$unit$from_list(lst[["unit"]])
+			# 	} else {
+			# 		if(checkmate::test_r6(
+			# 			lst[["unit"]], "Unit"
+			# 		)) {
+			# 			stop("not a list contains raw Unit object")
+			# 		} else if(is.null(lst[["unit"]])) {
+			# 			self$unit <- NULL
+			# 		} else {
+			# 			self$unit$unit$term <- lst[["unit"]]
+			# 		}
+			# 	}
+			# 	self$comments <- lst[["comments"]]
+			# }
 		},
 
 		#' @details
@@ -208,17 +209,3 @@ Characteristic <- R6::R6Class(
 	)
 )
 
-
-#' identical.Characteristic
-#'
-#' Allows checking for the identity of \code{[Characteristic]} objects
-#'
-#' @param x a \code{[Characteristic]} object
-#' @param y a \code{[Characteristic]} object
-#' @export
-identical.Characteristic <- s3_identical_maker(c(
-	"category",
-	"value",
-	"unit",
-	"comments"
-))
