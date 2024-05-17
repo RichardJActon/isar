@@ -5,7 +5,196 @@
 # each source should be listed in the ontology source references on the investigation
 #
 
-# example of an object which will house the reference list
+ex_lst <- list(
+	study = list(
+		cats_used = list(
+			list(
+				`@id` = "#cat/ingredients",
+				type = "ingredients"#,
+				# type = list(
+				# 	termid = "1",
+				# 	source = "recipies",
+				# 	anno = "ingredients"
+				# )
+			),
+			list(
+				`@id` = "#cat/instructions",
+				type = "instructions"#,
+			)
+		),
+		samples = list(
+			list(characteristics = list(
+				list(
+					cat = list(`@id` = "#cat/ingredients"),
+					value = c("1" = "spice")
+					#list(termid="1",source="ingredients",anno="spice")
+				),
+				name = "sample1 example 1"
+			)),
+			list(characteristics = list(
+				list(
+					cat = list(`@id` = "#cat/ingredients"),
+					value = c("1" = "spice")
+						#list(termid="1",source="ingredients",anno="spice")
+				),
+				name = "sample1 example 2"
+			))
+		)
+	)
+)
+
+# instance ----
+Char <- R6Class("Char", public = list(
+	cat = NULL,
+	value = NULL,
+	Charcatlst = NULL,
+	initialize = function(cat = NULL, value = NULL, Charcatlst = NULL){
+		self$value <- value
+		if (is.null(Charcatlst)) {
+			self$Charcatlst <- CharCatLst$new()
+		} else {
+			self$Charcatlst <- Charcatlst
+		}
+
+		if(is.null(cat) || is.null(value)) {
+			# does not handle all cases optimally
+			self$cat <- cat
+			self$value <- value
+		} else {
+			self$set_valid_cat_and_value(cat, value)
+		}
+
+	},
+	check_cat = function(cat){
+		check <- checkmate::check_r6(cat, "CharCat")
+		error_with_check_message_on_failure(check)
+	},
+	set_cat = function(cat) {
+		if(self$check_cat(cat)){
+			self$cat <- cat
+		}
+	},
+	set_valid_cat_and_value = function(cat, value) {
+		if(self$check_cat(cat)) {
+			if(cat$name %in% names(self$Charcatlst$CharCats)) {
+				self$cat <- self$Charcatlst$CharCats[[cat$name]]
+				# value present check - add value if missing?
+				if(value %in% names(self$cat$values)) {
+					self$value <- value
+				} else {
+					warning("Value not listed for category trying to add...")
+					self$cat$add_values(purrr::set_names(value, value)) # use name if set?
+					self$value <- value
+				}
+			} else {
+				self$Charcatlst$CharCats[["UnknownCat"]] <- CharCat$new(
+					name = "UnknownChar"
+				)
+				self$cat <- self$Charcatlst$CharCats[["UnknownCat"]]
+				self$cat$add_values(purrr::set_names(value, value))  # use name if set?
+				self$value <- value
+			}
+		}
+	},
+	from_list = function(lst) {
+		self$set_valid_cat_and_value(
+			CharCat$new(name = lst[["cat"]][["@id"]]), # throw away object? # use name - rework validation?
+			lst[["value"]]
+			#cat, value
+		)
+		#self$value <- lst[["value"]] # ont anno handle seperately
+		#self$cat <- lst[["category"]][["@id"]]
+	}
+))
+
+ch <- Char$new()
+ch$cat
+ch$Charcatlst$CharCats
+ch$name
+
+ex_lst$study$samples[[1]]$characteristics[[1]] %>% ch$from_list()
+
+ch
+
+# reference ----
+CharCat <- R6Class("CharCat", public = list(
+	name = character(),
+	type = NULL,
+	values = character(),
+	initialize = function(name = character(), values = character()){
+		self$name <- name
+		#self$values <- values
+		self$add_values(values)
+	},
+	check_values = function(values) { # s
+		check <- checkmate::check_character(
+			c(self$values, values), names = "unique"
+		)
+		error_with_check_message_on_failure(check)
+	},
+	set_values = function(values) { # s
+		if(self$check_values(values)) {
+			self$values <- values
+		}
+	},
+	add_values = function(values) { # s
+		if(self$check_values(values)) {
+			self$values <- c(self$values, values)
+		}
+	},
+	from_list = function(lst) {
+		self$name <- lst$`@id` # check valid ontology
+		self$type <- lst$type
+	}
+))
+
+cc <- CharCat$new()
+cc$name
+cc$values
+# named vector of possible values for Char value
+# value id, name value
+cc$values <- c(a="a",b="b")
+cc$add_values(c(x="x",y="x"))
+cc$values
+
+# reference list ----
+CharCatLst <- R6Class("CharCatLst", public = list(
+	CharCats = list(),
+	initialize = function(CharCats = list()){
+		self$CharCats <- CharCats
+	},
+	#check_cat = function()
+	#check_cats = function()
+	add_cats = function(Cats) {
+		self$CharCats <- c(self$CharCats, Cats)
+	},
+	from_list = function(lst) {
+		self$CharCats <- lst %>% # assign overwrite
+			purrr::map(~{
+				cc <- CharCat$new()
+				cc$from_list(.x)
+				cc
+			}) %>%
+			purrr::set_names(purrr::map_chr(., ~.x$name))
+			#self$add_cats() # add append?
+	}
+))
+
+ccl <- CharCatLst$new()
+# named list of char cat objects
+ccl$CharCats <- list(
+	x=CharCat$new(name = "x"),y=CharCat$new(name = "y")
+)
+
+ccl$from_list(ex_lst$study$cats_used)
+
+s$Charcatlst$add_cats(ccl$CharCats)
+# s$Charcatlst <- ccl #!!! need to use a set method update or breaks reference
+# make private?
+s$Charcatlst$CharCats
+s$char1$Charcatlst$CharCats
+
+# example of an object which will house the reference list ----
 Stdy <- R6Class("Stdy", public = list(
 	name = character(),
 	Charcatlst = NULL,
@@ -46,11 +235,22 @@ Stdy <- R6Class("Stdy", public = list(
 		}
 	},
 	from_list = function(lst) {
-
+		self$set_Charcatlst({
+			ccl <- CharCatLst$new()
+			ccl$from_list(lst[["cats_used"]])
+			ccl
+		})
+		self$set_char1({
+			ch <- Char$new(Charcatlst = self$Charcatlst)
+			ch$from_list(lst[["samples"]][[1]][["characteristics"]][[1]])
+			ch
+		})
 	}
 ))
 
 s <- Stdy$new()
+s$from_list(ex_lst$study)
+
 s$name
 s$Charcatlst
 s$char1
@@ -62,93 +262,11 @@ s$Charcatlst$CharCats <- list(
 s$Charcatlst$CharCats
 s$char1$Charcatlst$CharCats
 
-# reference list
-CharCatLst <- R6Class("CharCatLst", public = list(
-	CharCats = list(),
-	initialize = function(CharCats = list()){
-		self$CharCats <- CharCats
-	},
-	add_cats = function(Cats) {
-		self$CharCats <- c(self$CharCats, Cats)
-	},
-	from_list = function(lst) {
 
-	}
-))
-
-ccl <- CharCatLst$new()
-# named list of char cat objects
-ccl$CharCats <- list(
-	x=CharCat$new(name = "x"),y=CharCat$new(name = "y")
-)
-
-s$Charcatlst$add_cats(ccl$CharCats)
-# s$Charcatlst <- ccl #!!! need to use a set method update or breaks reference
-# make private?
-s$Charcatlst$CharCats
-s$char1$Charcatlst$CharCats
-
-# reference
-CharCat <- R6Class("CharCat", public = list(
-	name = character(),
-	values = character(),
-	initialize = function(name = character(), values = character()){
-		self$name <- name
-		self$values <- values
-	},
-	from_list = function(lst) {
-
-	}
-))
-
-cc <- CharCat$new()
-cc$name
-cc$values
-# named vector of possible values for Char value
-# value id, name value
-cc$values <- c(a="a",b="b")
-
-
-
-# instance
-Char <- R6Class("Char", public = list(
-	cat = NULL,
-	name = character(),
-	Charcatlst = NULL,
-	initialize = function(cat = NULL, name = character(), Charcatlst = NULL){
-		self$cat <- cat
-		self$name <- name
-		if (is.null(Charcatlst)) {
-			self$Charcatlst <- CharCatLst$new()
-		} else {
-			self$Charcatlst <- Charcatlst
-		}
-		if(is.null(cat)) { self$cat <- NULL } else {
-			if(self$cat %in% names(Charcatlst$CharCats)) {
-				self$cat <- Charcatlst$CharCats[[self$cat]]
-				# value present check - add value if missing?
-			} else {
-				Charcatlst$CharCats[["UnknownCat"]] <- CharCat$new(
-					name = "UnknownChar",
-					values = list(self$name)
-				)
-				self$cat <- Charcatlst$CharCats[["UnknownCat"]]
-			}
-		}
-
-	},
-	from_list = function(lst) {
-
-	}
-))
-
-ch <- Char$new()
-ch$cat
-ch$Charcatlst$CharCats
-ch$name
-
-ch$
 ###
+
+
+
 ccl_ex <- CharCatLst$new(CharCats = list(ingredient = "ingredient"))
 
 s_ex_noCharCats <- Stdy$new(name = "s_ex_noCharCats")
