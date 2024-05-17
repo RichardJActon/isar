@@ -163,19 +163,33 @@ CharCatLst <- R6Class("CharCatLst", public = list(
 	initialize = function(CharCats = list()){
 		self$CharCats <- CharCats
 	},
-	#check_cat = function()
-	#check_cats = function()
-	add_cats = function(Cats) {
-		self$CharCats <- c(self$CharCats, Cats)
+	check_cat = function(cat){
+		check <- checkmate::check_r6(cat, "CharCat")
+		error_with_check_message_on_failure(check)
+	},
+	check_cats = function(cats) {
+		all(purrr::map_lgl(cats, ~self$check_cat(.x)))
+	},
+	add_cats = function(cats) {
+		if(self$check_cats(cats)) {
+			self$CharCats <- c(self$CharCats, cats)
+		}
+	},
+	set_cats = function(cats) {
+		if(self$check_cats(cats)) {
+			self$CharCats <- cats
+		}
 	},
 	from_list = function(lst) {
-		self$CharCats <- lst %>% # assign overwrite
+		#self$CharCats <-
+		lst %>% # assign overwrite
 			purrr::map(~{
 				cc <- CharCat$new()
 				cc$from_list(.x)
 				cc
 			}) %>%
-			purrr::set_names(purrr::map_chr(., ~.x$name))
+			purrr::set_names(purrr::map_chr(., ~.x$name)) %>%
+			self$set_cats()
 			#self$add_cats() # add append?
 	}
 ))
