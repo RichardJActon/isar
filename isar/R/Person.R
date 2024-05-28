@@ -27,7 +27,6 @@
 #' @export
 Person <- R6::R6Class(
 	"Person",
-	inherit = OntologySourceReferences,
 	public = list(
 		last_name = character(),
 		first_name = character(),

@@ -1,3 +1,7 @@
+
+# genericize material references for unit categories, and factors?
+# also characteristic categories?
+
 #' R6 class for MaterialReferences
 #'
 #' @details

@@ -9,11 +9,13 @@
 #' @export
 Source <- R6::R6Class(
 	"Source",
-	inherit = Material,
+	# inherit = Material,
+	# inherit = ReferencesInCommon,
 	public = list(
 		name = character(),
 		characteristics = NULL,
 		comments = NULL,
+		characteristic_category_references = NULL,
 		`@id` =  character(),
 
 		#' @param name A name/reference for the source material.
@@ -23,6 +25,7 @@ Source <- R6::R6Class(
 			name = character(),
 			characteristics = NULL,
 			comments = NULL,
+			characteristic_category_references = NULL,
 			`@id` = character()
 		) {
 			self$name <- name
@@ -33,6 +36,8 @@ Source <- R6::R6Class(
 			}
 			self$comments <- comments
 			self$`@id` <- `@id`
+			self$characteristic_category_references <-
+				characteristic_category_references
 		},
 
 		#' @details
@@ -62,7 +67,10 @@ Source <- R6::R6Class(
 			self$`@id` <- lst[["@id"]]
 			self$name <- lst[["name"]]
 			self$characteristics <- purrr::map(lst[["characteristics"]], ~{
-				ch <- Characteristic$new()
+				ch <- Characteristic$new(
+					category_references =
+						self$characteristic_category_references
+				)
 				ch$from_list(.x, recursive = recursive, json = json)
 				ch
 			})
@@ -75,7 +83,9 @@ Source <- R6::R6Class(
 			green_bold_name_plain_content("@id", self$`@id`)
 			green_bold_name_plain_content("ID", private$id)
 			cli::cli_h1(cli::col_green("Characteristics"))
-			cli::cli_ul(purrr::map_chr(self$characteristics, ~.x$category))
+			cli::cli_ul(purrr::map_chr(
+				self$characteristics, ~.x$category[["@id"]]
+			))
 			pretty_print_comments(self$comments)
 		}
 	),
@@ -83,15 +93,3 @@ Source <- R6::R6Class(
 		id = generate_id()
 	)
 )
-#' identical.Source
-#'
-#' Allows checking for the identity of \code{[Source]} objects
-#'
-#' @param x a \code{[Source]} object
-#' @param y a \code{[Source]} object
-#' @export
-identical.Source <- s3_identical_maker(c(
-	"name",
-	"characteristics",
-	"comments"
-))

@@ -17,7 +17,8 @@
 #' @export
 Sample <- R6::R6Class(
 	"Sample",
-	inherit = Material,
+	# inherit = Material,
+	inherit = ReferencesInCommon,
 	public = list(
 		name = character(),
 		factor_values = NULL,
@@ -143,8 +144,8 @@ Sample <- R6::R6Class(
 			})
 
 			self$derives_from <- purrr::map(lst[["derivesFrom"]], ~{
-				if(.x %in% super$get_material_reference_names()) {
-					super$material_references[[.x]]
+				if(.x %in% super$get_reference_names("Source")) {
+					super$references[["Source"]][[.x]]
 				} else {
 					warning("Unknown material!")
 					.x
@@ -159,8 +160,8 @@ Sample <- R6::R6Class(
 			cli::cli_h1(cli::col_blue("Sample"))
 			green_bold_name_plain_content("Name", self$name)
 			green_bold_name_plain_content("ID", private$id)
-			cli::cli_h1(cli::col_green("Factor Values"))
-			cli::cli_ul(purrr::map_chr(self$factor_values, ~.x$category))
+			cli::cli_h1(cli::col_green("Factor Categories"))
+			cli::cli_ul(purrr::map_chr(self$factor_values, ~.x$`@id`))
 
 			pretty_print_comments(self$comments)
 		}
@@ -169,17 +170,4 @@ Sample <- R6::R6Class(
 		id = generate_id()
 	)
 )
-#' identical.Sample
-#'
-#' Allows checking for the identity of \code{[Sample]} objects
-#'
-#' @param x a \code{[Sample]} object
-#' @param y a \code{[Sample]} object
-#' @export
-identical.Sample <- s3_identical_maker(c(
-	"name",
-	"factor_values",
-	"characteristics",
-	"derives_from",
-	"comments"
-))
+

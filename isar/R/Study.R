@@ -30,7 +30,7 @@
 #' @export
 Study <- R6::R6Class(
 	"Study",
-	inherit = MaterialReferences,
+	# inherit = ReferencesInCommon,
 	public = list(
 		filename = '',
 		# identifier = '',
@@ -51,6 +51,7 @@ Study <- R6::R6Class(
 		characteristic_categories = NULL,
 		comments = NULL,
 		units = NULL,
+		ontology_source_references = NULL,
 
 		#' @details
 		#'
@@ -93,7 +94,8 @@ Study <- R6::R6Class(
 			other_material = NULL,
 			characteristic_categories = NULL,
 			comments = NULL,
-			units = NULL
+			units = NULL,
+			ontology_source_references = NULL
 		) {
 			self$filename <- filename
 			if (checkmate::qtest(title, "S[0]")) {
@@ -135,6 +137,7 @@ Study <- R6::R6Class(
 			self$characteristic_categories <- characteristic_categories
 			self$comments <- comments
 			self$units <- units
+			self$ontology_source_references <- ontology_source_references
 		},
 		#' @details
 		#' Check if the title of the study is a string
@@ -308,7 +311,10 @@ Study <- R6::R6Class(
 				})
 				self$design_descriptors <- purrr::map(
 					lst[["studyDesignDescriptors"]], ~{
-						sdd <- OntologyAnnotation$new()
+						sdd <- OntologyAnnotation$new(
+							ontology_source_list =
+								self$ontology_source_references
+						)
 						sdd$from_list(.x, recursive = recursive, json = json)
 						sdd
 					}
@@ -319,13 +325,33 @@ Study <- R6::R6Class(
 					p
 				})
 
-				self$factors <- lst[["factors"]] %>%
-					purrr::set_names(purrr::map_chr(., ~.x$`@id`)) %>%
-					purrr::map(~{
-						sf <- StudyFactor$new()
-						sf$from_list(.x, recursive = recursive, json = json)
-						sf
-					})
+				# super$references_from_list(
+				# 	lst[["factors"]], "StudyFactor", explicitly_provided = TRUE
+				# )
+				#
+				# self$factors <- super$get_references(
+				# 	"StudyFactor"#, explicit_only = TRUE
+				# )
+
+				self$factors <- StudyFactorReferences$new()
+				self$factors$from_list(
+					lst[["factors"]], explicitly_provided = TRUE
+				)
+
+				# self$factors <- lst[["factors"]] %>%
+				# 	purrr::set_names(purrr::map_chr(., ~.x$`@id`)) %>%
+				# 	purrr::map(~{
+				# 		sf <- StudyFactor$new()
+				# 		sf$from_list(.x, recursive = recursive, json = json)
+				# 		sf
+				# 	})
+
+				self$characteristic_categories <-
+					CharacteristicCategoryReferences$new()
+				self$characteristic_categories$from_list(
+					lst[["characteristicCategories"]],
+					explicitly_provided = TRUE
+				)
 
 				self$protocols <- purrr::map(lst[["protocols"]], ~{
 					pc <- Protocol$new()
@@ -336,12 +362,15 @@ Study <- R6::R6Class(
 				self$sources <- lst[["materials"]][["sources"]] %>%
 					purrr::set_names(purrr::map_chr(., ~.x[["@id"]])) %>%
 					purrr::map(~{
-						src <- Source$new()
+						src <- Source$new(
+							characteristic_category_references =
+								self$characteristic_categories
+						)
 						src$from_list(.x, recursive = recursive, json = json)
 						src
 					})
 
-				super$add_materials(self$sources)
+				#super$add_materials(self$sources)
 
 				self$samples <- lst[["materials"]][["samples"]] %>%
 					purrr::set_names(purrr::map_chr(., ~.x[["@id"]])) %>%
@@ -363,11 +392,12 @@ Study <- R6::R6Class(
 					}
 				)#[order(process_sequence_order)]
 
-
 				# self$other_material <- lst[["otherMaterial"]]
 				# self$characteristic_categories <- lst[["characteristicCategories"]]
 				self$units <- purrr::map(lst[["unitCategories"]],~{
-					u <- OntologyAnnotation$new()
+					u <- OntologyAnnotation$new(
+						ontology_source_list = self$ontology_source_references
+					)
 					u$from_list(.x, recursive = recursive, json = json)
 					u
 				})
@@ -396,7 +426,9 @@ Study <- R6::R6Class(
 				self$samples <- lst[["samples"]]
 				self$process_sequence <- lst[["process_sequence"]]
 				self$other_material <- lst[["other_material"]]
+
 				self$characteristic_categories <- lst[["characteristic_categories"]]
+
 				self$comments <- lst[["comments"]]
 				self$units <- lst[["units"]]
 			}
@@ -431,7 +463,7 @@ Study <- R6::R6Class(
 			cli::cli_ul(purrr::map_chr(self$publications, ~.x$title))
 
 			cli::cli_h2(cli::col_green("Factors"))
-			cli::cli_ul(purrr::map_chr(self$factors, ~.x$name))
+			cli::cli_ul(self$factors$get_study_factor_names())
 
 			cli::cli_h2(cli::col_green("Design Descriptors"))
 			cli::cli_ul(purrr::map_chr(self$design_descriptors, ~.x$term))
@@ -489,30 +521,3 @@ Study <- R6::R6Class(
 	)
 )
 
-#' identical.Study
-#'
-#' Allows checking for the identity of \code{[Study]} objects
-#'
-#' @param x a \code{[Study]} object
-#' @param y a \code{[Study]} object
-#' @export
-identical.Study <- s3_identical_maker(c(
-	"filename",
-	"title",
-	"description",
-	"submission_date",
-	"public_release_date",
-	"contacts",
-	"design_descriptors",
-	"publications",
-	"factors",
-	"protocols",
-	"assays",
-	"sources",
-	"samples",
-	"process_sequence",
-	"other_material",
-	"characteristic_categories",
-	"comments",
-	"units"
-))

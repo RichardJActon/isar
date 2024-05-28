@@ -24,7 +24,7 @@
 #' @export
 Investigation <- R6::R6Class(
 	"Investigation",
-	inherit = OntologySourceReferences,
+	#inherit = OntologySourceReferences,
 	public = list(
 		filename = '',
 		# identifier = '',
@@ -215,6 +215,18 @@ Investigation <- R6::R6Class(
 			}
 		},
 
+		check_ontology_source_references = function(ontology_source_references) {
+			check <- checkmate::check_r6(
+				ontology_source_references, "OntologySourceReferences"
+			)
+			error_with_check_message_on_failure(check)
+		},
+
+		set_ontology_source_references = function(ontology_source_references) {
+			if(self$check_ontology_source_references(ontology_source_references))
+				self$ontology_source_references <- ontology_source_references
+		},
+
 		#' @details
 		#' Check submission_date is a Date object
 		#' @param submission_date a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd
@@ -254,6 +266,7 @@ Investigation <- R6::R6Class(
 				self$comments <- c(comments, comment)
 			}
 		},
+
 		#' @details
 		#' generate an R list representation translatable to JSON
 		#' @param ld logical json-ld
@@ -295,10 +308,16 @@ Investigation <- R6::R6Class(
 				# 	os$from_list(.x, json = TRUE)
 				# 	os
 				# })
-				super$from_list(
+				self$ontology_source_references <- OntologySourceReferences$new()
+				self$ontology_source_references$from_list(
 					lst[["ontologySourceReferences"]],
 					explicitly_provided = TRUE
 				)
+				# super$from_list(
+				# 	lst[["ontologySourceReferences"]],
+				# 	explicitly_provided = TRUE
+				# )
+
 				self$publications <- purrr::map(lst[["publications"]], ~{
 					p <- Publication$new()
 					p$from_list(.x, recursive = recursive, json = json)
@@ -310,7 +329,10 @@ Investigation <- R6::R6Class(
 					p
 				})
 				self$studies <- purrr::map(lst[["studies"]], ~{
-					s <- Study$new()
+					s <- Study$new(
+						ontology_source_references =
+							self$ontology_source_references
+					)
 					#s$from_list(.x, recursive, json)
 					s$from_list(.x, recursive = recursive, json = json)
 					s
