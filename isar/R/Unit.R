@@ -12,7 +12,7 @@
 #' @field unit a unit of measurement
 Unit <- R6::R6Class(
 	"Unit",
-	inherit = OntologySourceReferences,
+	# inherit = OntologySourceReferences,
 	# inherit = OntologyAnnotation, # ?
 	public = list(
 		unit = NULL,
@@ -54,17 +54,6 @@ Unit <- R6::R6Class(
 	)
 )
 
-#' identical.Unit
-#'
-#' Allows checking for the identity of \code{[Unit]} objects
-#'
-#' @param x a \code{[Unit]} object
-#' @param y a \code{[Unit]} object
-#' @export
-identical.Unit <- s3_identical_maker(c("unit"))
-
-
-#
 # UnitAnnotation <- R6::R6Class(
 # 	"UnitAnnotation",
 # 	public = list(
