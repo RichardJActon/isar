@@ -18,7 +18,6 @@
 #' @export
 OntologyAnnotation <- R6::R6Class(
 	"OntologyAnnotation",
-	#inherit = OntologySourceReferences,
 	public = list(
 		term = NULL, # str
 		term_source = NULL, # OntologySource

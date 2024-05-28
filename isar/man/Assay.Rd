@@ -353,7 +353,7 @@ make an R list convertible to json
 \if{latex}{\out{\hypertarget{method-Assay-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Assay$from_list(lst, recursive = TRUE, json = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Assay$from_list(lst, recursive = TRUE, json = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

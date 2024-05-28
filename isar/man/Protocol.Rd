@@ -472,7 +472,7 @@ An R list representation of a \code{[Process]} object
 \if{latex}{\out{\hypertarget{method-Protocol-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Protocol$from_list(lst, recursive = TRUE, json = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Protocol$from_list(lst, recursive = TRUE, json = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

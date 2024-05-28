@@ -27,6 +27,13 @@ StudyFactor$new()
 }
 \if{html}{\out{</div>}}
 }
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
+\describe{
+\item{\code{name}}{The name of the factor}
+}
+\if{html}{\out{</div>}}
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
@@ -50,21 +57,24 @@ StudyFactor$new()
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{StudyFactor$new(
-  name = character(),
+  factor_name = character(),
   factor_type = NULL,
   comments = NULL,
-  `@id` = character()
+  `@id` = character(),
+  explicitly_provided = logical()
 )}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{name}}{The name of the factor}
+\item{\code{factor_name}}{The name of the factor}
 
 \item{\code{factor_type}}{An \code{[OntologyAnnotation]} reference of the study factor_type}
 
 \item{\code{comments}}{Comments associated with instances of this class.}
+
+\item{\code{explicitly_provided}}{Explicitly listed in the study as a factor (logical)}
 }
 \if{html}{\out{</div>}}
 }
@@ -78,13 +88,13 @@ create a new study factor
 \if{latex}{\out{\hypertarget{method-StudyFactor-check_name}{}}}
 \subsection{Method \code{check_name()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{StudyFactor$check_name(name)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{StudyFactor$check_name(factor_name)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{name}}{The name of the material}
+\item{\code{factor_name}}{The name of the material}
 }
 \if{html}{\out{</div>}}
 }
@@ -98,13 +108,13 @@ Check if the name of the material is a string
 \if{latex}{\out{\hypertarget{method-StudyFactor-set_name}{}}}
 \subsection{Method \code{set_name()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{StudyFactor$set_name(name)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{StudyFactor$set_name(factor_name)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{name}}{The name of the material}
+\item{\code{factor_name}}{The name of the material}
 }
 \if{html}{\out{</div>}}
 }
@@ -206,7 +216,7 @@ generate an R list representation translatable to JSON
 \if{latex}{\out{\hypertarget{method-StudyFactor-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{StudyFactor$from_list(lst, recursive = TRUE, json = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{StudyFactor$from_list(lst, recursive = TRUE, json = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

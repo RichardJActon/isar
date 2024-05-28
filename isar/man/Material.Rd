@@ -8,6 +8,9 @@ R6 object to represent Materials
 
 R6 object to represent Materials
 }
+\section{Super class}{
+\code{\link[isar:MaterialReferences]{isar::MaterialReferences}} -> \code{Material}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -38,9 +41,19 @@ R6 object to represent Materials
 \item \href{#method-Material-from_list}{\code{Material$from_list()}}
 \item \href{#method-Material-get_id}{\code{Material$get_id()}}
 \item \href{#method-Material-set_id}{\code{Material$set_id()}}
+\item \href{#method-Material-print}{\code{Material$print()}}
 \item \href{#method-Material-clone}{\code{Material$clone()}}
 }
 }
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="isar" data-topic="MaterialReferences" data-id="add_materials"><a href='../../isar/html/MaterialReferences.html#method-MaterialReferences-add_materials'><code>isar::MaterialReferences$add_materials()</code></a></li>
+<li><span class="pkg-link" data-pkg="isar" data-topic="MaterialReferences" data-id="check_materials"><a href='../../isar/html/MaterialReferences.html#method-MaterialReferences-check_materials'><code>isar::MaterialReferences$check_materials()</code></a></li>
+<li><span class="pkg-link" data-pkg="isar" data-topic="MaterialReferences" data-id="get_material_reference_names"><a href='../../isar/html/MaterialReferences.html#method-MaterialReferences-get_material_reference_names'><code>isar::MaterialReferences$get_material_reference_names()</code></a></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Material-new"></a>}}
 \if{latex}{\out{\hypertarget{method-Material-new}{}}}
@@ -50,7 +63,8 @@ R6 object to represent Materials
   name = character(),
   type = character(),
   characteristics = NULL,
-  comments = NULL
+  comments = NULL,
+  `@id` = character()
 )}\if{html}{\out{</div>}}
 }
 
@@ -277,13 +291,17 @@ An R list representation of a \code{[Material]} object
 \if{latex}{\out{\hypertarget{method-Material-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Material$from_list(lst)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Material$from_list(lst, recursive = TRUE, json = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{lst}}{an Material object serialized to a list}
+
+\item{\code{recursive}}{call to_list methods of any objects within this object (default TRUE)}
+
+\item{\code{json}}{json  (default TRUE)}
 }
 \if{html}{\out{</div>}}
 }
@@ -327,6 +345,15 @@ a uuid
 }
 \subsection{Details}{
 set the uuid of this object
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Material-print"></a>}}
+\if{latex}{\out{\hypertarget{method-Material-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Material$print()}\if{html}{\out{</div>}}
 }
 
 }

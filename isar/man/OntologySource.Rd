@@ -48,6 +48,7 @@ An \link{OntologySource} describes the resource from which the value of an \link
 \item \href{#method-OntologySource-check_comments}{\code{OntologySource$check_comments()}}
 \item \href{#method-OntologySource-set_comments}{\code{OntologySource$set_comments()}}
 \item \href{#method-OntologySource-add_comment}{\code{OntologySource$add_comment()}}
+\item \href{#method-OntologySource-add_terms}{\code{OntologySource$add_terms()}}
 \item \href{#method-OntologySource-to_list}{\code{OntologySource$to_list()}}
 \item \href{#method-OntologySource-from_list}{\code{OntologySource$from_list()}}
 \item \href{#method-OntologySource-is_same_ontology_as}{\code{OntologySource$is_same_ontology_as()}}
@@ -403,6 +404,26 @@ Sets comments if they are in a valid format
 }
 \subsection{Details}{
 Add comment if it is in a valid format
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OntologySource-add_terms"></a>}}
+\if{latex}{\out{\hypertarget{method-OntologySource-add_terms}{}}}
+\subsection{Method \code{add_terms()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OntologySource$add_terms(terms_list)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{terms_list}}{a list of terms with terms accessions as values}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Add terms to the \link{OntologySource}
 }
 
 }

@@ -19,11 +19,12 @@ R6 class for OntologySourceReferences
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-OntologySourceReferences-new}{\code{OntologySourceReferences$new()}}
-\item \href{#method-OntologySourceReferences-from_list}{\code{OntologySourceReferences$from_list()}}
 \item \href{#method-OntologySourceReferences-check_ontology_sources}{\code{OntologySourceReferences$check_ontology_sources()}}
 \item \href{#method-OntologySourceReferences-add_ontology_sources}{\code{OntologySourceReferences$add_ontology_sources()}}
 \item \href{#method-OntologySourceReferences-get_ontology_source_names}{\code{OntologySourceReferences$get_ontology_source_names()}}
 \item \href{#method-OntologySourceReferences-get_ontology_source_provision}{\code{OntologySourceReferences$get_ontology_source_provision()}}
+\item \href{#method-OntologySourceReferences-from_list}{\code{OntologySourceReferences$from_list()}}
+\item \href{#method-OntologySourceReferences-print}{\code{OntologySourceReferences$print()}}
 \item \href{#method-OntologySourceReferences-clone}{\code{OntologySourceReferences$clone()}}
 }
 }
@@ -33,26 +34,6 @@ R6 class for OntologySourceReferences
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{OntologySourceReferences$new(ontology_source_references = NULL)}\if{html}{\out{</div>}}
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-OntologySourceReferences-from_list"></a>}}
-\if{latex}{\out{\hypertarget{method-OntologySourceReferences-from_list}{}}}
-\subsection{Method \code{from_list()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OntologySourceReferences$from_list(lst, explicitly_provided = logical())}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{lst}}{an ontology source object serialized to a list}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-Make \link{OntologySourceReferences} from list
 }
 
 }
@@ -124,6 +105,35 @@ listed in the Investigation or not?
 \subsection{Returns}{
 a vector of ontology source names
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OntologySourceReferences-from_list"></a>}}
+\if{latex}{\out{\hypertarget{method-OntologySourceReferences-from_list}{}}}
+\subsection{Method \code{from_list()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OntologySourceReferences$from_list(lst, explicitly_provided = logical())}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{lst}}{an ontology source object serialized to a list}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Make \link{OntologySourceReferences} from list
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OntologySourceReferences-print"></a>}}
+\if{latex}{\out{\hypertarget{method-OntologySourceReferences-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OntologySourceReferences$print()}\if{html}{\out{</div>}}
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OntologySourceReferences-clone"></a>}}

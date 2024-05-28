@@ -18,7 +18,6 @@
 Sample <- R6::R6Class(
 	"Sample",
 	# inherit = Material,
-	inherit = ReferencesInCommon,
 	public = list(
 		name = character(),
 		factor_values = NULL,

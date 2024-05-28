@@ -33,19 +33,10 @@ Sample$new()
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Sample-new}{\code{Sample$new()}}
-\item \href{#method-Sample-check_name}{\code{Sample$check_name()}}
-\item \href{#method-Sample-set_name}{\code{Sample$set_name()}}
 \item \href{#method-Sample-check_factor_values}{\code{Sample$check_factor_values()}}
 \item \href{#method-Sample-set_factor_values}{\code{Sample$set_factor_values()}}
-\item \href{#method-Sample-check_characteristics}{\code{Sample$check_characteristics()}}
-\item \href{#method-Sample-set_characteristics}{\code{Sample$set_characteristics()}}
-\item \href{#method-Sample-check_comments}{\code{Sample$check_comments()}}
-\item \href{#method-Sample-set_comments}{\code{Sample$set_comments()}}
-\item \href{#method-Sample-add_comment}{\code{Sample$add_comment()}}
 \item \href{#method-Sample-to_list}{\code{Sample$to_list()}}
 \item \href{#method-Sample-from_list}{\code{Sample$from_list()}}
-\item \href{#method-Sample-get_id}{\code{Sample$get_id()}}
-\item \href{#method-Sample-set_id}{\code{Sample$set_id()}}
 \item \href{#method-Sample-print}{\code{Sample$print()}}
 \item \href{#method-Sample-clone}{\code{Sample$clone()}}
 }
@@ -81,46 +72,6 @@ Sample$new()
 }
 \subsection{Details}{
 Create a new instance of sample
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Sample-check_name"></a>}}
-\if{latex}{\out{\hypertarget{method-Sample-check_name}{}}}
-\subsection{Method \code{check_name()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Sample$check_name(name)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{sample name to validate}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-validates the name field is a string
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Sample-set_name"></a>}}
-\if{latex}{\out{\hypertarget{method-Sample-set_name}{}}}
-\subsection{Method \code{set_name()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Sample$set_name(name)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{the name of the sample}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-Sets the name
 }
 
 }
@@ -167,106 +118,6 @@ Sets the factor values used in the sample
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Sample-check_characteristics"></a>}}
-\if{latex}{\out{\hypertarget{method-Sample-check_characteristics}{}}}
-\subsection{Method \code{check_characteristics()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Sample$check_characteristics(characteristics)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{characteristics}}{a list of \code{[Characteristic]} objects}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-check characteristics is a list of \code{[Characteristic]} objects
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Sample-set_characteristics"></a>}}
-\if{latex}{\out{\hypertarget{method-Sample-set_characteristics}{}}}
-\subsection{Method \code{set_characteristics()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Sample$set_characteristics(characteristics)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{characteristics}}{a list of \code{[Characteristic]} objects}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-set characteristics if characteristics is a list of \code{[Characteristic]} objects
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Sample-check_comments"></a>}}
-\if{latex}{\out{\hypertarget{method-Sample-check_comments}{}}}
-\subsection{Method \code{check_comments()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Sample$check_comments(comments)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{comments}}{comments}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-checks if comments are a named list of character vectors
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Sample-set_comments"></a>}}
-\if{latex}{\out{\hypertarget{method-Sample-set_comments}{}}}
-\subsection{Method \code{set_comments()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Sample$set_comments(comments)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{comments}}{a list of comments}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-Sets comments if they are in a valid format
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Sample-add_comment"></a>}}
-\if{latex}{\out{\hypertarget{method-Sample-add_comment}{}}}
-\subsection{Method \code{add_comment()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Sample$add_comment(comment)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{comment}}{a list of comments}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-Add comment if it is in a valid format
-}
-
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Sample-to_list"></a>}}
 \if{latex}{\out{\hypertarget{method-Sample-to_list}{}}}
 \subsection{Method \code{to_list()}}{
@@ -299,7 +150,7 @@ generate an R list representation translatable to JSON
 \if{latex}{\out{\hypertarget{method-Sample-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Sample$from_list(lst, recursive = FALSE, json = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Sample$from_list(lst, recursive = TRUE, json = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -311,44 +162,6 @@ generate an R list representation translatable to JSON
 }
 \subsection{Details}{
 Make \code{[sample]} from list
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Sample-get_id"></a>}}
-\if{latex}{\out{\hypertarget{method-Sample-get_id}{}}}
-\subsection{Method \code{get_id()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Sample$get_id()}\if{html}{\out{</div>}}
-}
-
-\subsection{Details}{
-Get the uuid of this object
-}
-
-\subsection{Returns}{
-a uuid
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Sample-set_id"></a>}}
-\if{latex}{\out{\hypertarget{method-Sample-set_id}{}}}
-\subsection{Method \code{set_id()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Sample$set_id(id = uuid::UUIDgenerate(), suffix = character())}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{id}}{a uuid}
-
-\item{\code{suffix}}{a human readable suffix}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-set the uuid of this object
 }
 
 }

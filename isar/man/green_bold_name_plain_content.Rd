@@ -7,7 +7,9 @@
 green_bold_name_plain_content(label, content)
 }
 \arguments{
-\item{content}{}
+\item{label}{key}
+
+\item{content}{value}
 }
 \description{
 make text green and bold with crayon

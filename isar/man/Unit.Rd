@@ -29,7 +29,7 @@ R6 object for specifying a unit of measurement
 \if{latex}{\out{\hypertarget{method-Unit-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Unit$new(unit = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Unit$new(unit = NULL, `@id` = character())}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -69,7 +69,7 @@ An R list representation of a \code{[Unit]} object
 \if{latex}{\out{\hypertarget{method-Unit-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Unit$from_list(lst)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Unit$from_list(lst, recursive = TRUE, json = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

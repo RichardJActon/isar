@@ -14,7 +14,7 @@ a list of tibbles
 }
 \description{
 Objects in Study and Assay tables are 'generally'* defined by a
-leading column of the form: '<Entity> Name'
+leading column of the form: "Entity Name"
 }
 \details{
 !! problem for reliablly identifying object boundaries in these tables

@@ -38,6 +38,13 @@ FactorValue$new(
 }
 \if{html}{\out{</div>}}
 }
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
+\describe{
+\item{\code{factor_name}}{name of a quantity}
+}
+\if{html}{\out{</div>}}
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
@@ -47,6 +54,7 @@ FactorValue$new(
 \item \href{#method-FactorValue-check_comments}{\code{FactorValue$check_comments()}}
 \item \href{#method-FactorValue-set_comments}{\code{FactorValue$set_comments()}}
 \item \href{#method-FactorValue-add_comment}{\code{FactorValue$add_comment()}}
+\item \href{#method-FactorValue-set_valid_factor_category}{\code{FactorValue$set_valid_factor_category()}}
 \item \href{#method-FactorValue-to_list}{\code{FactorValue$to_list()}}
 \item \href{#method-FactorValue-from_list}{\code{FactorValue$from_list()}}
 \item \href{#method-FactorValue-print}{\code{FactorValue$print()}}
@@ -59,9 +67,10 @@ FactorValue$new(
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{FactorValue$new(
-  factor_name = NULL,
+  factor = NULL,
   value = NULL,
   unit = NULL,
+  study_factor_references = NULL,
   comments = NULL,
   `@id` = character()
 )}\if{html}{\out{</div>}}
@@ -70,8 +79,6 @@ FactorValue$new(
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{factor_name}}{the name of the experimental factor}
-
 \item{\code{value}}{the value of a quantity}
 
 \item{\code{unit}}{the unit of measurement}
@@ -200,6 +207,15 @@ Add comment if it is in a valid format
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-FactorValue-set_valid_factor_category"></a>}}
+\if{latex}{\out{\hypertarget{method-FactorValue-set_valid_factor_category}{}}}
+\subsection{Method \code{set_valid_factor_category()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{FactorValue$set_valid_factor_category(factor)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-FactorValue-to_list"></a>}}
 \if{latex}{\out{\hypertarget{method-FactorValue-to_list}{}}}
 \subsection{Method \code{to_list()}}{
@@ -224,7 +240,7 @@ generate an R list representation translatable to JSON
 \if{latex}{\out{\hypertarget{method-FactorValue-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{FactorValue$from_list(lst, recursive = FALSE, json = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{FactorValue$from_list(lst, recursive = TRUE, json = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

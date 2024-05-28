@@ -1,8 +1,5 @@
 #' R6 Class for StudyFactorReferences
 #'
-#' @details
-#'
-#'
 #'
 #' @field study_factor_references
 #'

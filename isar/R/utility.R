@@ -205,7 +205,7 @@ date_string_conversion <- function(date_string) {
 #'
 #' make text green and bold with crayon
 #'
-#' @param string
+#' @param string a string to make green and bold
 #'
 #' @export
 #'
@@ -218,8 +218,8 @@ green_bold <- function(string) {
 #'
 #' make text green and bold with crayon
 #'
-#' @param label
-#' @param content
+#' @param label key
+#' @param content value
 #'
 #' @export
 green_bold_name_plain_content <- function(label, content) {

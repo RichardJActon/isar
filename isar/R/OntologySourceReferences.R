@@ -1,7 +1,5 @@
 #' R6 class for OntologySourceReferences
 #'
-#' @details
-#'
 #' @field ontology_source_references ...
 #'
 #' @importFrom R6 R6Class

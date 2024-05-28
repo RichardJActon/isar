@@ -30,7 +30,6 @@
 #' @export
 Study <- R6::R6Class(
 	"Study",
-	# inherit = ReferencesInCommon,
 	public = list(
 		filename = '',
 		# identifier = '',

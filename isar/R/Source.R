@@ -10,7 +10,6 @@
 Source <- R6::R6Class(
 	"Source",
 	# inherit = Material,
-	# inherit = ReferencesInCommon,
 	public = list(
 		name = character(),
 		characteristics = NULL,

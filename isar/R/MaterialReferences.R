@@ -4,7 +4,6 @@
 
 #' R6 class for MaterialReferences
 #'
-#' @details
 #'
 #' @field ontology_source_references ...
 #'

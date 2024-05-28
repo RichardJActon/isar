@@ -32,6 +32,7 @@ A Characteristic acts as a qualifying property to a material object.
 \item \href{#method-Characteristic-check_comments}{\code{Characteristic$check_comments()}}
 \item \href{#method-Characteristic-set_comments}{\code{Characteristic$set_comments()}}
 \item \href{#method-Characteristic-add_comment}{\code{Characteristic$add_comment()}}
+\item \href{#method-Characteristic-set_valid_category}{\code{Characteristic$set_valid_category()}}
 \item \href{#method-Characteristic-to_list}{\code{Characteristic$to_list()}}
 \item \href{#method-Characteristic-from_list}{\code{Characteristic$from_list()}}
 \item \href{#method-Characteristic-get_id}{\code{Characteristic$get_id()}}
@@ -49,8 +50,10 @@ A Characteristic acts as a qualifying property to a material object.
   category = NULL,
   value = NULL,
   unit = NULL,
+  category_references = NULL,
   comments = NULL,
-  `@id` = character()
+  `@id` = character(),
+  ontology_source_references = NULL
 )}\if{html}{\out{</div>}}
 }
 
@@ -83,12 +86,12 @@ Create a new \code{[Characteristics]} object
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{category}}{an \code{[OntologyAnnotation]} object}
+\item{\code{category}}{an \code{[CharacteristicCategory]} object}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Check that category is an \code{[OntologyAnnotation]} object
+Check that category is an \code{[CharacteristicCategory]} object
 }
 
 }
@@ -103,7 +106,7 @@ Check that category is an \code{[OntologyAnnotation]} object
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{category}}{an \code{[OntologyAnnotation]} object}
+\item{\code{category}}{an \code{[CharacteristicCategory]} object}
 }
 \if{html}{\out{</div>}}
 }
@@ -253,6 +256,15 @@ Add comment if it is in a valid format
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Characteristic-set_valid_category"></a>}}
+\if{latex}{\out{\hypertarget{method-Characteristic-set_valid_category}{}}}
+\subsection{Method \code{set_valid_category()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$set_valid_category(category)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Characteristic-to_list"></a>}}
 \if{latex}{\out{\hypertarget{method-Characteristic-to_list}{}}}
 \subsection{Method \code{to_list()}}{
@@ -279,7 +291,7 @@ An R list representation of a \code{[Characteristic]} object
 \if{latex}{\out{\hypertarget{method-Characteristic-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Characteristic$from_list(lst, recursive = FALSE, json = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$from_list(lst, recursive = TRUE, json = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -287,7 +299,9 @@ An R list representation of a \code{[Characteristic]} object
 \describe{
 \item{\code{lst}}{an Characteristic object serialized to a list}
 
-\item{\code{recursive}}{call to_list methods of any objects within this object (default FALSE)}
+\item{\code{recursive}}{call to_list methods of any objects within this object (default TRUE)}
+
+\item{\code{json}}{json  (default TRUE)}
 }
 \if{html}{\out{</div>}}
 }

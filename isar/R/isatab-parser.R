@@ -566,7 +566,7 @@ parse_assay <- function(path) {
 #' split_study_or_assay_by_object
 #'
 #' Objects in Study and Assay tables are 'generally'* defined by a
-#' leading column of the form: '<Entity> Name'
+#' leading column of the form: "Entity Name"
 #'
 #' !! problem for reliablly identifying object boundaries in these tables
 #' !! is there a more systematic way which does not make the name assumption?
@@ -577,8 +577,6 @@ parse_assay <- function(path) {
 #'
 #' @return a list of tibbles
 #' @export
-#'
-#' @examples
 #'
 #'
 #' @importFrom dplyr `%>%` select all_of

@@ -19,9 +19,6 @@ R6 class for an experimental factor value
 
 OA <- OntologyAnnotation$new()
 }
-\section{Super class}{
-\code{\link[isar:OntologySourceReferences]{isar::OntologySourceReferences}} -> \code{OntologyAnnotation}
-}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -45,6 +42,7 @@ OA <- OntologyAnnotation$new()
 \item \href{#method-OntologyAnnotation-set_term_source}{\code{OntologyAnnotation$set_term_source()}}
 \item \href{#method-OntologyAnnotation-set_term}{\code{OntologyAnnotation$set_term()}}
 \item \href{#method-OntologyAnnotation-set_term_accession}{\code{OntologyAnnotation$set_term_accession()}}
+\item \href{#method-OntologyAnnotation-set_valid_annotation}{\code{OntologyAnnotation$set_valid_annotation()}}
 \item \href{#method-OntologyAnnotation-check_comments}{\code{OntologyAnnotation$check_comments()}}
 \item \href{#method-OntologyAnnotation-set_comments}{\code{OntologyAnnotation$set_comments()}}
 \item \href{#method-OntologyAnnotation-add_comment}{\code{OntologyAnnotation$add_comment()}}
@@ -56,16 +54,6 @@ OA <- OntologyAnnotation$new()
 \item \href{#method-OntologyAnnotation-clone}{\code{OntologyAnnotation$clone()}}
 }
 }
-\if{html}{\out{
-<details open><summary>Inherited methods</summary>
-<ul>
-<li><span class="pkg-link" data-pkg="isar" data-topic="OntologySourceReferences" data-id="add_ontology_sources"><a href='../../isar/html/OntologySourceReferences.html#method-OntologySourceReferences-add_ontology_sources'><code>isar::OntologySourceReferences$add_ontology_sources()</code></a></li>
-<li><span class="pkg-link" data-pkg="isar" data-topic="OntologySourceReferences" data-id="check_ontology_sources"><a href='../../isar/html/OntologySourceReferences.html#method-OntologySourceReferences-check_ontology_sources'><code>isar::OntologySourceReferences$check_ontology_sources()</code></a></li>
-<li><span class="pkg-link" data-pkg="isar" data-topic="OntologySourceReferences" data-id="get_ontology_source_names"><a href='../../isar/html/OntologySourceReferences.html#method-OntologySourceReferences-get_ontology_source_names'><code>isar::OntologySourceReferences$get_ontology_source_names()</code></a></li>
-<li><span class="pkg-link" data-pkg="isar" data-topic="OntologySourceReferences" data-id="get_ontology_source_provision"><a href='../../isar/html/OntologySourceReferences.html#method-OntologySourceReferences-get_ontology_source_provision'><code>isar::OntologySourceReferences$get_ontology_source_provision()</code></a></li>
-</ul>
-</details>
-}}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OntologyAnnotation-new"></a>}}
 \if{latex}{\out{\hypertarget{method-OntologyAnnotation-new}{}}}
@@ -76,6 +64,7 @@ OA <- OntologyAnnotation$new()
   term_source = NULL,
   term_accession = character(),
   comments = NULL,
+  ontology_source_list = NULL,
   `@id` = character()
 )}\if{html}{\out{</div>}}
 }
@@ -229,6 +218,15 @@ Sets the term accession and the term corresponding to that accession if the acce
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OntologyAnnotation-set_valid_annotation"></a>}}
+\if{latex}{\out{\hypertarget{method-OntologyAnnotation-set_valid_annotation}{}}}
+\subsection{Method \code{set_valid_annotation()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OntologyAnnotation$set_valid_annotation(term, term_accession, term_source)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OntologyAnnotation-check_comments"></a>}}
 \if{latex}{\out{\hypertarget{method-OntologyAnnotation-check_comments}{}}}
 \subsection{Method \code{check_comments()}}{
@@ -315,7 +313,7 @@ generate an R list representation translatable to JSON
 \if{latex}{\out{\hypertarget{method-OntologyAnnotation-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OntologyAnnotation$from_list(lst, recursive = TRUE, json = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{OntologyAnnotation$from_list(lst, recursive = TRUE, json = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

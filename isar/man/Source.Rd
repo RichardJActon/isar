@@ -23,15 +23,8 @@ R6 class for a Source
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Source-new}{\code{Source$new()}}
-\item \href{#method-Source-check_characteristics}{\code{Source$check_characteristics()}}
-\item \href{#method-Source-set_characteristics}{\code{Source$set_characteristics()}}
-\item \href{#method-Source-check_comments}{\code{Source$check_comments()}}
-\item \href{#method-Source-set_comments}{\code{Source$set_comments()}}
-\item \href{#method-Source-add_comment}{\code{Source$add_comment()}}
 \item \href{#method-Source-to_list}{\code{Source$to_list()}}
 \item \href{#method-Source-from_list}{\code{Source$from_list()}}
-\item \href{#method-Source-get_id}{\code{Source$get_id()}}
-\item \href{#method-Source-set_id}{\code{Source$set_id()}}
 \item \href{#method-Source-print}{\code{Source$print()}}
 \item \href{#method-Source-clone}{\code{Source$clone()}}
 }
@@ -41,7 +34,13 @@ R6 class for a Source
 \if{latex}{\out{\hypertarget{method-Source-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Source$new(name = character(), characteristics = NULL, comments = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Source$new(
+  name = character(),
+  characteristics = NULL,
+  comments = NULL,
+  characteristic_category_references = NULL,
+  `@id` = character()
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -55,106 +54,6 @@ R6 class for a Source
 }
 \if{html}{\out{</div>}}
 }
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Source-check_characteristics"></a>}}
-\if{latex}{\out{\hypertarget{method-Source-check_characteristics}{}}}
-\subsection{Method \code{check_characteristics()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Source$check_characteristics(characteristics)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{characteristics}}{a list of \code{[Characteristic]} objects}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-check characteristics is a list of \code{[Characteristic]} objects
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Source-set_characteristics"></a>}}
-\if{latex}{\out{\hypertarget{method-Source-set_characteristics}{}}}
-\subsection{Method \code{set_characteristics()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Source$set_characteristics(characteristics)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{characteristics}}{a list of \code{[Characteristic]} objects}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-set characteristics if characteristics is a list of \code{[Characteristic]} objects
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Source-check_comments"></a>}}
-\if{latex}{\out{\hypertarget{method-Source-check_comments}{}}}
-\subsection{Method \code{check_comments()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Source$check_comments(comments)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{comments}}{comments}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-checks if comments are a named list of character vectors
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Source-set_comments"></a>}}
-\if{latex}{\out{\hypertarget{method-Source-set_comments}{}}}
-\subsection{Method \code{set_comments()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Source$set_comments(comments)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{comments}}{a list of comments}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-Sets comments if they are in a valid format
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Source-add_comment"></a>}}
-\if{latex}{\out{\hypertarget{method-Source-add_comment}{}}}
-\subsection{Method \code{add_comment()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Source$add_comment(comment)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{comment}}{a list of comments}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-Add comment if it is in a valid format
-}
-
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Source-to_list"></a>}}
@@ -184,7 +83,7 @@ make an R list convertible to json
 \if{latex}{\out{\hypertarget{method-Source-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Source$from_list(lst, recursive = FALSE, json = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Source$from_list(lst, recursive = TRUE, json = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -194,44 +93,6 @@ make an R list convertible to json
 }
 \if{html}{\out{</div>}}
 }
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Source-get_id"></a>}}
-\if{latex}{\out{\hypertarget{method-Source-get_id}{}}}
-\subsection{Method \code{get_id()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Source$get_id()}\if{html}{\out{</div>}}
-}
-
-\subsection{Details}{
-Get the uuid of this object
-}
-
-\subsection{Returns}{
-a uuid
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Source-set_id"></a>}}
-\if{latex}{\out{\hypertarget{method-Source-set_id}{}}}
-\subsection{Method \code{set_id()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Source$set_id(id = uuid::UUIDgenerate(), suffix = character())}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{id}}{a uuid}
-
-\item{\code{suffix}}{a human readable suffix}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-set the uuid of this object
-}
-
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Source-print"></a>}}

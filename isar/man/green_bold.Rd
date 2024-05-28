@@ -7,7 +7,7 @@
 green_bold(string)
 }
 \arguments{
-\item{string}{}
+\item{string}{a string to make green and bold}
 }
 \description{
 make text green and bold with crayon

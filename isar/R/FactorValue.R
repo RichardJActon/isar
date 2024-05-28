@@ -16,7 +16,6 @@
 FactorValue <- R6Class(
 	"FactorValue",
 	#inherit = StudyFactor,
-	#inherit = ReferencesInCommon,#
 	public = list(
 		factor = NULL,
 		value = NULL,

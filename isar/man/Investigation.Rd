@@ -20,9 +20,6 @@ Represents an investigation from the ISA model
 An investigation maintains metadata about the project context and links to one or more studies. There can only be 1 Investigation in an ISA descriptor.
 }
 \keyword{datasets}
-\section{Super class}{
-\code{\link[isar:OntologySourceReferences]{isar::OntologySourceReferences}} -> \code{Investigation}
-}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -64,6 +61,8 @@ An investigation maintains metadata about the project context and links to one o
 \item \href{#method-Investigation-set_publications}{\code{Investigation$set_publications()}}
 \item \href{#method-Investigation-check_public_release_date}{\code{Investigation$check_public_release_date()}}
 \item \href{#method-Investigation-set_public_release_date}{\code{Investigation$set_public_release_date()}}
+\item \href{#method-Investigation-check_ontology_source_references}{\code{Investigation$check_ontology_source_references()}}
+\item \href{#method-Investigation-set_ontology_source_references}{\code{Investigation$set_ontology_source_references()}}
 \item \href{#method-Investigation-check_submission_date}{\code{Investigation$check_submission_date()}}
 \item \href{#method-Investigation-set_submission_date}{\code{Investigation$set_submission_date()}}
 \item \href{#method-Investigation-check_comments}{\code{Investigation$check_comments()}}
@@ -77,16 +76,6 @@ An investigation maintains metadata about the project context and links to one o
 \item \href{#method-Investigation-clone}{\code{Investigation$clone()}}
 }
 }
-\if{html}{\out{
-<details open><summary>Inherited methods</summary>
-<ul>
-<li><span class="pkg-link" data-pkg="isar" data-topic="OntologySourceReferences" data-id="add_ontology_sources"><a href='../../isar/html/OntologySourceReferences.html#method-OntologySourceReferences-add_ontology_sources'><code>isar::OntologySourceReferences$add_ontology_sources()</code></a></li>
-<li><span class="pkg-link" data-pkg="isar" data-topic="OntologySourceReferences" data-id="check_ontology_sources"><a href='../../isar/html/OntologySourceReferences.html#method-OntologySourceReferences-check_ontology_sources'><code>isar::OntologySourceReferences$check_ontology_sources()</code></a></li>
-<li><span class="pkg-link" data-pkg="isar" data-topic="OntologySourceReferences" data-id="get_ontology_source_names"><a href='../../isar/html/OntologySourceReferences.html#method-OntologySourceReferences-get_ontology_source_names'><code>isar::OntologySourceReferences$get_ontology_source_names()</code></a></li>
-<li><span class="pkg-link" data-pkg="isar" data-topic="OntologySourceReferences" data-id="get_ontology_source_provision"><a href='../../isar/html/OntologySourceReferences.html#method-OntologySourceReferences-get_ontology_source_provision'><code>isar::OntologySourceReferences$get_ontology_source_provision()</code></a></li>
-</ul>
-</details>
-}}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Investigation-new"></a>}}
 \if{latex}{\out{\hypertarget{method-Investigation-new}{}}}
@@ -377,6 +366,24 @@ Set public_release_date to a Date object
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Investigation-check_ontology_source_references"></a>}}
+\if{latex}{\out{\hypertarget{method-Investigation-check_ontology_source_references}{}}}
+\subsection{Method \code{check_ontology_source_references()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$check_ontology_source_references(ontology_source_references)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Investigation-set_ontology_source_references"></a>}}
+\if{latex}{\out{\hypertarget{method-Investigation-set_ontology_source_references}{}}}
+\subsection{Method \code{set_ontology_source_references()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$set_ontology_source_references(ontology_source_references)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Investigation-check_submission_date"></a>}}
 \if{latex}{\out{\hypertarget{method-Investigation-check_submission_date}{}}}
 \subsection{Method \code{check_submission_date()}}{
@@ -501,7 +508,7 @@ generate an R list representation translatable to JSON
 \if{latex}{\out{\hypertarget{method-Investigation-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Investigation$from_list(lst, recursive = TRUE, json = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$from_list(lst, recursive = TRUE, json = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
