@@ -265,7 +265,7 @@ OntologySource <- R6::R6Class(
 			} else {
 				stop(
 					"terms must be a uniquely named list",
-					"of length 1 character vectors"
+					" of length 1 character vectors"
 				)
 			}
 		},
@@ -366,6 +366,9 @@ OntologySource <- R6::R6Class(
 			green_bold_name_plain_content("File Type", self$file_type)
 			green_bold_name_plain_content("URL", self$url)
 			green_bold_name_plain_content("Version", self$version)
+			green_bold_name_plain_content(
+				"Explicitly Provided", self$explicitly_provided
+			)
 			cli::cli_h2(cli::col_green("Description"))
 			cli::cli_text(self$description) # indentation?
 			pretty_print_comments(self$comments)

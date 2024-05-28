@@ -18,12 +18,13 @@
 #' @export
 OntologyAnnotation <- R6::R6Class(
 	"OntologyAnnotation",
-	inherit = OntologySourceReferences,
+	#inherit = OntologySourceReferences,
 	public = list(
 		term = NULL, # str
 		term_source = NULL, # OntologySource
 		term_accession = NULL, # str
 		comments = NULL, # comment
+		ontology_source_list = NULL,
 		`@id` = character(),
 		#' @details
 		#' create a new factor value
@@ -40,6 +41,7 @@ OntologyAnnotation <- R6::R6Class(
 			term_source = NULL, # OntologySource
 			term_accession = character(), # str
 			comments = NULL,
+			ontology_source_list = NULL,
 			`@id` = character()
 		) {
 			# transition to character() !!
@@ -82,7 +84,11 @@ OntologyAnnotation <- R6::R6Class(
 				term_accession <- character()
 			}
 			#-self$set_term(term)
-
+			if(is.null(ontology_source_list)){
+				self$ontology_source_list <- OntologySourceReferences$new()
+			} else {
+				self$ontology_source_list <- ontology_source_list
+			}
 			self$`@id` <- `@id`
 			# if(!is.null(term)) {
 			# 	# handling on not explicitly enumerated lists?
@@ -121,9 +127,14 @@ OntologyAnnotation <- R6::R6Class(
 		check_term_source = function(term_source) {
 			check <- checkmate::check_r6(term_source, "OntologySource")
 			error_with_check_message_on_failure(check)
-			if(term_source$name %in% super$get_ontology_source_names()) {
+			#if(term_source$name %in% super$get_ontology_source_names()) {
+			if(
+				term_source$name %in%
+				self$ontology_source_list$get_ontology_source_names()
+			) {
 				if(
-					super$get_ontology_source_provision()[[
+					self$ontology_source_list$get_ontology_source_provision()[[
+					#super$get_ontology_source_provision()[[
 						term_source$name
 					]] == TRUE
 				) {
@@ -192,6 +203,62 @@ OntologyAnnotation <- R6::R6Class(
 			}
 		},
 
+		set_valid_annotation = function(term, term_accession, term_source) {
+			browser()
+			if(is.null(term_accession)) { term_accession <- "" }
+			if(is.null(term_source)) { term_source <- "" }
+			if(!checkmate::test_string(term, min.chars = 1)) {
+				term <- "Unspecified Term"
+				warning("Unspecified Term!")
+			}
+
+			if(!checkmate::test_r6(term_source,"OntologySource")) {
+				term_source <- list(name = term_source)
+			}
+
+			# if(term_source$name %in% names(self$ontology_source_list)) {
+			# 	self$term_source <- self$ontology_source_list[[
+			# 		term_source$name
+			# 	]]
+			if(term_source %in% names(self$ontology_source_list)) {
+				self$term_source <- self$ontology_source_list[[term_source]]
+			} else {
+				warning(
+					"Term Source Unknown, Attempting to add a placeholder..."
+				)
+				if(
+					!"UnknownSource" %in%
+					self$ontology_source_list$get_ontology_source_names()
+				) {
+					self$ontology_source_list$add_ontology_sources(
+						purrr::set_names(list({
+							os <- OntologySource$new(
+								name = "UnknownSource",
+								explicitly_provided = FALSE
+							)
+							os
+						}), "UnknownSource")
+					)
+				}
+				self$term_source <- self$ontology_source_list[["UnknownSource"]]
+			}
+
+			if(term %in% names(self$term_source$terms)) {# get_?
+				self$term <- term
+			} else {
+				warning("Term not in source! Attempting to add...")
+				if (checkmate::test_string(term_accession, min.chars = 1)) {
+					self$term_source$add_terms(
+						purrr::set_names(list(term_accession), term)
+					)
+				} else {
+					warning("Missing term accession! using term...")
+					self$term_source$add_terms(
+						purrr::set_names(list(term), term)
+					)
+				}
+			}
+		},
 		# getters
 
 		#  ## Shiny
@@ -233,16 +300,19 @@ OntologyAnnotation <- R6::R6Class(
 		#  		self$set_term(measurement_type())
 		#  	})
 		#  },
+
 		#' @details
 		#' checks if comments are a named list of character vectors
 		#' @param comments comments
 		check_comments = function(comments) { check_comments(comments) },
+
 		#' @details
 		#' Sets comments if they are in a valid format
 		#' @param comments a list of comments
 		set_comments = function(comments) {
 			if(self$check_comments(comments)) { self$comments <- comments }
 		},
+
 		#' @details
 		#' Add comment if it is in a valid format
 		#' @param comment a list of comments
@@ -251,6 +321,7 @@ OntologyAnnotation <- R6::R6Class(
 				self$comments <- c(comments, comment)
 			}
 		},
+
 		#' @details
 		#' generate an R list representation translatable to JSON
 		#' @param ld logical json-ld
@@ -291,57 +362,62 @@ OntologyAnnotation <- R6::R6Class(
 				#self$term_source$name <- lst[["termSource"]]
 				self$term_accession <- lst[["termAccession"]]
 				self$term <- lst[["annotationValue"]]
+
 				if(!is.null(lst[["comments"]])) {
 					self$comments <- lst[["comments"]]
 				}
 				self$`@id` <- lst[["@id"]]
 
+				self$set_valid_annotation(
+					lst[["annotationValue"]], lst[["termAccession"]],
+					lst[["termSource"]]
+				)
 				##
-				if(lst[["termSource"]] %in% super$get_ontology_source_names()) {
-					if(
-						super$get_ontology_source_provision()[[
-							lst[["termSource"]]
-						]] == TRUE
-					) {
-						# provided
-						self$term_source <- super$ontology_source_references[[
-							lst[["termSource"]]
-						]]
-						# !!! should error if pre-defined source does not have appropriate terms? - terms not enumerated in OntologySourceReferences by default
-						if(!self$term %in% names(self$term_source$terms_list)){
-							warning("Using term not found in pre-defined ontology source!")
-							lst[["termAccession"]] %>%
-								list() %>%
-								purrr::set_names(lst[["annotationValue"]]) %>%
-								self$term_source$add_terms()
-						}
-					} else {
-						# not provided previously generated
-						warning("Using exising autogenerated ontology source!")
-						# should append new terms to generated sources!
-						self$term_source <- super$ontology_source_references[[
-							lst[["termSource"]]
-						]]
-						if(!self$term %in% names(self$term_source$terms_list)){
-							lst[["termAccession"]] %>%
-								list() %>%
-								purrr::set_names(lst[["annotationValue"]]) %>%
-								self$term_source$add_terms()
-						}
-					}
-				} else {
-					# undefined & not provided
-					warning("No Ontology Source defined! generating a stand-in...")
-					self$term_source <- generate_ontology_source_from_annotation_with_undefined_source(
-						list(list(
-							termAccession = lst[["termAccession"]],
-							termSource = lst[["termSource"]],
-							annotationValue = lst[["annotationValue"]]
-						))
-					)
-					# how to handle missing accession and source list element e.g. in protocolType
-					# BII_I_1_jsonlite[["studies"]][[1]][["protocols"]][[1]][["protocolType"]][["annotationValue"]]
-				}
+				# if(lst[["termSource"]] %in% super$get_ontology_source_names()) {
+				# 	if(
+				# 		super$get_ontology_source_provision()[[
+				# 			lst[["termSource"]]
+				# 		]] == TRUE
+				# 	) {
+				# 		# provided
+				# 		self$term_source <- super$ontology_source_references[[
+				# 			lst[["termSource"]]
+				# 		]]
+				# 		# !!! should error if pre-defined source does not have appropriate terms? - terms not enumerated in OntologySourceReferences by default
+				# 		if(!self$term %in% names(self$term_source$terms_list)){
+				# 			warning("Using term not found in pre-defined ontology source!")
+				# 			lst[["termAccession"]] %>%
+				# 				list() %>%
+				# 				purrr::set_names(lst[["annotationValue"]]) %>%
+				# 				self$term_source$add_terms()
+				# 		}
+				# 	} else {
+				# 		# not provided previously generated
+				# 		warning("Using exising autogenerated ontology source!")
+				# 		# should append new terms to generated sources!
+				# 		self$term_source <- super$ontology_source_references[[
+				# 			lst[["termSource"]]
+				# 		]]
+				# 		if(!self$term %in% names(self$term_source$terms_list)){
+				# 			lst[["termAccession"]] %>%
+				# 				list() %>%
+				# 				purrr::set_names(lst[["annotationValue"]]) %>%
+				# 				self$term_source$add_terms()
+				# 		}
+				# 	}
+				# } else {
+				# 	# undefined & not provided
+				# 	warning("No Ontology Source defined! generating a stand-in...")
+				# 	self$term_source <- generate_ontology_source_from_annotation_with_undefined_source(
+				# 		list(list(
+				# 			termAccession = lst[["termAccession"]],
+				# 			termSource = lst[["termSource"]],
+				# 			annotationValue = lst[["annotationValue"]]
+				# 		))
+				# 	)
+				# 	# how to handle missing accession and source list element e.g. in protocolType
+				# 	# BII_I_1_jsonlite[["studies"]][[1]][["protocols"]][[1]][["protocolType"]][["annotationValue"]]
+				# }
 				###
 
 			} else {
@@ -397,17 +473,3 @@ OntologyAnnotation <- R6::R6Class(
 		id = generate_id()
 	)
 )
-
-#' identical.OntologyAnnotation
-#'
-#' Allows checking for the identity of \code{[OntologyAnnotation]} objects
-#'
-#' @param x a \code{[OntologyAnnotation]} object
-#' @param y a \code{[OntologyAnnotation]} object
-#' @export
-identical.OntologyAnnotation <- s3_identical_maker(c(
-	"annotation_value",
-	"term_source",
-	"term_accession",
-	"comments"
-))
