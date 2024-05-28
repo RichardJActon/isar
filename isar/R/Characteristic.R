@@ -10,13 +10,14 @@
 #' @export
 Characteristic <- R6::R6Class(
 	"Characteristic",
-	inherit = OntologySourceReferences,
 	public = list(
 		category = NULL,
 		value = NULL,
 		unit = NULL,
+		category_references = NULL,
 		comments = NULL,
 		`@id` =  character(),
+		ontology_source_references = NULL,
 		#' @details
 		#' Create a new \code{[Characteristics]} object
 		#' @param category The classifier of the type of characteristic being described.
@@ -27,8 +28,10 @@ Characteristic <- R6::R6Class(
 			category = NULL,
 			value = NULL,
 			unit = NULL,
+			category_references = NULL,
 			comments = NULL,
-			`@id` = character()
+			`@id` = character(),
+			ontology_source_references = NULL
 		) {
 			if(is.null(category)) {
 				self$category <- category
@@ -37,22 +40,29 @@ Characteristic <- R6::R6Class(
 			}
 			self$value <- value
 			self$unit <- unit
+			if(is.null(category_references)) {
+				self$category_references <-
+					CharacteristicCategoryReferences$new()
+			} else {
+				self$category_references <- category_references
+			}
 			self$comments <- comments
 			self$`@id` <- `@id`
+			self$ontology_source_references <- ontology_source_references
 			#self$`@id` <- paste0("#characteristic_category/", self$)
 		},
 		#' @details
-		#' Check that category is an \code{[OntologyAnnotation]} object
-		#' @param category an \code{[OntologyAnnotation]} object
+		#' Check that category is an \code{[CharacteristicCategory]} object
+		#' @param category an \code{[CharacteristicCategory]} object
 		check_category = function(category) {
-			check <- checkmate::check_r6(category, "OntologyAnnotation")
+			check <- checkmate::check_r6(category, "CharacteristicCategory")
 			error_with_check_message_on_failure(
-				check, nextline = "Class: OntologyAnnotation"
+				check, nextline = "Class: CharacteristicCategory"
 			)
 		},
 		#' @details
 		#' Set category if input is valid
-		#' @param category an \code{[OntologyAnnotation]} object
+		#' @param category an \code{[CharacteristicCategory]} object
 		set_category = function(category) {
 			if(self$check_category(category)) { self$category <- category }
 		},
@@ -99,6 +109,29 @@ Characteristic <- R6::R6Class(
 				self$comments <- c(comments, comment)
 			}
 		},
+
+		#set_valid_category_and_value = function(category, value) {
+		set_valid_category = function(category) {
+			#if (self$check_category(category)) {
+				if (
+					category$`@id` %in%
+					self$category_references$get_category_ids()
+				) {
+					self$category <-
+						self$category_references$categories[[category$`@id`]]
+				} else {
+					self$category_references$categories[[
+						"UnknownCharacteristic"
+					]] <- CharacteristicCategory$new(
+							`@id` = "Unspecified",
+							explicitly_provided = FALSE
+						)
+					self$category <- self$category_references$categories[[
+							"UnknownCharacteristic"
+						]]
+				}
+			#}
+		},
 		#' @details
 		#' An R list representation of a \code{[Characteristic]} object
 		#' @param ld linked data (default FALSE)
@@ -132,11 +165,14 @@ Characteristic <- R6::R6Class(
 					self$`@id` <- lst[["@id"]]
 					ont_anno <- lst[["characteristicType"]]
 				}
-				self$category <- sub(
-					"#characteristic_category/", "", self$`@id`, fixed = TRUE
-				)
+				# self$category <- sub(
+				# 	"#characteristic_category/", "", self$`@id`, fixed = TRUE
+				# )
+				self$set_valid_category(lst[["category"]])
 				if (is.null(lst[["unit"]])) {
-					self$value <- OntologyAnnotation$new()
+					self$value <- OntologyAnnotation$new(
+						ontology_source_list = self$ontology_source_references
+					)
 					self$value$from_list(
 						ont_anno, recursive = recursive, json = json
 					)
@@ -200,7 +236,9 @@ Characteristic <- R6::R6Class(
 			green_bold_name_plain_content("category", self$category)
 			green_bold_name_plain_content("ID", self$get_id())
 			green_bold_name_plain_content("value", self$value$term)
-			#green_bold_name_plain_content("unit", self$unit)
+			if(!is.null(self$unit)) {
+				green_bold_name_plain_content("unit", self$unit)
+			}
 			pretty_print_comments(self$comments)
 		}
 	),
