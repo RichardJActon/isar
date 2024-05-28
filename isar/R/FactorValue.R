@@ -15,15 +15,18 @@
 #' @export
 FactorValue <- R6Class(
 	"FactorValue",
+	#inherit = StudyFactor,
+	#inherit = ReferencesInCommon,#
 	public = list(
-		factor_name = NULL,
+		factor = NULL,
 		value = NULL,
 		unit = NULL,
+
+		study_factor_references = NULL,
 		comments = NULL,
 		`@id` =  character(),
 		#' @details
 		#' create a new factor value
-		#' @param factor_name the name of the experimental factor
 		#' @param value the value of a quantity
 		#' @param unit the unit of measurement
 		#' @param comments comments
@@ -38,21 +41,22 @@ FactorValue <- R6Class(
 		#' }
 
 		initialize = function(
-			factor_name = NULL,
+			factor = NULL,
 			value = NULL,
 			unit = NULL,
+			study_factor_references = NULL,
 			comments = NULL,
 			`@id` = character()
 		) {
-			if (!is.null(factor_name)) {
-				if (checkmate::check_r6(factor_name, "StudyFactor")) {
-					self$factor_name <- factor_name
-				}
-				self$value <- self$factor_name$factor_type
-			} else {
-				self$factor_name <-factor_name
-				self$value <- value
-			}
+			# if (!is.null(factor_name)) {
+			# 	if (checkmate::check_r6(factor_name, "StudyFactor")) {
+			# 		self$factor_name <- factor_name
+			# 	}
+			# 	self$value <- self$factor_name$factor_type
+			# } else {
+			# 	self$factor_name <-factor_name
+			# 	self$value <- value
+			# }
 			# if (is.null(value)) {
 			# 	self$value <- self$factor_name$factor_type
 			# } else if (
@@ -62,7 +66,7 @@ FactorValue <- R6Class(
 			#
 			# }
 
-			# self$factor_name <- factor_name
+			self$factor <- factor
 			# if(is.null(factor_name)) { self$value <- value }
 			# if(
 			# 	!is.null(factor_name) &&
@@ -79,6 +83,13 @@ FactorValue <- R6Class(
 			# 	))
 			# }
 			self$unit <- unit
+
+			if(is.null(study_factor_references)) {
+				self$study_factor_references <- StudyFactorReferences$new()
+			} else {
+				self$study_factor_references <- study_factor_references
+			}
+
 			self$comments <- comments
 			self$`@id` <- `@id`
 		},
@@ -113,15 +124,40 @@ FactorValue <- R6Class(
 				self$comments <- c(comments, comment)
 			}
 		},
+
+		set_valid_factor_category = function(factor) {
+			#browser()
+			if(
+				factor$`@id` %in%
+				self$study_factor_references$get_study_factor_ids()
+			) {
+				self$factor <-
+					self$study_factor_references$study_factor_references[[
+						factor$`@id`
+					]]
+			} else {
+				warning("Factor category not listed!")
+				sf <- StudyFactor$new(
+					factor_type = self$factor, explicitly_provided = FALSE
+				)
+				self$study_factor_references$add_study_factors(
+					list("UndefinedFactor" = sf)
+				)
+			}
+		},
+
 		#' @details
 		#' generate an R list representation translatable to JSON
 		#' @param ld logical json-ld
 		to_list = function(ld = FALSE) {
 			factor_value = list(
-				"factor_name" = self$factor_name$to_list(),
+				#"factor_name" = self$factor_name$to_list(),
+				#"factor_name" = super$factor_name$to_list(),
 				"value" = self$value$to_list(),
 				"unit" = self$unit,
-				"comments" = self$comments
+				"comments" = self$comments,
+				#"@id" = super$`@id`
+				"@id" = self$`@id`
 			)
 			return(factor_value)
 		},
@@ -131,21 +167,39 @@ FactorValue <- R6Class(
 		#' Make [OntologyAnnotation] from list
 		#'
 		#' @param lst an ontology source object serialized to a list
-		from_list = function(lst, recursive = FALSE, json = FALSE) {
+		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			if(json){
 				#self$set_id()
-				self$factor_name <- StudyFactor$new()
+				# self$factor_name <- StudyFactor$new()
 				# self$factor_name$from_list(
 				# 	lst[["factor_name"]], recursive = recursive, json = json
 				# )
 				self$`@id` <- lst[["category"]][["@id"]]
-				self$factor_name$name <- sub(
-					"#factor/", "", self$`@id`, fixed = TRUE
-				)
-				self$value <- OntologyAnnotation$new()
-				self$value$from_list(
-					lst[["value"]], recursive = recursive, json = json
-				)
+				#self$factor <- super$get_or_create_reference(
+				# "StudyFactor", lst[["category"]][["@id"]],
+				# value = lst[["factor_name"]]
+				# )
+				self$factor <-
+					self$set_valid_factor_category(
+						lst[["category"]]#[["@id"]],
+						#lst[["factor_name"]]
+					)
+				# if reference exists reference it - else make one
+				# self$factor_name$name <- sub(
+				# 	"#factor/", "", self$`@id`, fixed = TRUE
+				# )
+				#self$factor_name <- self$factor$factor_name
+				if(is.list(lst[["value"]])) {
+					self$value <- OntologyAnnotation$new()
+					self$value$from_list(
+						lst[["value"]], recursive = recursive, json = json
+					)
+				} else {
+					self$value <- lst[["value"]]
+				}
+				if(!is.null(lst[["unit"]])) {
+					self$unit <- Unit$new(`@id` = lst[["unit"]][["@id"]])
+				}
 				self$set_comments(lst[["comments"]])
 			} else {
 				self$factor_name <- StudyFactor$new()
@@ -160,25 +214,16 @@ FactorValue <- R6Class(
 		},
 		print = function() {
 			cli::cli_h1(cli::col_blue("Factor Value"))
-			green_bold_name_plain_content("Name", self$factor_name$name)
-			green_bold_name_plain_content("Value", self$value$term)
+			#green_bold_name_plain_content("Name", self$factor_name$name)
+			if (!is.null(self$unit)) {
+				green_bold_name_plain_content("Value", self$value)
+				green_bold_name_plain_content("Unit ID", self$unit$`@id`)
+			} else {
+				green_bold_name_plain_content("Value", self$value$term)
+			}
 			green_bold_name_plain_content("@id", self$`@id`)
 			#green_bold_name_plain_content("ID", private$id)
 			pretty_print_comments(self$comments)
 		}
 	)
 )
-
-#' identical.FactorValue
-#'
-#' Allows checking for the identity of \code{[FactorValue]} objects
-#'
-#' @param x a \code{[FactorValue]} object
-#' @param y a \code{[FactorValue]} object
-#' @export
-identical.FactorValue <- s3_identical_maker(c(
-	"factor_name",
-	"value",
-	"unit",
-	"comments"
-), get_id = FALSE)
