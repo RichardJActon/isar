@@ -40,7 +40,7 @@ CharacteristicCategory <- R6::R6Class(
 			self$set_id(lst[["@id"]])
 			self$type <- {
 				oa <- OntologyAnnotation$new(
-					ontology_source_list = self$ontology_source_references
+					ontology_source_references = self$ontology_source_references
 				)
 				oa$from_list(lst[["characteristicType"]])
 				oa

@@ -22,6 +22,7 @@ StudyFactor <- R6::R6Class(
 		comments = NULL,
 		`@id` = character(),
 		explicitly_provided = logical(),
+		ontology_source_references = NULL,
 		#' @details
 		#'
 		#' create a new study factor
@@ -36,7 +37,8 @@ StudyFactor <- R6::R6Class(
 			factor_type = NULL,
 			comments = NULL,
 			`@id` = character(),
-			explicitly_provided = logical()
+			explicitly_provided = logical(),
+			ontology_source_references = NULL
 		) {
 			if (checkmate::qtest(factor_name, "S[0]")) {
 				self$factor_name <- factor_name
@@ -56,6 +58,7 @@ StudyFactor <- R6::R6Class(
 				"#factor/", sub("[^A-Za-z0-9]+", "_", self$factor_name)
 			)
 			self$explicitly_provided <- explicitly_provided
+			self$ontology_source_references <- ontology_source_references
 		},
 		#' @details
 		#' Check if the name of the material is a string
@@ -112,13 +115,19 @@ StudyFactor <- R6::R6Class(
 			if(json) {
 				self$factor_name = lst[["factorName"]]
 				self$`@id` <- lst[["@id"]]
-				self$factor_type <- OntologyAnnotation$new()
+				self$factor_type <- OntologyAnnotation$new(
+					ontology_source_references =
+						self$ontology_source_references
+				)
 				self$factor_type$from_list(lst[["factorType"]])
 				# self$comments = lst[["comments"]]
 			} else {
 				self$factor_name = lst[["name"]]
 				private$id <- lst[["id"]]
-				self$factor_type <- OntologyAnnotation$new()
+				self$factor_type <- OntologyAnnotation$new(
+					ontology_source_references =
+						self$ontology_source_references
+				)
 				self$factor_type$from_list(lst[["factor_type"]])
 				self$comments = lst[["comments"]]
 			}

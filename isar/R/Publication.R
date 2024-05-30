@@ -22,6 +22,7 @@ Publication <- R6::R6Class(
 		title = character(),
 		status = NULL, #  https://sparontologies.github.io/pso/current/pso.html
 		comments = NULL,
+		ontology_source_references = NULL,
 		#' @details
 		#' Create a new \code{[Publication]} Object
 		#' @param pubmed_id pubmed_id The PubMed IDs of the described publication(s) associated with this investigation.
@@ -36,7 +37,8 @@ Publication <- R6::R6Class(
 			author_list = NULL,
 			title = character(),
 			status = NULL, #  https://sparontologies.github.io/pso/current/pso.html
-			comments = NULL
+			comments = NULL,
+			ontology_source_references = NULL
 		) {
 			if(is.null(pubmed_id)) { self$pubmed_id <- pubmed_id } else { self$set_pubmed_id(pubmed_id) }
 			if(checkmate::qtest(doi, "S[0]")) { self$doi <- doi } else { self$set_doi(doi) }
@@ -44,6 +46,7 @@ Publication <- R6::R6Class(
 			if(checkmate::qtest(title, "S[0]")) { self$title <- title } else { self$set_title(title) }
 			self$status <- status
 			self$comments <- comments
+			self$ontology_source_references <- ontology_source_references
 		},
 		#' @details
 		#' Check for a valid PubMed ID
@@ -111,9 +114,9 @@ Publication <- R6::R6Class(
 		check_author_list = function(author_list) {
 			if(
 				checkmate::test_list(author_list, min.len = 1) &&
-				all(
-					purrr::map_lgl(author_list, ~checkmate::test_r6(.x, "Person"))
-				)
+				all(purrr::map_lgl(
+					author_list, ~checkmate::test_r6(.x, "Person")
+				))
 			) { return(TRUE) } else if (checkmate::test_string(author_list)) {
 				## !!! strict mode which stops this?
 				return(TRUE)
@@ -181,29 +184,40 @@ Publication <- R6::R6Class(
 		#' @details
 		#' Generate a \code{[Publication]} object from a list
 		#' @param lst a list suitable for conversion to a Publication Object
-		from_list = function(lst, recursive = TRUE, json = FALSE) {
+		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			if(json) {
 				self$set_pubmed_id(lst[["pubMedID"]])
 				self$set_doi(lst[["doi"]])
+				# if (recursive) {
+				# 	self$author_list <- purrr::map(lst["authorList"], ~{
+				# 		a <- Person$new(
+				# 			ontology_source_references =
+				# 				self$ontology_source_references
+				# 		)
+				# 		a$from_list(.x)
+				# 	})
+				# } else {
+				# 	self$author_list <- lst[["authorList"]]
+				# }
 				self$author_list <- lst[["authorList"]]
-				# self$author_list <- purrr::map(lst["author_list"], ~{
-				# 	a <- Person$new()
-				# 	a$from_list(.x)
-				# })
 				self$title <- lst[["title"]]
 				self$status <- lst[["status"]]
 				self$set_comments(lst[["comments"]])
 			} else {
 				self$set_pubmed_id(lst[["pubmed_id"]])
 				self$set_doi(lst[["doi"]])
-				if (recursive) {
-					self$author_list <- purrr::map(lst["author_list"], ~{
-						a <- Person$new()
-						a$from_list(.x)
-					})
-				} else {
-					self$author_list <- lst[["author_list"]]
-				}
+				# if (recursive) {
+				# 	self$author_list <- purrr::map(lst["author_list"], ~{
+				# 		a <- Person$new(
+				# 			ontology_source_references =
+				# 				self$ontology_source_references
+				# 		)
+				# 		a$from_list(.x)
+				# 	})
+				# } else {
+				# 	self$author_list <- lst[["author_list"]]
+				# }
+				self$author_list <- lst[["author_list"]]
 				self$title <- lst[["title"]]
 				self$status <- lst[["status"]]
 				self$set_comments(lst[["comments"]])

@@ -23,7 +23,7 @@ OntologyAnnotation <- R6::R6Class(
 		term_source = NULL, # OntologySource
 		term_accession = NULL, # str
 		comments = NULL, # comment
-		ontology_source_list = NULL,
+		ontology_source_references = NULL,
 		`@id` = character(),
 		#' @details
 		#' create a new factor value
@@ -40,7 +40,7 @@ OntologyAnnotation <- R6::R6Class(
 			term_source = NULL, # OntologySource
 			term_accession = character(), # str
 			comments = NULL,
-			ontology_source_list = NULL,
+			ontology_source_references = NULL,
 			`@id` = character()
 		) {
 			# transition to character() !!
@@ -83,10 +83,10 @@ OntologyAnnotation <- R6::R6Class(
 				term_accession <- character()
 			}
 			#-self$set_term(term)
-			if(is.null(ontology_source_list)){
-				self$ontology_source_list <- OntologySourceReferences$new()
+			if(is.null(ontology_source_references)){
+				self$ontology_source_references <- OntologySourceReferences$new()
 			} else {
-				self$ontology_source_list <- ontology_source_list
+				self$ontology_source_references <- ontology_source_references
 			}
 			self$`@id` <- `@id`
 			# if(!is.null(term)) {
@@ -129,10 +129,10 @@ OntologyAnnotation <- R6::R6Class(
 			#if(term_source$name %in% super$get_ontology_source_names()) {
 			if(
 				term_source$name %in%
-				self$ontology_source_list$get_ontology_source_names()
+				self$ontology_source_references$get_ontology_source_names()
 			) {
 				if(
-					self$ontology_source_list$get_ontology_source_provision()[[
+					self$ontology_source_references$get_ontology_source_provision()[[
 					#super$get_ontology_source_provision()[[
 						term_source$name
 					]] == TRUE
@@ -202,44 +202,56 @@ OntologyAnnotation <- R6::R6Class(
 			}
 		},
 
-		set_valid_annotation = function(term, term_accession, term_source) {
-			browser()
+		set_valid_annotation = function(term, term_accession, term_source_name) {
+			# browser()
 			if(is.null(term_accession)) { term_accession <- "" }
-			if(is.null(term_source)) { term_source <- "" }
+			if(is.null(term_source_name)) { term_source_name <- "" }
 			if(!checkmate::test_string(term, min.chars = 1)) {
 				term <- "Unspecified Term"
 				warning("Unspecified Term!")
 			}
 
-			if(!checkmate::test_r6(term_source,"OntologySource")) {
-				term_source <- list(name = term_source)
-			}
+			# if(!checkmate::test_r6(term_source,"OntologySource")) {
+			# 	term_source <- list(name = term_source)
+			# }
 
-			# if(term_source$name %in% names(self$ontology_source_list)) {
-			# 	self$term_source <- self$ontology_source_list[[
+			# if(term_source$name %in% names(self$ontology_source_references)) {
+			# 	self$term_source <- self$ontology_source_references[[
 			# 		term_source$name
 			# 	]]
-			if(term_source %in% names(self$ontology_source_list)) {
-				self$term_source <- self$ontology_source_list[[term_source]]
+			if(
+				term_source_name %in%
+				self$ontology_source_references$get_ontology_source_names()
+			) {
+				self$term_source <-
+					self$ontology_source_references$ontology_source_references[[
+						term_source_name
+					]]
+				# self$ontology_source_references$get_ontology_sources(
+				# 	"UnknownSource"
+				# )
 			} else {
 				warning(
 					"Term Source Unknown, Attempting to add a placeholder..."
 				)
 				if(
 					!"UnknownSource" %in%
-					self$ontology_source_list$get_ontology_source_names()
+					self$ontology_source_references$get_ontology_source_names()
 				) {
-					self$ontology_source_list$add_ontology_sources(
-						purrr::set_names(list({
-							os <- OntologySource$new(
-								name = "UnknownSource",
-								explicitly_provided = FALSE
-							)
-							os
-						}), "UnknownSource")
+					os <- OntologySource$new(
+						name = "UnknownSource",
+						explicitly_provided = FALSE
 					)
+					osl <- list(UnknownSource = os)
+					self$ontology_source_references$add_ontology_sources(osl)
 				}
-				self$term_source <- self$ontology_source_list[["UnknownSource"]]
+				self$term_source <-
+					self$ontology_source_references$ontology_source_references[[
+						"UnknownSource"
+					]]
+				# self$ontology_source_references$get_ontology_sources(
+				# 	"UnknownSource"
+				# )
 			}
 
 			if(term %in% names(self$term_source$terms)) {# get_?

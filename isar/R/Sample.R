@@ -24,7 +24,9 @@ Sample <- R6::R6Class(
 		characteristics = NULL,
 		derives_from = NULL,
 		comments = NULL,
-
+		ontology_source_references = NULL,
+		category_references = NULL,
+		sources = NULL,
 		#' @details
 		#'
 		#' Create a new instance of sample
@@ -39,7 +41,10 @@ Sample <- R6::R6Class(
 			factor_values = NULL,
 			characteristics = NULL,
 			derives_from = NULL,
-			comments = NULL
+			comments = NULL,
+			ontology_source_references = NULL,
+			category_references = NULL,
+			sources = NULL
 		) {
 			if (checkmate::qtest(name, "S[0]")) {
 				self$name <- name
@@ -55,6 +60,9 @@ Sample <- R6::R6Class(
 			self$characteristics <- characteristics # list
 			self$derives_from <- derives_from # list
 
+			self$ontology_source_references <- ontology_source_references
+			self$category_references <- category_references
+			self$sources <- sources
 			self$comments <- comments
 		},
 
@@ -119,6 +127,17 @@ Sample <- R6::R6Class(
 			return(sample)
 		},
 
+		check_source = function(source) {
+			if(source %in% names(self$sources)) { return(TRUE) } else {
+				stop("source not listed!")
+			}
+		},
+		set_source = function(source) {
+			if(self$check_source(source)) {
+				self$derives_from <- self$sources[[source]]
+			}
+		},
+
 		#' @details
 		#'
 		#' Make \code{[sample]} from list
@@ -129,6 +148,19 @@ Sample <- R6::R6Class(
 				private$id <- lst[["id"]]
 			}
 			self$name <- lst[["name"]]
+
+			self$set_source(lst[["derivesFrom"]][[1]][["@id"]]) # multiple inputs? # are all always sources?
+			# self$derives_from <- purrr::map(lst[["derivesFrom"]], ~{
+			# 	if(.x %in% self$sources$ ) {
+			# 		## self$references[["Source"]][[.x]]
+			# 	} else {
+			# 		warning("Unknown material!")
+			# 		.x
+			# 	}
+			# })
+
+			# self$derives_from <- lst[["derivesFrom"]]
+
 			self$factor_values <- purrr::map(
 				lst[["factorValues"]], ~{
 					fv <- FactorValue$new()
@@ -136,22 +168,41 @@ Sample <- R6::R6Class(
 					fv
 				}
 			)
-			self$characteristics <- purrr::map(lst[["characteristics"]], ~{
-				chr <- Characteristic$new()
-				chr$from_list(.x, json = json, recursive = recursive)
-				chr
-			})
 
-			self$derives_from <- purrr::map(lst[["derivesFrom"]], ~{
-				if(.x %in% super$get_reference_names("Source")) {
-					super$references[["Source"]][[.x]]
-				} else {
-					warning("Unknown material!")
-					.x
+			if (checkmate::test_list(lst[["characteristics"]], len = 0)) {
+				if(
+					!"UnknownCharacteristic" %in%
+					names(self$category_references$categories)
+				) {
+					self$category_references$add_categories(
+						list("UnknownCharacteristic" = CharacteristicCategory$new(
+							`@id` = "Unspecified",
+							explicitly_provided = FALSE,
+							ontology_source_references =
+								self$ontology_source_references
+						))
+					)
 				}
-			})
-
-			# self$derives_from <- lst[["derivesFrom"]]
+				self$characteristics <- list(Characteristic$new(
+					category = self$category_references$categories[[
+						"UnknownCharacteristic"
+					]],
+					#value = NA_integer_,
+					`@id` = "Unspecified",
+					ontology_source_references =
+						self$ontology_source_references,
+					category_references = self$category_references
+				))
+			} else {
+				self$characteristics <- purrr::map(lst[["characteristics"]], ~{
+					chr <- Characteristic$new(
+						ontology_source_references = self$ontology_source_references,
+						category_references = self$category_references
+					)
+					chr$from_list(.x, json = json, recursive = recursive)
+					chr
+				})
+			}
 			self$comments <- lst[["comments"]]
 		},
 

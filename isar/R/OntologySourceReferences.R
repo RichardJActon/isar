@@ -54,6 +54,19 @@ OntologySourceReferences <- R6::R6Class(
 				purrr::map_lgl(~.x$explicitly_provided) %>%
 				purrr::set_names(names(self$ontology_source_references))
 		},
+
+		#' @details
+		#' Get ontology sources
+		#' @param names default return all names
+		#' @return a vector of ontology source names
+		get_ontology_sources = function(names = "all") {
+			if(names == "all") {
+				self$ontology_source_references
+			} else {
+				self$ontology_source_references[[names]]
+			}
+		},
+
 		#' @details
 		#'
 		#' Make [OntologySourceReferences] from list

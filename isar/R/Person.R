@@ -40,7 +40,7 @@ Person <- R6::R6Class(
 		roles = NULL,
 		comments = NULL,
 		`@id` = character(),
-
+		ontology_source_references = NULL,
 		#' @details
 		#' person
 		#' @param last_name The last name of a person.
@@ -66,7 +66,8 @@ Person <- R6::R6Class(
 			orcid = character(),
 			roles = NULL,
 			comments = NULL,
-			`@id` = character()
+			`@id` = character(),
+			ontology_source_references = NULL
 		) {
 			self$last_name <- last_name
 			self$first_name <- first_name
@@ -89,6 +90,7 @@ Person <- R6::R6Class(
 			self$roles <- roles
 			self$comments <- comments
 			self$`@id` <- paste0("#person/", self$last_name)
+			self$ontology_source_references <- ontology_source_references
 		},
 		# Checks
 
@@ -215,7 +217,10 @@ Person <- R6::R6Class(
 
 				self$roles <- purrr::map(
 					lst[["roles"]], ~{
-						oa <- OntologyAnnotation$new()
+						oa <- OntologyAnnotation$new(
+							ontology_source_references =
+								self$ontology_source_references
+						)
 						oa$from_list(.x, json = json)
 						oa
 					}

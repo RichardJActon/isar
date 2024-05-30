@@ -2,10 +2,13 @@ CharacteristicCategoryReferences <- R6::R6Class(
 	"CharacteristicCategoryReferences",
 	public = list(
 		categories = list(),
+		ontology_source_references = NULL,
 		initialize = function(
-		categories = list()
+			categories = list(),
+			ontology_source_references = NULL
 		) {
 			self$categories <- categories
+			self$ontology_source_references <- ontology_source_references
 		},
 		check_categories = function(categories) {
 			if(all(purrr::map_lgl(categories, ~checkmate::check_r6(
@@ -43,7 +46,9 @@ CharacteristicCategoryReferences <- R6::R6Class(
 			lst %>%
 				purrr::map(~{
 					cc <- CharacteristicCategory$new(
-						explicitly_provided = explicitly_provided
+						explicitly_provided = explicitly_provided,
+						ontology_source_references =
+							self$ontology_source_references
 					)
 					cc$from_list(.x)
 					cc

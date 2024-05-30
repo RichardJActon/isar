@@ -324,7 +324,10 @@ Investigation <- R6::R6Class(
 					p
 				})
 				self$contacts <- purrr::map(lst[["people"]], ~{
-					p <- Person$new()
+					p <- Person$new(
+						ontology_source_references =
+							self$ontology_source_references
+					)
 					p$from_list(.x, json = json)
 					p
 				})

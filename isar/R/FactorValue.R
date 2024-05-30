@@ -20,7 +20,7 @@ FactorValue <- R6Class(
 		factor = NULL,
 		value = NULL,
 		unit = NULL,
-
+		ontology_source_references = NULL,
 		study_factor_references = NULL,
 		comments = NULL,
 		`@id` =  character(),
@@ -43,6 +43,7 @@ FactorValue <- R6Class(
 			factor = NULL,
 			value = NULL,
 			unit = NULL,
+			ontology_source_references = NULL,
 			study_factor_references = NULL,
 			comments = NULL,
 			`@id` = character()
@@ -83,8 +84,12 @@ FactorValue <- R6Class(
 			# }
 			self$unit <- unit
 
+			self$ontology_source_references <- ontology_source_references
+
 			if(is.null(study_factor_references)) {
-				self$study_factor_references <- StudyFactorReferences$new()
+				self$study_factor_references <- StudyFactorReferences$new(
+					ontology_source_references = self$ontology_source_references
+				)
 			} else {
 				self$study_factor_references <- study_factor_references
 			}
@@ -189,7 +194,10 @@ FactorValue <- R6Class(
 				# )
 				#self$factor_name <- self$factor$factor_name
 				if(is.list(lst[["value"]])) {
-					self$value <- OntologyAnnotation$new()
+					self$value <- OntologyAnnotation$new(
+						ontology_source_references =
+							self$ontology_source_references
+					)
 					self$value$from_list(
 						lst[["value"]], recursive = recursive, json = json
 					)
@@ -205,7 +213,9 @@ FactorValue <- R6Class(
 				self$factor_name$from_list(lst[["factor_name"]])
 				# self$value <- self$factor_name$factor_type
 				# !! not using value direct from list but from factor ~
-				self$value <- OntologyAnnotation$new()
+				self$value <- OntologyAnnotation$new(
+					ontology_source_references = self$ontology_source_references
+				)
 				self$value$from_list(lst[["value"]])
 				self$unit <- lst[["unit"]]
 				self$comments <- lst[["comments"]]

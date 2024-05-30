@@ -113,17 +113,33 @@ Characteristic <- R6::R6Class(
 		#set_valid_category_and_value = function(category, value) {
 		set_valid_category = function(category) {
 			#if (self$check_category(category)) {
+			#browser()
 				if (
 					category$`@id` %in%
 					self$category_references$get_category_ids()
 				) {
 					self$category <-
 						self$category_references$categories[[category$`@id`]]
+				} else if(!is.null(category$`@id`)) {
+					warning("Unlisted Characteristic Category!")
+					self$category_references$categories[[
+						category$`@id`
+					]] <- CharacteristicCategory$new(
+						`@id` = category$`@id`,
+						ontology_source_references =
+							self$ontology_source_references,
+						explicitly_provided = FALSE
+					)
+					self$category <- self$category_references$categories[[
+						category$`@id`
+					]]
 				} else {
 					self$category_references$categories[[
 						"UnknownCharacteristic"
 					]] <- CharacteristicCategory$new(
 							`@id` = "Unspecified",
+							ontology_source_references =
+								self$ontology_source_references,
 							explicitly_provided = FALSE
 						)
 					self$category <- self$category_references$categories[[
@@ -156,31 +172,47 @@ Characteristic <- R6::R6Class(
 		#' @param json json  (default TRUE)
 		#' @param recursive call to_list methods of any objects within this object (default TRUE)
 		from_list = function(lst, recursive = TRUE, json = TRUE) {
-			if(json) {
-				self$set_id()
-				if(is.null(lst[["@id"]])) {
-					self$`@id` <- lst[["category"]][["@id"]]
-					ont_anno <- lst[["value"]]
-				} else {
-					self$`@id` <- lst[["@id"]]
-					ont_anno <- lst[["characteristicType"]]
-				}
-				# self$category <- sub(
-				# 	"#characteristic_category/", "", self$`@id`, fixed = TRUE
-				# )
-				self$set_valid_category(lst[["category"]])
-				if (is.null(lst[["unit"]])) {
-					self$value <- OntologyAnnotation$new(
-						ontology_source_list = self$ontology_source_references
-					)
-					self$value$from_list(
-						ont_anno, recursive = recursive, json = json
-					)
-				} else {
-					self$value <- lst[["value"]]
-				}
-				self$set_comments(lst[["comments"]])
+			self$`@id` <- lst[["category"]][["@id"]]
+			self$set_valid_category(lst[["category"]])
+			if (is.null(lst[["unit"]])) {
+				self$value <- OntologyAnnotation$new(
+					ontology_source_references =
+						self$ontology_source_references
+				)
+				self$value$from_list(
+					lst[["value"]], recursive = recursive, json = json
+				)
 			}
+			self$set_comments(lst[["comments"]])
+			#
+			# if(json) {
+			# 	self$set_id()
+			# 	if(is.null(lst[["@id"]])) {
+			# 		self$`@id` <- lst[["category"]][["@id"]]
+			# 		ont_anno <- lst[["value"]]
+			# 	} else {
+			# 		self$`@id` <- lst[["@id"]]
+			# 		ont_anno <- lst[["characteristicType"]]
+			# 	}
+			# 	# self$category <- sub(
+			# 	# 	"#characteristic_category/", "", self$`@id`, fixed = TRUE
+			# 	# )
+			# 	self$set_valid_category(lst[["category"]])
+			# 	if (is.null(lst[["unit"]])) {
+			# 		self$value <- OntologyAnnotation$new(
+			# 			ontology_source_references =
+			# 				self$ontology_source_references
+			# 		)
+			# 		self$value$from_list(
+			# 			ont_anno, recursive = recursive, json = json
+			# 		)
+			# 	} else {
+			# 		self$value <- lst[["value"]]
+			# 	}
+			# 	self$set_comments(lst[["comments"]])
+			# }
+			#
+			#
 			# else {
 			# 	private$id <- lst[["id"]]
 			# 	if(recursive) {
@@ -233,7 +265,7 @@ Characteristic <- R6::R6Class(
 		},
 		print = function() {
 			cli::cli_h1(cli::col_blue("Characteristic"))
-			green_bold_name_plain_content("category", self$category)
+			green_bold_name_plain_content("category", self$category[["@id"]])
 			green_bold_name_plain_content("ID", self$get_id())
 			green_bold_name_plain_content("value", self$value$term)
 			if(!is.null(self$unit)) {

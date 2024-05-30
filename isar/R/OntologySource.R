@@ -12,7 +12,7 @@
 #' @field file A file name or a URI of an official resource.
 #' @field file_type the file type, parsable by \code{rdflib::rdf_parse()}
 #' @field url ...
-#' @field version vesion of the ontology
+#' @field version version of the ontology
 #' @field description free text description of this source of ontology terms
 #' @field get_terms_list function to generate valid terms for file
 #' @field terms_list list of valid terms where keys are terms and values accessions
@@ -252,7 +252,7 @@ OntologySource <- R6::R6Class(
 			existing_terms_lgl <- names(terms_list) %in% names(self$terms_list)
 			if(any(existing_terms_lgl)) {
 				existing_terms <- names(terms_list[existing_terms_lgl])
-				stop(paste(
+				warning(paste(
 					"These terms already exist:",
 					paste(existing_terms, sep = ", ")
 				))

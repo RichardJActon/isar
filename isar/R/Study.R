@@ -304,14 +304,17 @@ Study <- R6::R6Class(
 				self$submission_date <- lst[["submissionDate"]]
 				self$public_release_date <- lst[["publicReleaseDate"]]
 				self$contacts <- purrr::map(lst[["people"]], ~{
-					p <- Person$new()
+					p <- Person$new(
+						ontology_source_references =
+							self$ontology_source_references
+					)
 					p$from_list(.x, json = json)
 					p
 				})
 				self$design_descriptors <- purrr::map(
 					lst[["studyDesignDescriptors"]], ~{
 						sdd <- OntologyAnnotation$new(
-							ontology_source_list =
+							ontology_source_references =
 								self$ontology_source_references
 						)
 						sdd$from_list(.x, recursive = recursive, json = json)
@@ -319,7 +322,10 @@ Study <- R6::R6Class(
 					}
 				)
 				self$publications <- purrr::map(lst[["publications"]], ~{
-					p <- Publication$new()
+					p <- Publication$new(
+						ontology_source_references =
+							self$ontology_source_references
+					)
 					p$from_list(.x, recursive = recursive, json = json)
 					p
 				})
@@ -332,7 +338,9 @@ Study <- R6::R6Class(
 				# 	"StudyFactor"#, explicit_only = TRUE
 				# )
 
-				self$factors <- StudyFactorReferences$new()
+				self$factors <- StudyFactorReferences$new(
+					ontology_source_references = self$ontology_source_references
+				)
 				self$factors$from_list(
 					lst[["factors"]], explicitly_provided = TRUE
 				)
@@ -346,7 +354,10 @@ Study <- R6::R6Class(
 				# 	})
 
 				self$characteristic_categories <-
-					CharacteristicCategoryReferences$new()
+					CharacteristicCategoryReferences$new(
+						ontology_source_references =
+							self$ontology_source_references
+					)
 				self$characteristic_categories$from_list(
 					lst[["characteristicCategories"]],
 					explicitly_provided = TRUE
@@ -374,7 +385,12 @@ Study <- R6::R6Class(
 				self$samples <- lst[["materials"]][["samples"]] %>%
 					purrr::set_names(purrr::map_chr(., ~.x[["@id"]])) %>%
 					purrr::map(~{
-						smpl <- Sample$new()
+						smpl <- Sample$new(
+							ontology_source_references =
+								self$ontology_source_references,
+							category_references = self$characteristic_categories,
+							sources = self$sources
+						)
 						smpl$from_list(.x, recursive = recursive, json = json)
 						smpl
 					})
@@ -395,7 +411,7 @@ Study <- R6::R6Class(
 				# self$characteristic_categories <- lst[["characteristicCategories"]]
 				self$units <- purrr::map(lst[["unitCategories"]],~{
 					u <- OntologyAnnotation$new(
-						ontology_source_list = self$ontology_source_references
+						ontology_source_references = self$ontology_source_references
 					)
 					u$from_list(.x, recursive = recursive, json = json)
 					u
