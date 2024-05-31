@@ -363,11 +363,14 @@ Study <- R6::R6Class(
 					explicitly_provided = TRUE
 				)
 
-				self$protocols <- purrr::map(lst[["protocols"]], ~{
-					pc <- Protocol$new()
-					pc$from_list(.x, recursive = recursive, json = json)
-					pc
-				})
+				self$protocols <-
+					lst[["protocols"]] %>%
+					purrr::set_names(purrr::map_chr(., ~.x[["@id"]])) %>%
+					purrr::map(~{
+						pc <- Protocol$new()
+						pc$from_list(.x, recursive = recursive, json = json)
+						pc
+					})
 				# self$assays <- lst[["assays"]]
 				self$sources <- lst[["materials"]][["sources"]] %>%
 					purrr::set_names(purrr::map_chr(., ~.x[["@id"]])) %>%
@@ -399,9 +402,15 @@ Study <- R6::R6Class(
 				# 	lst[["processSequence"]]
 				# )
 
-				self$process_sequence <- purrr::map(
-					lst[["processSequence"]], ~{
-						ps <- Process$new()
+				self$process_sequence <-
+					lst[["processSequence"]] %>%
+					purrr::set_names(purrr::map_chr(., ~.x[["@id"]])) %>%
+					purrr::map(~{
+						ps <- Process$new(
+							protocols = self$protocols,
+							sources = self$sources,
+							samples = self$samples
+						)
 						ps$from_list(.x, recursive = recursive, json = json) # recursive!
 						ps
 					}
@@ -411,7 +420,8 @@ Study <- R6::R6Class(
 				# self$characteristic_categories <- lst[["characteristicCategories"]]
 				self$units <- purrr::map(lst[["unitCategories"]],~{
 					u <- OntologyAnnotation$new(
-						ontology_source_references = self$ontology_source_references
+						ontology_source_references =
+							self$ontology_source_references
 					)
 					u$from_list(.x, recursive = recursive, json = json)
 					u

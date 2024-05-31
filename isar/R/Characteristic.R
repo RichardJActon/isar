@@ -69,7 +69,7 @@ Characteristic <- R6::R6Class(
 		#' @details
 		#' check that value is numeric
 		#' @param value a value in the specified units
-		check_value = function(value) {
+		check_value = function(value) { ###!!! condition on unit being not null for numeric, and null for r6 ont anno !!###
 			if (is.numeric(value)) { return(TRUE) }
 		},
 		#' @details
@@ -143,8 +143,8 @@ Characteristic <- R6::R6Class(
 							explicitly_provided = FALSE
 						)
 					self$category <- self$category_references$categories[[
-							"UnknownCharacteristic"
-						]]
+						"UnknownCharacteristic"
+					]]
 				}
 			#}
 		},
@@ -182,6 +182,11 @@ Characteristic <- R6::R6Class(
 				self$value$from_list(
 					lst[["value"]], recursive = recursive, json = json
 				)
+			} else {
+				if (lst[["unit"]][["@id"]] %in% self$unit_references$get_unit_ids()) {
+					self$unit <- self$unit_references$unit_references[[lst[["unit"]][["@id"]]]]
+				}
+				self$set_value(lst[["value"]])
 			}
 			self$set_comments(lst[["comments"]])
 			#

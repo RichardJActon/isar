@@ -21,6 +21,9 @@ Process <- R6::R6Class(
 		outputs = NULL,
 		comments = NULL,
 		`@id` = NULL,
+		protocols = NULL,
+		sources = NULL,
+		samples = NULL,
 		#' @details
 		#' Create a new \code{[Process]}
 		#' @param name If relevant, a unique name for the process to disambiguate it from other processes.
@@ -40,7 +43,10 @@ Process <- R6::R6Class(
 			inputs = NULL,
 			outputs = NULL,
 			comments = NULL,
-			`@id` = NULL
+			`@id` = NULL,
+			protocols = NULL,
+			sources = NULL,
+			samples = NULL
 		) {
 			self$name <- name
 			self$executes_protocol <- executes_protocol
@@ -51,6 +57,9 @@ Process <- R6::R6Class(
 			self$outputs <- outputs
 			self$comments <- comments
 			self$`@id` <- `@id`
+			self$protocols <- protocols
+			self$sources <- sources
+			self$samples <- samples
 		},
 		#' @details
 		#' Check the the name has a non-zero length
@@ -146,12 +155,18 @@ Process <- R6::R6Class(
 		#' @details
 		#' Make \code{[Process]} object from list
 		#' @param lst an Process object serialized to a list
-		from_list = function(lst, recursive = TRUE, json = FALSE) {
+		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			if(json) {
-				self$executes_protocol <- lst[["executesProtocol"]][["@id"]]
+				self$executes_protocol <- self$protocols[[
+					lst[["executesProtocol"]][["@id"]]
+				]]
 				self$parameter_values <- lst[["parameterValues"]]
-				self$outputs <- purrr::map_chr(lst[["outputs"]], ~.x$`@id`)
-				self$inputs <- purrr::map_chr(lst[["inputs"]], ~.x$`@id`)
+				self$outputs <- self$samples[
+					purrr::map_chr(lst[["outputs"]], ~.x$`@id`)
+				]
+				self$inputs <- self$sources[
+					purrr::map_chr(lst[["inputs"]], ~.x$`@id`)
+				]
 			} else {
 				self$executes_protocol <- lst[["executes_protocol"]] # protocol object
 				self$parameter_values <- lst[["parameter_values"]] # ont anno?
@@ -199,10 +214,10 @@ Process <- R6::R6Class(
 				green_bold_name_plain_content("Performer", self$performer)
 			}
 			cli::cli_h2("Inputs")
-			cli::cli_ul(self$inputs)
+			cli::cli_ul(names(self$inputs))
 
 			cli::cli_h2("Outputs")
-			cli::cli_ul(self$outputs)
+			cli::cli_ul(names(self$outputs))
 
 			if(checkmate::test_r6(self$executes_protocol, "Protocol")){
 				green_bold_name_plain_content(

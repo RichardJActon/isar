@@ -1,3 +1,5 @@
 {
-    "showCommandPalette": "Ctrl+Alt+I"
+    "showCommandPalette": "Ctrl+Alt+I",
+    "nextTab": "Alt+Right",
+    "previousTab": "Alt+Left"
 }

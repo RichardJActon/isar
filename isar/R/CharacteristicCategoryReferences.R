@@ -42,8 +42,8 @@ CharacteristicCategoryReferences <- R6::R6Class(
 		get_category_names = function() {
 			purrr::map_chr(self$categories, ~.x$type$term)
 		},
-		from_list = function(lst, explicitly_provided = logical()) {
-			lst %>%
+		from_list = function(lst, explicitly_provided = logical(), add = FALSE) {
+			ccl <- lst %>%
 				purrr::map(~{
 					cc <- CharacteristicCategory$new(
 						explicitly_provided = explicitly_provided,
@@ -53,8 +53,12 @@ CharacteristicCategoryReferences <- R6::R6Class(
 					cc$from_list(.x)
 					cc
 				}) %>%
-				purrr::set_names(., purrr::map_chr(., ~.x[["@id"]])) %>%
-				self$set_categories()
+				purrr::set_names(., purrr::map_chr(., ~.x[["@id"]]))
+			if(add) {
+				self$add_categories(ccl)
+			} else {
+				self$set_categories(ccl)
+			}
 		},
 		print = function() {
 			cli::cli_h1(cli::col_blue("Characteristic Category References"))

@@ -35,12 +35,14 @@ Assay <- R6::R6Class(
 		technology_platform = character(),
 		filename = character(),
 		materials = NULL,
+		samples = NULL,
 		units = NULL,
 		characteristic_categories = NULL,
 		process_sequence = NULL,
 		comments = NULL,
 		graph = NULL,
 		data_files = NULL,
+		ontology_source_references = NULL,
 		#' @details
 		#' Create a new assay
 		#'
@@ -60,12 +62,14 @@ Assay <- R6::R6Class(
 			technology_platform = character(),
 			filename = character(),
 			materials = NULL,
+			samples = NULL,
 			units = NULL,
 			characteristic_categories = NULL,
 			process_sequence = NULL,
 			comments = NULL,
 			graph = NULL,
-			data_files = NULL
+			data_files = NULL,
+			ontology_source_references = NULL
 		) {
 			if (is.null(measurement_type)) {
 				self$measurement_type <- measurement_type
@@ -88,12 +92,14 @@ Assay <- R6::R6Class(
 				self$set_filename(filename)
 			}
 			self$materials <- materials
+			self$samples <- samples
 			self$units <- units
 			self$characteristic_categories <- characteristic_categories
 			self$process_sequence <- process_sequence
 			self$comments <- comments
 			self$graph <- graph
 			self$data_files <- data_files
+			self$ontology_source_references <- ontology_source_references
 			# self$string()
 		},
 		#' @details
@@ -239,11 +245,15 @@ Assay <- R6::R6Class(
 		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			if (json) {
 				# if (recursive) {}
-				self$measurement_type <- OntologyAnnotation$new()
+				self$measurement_type <- OntologyAnnotation$new(
+					ontology_source_references = self$ontology_source_references
+				)
 				self$measurement_type$from_list(
 					lst[["measurementType"]], recursive = recursive, json = json
 				)
-				self$technology_type <- OntologyAnnotation$new()
+				self$technology_type <- OntologyAnnotation$new(
+					ontology_source_references = self$ontology_source_references
+				)
 				self$technology_type$from_list(
 					lst[["technologyType"]], recursive = recursive, json = json
 				)
@@ -256,9 +266,30 @@ Assay <- R6::R6Class(
 				self$technology_platform <- lst[["technologyPlatform"]]
 				self$filename <- lst[["filename"]]
 				self$materials <- lst[["materials"]]
+				self$samples <- self$samples[
+					purrr::map_chr(lst[["samples"]], ~.x$`@id`)
+				]
 
-				self$units <- lst[["unitCategories"]]
-				self$characteristic_categories <- lst[["characteristicCategories"]]
+				self$units <- purrr::map(lst[["unitCategories"]],~{
+					u <- OntologyAnnotation$new(
+						ontology_source_references =
+							self$ontology_source_references
+					)
+					u$from_list(.x, recursive = recursive, json = json)
+					u
+				})
+
+				if (is.null(self$characteristic_categories)) {
+					self$characteristic_categories <-
+						CharacteristicCategoryReferences$new(
+							ontology_source_references =
+								self$ontology_source_references
+						)
+				}
+				self$characteristic_categories$from_list(
+					lst[["characteristicCategories"]], # source ?
+					explicitly_provided = TRUE, add = TRUE
+				)
 
 				process_sequence_order <- get_process_sequence_order_from_json(
 					lst[["processSequence"]]
@@ -335,23 +366,3 @@ Assay <- R6::R6Class(
 		# }
 	)
 )
-
-#' identical.Assay
-#'
-#' Allows checking for the identity of \code{[Assay]} objects
-#'
-#' @param x a \code{[Assay]} object
-#' @param y a \code{[Assay]} object
-#' @export
-identical.Assay <- s3_identical_maker(c(
-	"measurement_type",
-	"technology_type",
-	"technology_platform",
-	"filename",
-	"materials",
-	"units",
-	"characteristic_categories",
-	"process_sequence",
-	"comments",
-	"graph"
-), get_id = FALSE)

@@ -3,7 +3,24 @@
 #
 # have a warnings / messages field that can indicate if you are not using an ontology and
 # show this in the UI?
-
+#
+# # Issues in proper unit composition handling
+#
+# measurement ontology is somewhat inconsistent
+# unit
+# prefix (conversions?)
+# compound units "meters per second"
+# multiplication, division, exponentiation (sign), order or operations/parens/groups
+#
+# unit of X (X as an amount, physical quantity etc.)
+#
+# (meter)(dividion)(second)
+#
+#
+# isomorphisms? m/s vs ms^-1?
+#
+# ###!! keep it simple and add advanced handling later? !!##
+#
 # hard code units of measurement ontology?
 # unit annotation
 # unit source
@@ -12,17 +29,17 @@
 #' @field unit a unit of measurement
 Unit <- R6::R6Class(
 	"Unit",
-	# inherit = OntologySourceReferences,
-	# inherit = OntologyAnnotation, # ?
 	public = list(
 		unit = NULL,
 		`@id` = character(),
+		ontology_source_references = NULL,
 		#' @details
 		#' Create a new \code{[Unit]} object
 		#' @param unit a unit of measurement
 		initialize = function(
 			unit = NULL,
-			`@id` = character()
+			`@id` = character(),
+			ontology_source_references = NULL
 		) {
 			if (is.null(unit)) { self$unit <- unit } else {
 				# need a list of ontology annotations to account for
@@ -32,6 +49,40 @@ Unit <- R6::R6Class(
 				self$unit <- OntologyAnnotation$new(unit, OM)
 			}
 			self$`@id` <- `@id`
+			self$ontology_source_references <- ontology_source_references
+		},
+		set_unit_from_string = function(unit) {
+			check <- checkmate::check_string(unit)
+			error_with_check_message_on_failure(check)
+
+			if (unit %in% OM$terms_list || unit %in% names(OM$terms_list)) {
+				if(!"OM" %in% self$ontology_source_references$get_ontology_source_names()) {
+					self$ontology_source_references$add_ontology_sources(list("OM" = OM))
+				}
+			}
+
+			if (unit %in% OM$terms_list) {
+				self$unit <- OntologyAnnotation$new(
+					term = unit,
+					term_source = "OM",
+					ontology_source_references = self$ontology_source_references
+				)
+			} else if (unit %in% names(OM$terms_list)) {
+				self$unit <- OntologyAnnotation$new(
+					term_accession = unit,
+					term_source = "OM",
+					ontology_source_references = self$ontology_source_references
+				)
+			} else {
+				self$unit <- OntologyAnnotation$new(
+					term_accession = unit,
+					term_source = "UnknownSource",
+					ontology_source_references = self$ontology_source_references
+				)
+			}
+		},
+		get_unit_string = function() {
+			self$unit$term
 		},
 		#' @details
 		#' An R list representation of a \code{[Unit]} object
@@ -48,7 +99,9 @@ Unit <- R6::R6Class(
 		#' @param lst an Unit object serialized to a list
 		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			self$`@id` <- lst[["@id"]]
-			self$unit <- OntologyAnnotation$new()
+			self$unit <- OntologyAnnotation$new(
+				ontology_source_references = self$ontology_source_references
+			)
 			self$unit <- self$unit$from_list(lst)
 		}
 	)
