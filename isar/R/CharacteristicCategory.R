@@ -39,6 +39,9 @@ CharacteristicCategory <- R6::R6Class(
 		set_type = function(type) {
 			if(self$check_type(type)) { self$type <- type }
 		},
+		to_list = function() {
+			list(`@id` = self$`@id`)
+		},
 		from_list = function(lst) {
 			self$set_id(lst[["@id"]])
 			self$type <- {

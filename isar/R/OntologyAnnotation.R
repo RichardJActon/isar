@@ -338,21 +338,26 @@ OntologyAnnotation <- R6::R6Class(
 		#' @param ld logical json-ld
 		#' @param recursive call to_list methods of any objects within this object (default FALSE)
 		to_list = function(ld = FALSE, recursive = TRUE) {
-			ontology_annotation = list(
-				"id" = private$id,
-				"annotation_value" = self$term,
-				"term_source" = switch(
-					as.character(recursive),
-					"TRUE" = self$term_source$to_list(),
-					"FALSE" = switch(
-						as.character(is.null(self$term_source)),
-						"TRUE" = NULL, "FALSE" = self$term_source$name
-					)
-				),
-				"term_accession" = self$term_accession,
-				"comments" = self$comments ## !!
+			list(
+				termAccession = self$term_accession,
+				termSource = self$term,
+				annotationValue = self$term_source$name
 			)
-			return(ontology_annotation)
+			# ontology_annotation = list(
+			# 	"id" = private$id,
+			# 	"annotation_value" = self$term,
+			# 	"term_source" = switch(
+			# 		as.character(recursive),
+			# 		"TRUE" = self$term_source$to_list(),
+			# 		"FALSE" = switch(
+			# 			as.character(is.null(self$term_source)),
+			# 			"TRUE" = NULL, "FALSE" = self$term_source$name
+			# 		)
+			# 	),
+			# 	"term_accession" = self$term_accession,
+			# 	"comments" = self$comments ## !!
+			# )
+			# return(ontology_annotation)
 		},
 
 		#' @details

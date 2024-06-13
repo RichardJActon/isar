@@ -116,15 +116,18 @@ Sample <- R6::R6Class(
 		#' @examples
 		#' Sample$new()
 		to_list = function(ld = FALSE) {
-			sample = list(
-				"id" = private$id,
-				"name" = self$name,
-				"factor_values" = purrr::map(self$factor_values, ~.x$to_list()),
-				"characteristics" = self$characteristics,
-				"derives_from" = self$derives_from,
-				"comments" = self$comments
+			lst <- list()
+			# "id" = private$id
+			lst[["name"]] <- self$name
+			lst[["factorValues"]] <- purrr::map(
+				self$factor_values, ~.x$to_list()
 			)
-			return(sample)
+			lst[["characteristics"]] <- purrr::map(
+				self$characteristics, ~.x$to_list()
+			)
+			lst[["derivesFrom"]][[1]][["@id"]] <- self$derives_from$`@id` ## !!! potential multiple sources
+			lst[["comments"]] <- self$comments
+			return(lst)
 		},
 
 		check_source = function(source) {

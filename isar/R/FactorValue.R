@@ -154,16 +154,19 @@ FactorValue <- R6Class(
 		#' generate an R list representation translatable to JSON
 		#' @param ld logical json-ld
 		to_list = function(ld = FALSE) {
-			factor_value = list(
-				#"factor_name" = self$factor_name$to_list(),
-				#"factor_name" = super$factor_name$to_list(),
-				"value" = self$value$to_list(),
-				"unit" = self$unit,
-				"comments" = self$comments,
-				#"@id" = super$`@id`
-				"@id" = self$`@id`
-			)
-			return(factor_value)
+			lst <- list()
+			#"factor_name" = self$factor_name$to_list(),
+			#"factor_name" = super$factor_name$to_list(),
+			if(is.null(self$unit)) {
+				lst[["value"]] <- self$value$to_list()
+			} else {
+				lst[["value"]] <- self$value
+				lst[["unit"]] <- self$unit$to_list()
+			}
+			lst[["comments"]] <- self$comments
+			#"@id" = super$`@id`
+			lst[["@id"]] <- self$`@id`
+			return(lst)
 		},
 
 		#' @details

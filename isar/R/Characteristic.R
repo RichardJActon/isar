@@ -157,19 +157,27 @@ Characteristic <- R6::R6Class(
 		#' An R list representation of a \code{[Characteristic]} object
 		#' @param ld linked data (default FALSE)
 		#' @param recursive call to_list methods of any objects within this object (default FALSE)
-		to_list = function(ld = FALSE, recursive = FALSE){
-			characteristic <- list(
-				"id" = private$id,
-				"category" = ifelse(
-					recursive, self$category$to_list(), self$category$term
-				),
-				"value" = self$value,
-				"unit" = ifelse(
-					recursive, self$unit$to_list(), self$unit$unit$term
-				),
-				"comments" = self$comments
-			)
-			return(characteristic)
+		to_list = function(ld = FALSE, recursive = TRUE) {
+			lst <- list()
+			if(recursive) {
+				# lst[["@id"]] <- self$`@id`
+				lst[["category"]][["@id"]] <- self$category$`@id`
+				lst[["value"]] <- self$value$to_list()
+				if(!is.null(self$unit)) {
+					lst[["unit"]] <- self$unit$to_list()
+				}
+				lst[["comments"]] <- self$comments
+
+			} else {
+				characteristic <- list(
+					"id" = private$id,
+					"category" = self$category$term,
+					"value" = self$value$term,
+					"unit" = self$unit$unit$term,
+					"comments" = self$comments
+				)
+			}
+			return(lst)
 		},
 		#' @details
 		#' Make \code{[Characteristic]} object from list
