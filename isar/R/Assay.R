@@ -229,19 +229,28 @@ Assay <- R6::R6Class(
 		#'
 		#' @param ld linked data (default FALSE)
 		to_list = function(ld = FALSE) {
-			assay = list(
-				"measurement_type" = self$measurement_type$to_list(),
-				"technology_type" = self$technology_type$to_list(),
-				"technology_platform" = self$technology_platform,
-				"filename" = self$filename,
-				"materials" = self$materials,
-				"units" = self$units$to_list(),
-				"characteristic_categories" = self$characteristic_categories$to_list(),
-				"process_sequence" = self$process_sequence,
-				"comments" = self$comments,
-				"graph" = self$graph
+			lst <- list()
+			lst[["measurementType"]] <- self$measurement_type$to_list()
+			lst[["technologyType"]] <- self$technology_type$to_list()
+			lst[["technologyPlatform"]] <- self$technology_platform
+			lst[["filename"]] <- self$filename
+			lst[["materials"]][["otherMaterials"]] <- purrr::map(
+				self$other_materials, ~.x$to_list()
 			)
-			return(assay)
+			lst[["materials"]][["samples"]] <- purrr::map(
+				self$samples, ~.x$to_list()
+			)
+			lst[["unitCategories"]] <- purrr::map(self$units, ~{
+				c(list(`@id` = .x$`@id`), .x$to_list())
+			})
+			lst[["characteristicCategories"]] <-
+				self$characteristic_categories$to_list()
+			lst[["processSequence"]] <- purrr::map(
+				self$process_sequence, ~.x$to_list()
+			)
+			lst[["comments"]] <- self$comments
+			# lst[["graph"]] <- self$graph
+			return(lst)
 		},
 		#' @details
 		#'

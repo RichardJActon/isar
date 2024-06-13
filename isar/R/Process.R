@@ -137,20 +137,17 @@ Process <- R6::R6Class(
 		#' An R list representation of a \code{[Process]} object
 		#' @param ld linked data (default FALSE)
 		to_list = function(ld = FALSE){
-			process <- list(
-				"name" = self$name,
-				"executes_protocol" = self$executes_protocol,
-				"date" = self$date,
-				"performer" = purrr::map(self$performer, ~.x$to_list),
-				"parameter_values" = self$parameter_values,
-				"inputs" = self$inputs,
-				"outputs" = self$outputs,
-				"comments" = self$comments
-			)
-			if(ld) {
-				process$`@id` <- self$`@id`
-			}
-			return(process)
+			lst <- list()
+			lst[["name"]] <- self$name
+			lst[["executesProtocol"]] <- self$executes_protocol
+			lst[["date"]] <- self$date
+			lst[["performer"]] <- self$performer# purrr::map(self$performer, ~.x$to_list),
+			lst[["parameter_values"]] <- self$parameter_values
+			lst[["inputs"]] <- purrr::map(self$inputs, ~.x$to_list())
+			lst[["outputs"]] <- purrr::map(self$outputs, ~.x$to_list())
+			lst[["comments"]] <- self$comments
+			lst$`@id` <- self$`@id`
+			return(lst)
 		},
 		#' @details
 		#' Make \code{[Process]} object from list
