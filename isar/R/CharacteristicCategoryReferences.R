@@ -42,11 +42,14 @@ CharacteristicCategoryReferences <- R6::R6Class(
 		get_category_names = function() {
 			purrr::map_chr(self$categories, ~.x$type$term)
 		},
-		from_list = function(lst, explicitly_provided = logical(), add = FALSE) {
+		from_list = function(
+			lst, explicitly_provided = logical(), source = NA, add = FALSE
+		) {
 			ccl <- lst %>%
 				purrr::map(~{
 					cc <- CharacteristicCategory$new(
 						explicitly_provided = explicitly_provided,
+						source = source,
 						ontology_source_references =
 							self$ontology_source_references
 					)
@@ -54,7 +57,18 @@ CharacteristicCategoryReferences <- R6::R6Class(
 					cc
 				}) %>%
 				purrr::set_names(., purrr::map_chr(., ~.x[["@id"]]))
+
 			if(add) {
+				nmslgl <- names(ccl) %in% self$get_category_ids()
+				if(any(nmslgl)) {
+					warning(
+						"Overwriting a characterictic category with an identical name!",
+						"Suggests characteristic categories did not list all categories used in a study."
+					)
+					nms <- names(ccl)[nmslgl]
+					self$categories[nms] <- ccl[nmslgl]
+					ccl <- ccl[-nmslgl]
+				}
 				self$add_categories(ccl)
 			} else {
 				self$set_categories(ccl)

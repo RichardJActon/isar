@@ -13,7 +13,6 @@ test_uuid <- uuid::UUIDgenerate()
 
 # Ontology Source References ----
 # inv <- Investigation$new()
-# inv$from_list(BII_I_1_jsonlite, recursive = FALSE, json = TRUE)
 # inv$from_list(BII_I_1_jsonlite, recursive = TRUE, json = TRUE)
 # inv$get_ontology_source_names()
 # detecting missing ontology sources

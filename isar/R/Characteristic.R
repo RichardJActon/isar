@@ -18,6 +18,7 @@ Characteristic <- R6::R6Class(
 		comments = NULL,
 		`@id` =  character(),
 		ontology_source_references = NULL,
+		unit_references = NULL,
 		#' @details
 		#' Create a new \code{[Characteristics]} object
 		#' @param category The classifier of the type of characteristic being described.
@@ -31,7 +32,8 @@ Characteristic <- R6::R6Class(
 			category_references = NULL,
 			comments = NULL,
 			`@id` = character(),
-			ontology_source_references = NULL
+			ontology_source_references = NULL,
+			unit_references = NULL
 		) {
 			if(is.null(category)) {
 				self$category <- category
@@ -49,6 +51,7 @@ Characteristic <- R6::R6Class(
 			self$comments <- comments
 			self$`@id` <- `@id`
 			self$ontology_source_references <- ontology_source_references
+			self$unit_references <- unit_references
 			#self$`@id` <- paste0("#characteristic_category/", self$)
 		},
 		#' @details
@@ -128,7 +131,8 @@ Characteristic <- R6::R6Class(
 						`@id` = category$`@id`,
 						ontology_source_references =
 							self$ontology_source_references,
-						explicitly_provided = FALSE
+						explicitly_provided = FALSE,
+						source = category$`@id`
 					)
 					self$category <- self$category_references$categories[[
 						category$`@id`
@@ -140,7 +144,8 @@ Characteristic <- R6::R6Class(
 							`@id` = "Unspecified",
 							ontology_source_references =
 								self$ontology_source_references,
-							explicitly_provided = FALSE
+							explicitly_provided = FALSE,
+							source = category$`@id`
 						)
 					self$category <- self$category_references$categories[[
 						"UnknownCharacteristic"
@@ -184,7 +189,9 @@ Characteristic <- R6::R6Class(
 				)
 			} else {
 				if (lst[["unit"]][["@id"]] %in% self$unit_references$get_unit_ids()) {
-					self$unit <- self$unit_references$unit_references[[lst[["unit"]][["@id"]]]]
+					self$unit <- self$unit_references$unit_references[[
+						lst[["unit"]][["@id"]]
+					]]
 				}
 				self$set_value(lst[["value"]])
 			}

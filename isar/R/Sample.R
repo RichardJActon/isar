@@ -163,46 +163,70 @@ Sample <- R6::R6Class(
 
 			self$factor_values <- purrr::map(
 				lst[["factorValues"]], ~{
-					fv <- FactorValue$new()
+					fv <- FactorValue$new(
+						ontology_source_references =
+							self$ontology_source_references
+					)
 					fv$from_list(.x, recursive = recursive, json = json)
 					fv
 				}
 			)
 
-			if (checkmate::test_list(lst[["characteristics"]], len = 0)) {
-				if(
-					!"UnknownCharacteristic" %in%
-					names(self$category_references$categories)
-				) {
-					self$category_references$add_categories(
-						list("UnknownCharacteristic" = CharacteristicCategory$new(
-							`@id` = "Unspecified",
-							explicitly_provided = FALSE,
-							ontology_source_references =
-								self$ontology_source_references
-						))
+
+			if (is.null(self$category_references)) {
+				self$category_references <-
+					CharacteristicCategoryReferences$new(
+						ontology_source_references =
+							self$ontology_source_references
 					)
-				}
-				self$characteristics <- list(Characteristic$new(
-					category = self$category_references$categories[[
-						"UnknownCharacteristic"
-					]],
-					#value = NA_integer_,
-					`@id` = "Unspecified",
+			}
+			self$characteristics <- purrr::map(lst[["characteristics"]], ~{
+				chr <- Characteristic$new(
 					ontology_source_references =
 						self$ontology_source_references,
 					category_references = self$category_references
-				))
-			} else {
-				self$characteristics <- purrr::map(lst[["characteristics"]], ~{
-					chr <- Characteristic$new(
-						ontology_source_references = self$ontology_source_references,
-						category_references = self$category_references
-					)
-					chr$from_list(.x, json = json, recursive = recursive)
-					chr
-				})
-			}
+				)
+				chr$from_list(.x, json = json, recursive = recursive)
+				chr
+			})
+			# if (checkmate::test_list(lst[["characteristics"]], len = 0)) {
+			# 	if(
+			# 		!"UnknownCharacteristic" %in%
+			# 		names(self$category_references$categories)
+			# 	) {
+			# 		self$category_references$add_categories(
+			# 			list(
+			# 				"UnknownCharacteristic" =
+			# 				CharacteristicCategory$new(
+			# 					`@id` = "Unspecified",
+			# 					explicitly_provided = FALSE, source = self$name,
+			# 					ontology_source_references =
+			# 						self$ontology_source_references
+			# 				)
+			# 			)
+			# 		)
+			# 	}
+			# 	self$characteristics <- list(Characteristic$new(
+			# 		category = self$category_references$categories[[
+			# 			"UnknownCharacteristic"
+			# 		]],
+			# 		#value = NA_integer_,
+			# 		`@id` = "Unspecified",
+			# 		ontology_source_references =
+			# 			self$ontology_source_references,
+			# 		category_references = self$category_references
+			# 	))
+			# } else {
+			# 	self$characteristics <- purrr::map(lst[["characteristics"]], ~{
+			# 		chr <- Characteristic$new(
+			# 			ontology_source_references =
+			# 				self$ontology_source_references,
+			# 			category_references = self$category_references
+			# 		)
+			# 		chr$from_list(.x, json = json, recursive = recursive)
+			# 		chr
+			# 	})
+			# }
 			self$comments <- lst[["comments"]]
 		},
 
@@ -210,8 +234,14 @@ Sample <- R6::R6Class(
 			cli::cli_h1(cli::col_blue("Sample"))
 			green_bold_name_plain_content("Name", self$name)
 			green_bold_name_plain_content("ID", private$id)
+			green_bold_name_plain_content("Derives from", self$derives_from$name)
 			cli::cli_h1(cli::col_green("Factor Categories"))
 			cli::cli_ul(purrr::map_chr(self$factor_values, ~.x$`@id`))
+
+			cli::cli_h1(cli::col_green("Characteristics"))
+			purrr::walk(self$characteristics, ~{
+				green_bold_name_plain_content(.x$category$type, .x$value$term)
+			})
 
 			pretty_print_comments(self$comments)
 		}

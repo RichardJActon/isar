@@ -16,7 +16,7 @@ Source <- R6::R6Class(
 		comments = NULL,
 		characteristic_category_references = NULL,
 		`@id` =  character(),
-
+		unit_references = NULL,
 		#' @param name A name/reference for the source material.
 		#' @param characteristics A list of Characteristics used to qualify the material properties.
 		#' @param comments Comments associated with instances of this class.
@@ -25,7 +25,8 @@ Source <- R6::R6Class(
 			characteristics = NULL,
 			comments = NULL,
 			characteristic_category_references = NULL,
-			`@id` = character()
+			`@id` = character(),
+			unit_references = NULL
 		) {
 			self$name <- name
 			if(is.null(characteristics)) {
@@ -37,6 +38,7 @@ Source <- R6::R6Class(
 			self$`@id` <- `@id`
 			self$characteristic_category_references <-
 				characteristic_category_references
+			self$unit_references <- unit_references
 		},
 
 		#' @details
@@ -68,7 +70,8 @@ Source <- R6::R6Class(
 			self$characteristics <- purrr::map(lst[["characteristics"]], ~{
 				ch <- Characteristic$new(
 					category_references =
-						self$characteristic_category_references
+						self$characteristic_category_references,
+					unit_references = self$unit_references
 				)
 				ch$from_list(.x, recursive = recursive, json = json)
 				ch

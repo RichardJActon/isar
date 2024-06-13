@@ -34,7 +34,8 @@ Assay <- R6::R6Class(
 		technology_type = NULL,
 		technology_platform = character(),
 		filename = character(),
-		materials = NULL,
+		#materials = NULL,
+		other_materials = NULL,
 		samples = NULL,
 		units = NULL,
 		characteristic_categories = NULL,
@@ -43,6 +44,7 @@ Assay <- R6::R6Class(
 		graph = NULL,
 		data_files = NULL,
 		ontology_source_references = NULL,
+		`@id` = character(),
 		#' @details
 		#' Create a new assay
 		#'
@@ -50,7 +52,7 @@ Assay <- R6::R6Class(
 		#' @param technology_type An \code{[OntologyAnnotation]} to identify the technology  used to perform the measurement.
 		#' @param technology_platform Manufacturer and platform name, e.g. Bruker AVANCE.
 		#' @param filename  A field to specify the name of the assay file for compatibility with ISA-Tab.
-		#' @param materials Materials associated with the assay, lists of '\code{[Sample]}s' and other_material'.
+		# #' @param materials Materials associated with the assay, lists of '\code{[Sample]}s' and other_material'.
 		#' @param units A list of units used in the annotation of material units ? \code{[OntologyAnnotation]} !!.
 		#' @param characteristic_categories A list of \code{[OntologyAnnotation]} used in the annotation of material characteristics in the Assay.
 		#' @param process_sequence A list of Process objects representing the experimental graphs at the Assay level.
@@ -61,7 +63,8 @@ Assay <- R6::R6Class(
 			technology_type = NULL,
 			technology_platform = character(),
 			filename = character(),
-			materials = NULL,
+			#materials = NULL,
+			other_materials = NULL,
 			samples = NULL,
 			units = NULL,
 			characteristic_categories = NULL,
@@ -69,7 +72,8 @@ Assay <- R6::R6Class(
 			comments = NULL,
 			graph = NULL,
 			data_files = NULL,
-			ontology_source_references = NULL
+			ontology_source_references = NULL,
+			`@id` = character()
 		) {
 			if (is.null(measurement_type)) {
 				self$measurement_type <- measurement_type
@@ -91,7 +95,8 @@ Assay <- R6::R6Class(
 			} else {
 				self$set_filename(filename)
 			}
-			self$materials <- materials
+			# self$materials <- materials
+			self$other_materials <- other_materials
 			self$samples <- samples
 			self$units <- units
 			self$characteristic_categories <- characteristic_categories
@@ -100,6 +105,7 @@ Assay <- R6::R6Class(
 			self$graph <- graph
 			self$data_files <- data_files
 			self$ontology_source_references <- ontology_source_references
+			self$`@id` <- `@id`
 			# self$string()
 		},
 		#' @details
@@ -245,9 +251,26 @@ Assay <- R6::R6Class(
 		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			if (json) {
 				# if (recursive) {}
+				self$`@id` <- lst$`@id`
+
 				self$measurement_type <- OntologyAnnotation$new(
 					ontology_source_references = self$ontology_source_references
 				)
+
+				if (is.null(self$characteristic_categories)) {
+					self$characteristic_categories <-
+						CharacteristicCategoryReferences$new(
+							ontology_source_references =
+								self$ontology_source_references,
+							source = self$`@id`
+						)
+				}
+				# add any categories not found in the supplied reference
+				self$characteristic_categories$from_list(
+					lst[["characteristicCategories"]], # source ?
+					explicitly_provided = TRUE, add = TRUE, source = self$`@id`
+				)
+
 				self$measurement_type$from_list(
 					lst[["measurementType"]], recursive = recursive, json = json
 				)
@@ -258,16 +281,35 @@ Assay <- R6::R6Class(
 					lst[["technologyType"]], recursive = recursive, json = json
 				)
 				#self$data_files <- lst[["dataFiles"]]
-				self$data_files <- purrr::map(lst[["dataFiles"]], ~{
-					df <- DataFile$new()
-					df$from_list(.x, json = json)
-				})
+				self$data_files <-
+					lst[["dataFiles"]] %>%
+					purrr::set_names(purrr::map_chr(., ~.x$`@id`)) %>%
+					purrr::map( ~{
+						df <- DataFile$new()
+						df$from_list(.x, json = json)
+						df
+					})
 
 				self$technology_platform <- lst[["technologyPlatform"]]
 				self$filename <- lst[["filename"]]
-				self$materials <- lst[["materials"]]
+
+				#self$materials <- lst[["materials"]]
+				self$other_materials <-
+					lst[["materials"]][["otherMaterials"]] %>%
+					purrr::set_names(purrr::map_chr(., ~.x$`@id`)) %>%
+					purrr::map(~{
+						m <- Material$new(
+							ontology_source_references =
+								self$ontology_source_references,
+							characteristic_categories =
+								self$characteristic_categories
+						)
+						m$from_list(.x, recursive = recursive, json = json)
+						m
+					})
+
 				self$samples <- self$samples[
-					purrr::map_chr(lst[["samples"]], ~.x$`@id`)
+					purrr::map_chr(lst[["materials"]][["samples"]], ~.x$`@id`)
 				]
 
 				self$units <- purrr::map(lst[["unitCategories"]],~{
@@ -279,21 +321,9 @@ Assay <- R6::R6Class(
 					u
 				})
 
-				if (is.null(self$characteristic_categories)) {
-					self$characteristic_categories <-
-						CharacteristicCategoryReferences$new(
-							ontology_source_references =
-								self$ontology_source_references
-						)
-				}
-				self$characteristic_categories$from_list(
-					lst[["characteristicCategories"]], # source ?
-					explicitly_provided = TRUE, add = TRUE
-				)
-
-				process_sequence_order <- get_process_sequence_order_from_json(
-					lst[["processSequence"]]
-				)
+				# process_sequence_order <- get_process_sequence_order_from_json(
+				# 	lst[["processSequence"]]
+				# )
 
 				self$process_sequence <- purrr::map(
 					lst[["processSequence"]], ~{
@@ -301,7 +331,7 @@ Assay <- R6::R6Class(
 						ps$from_list(.x, recursive = recursive, json = json) # recursive!
 						ps
 					}
-				)[order(process_sequence_order)]
+				)#[order(process_sequence_order)]
 
 				self$comments <- lst[["comments"]]
 				# self$graph <- lst[["graph"]]

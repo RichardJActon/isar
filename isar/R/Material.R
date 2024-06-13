@@ -13,11 +13,13 @@
 #' @export
 Material <- R6::R6Class(
 	"Material",
-	inherit = MaterialReferences,
+	#inherit = MaterialReferences,
 	public = list(
 		name = character(),
 		type = character(),
 		characteristics = NULL,
+		characteristic_categories = NULL,
+		ontology_source_references = NULL,
 		comments = NULL,
 		`@id` =  character(),
 		#' @details
@@ -30,6 +32,8 @@ Material <- R6::R6Class(
 			name = character(),
 			type = character(),
 			characteristics = NULL,
+			characteristic_categories = NULL,
+			ontology_source_references = NULL,
 			comments = NULL,
 			`@id` =  character()
 		) {
@@ -45,6 +49,8 @@ Material <- R6::R6Class(
 				self$check_characteristics(characteristics)
 			}
 			self$comments <- comments
+			self$characteristic_categories <- characteristic_categories
+			self$ontology_source_references <- ontology_source_references
 			self$`@id` <- `@id`
 		},
 		#' @details
@@ -135,7 +141,11 @@ Material <- R6::R6Class(
 			self$`@id` <- lst[["@id"]]
 			self$type <- lst[["type"]]
 			self$characteristics <- purrr::map(lst[["characteristics"]], ~{
-				chr <- Characteristic$new()
+				chr <- Characteristic$new(
+					ontology_source_references =
+						self$ontology_source_references,
+					category_references = self$characteristic_categories
+				)
 				chr$from_list(.x, json = json, recursive = recursive)
 				chr
 			})
@@ -164,9 +174,9 @@ Material <- R6::R6Class(
 			cli::cli_h2(cli::col_cyan("Characteristics"))
 			purrr::walk(
 				self$characteristics, ~{
-					cli::cli_text(paste0("(", .x$category, ")"))
+					cli::cli_text(paste0("(", .x$category$type$term, ")"))
 					green_bold_name_plain_content(
-						.x$term_source$name, .x$value$term
+						.x$value$term_source$name, .x$value$term
 					)
 				}
 			)
@@ -179,17 +189,3 @@ Material <- R6::R6Class(
 		id = generate_id()
 	)
 )
-
-#' identical.Material
-#'
-#' Allows checking for the identity of \code{[Material]} objects
-#'
-#' @param x a \code{[Material]} object
-#' @param y a \code{[Material]} object
-#' @export
-identical.Material <- s3_identical_maker(c(
-	"name",
-	"type",
-	"characteristics",
-	"comments"
-))
