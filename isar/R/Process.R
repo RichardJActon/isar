@@ -139,7 +139,9 @@ Process <- R6::R6Class(
 		to_list = function(ld = FALSE){
 			lst <- list()
 			lst[["name"]] <- self$name
-			lst[["executesProtocol"]] <- self$executes_protocol
+			lst[["executesProtocol"]] <- purrr::map(
+				self$executes_protocol, ~.x$to_list()
+			)
 			lst[["date"]] <- self$date
 			lst[["performer"]] <- self$performer# purrr::map(self$performer, ~.x$to_list),
 			lst[["parameter_values"]] <- self$parameter_values
@@ -153,8 +155,9 @@ Process <- R6::R6Class(
 		#' Make \code{[Process]} object from list
 		#' @param lst an Process object serialized to a list
 		from_list = function(lst, recursive = TRUE, json = TRUE) {
+			# browser()
 			if(json) {
-				self$executes_protocol <- self$protocols[[
+				self$executes_protocol <- self$protocols[[ # handle possible missing here?
 					lst[["executesProtocol"]][["@id"]]
 				]]
 				self$parameter_values <- lst[["parameterValues"]]
@@ -165,10 +168,10 @@ Process <- R6::R6Class(
 					purrr::map_chr(lst[["inputs"]], ~.x$`@id`)
 				]
 			} else {
-				self$executes_protocol <- lst[["executes_protocol"]] # protocol object
-				self$parameter_values <- lst[["parameter_values"]] # ont anno?
-				self$outputs <- lst[["outputs"]] # sample obj ?
-				self$inputs <- lst[["inputs"]] # source obj
+				# self$executes_protocol <- lst[["executes_protocol"]] # protocol object
+				# self$parameter_values <- lst[["parameter_values"]] # ont anno?
+				# self$outputs <- lst[["outputs"]] # sample obj ?
+				# self$inputs <- lst[["inputs"]] # source obj
 			}
 			self$set_name(lst[["name"]])
 			self$date <- lst[["date"]]
@@ -241,20 +244,3 @@ Process <- R6::R6Class(
 	)
 )
 
-#' identical.Process
-#'
-#' Allows checking for the identity of \code{[Process]} objects
-#'
-#' @param x a \code{[Process]} object
-#' @param y a \code{[Process]} object
-#' @export
-identical.Process <- s3_identical_maker(c(
-	"name",
-	"executes_protocol",
-	"date",
-	"performer",
-	"parameter_values",
-	"inputs",
-	"outputs",
-	"comments"
-))

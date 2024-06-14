@@ -248,7 +248,10 @@ Protocol <- R6::R6Class(
 				self$name <- lst[["name"]]
 				self$`@id` <- lst[["@id"]]
 				if (recursive) {
-					self$protocol_type <- OntologyAnnotation$new()
+					self$protocol_type <- OntologyAnnotation$new(
+						ontology_source_references =
+							self$ontology_source_references
+					)
 					self$protocol_type$from_list(
 						lst[["protocolType"]], json = json
 					)
@@ -262,22 +265,31 @@ Protocol <- R6::R6Class(
 
 				#self$parameters <- lst[["parameters"]]
 
-				if (recursive) {
-					self$parameters <- purrr::map(lst[["parameters"]], ~{
-						pp <- ProtocolParameter$new()
-						pp$from_list(.x)
-						pp
-						# pv <- ParameterValue$new()
-						# pv$from_list(.x)
-						# pv
-					})
+				if (!checkmate::test_list(lst[["parameters"]], len = 0)) {
+					self$parameters <-
+						lst[["parameters"]] %>%
+						purrr::set_names(purrr::map_chr(., ~.x$`@id`)) %>%
+						purrr::map(~{
+							pp <- ProtocolParameter$new(
+								ontology_source_references =
+									self$ontology_source_references
+							)
+							pp$from_list(.x)
+							pp
+							# pv <- ParameterValue$new()
+							# pv$from_list(.x)
+							# pv
+						})
 				} #else {
 				# 	self$parameters <- lst[["parameters"]]
 				# }
 
-				if (recursive) {
+				if (!checkmate::test_list(lst[["components"]], len = 0)) {
 					self$components <- purrr::map(lst[["components"]], ~{
-						oa <- OntologyAnnotation$new()
+						oa <- OntologyAnnotation$new(
+							ontology_source_references =
+								self$ontology_source_references
+						)
 						oa$from_list(.x, json = json)
 						oa
 					})
@@ -290,8 +302,13 @@ Protocol <- R6::R6Class(
 				private$id <- lst[["id"]]
 
 				if (recursive) {
-					self$protocol_type <- OntologyAnnotation$new()
-					self$protocol_type$from_list(lst[["protocol_type"]], json = json)
+					self$protocol_type <- OntologyAnnotation$new(
+						ontology_source_references =
+							self$ontology_source_references
+					)
+					self$protocol_type$from_list(
+						lst[["protocol_type"]], json = json
+					)
 				} else {
 					self$protocol_type <- lst[["protocol_type"]]
 				}
@@ -304,7 +321,10 @@ Protocol <- R6::R6Class(
 
 				if (recursive) {
 					self$components <- purrr::map(lst[["components"]], ~{
-						oa <- OntologyAnnotation$new()
+						oa <- OntologyAnnotation$new(
+							ontology_source_references =
+								self$ontology_source_references
+						)
 						oa$from_list(.x, json = json)
 						oa
 					})
@@ -344,13 +364,18 @@ Protocol <- R6::R6Class(
 			#
 			cli::cli_h2(cli::col_green("Parameters"))
 			# needs cleaning up list not from isajson
-			cli::cli_ul(purrr::map_chr(self$parameters, ~.x$parameterName$annotationValue))
+			if (!checkmate::test_list(self$parameters, len = 0)) {
+				cli::cli_ul(purrr::map_chr(
+					self$parameters, ~.x$parameter_name$term
+				))
+			}
 			# model a param values of ont annotations
 			#green_bold_name_plain_content("parameters", self$parameters)
 
 			cli::cli_h2(cli::col_green("Components"))
-			cli::cli_ul(purrr::map_chr(self$components, ~.x$term))
-
+			if (!checkmate::test_list(self$components, len = 0)) {
+				cli::cli_ul(purrr::map_chr(self$components, ~.x$term))
+			}
 			pretty_print_comments(self$comments)
 		}
 	),
@@ -358,21 +383,3 @@ Protocol <- R6::R6Class(
 		id = generate_id()
 	)
 )
-#' identical.Protocol
-#'
-#' Allows checking for the identity of \code{[Protocol]} objects
-#'
-#' @param x a \code{[Protocol]} object
-#' @param y a \code{[Protocol]} object
-#' @export
-identical.Protocol <- s3_identical_maker(c(
-	"name",
-	"id",
-	"protocol_type",
-	"description",
-	"uri",
-	"version",
-	"parameters",
-	"components",
-	"comments"
-))

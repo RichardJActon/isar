@@ -39,7 +39,7 @@ OntologySource <- R6::R6Class(
 		terms_list = NULL,
 		comments = NULL,
 		explicitly_provided = logical(),
-
+		source = character(),
 		#' @details
 		#'
 		#' Create a new [OntologySource] object to act as source for ontology terms
@@ -67,7 +67,8 @@ OntologySource <- R6::R6Class(
 			get_terms_list = NULL,
 			terms_list = NULL,
 			comments = NULL,
-			explicitly_provided = logical()
+			explicitly_provided = logical(),
+			source = character()
 		) {
 			if (checkmate::qtest(name, "S[0]")) { self$name <- name } else {
 				self$set_name(name)
@@ -135,6 +136,7 @@ OntologySource <- R6::R6Class(
 			}
 
 			self$explicitly_provided <- explicitly_provided
+			self$source <- source
 		},
 		#' @details
 		#' Check if the name of the [OntologySource] is a string
@@ -277,11 +279,11 @@ OntologySource <- R6::R6Class(
 		to_list = function(json = TRUE) {
 			if(json) {
 				ontology_source_ref <- list(
-					"name" = self$name,
 					"file" = self$file,
-					"version" = self$version,
 					"description" = self$description,
-					"comments" = self$comments
+					"name" = self$name,
+					"version" = self$version#,
+					#"comments" = self$comments
 				)
 			} else {
 				ontology_source_ref <- list(

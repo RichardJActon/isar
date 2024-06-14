@@ -176,19 +176,19 @@ Person <- R6::R6Class(
 		#' Person$new()
 		to_list = function(ld = FALSE) {
 			person = list(
-				"id" = private$id,
-				"last_name" = self$last_name,
-				"first_name" = self$first_name,
-				"mid_initials" = self$mid_initials,
-				"email" = self$email,
+				#"id" = private$id,
 				"phone" = self$phone,
-				"fax" = self$fax,
+				"firstName" = self$first_name,
 				"address" = self$address,
-				"affiliation" = self$affiliation,
-				"orcid" = self$orcid,
-				"roles" = self$roles,
+				"email" = self$email,
+				"lastName" = self$last_name,
+				"midInitials" = self$mid_initials,
+				"@id" = self$`@id`,
+				"fax" = self$fax,
+				#"orcid" = self$orcid,
 				"comments" = self$comments,
-				"@id" = self$`@id`
+				"roles" = purrr::map(self$roles, ~.x$to_list()),
+				"affiliation" = self$affiliation
 			)
 			return(person)
 		},

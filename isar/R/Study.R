@@ -449,7 +449,8 @@ Study <- R6::R6Class(
 						ontology_source_references =
 							self$ontology_source_references,
 						characteristic_categories =
-							self$characteristic_categories
+							self$characteristic_categories,
+						protocols = self$protocols
 					)
 					a$from_list(.x, recursive = recursive, json = json)
 					a

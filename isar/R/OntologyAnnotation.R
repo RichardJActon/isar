@@ -340,8 +340,11 @@ OntologyAnnotation <- R6::R6Class(
 		to_list = function(ld = FALSE, recursive = TRUE) {
 			list(
 				termAccession = self$term_accession,
-				termSource = self$term,
-				annotationValue = self$term_source$name
+				termSource = ifelse(
+					self$term_source$name == "UnknownSource",
+					"", self$term_source$name
+				),
+				annotationValue = self$term
 			)
 			# ontology_annotation = list(
 			# 	"id" = private$id,

@@ -27,7 +27,7 @@ Investigation <- R6::R6Class(
 	#inherit = OntologySourceReferences,
 	public = list(
 		filename = '',
-		# identifier = '',
+		identifier = character(),
 		title = character(),
 		description = character(),
 		submission_date = NULL,
@@ -54,6 +54,7 @@ Investigation <- R6::R6Class(
 		#'
 		initialize = function(
 			filename = '',
+			identifier = character(),
 			title = '',
 			description = '',
 			submission_date = NULL,
@@ -272,17 +273,17 @@ Investigation <- R6::R6Class(
 		#' @param ld logical json-ld
 		to_list = function(ld = FALSE) {
 			investigation = list(
-				"filename" = self$filename,
-				"id" = private$id,
-				"title" = self$title,
-				"description" = self$description,
-				"submission_date" = self$submission_date,
-				"public_release_date" = self$public_release_date,
-				"ontology_source_references" = self$ontology_source_references,
+				"submissionDate" = self$submission_date,
+				"people" = self$contacts$to_list(),
 				"publications" = self$publications$to_list(),
-				"contacts" = self$contacts$to_list(),
+				"description" = self$description,
 				"studies" = self$studies$to_list(),
-				"comments" = self$comments
+				"publicReleaseDate" = self$public_release_date,
+				"ontologySourceReferences" = self$ontology_source_references,
+				"comments" = self$comments,
+				"identifier" = self$identifier,
+				#"id" = private$id,
+				"title" = self$title,
 			)
 			return(investigation)
 		},
@@ -294,7 +295,8 @@ Investigation <- R6::R6Class(
 		#' @param lst an ontology source object serialized to a list
 		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			if(json) {
-				self$filename <- lst[["filename"]]
+				# self$filename <- lst[["filename"]]
+				self$identifier <- lst[["identifier"]]
 				#private$id <- lst[["id"]]
 				self$title <- lst[["title"]]
 				self$description <- lst[["description"]]
@@ -308,10 +310,11 @@ Investigation <- R6::R6Class(
 				# 	os$from_list(.x, json = TRUE)
 				# 	os
 				# })
-				self$ontology_source_references <- OntologySourceReferences$new()
+				self$ontology_source_references <-
+					OntologySourceReferences$new()
 				self$ontology_source_references$from_list(
 					lst[["ontologySourceReferences"]],
-					explicitly_provided = TRUE
+					explicitly_provided = TRUE, source = self$identifier
 				)
 				# super$from_list(
 				# 	lst[["ontologySourceReferences"]],

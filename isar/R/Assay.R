@@ -44,6 +44,7 @@ Assay <- R6::R6Class(
 		graph = NULL,
 		data_files = NULL,
 		ontology_source_references = NULL,
+		protocols = NULL,
 		`@id` = character(),
 		#' @details
 		#' Create a new assay
@@ -73,6 +74,7 @@ Assay <- R6::R6Class(
 			graph = NULL,
 			data_files = NULL,
 			ontology_source_references = NULL,
+			protocols = NULL,
 			`@id` = character()
 		) {
 			if (is.null(measurement_type)) {
@@ -105,6 +107,7 @@ Assay <- R6::R6Class(
 			self$graph <- graph
 			self$data_files <- data_files
 			self$ontology_source_references <- ontology_source_references
+			self$protocols <- protocols
 			self$`@id` <- `@id`
 			# self$string()
 		},
@@ -336,7 +339,7 @@ Assay <- R6::R6Class(
 
 				self$process_sequence <- purrr::map(
 					lst[["processSequence"]], ~{
-						ps <- Process$new()
+						ps <- Process$new(protocols = self$protocols)
 						ps$from_list(.x, recursive = recursive, json = json) # recursive!
 						ps
 					}

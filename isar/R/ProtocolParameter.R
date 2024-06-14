@@ -9,21 +9,27 @@ ProtocolParameter <- R6::R6Class(
 	"ProtocolParameter",
 	public = list(
 		parameter_name = NULL,
+		ontology_source_references = NULL,
 		comments = NULL,
+		`@id` = character(),
 		#' @details
 		#' Create a new \code{[ProtocolParameter]} object
 		#' @param parameter_name A parameter name as an ontology term
 		#' @param comments Comments associated with instances of this class.
 		initialize = function(
 			parameter_name = NULL,
-			comments = NULL
+			ontology_source_references = NULL,
+			comments = NULL,
+			`@id` = character()
 		) {
 			if(is.null(parameter_name)) {
 				self$parameter_name <- parameter_name
 			} else {
 				self$set_parameter_name(parameter_name)
 			}
+			self$ontology_source_references <- ontology_source_references
 			self$comments <- comments
+			self$`@id` <- `@id`
 		},
 		#' @details
 		#' Check that parameter_name is an \code{[OntologyAnnotation]} object
@@ -85,10 +91,13 @@ ProtocolParameter <- R6::R6Class(
 		#'
 		#' @param lst an \code{[OntologyAnnotation]} object serialized to a list
 		#' @param recursive use the `from_list()` method on list items that are also isar objects (default = TRUE)
-		from_list = function(lst, recursive = FALSE) {
+		from_list = function(lst, recursive = TRUE) {
 			private$id <- lst[["id"]]
+			self$`@id` <- lst[["@id"]]
 			if(recursive) {
-				self$parameter_name <- OntologyAnnotation$new()
+				self$parameter_name <- OntologyAnnotation$new(
+					ontology_source_references = self$ontology_source_references
+				)
 				self$parameter_name$from_list(lst[["parameterName"]])
 			} else {
 				if(checkmate::test_r6(
@@ -116,6 +125,20 @@ ProtocolParameter <- R6::R6Class(
 		#' @param suffix a human readable suffix
 		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
 			private$id <- generate_id(id, suffix)
+		},
+
+		print = function() {
+			cli::cli_h1(cli::col_blue("Protocol Parameter"))
+			green_bold_name_plain_content("Name", self$parameter_name$term)
+			green_bold_name_plain_content(
+				"Term Accession", self$parameter_name$term_accession
+			)
+			green_bold_name_plain_content(
+				"Term Source", self$parameter_name$term_source$name
+			)
+			green_bold_name_plain_content("@id", self$`@id`)
+			# green_bold_name_plain_content("ID", private$id)
+			pretty_print_comments(self$comments)
 		}
 	),
 	private = list(
@@ -123,14 +146,3 @@ ProtocolParameter <- R6::R6Class(
 	)
 )
 
-#' identical.ProtocolParameter
-#'
-#' Allows checking for the identity of \code{[ProtocolParameter]} objects
-#'
-#' @param x a \code{[ProtocolParameter]} object
-#' @param y a \code{[ProtocolParameter]} object
-#' @export
-identical.ProtocolParameter <- s3_identical_maker(c(
-	"parameter_name",
-	"comments"
-))

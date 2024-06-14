@@ -169,16 +169,16 @@ Publication <- R6::R6Class(
 		#' @param ld linked data
 		to_list = function(ld = FALSE) {
 			publication = list(
-				"pubmed_id" = self$pubmed_id, # https://www.ncbi.nlm.nih.gov/pmc/tools/id-converter-api/
 				"doi" = self$doi,
-				"author_list" = NULL,
+				"pubMedID" = as.character(self$pubmed_id), # https://www.ncbi.nlm.nih.gov/pmc/tools/id-converter-api/
+				"status" = self$status$to_list(), #  https://sparontologies.github.io/pso/current/pso.html
 				"title" = self$title,
-				"status" = self$status, #  https://sparontologies.github.io/pso/current/pso.html
-				"comments" = self$comments
+				"authorList" = self$author_list#,
+				#"comments" = self$comments
 			)
-			if(!is.null(self$author_list)) {
-				publication[["author_list"]] <- self$author_list$to_list()
-			}
+			# if(!is.null(self$author_list)) {
+			# 	publication[["author_list"]] <- self$author_list$to_list()
+			# }
 			return(publication)
 		},
 		#' @details
@@ -201,7 +201,12 @@ Publication <- R6::R6Class(
 				# }
 				self$author_list <- lst[["authorList"]]
 				self$title <- lst[["title"]]
-				self$status <- lst[["status"]]
+
+				self$status <- OntologyAnnotation$new(
+					ontology_source_references = self$ontology_source_references
+				)
+				self$status$from_list(lst[["status"]])
+
 				self$set_comments(lst[["comments"]])
 			} else {
 				self$set_pubmed_id(lst[["pubmed_id"]])
