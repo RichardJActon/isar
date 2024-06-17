@@ -73,5 +73,6 @@ Collate:
     'StudyFactor.R'
     'StudyFactorReferences.R'
     'Unit.R'
+    'UnitReferences.R'
     'data.R'
     'DataFile.R'

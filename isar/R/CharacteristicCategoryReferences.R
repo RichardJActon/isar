@@ -3,12 +3,15 @@ CharacteristicCategoryReferences <- R6::R6Class(
 	public = list(
 		categories = list(),
 		ontology_source_references = NULL,
+		source = character(),
 		initialize = function(
 			categories = list(),
-			ontology_source_references = NULL
+			ontology_source_references = NULL,
+			source = character()
 		) {
 			self$categories <- categories
 			self$ontology_source_references <- ontology_source_references
+			self$source <- source
 		},
 		check_categories = function(categories) {
 			if(all(purrr::map_lgl(categories, ~checkmate::check_r6(

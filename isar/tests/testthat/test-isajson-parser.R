@@ -21,14 +21,74 @@ test_uuid <- uuid::UUIDgenerate()
 # BII_I_1_jsonlite[["people"]][[1]][["roles"]]
 # BII_I_1_jsonlite[["studies"]][[1]][["people"]][[1]][["roles"]]
 
-test_that("Study", {
-	ts <- Study$new()
-	ts$from_list(BII_S_3_jsonlite$studies[[1]])
 
-	expect_equal(ts$submission_date, "2008-08-15")
-	expect_equal(ts$public_release_date, "2008-08-15")
+# OntologyAnnotation ----
+test_that("OntologyAnnotation", {
+	tos <- OntologyAnnotation$new()
+	tos$from_list(BII_I_1_jsonlite$publications[[1]]$status)
+	expect_equal(tos$to_list(), BII_I_1_jsonlite$ontologySourceReferences[[1]])
+})
 
-	# ts$factors
+
+# OntologySource ----
+test_that("OntologySource", {
+	tos <- OntologySource$new()
+	tos$from_list(BII_I_1_jsonlite$ontologySourceReferences[[1]])
+	expect_equal(tos$to_list(), BII_I_1_jsonlite$ontologySourceReferences[[1]])
+})
+
+# OntologySourceReferences ----
+test_that("OntologySourceReferences", {
+	tosr <- OntologySourceReferences$new()
+	tosr$from_list(BII_I_1_jsonlite$ontologySourceReferences)
+	expect_equal(tosr$to_list(), BII_I_1_jsonlite$ontologySourceReferences)
+})
+
+# Characteristic Categories References----
+test_that("CharacteristicCategoriesReferences", {
+	# tccr <- CharacteristicCategoryReferences$new()
+	tosr$from_list(BII_I_1_jsonlite$ontologySourceReferences)
+	expect_equal(tosr$to_list(), BII_I_1_jsonlite$ontologySourceReferences)
+})
+
+# Unit Categories ----
+test_that("Unit References work", {
+	tuc <- UnitReferences$new
+	tuc$from_list(BII_I_1_jsonlite[["studies"]][[1]]$unitCategories[[1]])
+	expect_equal(uc$to_list(), BII_I_1_jsonlite[["studies"]][[1]]$unitCategories[[1]])
+})
+
+# Protocol ----
+test_that("Protocol", {
+	# protocolType has some unusual behaviour, only annotation value is
+	# explicitly listed in the json example, with source and accession left out
+	tps <- Protocol$new()
+	tps$from_list(BII_I_1_jsonlite[["studies"]][[1]][["protocols"]][[1]])
+	expect_equal(tps$to_list(), BII_I_1_jsonlite[["studies"]][[1]][["protocols"]][[1]])
+})
+
+# Process ----
+test_that("Process Sequence",{
+	tproc <- Process$new()
+	tproc$from_list(BII_I_1_jsonlite[["studies"]][[1]][["processSequence"]][[1]])
+	expect_equal(tproc$to_list(), BII_I_1_jsonlite[["studies"]][[1]][["processSequence"]][[1]])
+})
+
+# Publication ----
+
+test_that("Publication", {
+	tp <- Publication$new()
+	tp$from_list(BII_I_1_jsonlite$publications[[1]])
+	expect_equal(tp$to_list(), BII_I_1_jsonlite$publications[[1]])
+})
+
+# Role ----
+
+test_that("Role", {
+	rt <- Role$new()
+	rt$from_list(BII_I_1_jsonlite$people[[1]]$roles[[1]])
+
+	expect_equal(rt$to_list(), BII_I_1_jsonlite$people[[1]]$roles[[1]])
 })
 
 # Person ----
@@ -69,4 +129,42 @@ test_that("Person", {
 
 })
 
+# Assay ----
+
+test_that("Assay", {
+	ta <- Assay$new()
+	ta$from_list(BII_S_3_jsonlite$studies[[1]]$assays[[1]])
+	expect_equal(BII_S_3_jsonlite$studies[[1]]$assays[[1]], ta$to_list())
+
+	# expect_equal(ts$submission_date, "2008-08-15")
+	# expect_equal(ts$public_release_date, "2008-08-15")
+
+	# ts$factors
+})
+
+# Study ----
+test_that("Study", {
+	ts <- Study$new()
+	ts$from_list(BII_S_3_jsonlite$studies[[1]])
+	expect_equal(BII_S_3_jsonlite$studies[[1]], ts$to_list())
+
+	# expect_equal(ts$submission_date, "2008-08-15")
+	# expect_equal(ts$public_release_date, "2008-08-15")
+
+	# ts$factors
+})
+
+# Investigation ----
+
+test_that("Investigation Works", {
+	inv <- Investigation$new()
+	inv$from_list(BII_I_1_jsonlite, recursive = TRUE, json = TRUE)
+	expect_equal(BII_I_1_jsonlite, inv$to_list())
+
+	# submission date
+	# description
+	# identifier
+	# title
+	# comments
+})
 
