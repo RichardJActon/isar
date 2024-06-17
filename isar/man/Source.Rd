@@ -39,7 +39,8 @@ R6 class for a Source
   characteristics = NULL,
   comments = NULL,
   characteristic_category_references = NULL,
-  `@id` = character()
+  `@id` = character(),
+  unit_references = NULL
 )}\if{html}{\out{</div>}}
 }
 

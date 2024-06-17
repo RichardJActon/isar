@@ -33,7 +33,10 @@ R6 Class for StudyFactorReferences
 \if{latex}{\out{\hypertarget{method-StudyFactorReferences-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{StudyFactorReferences$new(study_factor_references = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{StudyFactorReferences$new(
+  study_factor_references = NULL,
+  ontology_source_references = NULL
+)}\if{html}{\out{</div>}}
 }
 
 }

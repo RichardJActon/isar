@@ -8,9 +8,6 @@ R6 object to represent Materials
 
 R6 object to represent Materials
 }
-\section{Super class}{
-\code{\link[isar:MaterialReferences]{isar::MaterialReferences}} -> \code{Material}
-}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -45,15 +42,6 @@ R6 object to represent Materials
 \item \href{#method-Material-clone}{\code{Material$clone()}}
 }
 }
-\if{html}{\out{
-<details open><summary>Inherited methods</summary>
-<ul>
-<li><span class="pkg-link" data-pkg="isar" data-topic="MaterialReferences" data-id="add_materials"><a href='../../isar/html/MaterialReferences.html#method-MaterialReferences-add_materials'><code>isar::MaterialReferences$add_materials()</code></a></li>
-<li><span class="pkg-link" data-pkg="isar" data-topic="MaterialReferences" data-id="check_materials"><a href='../../isar/html/MaterialReferences.html#method-MaterialReferences-check_materials'><code>isar::MaterialReferences$check_materials()</code></a></li>
-<li><span class="pkg-link" data-pkg="isar" data-topic="MaterialReferences" data-id="get_material_reference_names"><a href='../../isar/html/MaterialReferences.html#method-MaterialReferences-get_material_reference_names'><code>isar::MaterialReferences$get_material_reference_names()</code></a></li>
-</ul>
-</details>
-}}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Material-new"></a>}}
 \if{latex}{\out{\hypertarget{method-Material-new}{}}}
@@ -63,6 +51,8 @@ R6 object to represent Materials
   name = character(),
   type = character(),
   characteristics = NULL,
+  characteristic_categories = NULL,
+  ontology_source_references = NULL,
   comments = NULL,
   `@id` = character()
 )}\if{html}{\out{</div>}}

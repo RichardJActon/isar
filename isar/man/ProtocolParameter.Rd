@@ -38,6 +38,7 @@ Person$new()
 \item \href{#method-ProtocolParameter-from_list}{\code{ProtocolParameter$from_list()}}
 \item \href{#method-ProtocolParameter-get_id}{\code{ProtocolParameter$get_id()}}
 \item \href{#method-ProtocolParameter-set_id}{\code{ProtocolParameter$set_id()}}
+\item \href{#method-ProtocolParameter-print}{\code{ProtocolParameter$print()}}
 \item \href{#method-ProtocolParameter-clone}{\code{ProtocolParameter$clone()}}
 }
 }
@@ -46,7 +47,12 @@ Person$new()
 \if{latex}{\out{\hypertarget{method-ProtocolParameter-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ProtocolParameter$new(parameter_name = NULL, comments = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ProtocolParameter$new(
+  parameter_name = NULL,
+  ontology_source_references = NULL,
+  comments = NULL,
+  `@id` = character()
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -198,7 +204,7 @@ generate an R list representation translatable to JSON
 \if{latex}{\out{\hypertarget{method-ProtocolParameter-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ProtocolParameter$from_list(lst, recursive = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ProtocolParameter$from_list(lst, recursive = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -250,6 +256,15 @@ a uuid
 }
 \subsection{Details}{
 set the uuid of this object
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ProtocolParameter-print"></a>}}
+\if{latex}{\out{\hypertarget{method-ProtocolParameter-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ProtocolParameter$print()}\if{html}{\out{</div>}}
 }
 
 }

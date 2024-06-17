@@ -78,7 +78,8 @@ Person$new()
   orcid = character(),
   roles = NULL,
   comments = NULL,
-  `@id` = character()
+  `@id` = character(),
+  ontology_source_references = NULL
 )}\if{html}{\out{</div>}}
 }
 

@@ -70,6 +70,7 @@ FactorValue$new(
   factor = NULL,
   value = NULL,
   unit = NULL,
+  ontology_source_references = NULL,
   study_factor_references = NULL,
   comments = NULL,
   `@id` = character()

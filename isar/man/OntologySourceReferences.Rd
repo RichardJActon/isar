@@ -23,6 +23,8 @@ R6 class for OntologySourceReferences
 \item \href{#method-OntologySourceReferences-add_ontology_sources}{\code{OntologySourceReferences$add_ontology_sources()}}
 \item \href{#method-OntologySourceReferences-get_ontology_source_names}{\code{OntologySourceReferences$get_ontology_source_names()}}
 \item \href{#method-OntologySourceReferences-get_ontology_source_provision}{\code{OntologySourceReferences$get_ontology_source_provision()}}
+\item \href{#method-OntologySourceReferences-get_ontology_sources}{\code{OntologySourceReferences$get_ontology_sources()}}
+\item \href{#method-OntologySourceReferences-to_list}{\code{OntologySourceReferences$to_list()}}
 \item \href{#method-OntologySourceReferences-from_list}{\code{OntologySourceReferences$from_list()}}
 \item \href{#method-OntologySourceReferences-print}{\code{OntologySourceReferences$print()}}
 \item \href{#method-OntologySourceReferences-clone}{\code{OntologySourceReferences$clone()}}
@@ -107,11 +109,47 @@ a vector of ontology source names
 }
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OntologySourceReferences-get_ontology_sources"></a>}}
+\if{latex}{\out{\hypertarget{method-OntologySourceReferences-get_ontology_sources}{}}}
+\subsection{Method \code{get_ontology_sources()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OntologySourceReferences$get_ontology_sources(names = "all")}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{names}}{default return all names}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Get ontology sources
+}
+
+\subsection{Returns}{
+a vector of ontology source names
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OntologySourceReferences-to_list"></a>}}
+\if{latex}{\out{\hypertarget{method-OntologySourceReferences-to_list}{}}}
+\subsection{Method \code{to_list()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OntologySourceReferences$to_list()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OntologySourceReferences-from_list"></a>}}
 \if{latex}{\out{\hypertarget{method-OntologySourceReferences-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OntologySourceReferences$from_list(lst, explicitly_provided = logical())}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{OntologySourceReferences$from_list(
+  lst,
+  explicitly_provided = logical(),
+  source = NA
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

@@ -17,7 +17,7 @@ An \link{OntologySource} describes the resource from which the value of an \link
 
 \item{\code{url}}{...}
 
-\item{\code{version}}{vesion of the ontology}
+\item{\code{version}}{version of the ontology}
 
 \item{\code{description}}{free text description of this source of ontology terms}
 
@@ -71,7 +71,8 @@ An \link{OntologySource} describes the resource from which the value of an \link
   get_terms_list = NULL,
   terms_list = NULL,
   comments = NULL,
-  explicitly_provided = logical()
+  explicitly_provided = logical(),
+  source = character()
 )}\if{html}{\out{</div>}}
 }
 

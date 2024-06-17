@@ -67,7 +67,10 @@ Process nodes represent the application of a protocol to some input material (e.
   inputs = NULL,
   outputs = NULL,
   comments = NULL,
-  `@id` = NULL
+  `@id` = NULL,
+  protocols = NULL,
+  sources = NULL,
+  samples = NULL
 )}\if{html}{\out{</div>}}
 }
 
@@ -302,7 +305,7 @@ An R list representation of a \code{[Process]} object
 \if{latex}{\out{\hypertarget{method-Process-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Process$from_list(lst, recursive = TRUE, json = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Process$from_list(lst, recursive = TRUE, json = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

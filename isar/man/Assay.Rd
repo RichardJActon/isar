@@ -38,6 +38,13 @@ experimental workflow described by a particular protocol.
 }
 \if{html}{\out{</div>}}
 }
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
+\describe{
+\item{\code{materials}}{Materials associated with the assay, lists of '\code{[Sample]}s' and other_material'.}
+}
+\if{html}{\out{</div>}}
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
@@ -68,13 +75,17 @@ experimental workflow described by a particular protocol.
   technology_type = NULL,
   technology_platform = character(),
   filename = character(),
-  materials = NULL,
+  other_materials = NULL,
+  samples = NULL,
   units = NULL,
   characteristic_categories = NULL,
   process_sequence = NULL,
   comments = NULL,
   graph = NULL,
-  data_files = NULL
+  data_files = NULL,
+  ontology_source_references = NULL,
+  protocols = NULL,
+  `@id` = character()
 )}\if{html}{\out{</div>}}
 }
 
@@ -88,8 +99,6 @@ experimental workflow described by a particular protocol.
 \item{\code{technology_platform}}{Manufacturer and platform name, e.g. Bruker AVANCE.}
 
 \item{\code{filename}}{A field to specify the name of the assay file for compatibility with ISA-Tab.}
-
-\item{\code{materials}}{Materials associated with the assay, lists of '\code{[Sample]}s' and other_material'.}
 
 \item{\code{units}}{A list of units used in the annotation of material units ? \code{[OntologyAnnotation]} !!.}
 

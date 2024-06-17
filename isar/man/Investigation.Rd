@@ -83,6 +83,7 @@ An investigation maintains metadata about the project context and links to one o
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Investigation$new(
   filename = "",
+  identifier = character(),
   title = "",
   description = "",
   submission_date = NULL,

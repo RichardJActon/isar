@@ -88,7 +88,8 @@ Generate a \code{[Publication]} object from a list
   author_list = NULL,
   title = character(),
   status = NULL,
-  comments = NULL
+  comments = NULL,
+  ontology_source_references = NULL
 )}\if{html}{\out{</div>}}
 }
 
@@ -307,7 +308,7 @@ Generate a \code{[Publication]} object from a list
 \if{latex}{\out{\hypertarget{method-Publication-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Publication$from_list(lst, recursive = TRUE, json = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Publication$from_list(lst, recursive = TRUE, json = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

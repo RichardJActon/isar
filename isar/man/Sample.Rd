@@ -36,6 +36,8 @@ Sample$new()
 \item \href{#method-Sample-check_factor_values}{\code{Sample$check_factor_values()}}
 \item \href{#method-Sample-set_factor_values}{\code{Sample$set_factor_values()}}
 \item \href{#method-Sample-to_list}{\code{Sample$to_list()}}
+\item \href{#method-Sample-check_source}{\code{Sample$check_source()}}
+\item \href{#method-Sample-set_source}{\code{Sample$set_source()}}
 \item \href{#method-Sample-from_list}{\code{Sample$from_list()}}
 \item \href{#method-Sample-print}{\code{Sample$print()}}
 \item \href{#method-Sample-clone}{\code{Sample$clone()}}
@@ -51,7 +53,10 @@ Sample$new()
   factor_values = NULL,
   characteristics = NULL,
   derives_from = NULL,
-  comments = NULL
+  comments = NULL,
+  ontology_source_references = NULL,
+  category_references = NULL,
+  sources = NULL
 )}\if{html}{\out{</div>}}
 }
 
@@ -142,6 +147,24 @@ generate an R list representation translatable to JSON
 }
 \if{html}{\out{</div>}}
 
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Sample-check_source"></a>}}
+\if{latex}{\out{\hypertarget{method-Sample-check_source}{}}}
+\subsection{Method \code{check_source()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Sample$check_source(source)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Sample-set_source"></a>}}
+\if{latex}{\out{\hypertarget{method-Sample-set_source}{}}}
+\subsection{Method \code{set_source()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Sample$set_source(source)}\if{html}{\out{</div>}}
 }
 
 }

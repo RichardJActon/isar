@@ -61,7 +61,8 @@ StudyFactor$new()
   factor_type = NULL,
   comments = NULL,
   `@id` = character(),
-  explicitly_provided = logical()
+  explicitly_provided = logical(),
+  ontology_source_references = NULL
 )}\if{html}{\out{</div>}}
 }
 

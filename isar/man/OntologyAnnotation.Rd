@@ -64,7 +64,7 @@ OA <- OntologyAnnotation$new()
   term_source = NULL,
   term_accession = character(),
   comments = NULL,
-  ontology_source_list = NULL,
+  ontology_source_references = NULL,
   `@id` = character()
 )}\if{html}{\out{</div>}}
 }
@@ -222,7 +222,7 @@ Sets the term accession and the term corresponding to that accession if the acce
 \if{latex}{\out{\hypertarget{method-OntologyAnnotation-set_valid_annotation}{}}}
 \subsection{Method \code{set_valid_annotation()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OntologyAnnotation$set_valid_annotation(term, term_accession, term_source)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{OntologyAnnotation$set_valid_annotation(term, term_accession, term_source_name)}\if{html}{\out{</div>}}
 }
 
 }
