@@ -207,37 +207,52 @@ Protocol <- R6::R6Class(
 			}
 		},
 		#' @details
-		#' An R list representation of a \code{[Process]} object
+		#' An R list representation of a \code{[Protocol]} object
 		#' @param ld linked data (default FALSE)
 		#' @param recursive use the `from_list()` method on list items that are also isar objects (default = TRUE)
 		to_list = function(ld = FALSE, recursive = TRUE){
-			protocol <- list(
-				"name" = self$name,
-				"id" = private$id,
-				"protocol_type" = switch(as.character(recursive),
-					"TRUE" = self$protocol_type$to_list(),
-					"FALSE" = self$protocol_type$term
-				),
-				"description" = self$description,
-				"uri" = self$uri,
-				"version" = self$version,
-				"parameters" = switch(
-					as.character(recursive),
-					"TRUE" = purrr::map(self$parameters, ~.x$to_list()),
-					"FALSE" = if (!is.null(self$components)) {
-						purrr::map(self$parameters, ~.x$term)
-					} else {NULL}
-				),
-				"components" = switch(
-					as.character(recursive),
-					"TRUE" = purrr::map(self$components, ~.x$to_list()),
-					"FALSE" = if (!is.null(self$components)) {
-						purrr::map(self$components, ~.x$parameter_name)
-					} else {NULL}
-				),
-				"comments" = self$comments
-			)
-			return(protocol)
+			lst <- list()
+			lst[["parameters"]] <- if(!is.null(self$parameters)) {
+				purrr::map(self$parameters, ~.x$to_list())
+			} else { list() }
+			lst[["components"]] <- if (!is.null(self$components)) {
+				purrr::map(self$components, ~.x$to_list())
+			} else { list() }
+			lst[["uri"]] <- self$uri
+			lst[["description"]] <- self$description
+			lst[["version"]] <- self$version
+			lst[["@id"]] <- self$`@id`
+			lst[["name"]] <- self$name
+			lst[["protocolType"]] <- self$protocol_type$to_list()
+			return(lst)
+
+			# protocol <- list(
+			# 	"name" = self$name,
+			# 	"id" = private$id,
+			# 	"protocol_type" = switch(as.character(recursive),
+			# 		"TRUE" = self$protocol_type$to_list(),
+			# 		"FALSE" = self$protocol_type$term
+			# 	),
+			# 	"description" = self$description,
+			# 	"uri" = self$uri,
+			# 	"version" = self$version,
+			# 	"parameters" = switch(
+			# 		as.character(recursive),
+			# 		"TRUE" = purrr::map(self$parameters, ~.x$to_list()),
+			# 		"FALSE" = if (!is.null(self$components)) {
+			# 			purrr::map(self$parameters, ~.x$term)
+			# 		} else {NULL}
+			# 	),
+			# 	"components" = switch(
+			# 		as.character(recursive),
+			# 		"TRUE" = purrr::map(self$components, ~.x$to_list()),
+			# 		"FALSE" = if (!is.null(self$components)) {
+			# 			purrr::map(self$components, ~.x$parameter_name)
+			# 		} else {NULL}
+			# 	),
+			# 	"comments" = self$comments
+			# )
+			# return(protocol)
 		},
 		#' @details
 		#' Make \code{[Protocol]} object from list

@@ -139,9 +139,10 @@ Process <- R6::R6Class(
 		to_list = function(ld = FALSE){
 			lst <- list()
 			lst[["name"]] <- self$name
-			lst[["executesProtocol"]] <- purrr::map(
-				self$executes_protocol, ~.x$to_list()
-			)
+			# lst[["executesProtocol"]] <- purrr::map(
+			# 	self$executes_protocol, ~.x$to_list()
+			# )
+			lst[["executesProtocol"]] <- self$executes_protocol$to_list()
 			lst[["date"]] <- self$date
 			lst[["performer"]] <- self$performer# purrr::map(self$performer, ~.x$to_list),
 			lst[["parameter_values"]] <- self$parameter_values

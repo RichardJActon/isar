@@ -39,6 +39,10 @@ UnitReferences <- R6::R6Class(
 		get_unit_ids = function(){
 			names(self$unit_references)
 		},
+		to_list = function() {
+			purrr::map(self$unit_references, ~.x$to_list()) %>%
+				purrr::set_names(NULL)
+		},
 		from_list = function(lst, source = NA, add = FALSE) {
 			# browser()
 			ur <- lst %>%

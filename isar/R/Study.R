@@ -32,7 +32,7 @@ Study <- R6::R6Class(
 	"Study",
 	public = list(
 		filename = '',
-		# identifier = '',
+		identifier = character(),
 		`@id` = character(),
 		title = character(),
 		description = character(),
@@ -80,6 +80,7 @@ Study <- R6::R6Class(
 		#' @param comments Comments associated with instances of this class.
 		initialize = function(
 			filename = '',
+			identifier = character(),
 			`@id` = character(),
 			title = character(),
 			description = character(),
@@ -102,6 +103,7 @@ Study <- R6::R6Class(
 			unit_references = NULL
 		) {
 			self$filename <- filename
+			identifier <- self$identifier
 			self$`@id` <- `@id`
 			if (checkmate::qtest(title, "S[0]")) {
 				self$title <- title
@@ -273,31 +275,49 @@ Study <- R6::R6Class(
 			}
 		},
 		#' @details
-		#' An R list representation of a \code{[Material]} object
+		#' An R list representation of a \code{[Study]} object
 		#' @param ld linked data (default FALSE)
 		to_list = function(ld = FALSE) {
-			study = list(
-				"id" = private$id,
-				"filename" = self$filename,
-				"title" = self$title,
-				"description" = self$description,
-				"submission_date" = self$submission_date,
-				"public_release_date" = self$public_release_date,
-				"contacts" = self$contacts$to_list(),
-				"design_descriptors" = self$design_descriptors,
-				"publications" = self$publications$to_list(),
-				"factors" = self$factors$to_list(),
-				"protocols" = self$protocols$to_list(),
-				"assays" = self$assays$to_list(),
-				"sources" = self$sources$to_list(),
-				"samples" = self$samples$to_list(),
-				"process_sequence" = self$process_sequence$to_list(),
-				"other_material" = self$other_material$to_list(),
-				"characteristic_categories" = self$characteristic_categories$to_list(),
-				"comments" = self$comments,
-				#"units" = self$units$to_list()
+			lst <- list()
+			# lst[["id"]] <- private$id
+			lst[["submissionDate"]] <- self$submission_date
+			lst[["processSequence"]] <- purrr::map(
+				self$process_sequence, ~.x$to_list()
 			)
-			return(study)
+			lst[["people"]] <- purrr::map(self$contacts, ~.x$to_list())
+			lst[["comments"]] <- self$comments
+			lst[["description"]] <- self$description
+			lst[["unitCategories"]] <- self$unit_references$to_list()
+			lst[["designDescriptors"]] <- purrr::map(
+				self$design_descriptors, ~.x$to_list()
+			)
+			lst[["publicReleaseDate"]] <- self$public_release_date
+			lst[["characteristicCategories"]] <-
+				self$characteristic_categories$to_list()
+			lst[["assays"]] <- purrr::map(self$assays, ~.x$to_list())
+			lst[["filename"]] <- self$filename
+			lst[["factors"]] <- self$factors$to_list()
+			lst[["publications"]] <- purrr::map(
+				self$publications, ~.x$to_list()
+			)
+			lst[["@id"]] <- self$`@id`
+			lst[["materials"]][["otherMaterial"]] <-
+				if (!is.null(self$other_material)) {
+					self$other_material$to_list()
+				}
+			lst[["materials"]][["samples"]] <- self$samples %>%
+				purrr::map(~.x$to_list()) %>%
+				purrr::set_names(NULL)
+			lst[["materials"]][["sources"]] <- self$sources %>%
+				purrr::map(~.x$to_list()) %>%
+				purrr::set_names(NULL)
+			lst[["identifier"]] <- self$identifier
+			lst[["title"]] <- self$title
+			lst[["protocols"]] <- self$protocols %>%
+				purrr::map(~.x$to_list()) %>%
+				purrr::set_names(NULL)
+			# lst[["units"]] <- self$units$to_list()
+			return(lst)
 		},
 		#' @details
 		#' Make \code{[Material]} object from list
@@ -305,6 +325,7 @@ Study <- R6::R6Class(
 		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			if(json) {
 				private$id <- lst[["id"]]
+				self$identifier <- lst[["identifier"]]
 				self$`@id` <- lst[["@id"]]
 				self$filename <- lst[["filename"]]
 				self$title <- lst[["title"]]

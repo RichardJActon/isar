@@ -48,9 +48,10 @@ Source <- R6::R6Class(
 		#' @param ld linked data (default FALSE)
 		to_list = function(ld = FALSE) {
 			source = list(
-				"id" = private$id,
+				# "id" = private$id,
 				"name" = self$name,
-				"characteristics" = self$characteristics,
+				"characteristics" = self$characteristics %>%
+					purrr::map(~.x$to_list()),
 				"comments" = self$comments
 			)
 			return(source)

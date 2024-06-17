@@ -124,9 +124,10 @@ Material <- R6::R6Class(
 		to_list = function(ld = FALSE) {
 			material = list(
 				"name" = self$name,
-				"id" = private$id,
+				#"id" = private$id,
 				"type" = self$type,
-				"characteristics" = self$characteristics$to_list(),
+				"characteristics" = self$characteristics %>%
+					purrr::map(~.x$to_list()),
 				"comments" = self$comments
 			)
 		},

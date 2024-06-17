@@ -240,7 +240,8 @@ OntologyAnnotation <- R6::R6Class(
 				) {
 					os <- OntologySource$new(
 						name = "UnknownSource",
-						explicitly_provided = FALSE
+						explicitly_provided = FALSE,
+						source = "Unknown"
 					)
 					osl <- list(UnknownSource = os)
 					self$ontology_source_references$add_ontology_sources(osl)

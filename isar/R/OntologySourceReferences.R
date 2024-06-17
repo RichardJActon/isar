@@ -67,10 +67,33 @@ OntologySourceReferences <- R6::R6Class(
 			}
 		},
 
-		to_list = function() {
-			self$ontology_source_references %>%
-				purrr::map(~.x$to_list()) %>%
-				purrr::set_names(NULL)
+		# list of objects from which ontology source objects originate
+		# there should ideally only be the ontology sources explicitly
+		# listed in the investigation but if any other have been used
+		# without being specified or an ontology is missing where one should
+		# be used filler sources will be generated which will be listed as
+		# source references
+		get_ontology_source_origins = function() {
+			purrr::map_chr(self$ontology_source_references, ~.x$source)
+		},
+
+		to_list = function(source = "any") {
+			if(source == "any") {
+				self$ontology_source_references %>%
+					purrr::map(~.x$to_list()) %>%
+					purrr::set_names(NULL)
+			} else if (source %in% self$get_ontology_source_origins()) {
+				self$ontology_source_references %>%
+					`[`(self$get_ontology_source_origins() %in% source) %>%
+					purrr::map(~.x$to_list()) %>%
+					purrr::set_names(NULL)
+			} else {
+				possible_values <- self$get_ontology_source_origins() %>%
+					unique() %>%
+					paste0(collapse = ", ")
+				stop(paste0("source must be one of: any, ", possible_values))
+			}
+
 		},
 
 		#' @details

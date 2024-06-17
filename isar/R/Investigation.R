@@ -274,16 +274,19 @@ Investigation <- R6::R6Class(
 		to_list = function(ld = FALSE) {
 			investigation = list(
 				"submissionDate" = self$submission_date,
-				"people" = self$contacts$to_list(),
-				"publications" = self$publications$to_list(),
+				"people" = purrr::map(self$contacts, ~.x$to_list()),
+				"publications" = purrr::map(self$publications, ~.x$to_list()),
 				"description" = self$description,
-				"studies" = self$studies$to_list(),
+				"studies" = purrr::map(self$studies, ~.x$to_list()),
 				"publicReleaseDate" = self$public_release_date,
-				"ontologySourceReferences" = self$ontology_source_references,
+				"ontologySourceReferences" =
+					self$ontology_source_references$to_list(
+						source = self$identifier
+					),
 				"comments" = self$comments,
 				"identifier" = self$identifier,
 				#"id" = private$id,
-				"title" = self$title,
+				"title" = self$title
 			)
 			return(investigation)
 		},
