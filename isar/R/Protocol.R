@@ -223,7 +223,20 @@ Protocol <- R6::R6Class(
 			lst[["version"]] <- self$version
 			lst[["@id"]] <- self$`@id`
 			lst[["name"]] <- self$name
-			lst[["protocolType"]] <- self$protocol_type$to_list()
+
+			# weird inconsistencies with missing data in the json output?
+			ptl <- self$protocol_type$to_list()
+			if(ptl[["termAccession"]] == "") {
+				ptl <- ptl[names(ptl) != "termAccession"]
+			}
+			if(ptl[["termSource"]] == "") {
+				ptl <- ptl[names(ptl) != "termSource"]
+			}
+			if(ptl[["annotationValue"]] == "Unspecified Term") {
+				ptl[["annotationValue"]] <- ""
+			}
+			lst[["protocolType"]] <- ptl
+
 			return(lst)
 
 			# protocol <- list(

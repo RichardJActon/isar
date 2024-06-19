@@ -136,8 +136,12 @@ Sample <- R6::R6Class(
 			}
 		},
 		set_source = function(source) {
-			if(self$check_source(source)) {
-				self$derives_from <- self$sources[[source]]
+			if(is.null(self$sources)) {
+				self$derives_from$`@id` <- source
+			} else{
+				if(self$check_source(source)) {
+					self$derives_from <- self$sources[[source]]
+				}
 			}
 		},
 

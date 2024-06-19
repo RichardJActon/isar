@@ -47,7 +47,7 @@ Study <- R6::R6Class(
 		sources = NULL,
 		samples = NULL,
 		process_sequence = NULL,
-		other_material = NULL,
+		other_materials = NULL,
 		characteristic_categories = NULL,
 		comments = NULL,
 		# units = NULL,
@@ -95,7 +95,7 @@ Study <- R6::R6Class(
 			sources = NULL,
 			samples = NULL,
 			process_sequence = NULL,
-			other_material = NULL,
+			other_materials = NULL,
 			characteristic_categories = NULL,
 			comments = NULL,
 			# units = NULL,
@@ -140,7 +140,7 @@ Study <- R6::R6Class(
 			self$sources <- sources
 			self$samples <- samples
 			self$process_sequence <- process_sequence
-			self$other_material <- other_material
+			self$other_materials <- other_materials
 			self$characteristic_categories <- characteristic_categories
 			self$comments <- comments
 			# self$units <- units
@@ -301,10 +301,12 @@ Study <- R6::R6Class(
 				self$publications, ~.x$to_list()
 			)
 			lst[["@id"]] <- self$`@id`
-			lst[["materials"]][["otherMaterial"]] <-
-				if (!is.null(self$other_material)) {
+			if (checkmate::test_list(self$other_materials, len = 0)) {
+				lst[["materials"]][["otherMaterials"]] <- self$other_materials
+			} else {
+				lst[["materials"]][["otherMaterials"]] <-
 					self$other_material$to_list()
-				}
+			}
 			lst[["materials"]][["samples"]] <- self$samples %>%
 				purrr::map(~.x$to_list()) %>%
 				purrr::set_names(NULL)
@@ -324,7 +326,7 @@ Study <- R6::R6Class(
 		#' @param lst an Material object serialized to a list
 		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			if(json) {
-				private$id <- lst[["id"]]
+				# private$id <- lst[["id"]]
 				self$identifier <- lst[["identifier"]]
 				self$`@id` <- lst[["@id"]]
 				self$filename <- lst[["filename"]]
@@ -409,6 +411,26 @@ Study <- R6::R6Class(
 						pc
 					})
 				# self$assays <- lst[["assays"]]
+				if (
+					!checkmate::test_list(
+						lst[["materials"]][["otherMaterials"]], len = 0
+					)
+				) {
+					self$other_materials <- Material$new(
+						characteristic_categories =
+							self$characteristic_categories,
+						ontology_source_references =
+							self$ontology_source_references
+					)
+					self$other_materials$from_list(
+						lst[["materials"]][["otherMaterials"]]
+					)
+				} else {
+					self$other_materials <-
+						lst[["materials"]][["otherMaterials"]]
+				}
+
+
 				self$sources <- lst[["materials"]][["sources"]] %>%
 					purrr::set_names(purrr::map_chr(., ~.x[["@id"]])) %>%
 					purrr::map(~{
@@ -429,7 +451,8 @@ Study <- R6::R6Class(
 						smpl <- Sample$new(
 							ontology_source_references =
 								self$ontology_source_references,
-							category_references = self$characteristic_categories,
+							category_references =
+								self$characteristic_categories,
 							sources = self$sources
 						)
 						smpl$from_list(.x, recursive = recursive, json = json)
@@ -500,7 +523,7 @@ Study <- R6::R6Class(
 				self$sources <- lst[["sources"]]
 				self$samples <- lst[["samples"]]
 				self$process_sequence <- lst[["process_sequence"]]
-				self$other_material <- lst[["other_material"]]
+				self$other_materials <- lst[["other_materials"]]
 
 				self$characteristic_categories <- lst[["characteristic_categories"]]
 

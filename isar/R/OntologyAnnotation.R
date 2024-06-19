@@ -204,10 +204,16 @@ OntologyAnnotation <- R6::R6Class(
 
 		set_valid_annotation = function(term, term_accession, term_source_name) {
 			# browser()
-			if(is.null(term_accession)) { term_accession <- "" }
+			# if(is.null(term_accession)) { term_accession <- "" }
+			term_accession <- switch(
+				as.character(is.null(term_accession)),
+				"TRUE" = "", "FALSE" = term_accession
+			)
+
 			if(is.null(term_source_name)) { term_source_name <- "" }
 			if(!checkmate::test_string(term, min.chars = 1)) {
 				term <- "Unspecified Term"
+				#term <- ""
 				warning("Unspecified Term!")
 			}
 
@@ -230,6 +236,23 @@ OntologyAnnotation <- R6::R6Class(
 				# self$ontology_source_references$get_ontology_sources(
 				# 	"UnknownSource"
 				# )
+			} else if(term_source_name != "") {
+				warning(
+					"Term Source Unknown, Attempting to add a placeholder..."
+				)
+				os <- OntologySource$new(
+					name = term_source_name,
+					terms_list = list(term_accession) %>%
+						purrr::set_names(term),
+					explicitly_provided = FALSE,
+					source = "Unknown"
+				)
+				osl <- list(os) %>% purrr::set_names(term_source_name)
+				self$ontology_source_references$add_ontology_sources(osl)
+				self$term_source <-
+					self$ontology_source_references$ontology_source_references[[
+						term_source_name
+					]]
 			} else {
 				warning(
 					"Term Source Unknown, Attempting to add a placeholder..."
@@ -257,6 +280,7 @@ OntologyAnnotation <- R6::R6Class(
 
 			if(term %in% names(self$term_source$terms)) {# get_?
 				self$term <- term
+				self$term_accession <- term_accession
 			} else {
 				warning("Term not in source! Attempting to add...")
 				if (checkmate::test_string(term_accession, min.chars = 1)) {
@@ -269,7 +293,11 @@ OntologyAnnotation <- R6::R6Class(
 						purrr::set_names(list(term), term)
 					)
 				}
+				self$term <- term
+				#self$set_term(term)
+				#self$set_term_accession(term)
 			}
+
 		},
 		# getters
 
@@ -340,12 +368,16 @@ OntologyAnnotation <- R6::R6Class(
 		#' @param recursive call to_list methods of any objects within this object (default FALSE)
 		to_list = function(ld = FALSE, recursive = TRUE) {
 			list(
-				termAccession = self$term_accession,
+				#termAccession = self$term_accession,
+				termAccession = ifelse(
+					self$term_source$name == "UnknownSource",
+					"", self$term_accession
+				),
+				annotationValue = self$term,
 				termSource = ifelse(
 					self$term_source$name == "UnknownSource",
 					"", self$term_source$name
-				),
-				annotationValue = self$term
+				)
 			)
 			# ontology_annotation = list(
 			# 	"id" = private$id,

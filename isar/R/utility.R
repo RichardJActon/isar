@@ -252,3 +252,12 @@ pretty_print_comments <- function(comments) {
 	)
 }
 
+#' unlist_sort_by_name
+#'
+#' @param x a named nested list
+#'
+unlist_sort_by_name <- function(x) {
+	x <- unlist(x)
+	x <- x[sort(names(x))]
+	x
+}

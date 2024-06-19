@@ -138,18 +138,35 @@ Process <- R6::R6Class(
 		#' @param ld linked data (default FALSE)
 		to_list = function(ld = FALSE){
 			lst <- list()
-			lst[["name"]] <- self$name
+			# handling names when reading without parent objects to supply
+			# sample and source objects
+			lst[["outputs"]] <- if (is.character(self$outputs)) {
+				purrr::map(self$outputs, ~list("@id" = .x))
+			} else {
+				purrr::map(self$outputs, ~.x$to_list())
+			}
+			lst[["inputs"]] <- if (is.character(self$inputs)) {
+				purrr::map(self$inputs, ~list("@id" = .x))
+			} else {
+				purrr::map(self$inputs, ~.x$to_list())
+			}
+
+			lst[["parameterValues"]] <- self$parameter_values
+			lst$`@id` <- self$`@id`
+			lst[["date"]] <- self$date
+			lst[["comments"]] <- self$comments
+			lst[["performer"]] <- self$performer# purrr::map(self$performer, ~.x$to_list),
+			# lst[["name"]] <- self$name
 			# lst[["executesProtocol"]] <- purrr::map(
 			# 	self$executes_protocol, ~.x$to_list()
 			# )
-			lst[["executesProtocol"]] <- self$executes_protocol$to_list()
-			lst[["date"]] <- self$date
-			lst[["performer"]] <- self$performer# purrr::map(self$performer, ~.x$to_list),
-			lst[["parameter_values"]] <- self$parameter_values
-			lst[["inputs"]] <- purrr::map(self$inputs, ~.x$to_list())
-			lst[["outputs"]] <- purrr::map(self$outputs, ~.x$to_list())
-			lst[["comments"]] <- self$comments
-			lst$`@id` <- self$`@id`
+			if(is.null(self$executes_protocol)) {
+				lst[["executesProtocol"]] <- list()
+			} else if(is.character(self$executes_protocol)) {
+				lst[["executesProtocol"]] <- list("@id" = self$executes_protocol)
+			} else {
+				lst[["executesProtocol"]] <- self$executes_protocol$to_list()
+			}
 			return(lst)
 		},
 		#' @details
@@ -158,16 +175,28 @@ Process <- R6::R6Class(
 		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			# browser()
 			if(json) {
-				self$executes_protocol <- self$protocols[[ # handle possible missing here?
-					lst[["executesProtocol"]][["@id"]]
-				]]
+				if(is.null(self$protocols)) {
+					self$executes_protocol <- lst[["executesProtocol"]][["@id"]]
+				} else {
+					self$executes_protocol <- self$protocols[[ # handle possible missing here?
+						lst[["executesProtocol"]][["@id"]]
+					]]
+				}
 				self$parameter_values <- lst[["parameterValues"]]
-				self$outputs <- self$samples[
-					purrr::map_chr(lst[["outputs"]], ~.x$`@id`)
-				]
-				self$inputs <- self$sources[
-					purrr::map_chr(lst[["inputs"]], ~.x$`@id`)
-				]
+				if(is.null(self$samples)) {
+					self$outputs <- purrr::map_chr(lst[["outputs"]], ~.x$`@id`)
+				} else {
+					self$outputs <- self$samples[
+						purrr::map_chr(lst[["outputs"]], ~.x$`@id`)
+					]
+				}
+				if (is.null(self$sources)) {
+					self$inputs <- purrr::map_chr(lst[["inputs"]], ~.x$`@id`)
+				} else {
+					self$inputs <- self$sources[
+						purrr::map_chr(lst[["inputs"]], ~.x$`@id`)
+					]
+				}
 			} else {
 				# self$executes_protocol <- lst[["executes_protocol"]] # protocol object
 				# self$parameter_values <- lst[["parameter_values"]] # ont anno?

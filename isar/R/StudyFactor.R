@@ -97,23 +97,24 @@ StudyFactor <- R6::R6Class(
 		#' @examples
 		#' StudyFactor$new()
 		to_list = function(ld = FALSE) {
-			study_factor = list(
-				"factor_name" = self$factor_name,
-				"factor_type" = self$factor_type$to_list(),
-				"id" = private$id#,
+			lst = list(
+				"factorType" = self$factor_type$to_list(),
+				"@id" = self$`@id`,
+				"factorName" = self$factor_name
+				# "id" = private$id#,
 				#"comments" = self$comments
 			)
-			return(study_factor)
+			return(lst)
 		},
 
 		#' @details
 		#'
-		#' Make \code{[OntologyAnnotation]} from list
+		#' Make \code{[StudyFactor]} from list
 		#'
 		#' @param lst a list serialization of a study factor object
 		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			if(json) {
-				self$factor_name = lst[["factorName"]]
+				self$factor_name <- lst[["factorName"]]
 				self$`@id` <- lst[["@id"]]
 				self$factor_type <- OntologyAnnotation$new(
 					ontology_source_references =

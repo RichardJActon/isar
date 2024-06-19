@@ -14,7 +14,7 @@
 #
 # unit of X (X as an amount, physical quantity etc.)
 #
-# (meter)(dividion)(second)
+# (meter)(division)(second)
 #
 #
 # isomorphisms? m/s vs ms^-1?
@@ -46,7 +46,7 @@ Unit <- R6::R6Class(
 			if (is.null(unit)) { self$unit <- unit } else {
 				# need a list of ontology annotations to account for
 				# composit units e.g. ms^-2 is meters and seconds
-				# need a seperate field for the unit and the ontology
+				# need a separate field for the unit and the ontology
 				# annotation(s) used in the unit
 				#self$unit <- OntologyAnnotation$new(unit, OM)
 				self$set_unit_from_string(unit)
@@ -56,6 +56,7 @@ Unit <- R6::R6Class(
 			self$source <- source
 		},
 		set_unit_from_string = function(unit) {
+			#browser()
 			check <- checkmate::check_string(unit)
 			error_with_check_message_on_failure(check)
 
@@ -87,7 +88,7 @@ Unit <- R6::R6Class(
 					ontology_source_references = self$ontology_source_references
 				)
 				self$unit$set_valid_annotation(
-					term = unit, term_accession = unit,
+					term = unit, term_accession = NULL,
 					term_source_name = "UnknownSource"
 				)
 			}
@@ -99,11 +100,9 @@ Unit <- R6::R6Class(
 		#' An R list representation of a \code{[Unit]} object
 		#' @param ld linked data (default FALSE)
 		to_list = function(ld = FALSE) {
-			unit <- list(
-				#unit = self$unit$to_list(),
-				"@id" = self$`@id`
-			)
-			return(unit)
+			lst <- list("@id" = self$`@id`)
+			lst <- c(lst, self$unit$to_list())
+			return(lst)
 		},
 		#' @details
 		#' Make \code{[Unit]} object from list

@@ -44,7 +44,9 @@ StudyFactorReferences <- R6::R6Class(
 			}
 		},
 		to_list = function() {
-			purrr::map(self$study_factor_references, ~.x$to_list())
+			self$study_factor_references %>%
+				purrr::map(~.x$to_list()) %>%
+				purrr::set_names(NULL)
 		},
 		from_list = function(lst, explicitly_provided = logical()) {
 			study_factors <- purrr::map(lst,~{

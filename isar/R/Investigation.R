@@ -337,15 +337,17 @@ Investigation <- R6::R6Class(
 					p$from_list(.x, json = json)
 					p
 				})
-				self$studies <- purrr::map(lst[["studies"]], ~{
-					s <- Study$new(
-						ontology_source_references =
-							self$ontology_source_references
-					)
-					#s$from_list(.x, recursive, json)
-					s$from_list(.x, recursive = recursive, json = json)
-					s
-				})
+				self$studies <- lst[["studies"]] %>%
+					purrr::set_names(purrr::map_chr(., ~.x$identifier)) %>%
+					purrr::map(~{
+						s <- Study$new(
+							ontology_source_references =
+								self$ontology_source_references
+						)
+						#s$from_list(.x, recursive, json)
+						s$from_list(.x, recursive = recursive, json = json)
+						s
+					})
 				#}
 				self$comments <- lst[["comments"]]
 			} else {

@@ -46,7 +46,9 @@ CharacteristicCategoryReferences <- R6::R6Class(
 			purrr::map_chr(self$categories, ~.x$type$term)
 		},
 		to_list = function() {
-			purrr::map(self$categories, ~.x$to_list())
+			self$categories %>%
+				purrr::map(~.x$to_list()) %>%
+				purrr::set_names(NULL)
 		},
 		from_list = function(
 			lst, explicitly_provided = logical(), source = NA, add = FALSE

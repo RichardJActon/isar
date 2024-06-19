@@ -122,13 +122,14 @@ Material <- R6::R6Class(
 		#' An R list representation of a \code{[Material]} object
 		#' @param ld linked data (default FALSE)
 		to_list = function(ld = FALSE) {
-			material = list(
-				"name" = self$name,
+			list(
 				#"id" = private$id,
+				"@id" = self$`@id`,
+				"name" = self$name,
 				"type" = self$type,
 				"characteristics" = self$characteristics %>%
-					purrr::map(~.x$to_list()),
-				"comments" = self$comments
+					purrr::map(~.x$to_list())
+				#"comments" = self$comments
 			)
 		},
 		#' @details
