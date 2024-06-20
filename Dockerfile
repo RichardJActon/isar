@@ -64,7 +64,7 @@ USER ${NB_USER}
 ENV RSTUDIO_CONFIG_HOME=/home/rstudio/work/isar/.rstudio_config_dir
 
 ## Clean up the /home/rstudio directory to avoid confusion in nested R projects
-RUN rm /home/rstudio/.Rprofile; rm /home/rstudio/renv.lock
+# RUN rm /home/rstudio/.Rprofile; rm /home/rstudio/renv.lock
 
 # install the python dependencies
 COPY requirements.txt /tmp/
