@@ -51,21 +51,21 @@ USER ${NB_USER}
 # RUN true fixes issues with local docker build see:
 # https://stackoverflow.com/questions/51115856/docker-failed-to-export-image-failed-to-create-image-failed-to-get-layer
 
-# COPY .renv_install.sh .
-# RUN true
-# COPY renv.lock .
-# RUN bash .renv_install.sh
-# ## ensure renv lock is in the project directory
-# COPY renv.lock /home/rstudio/renv.lock
-# RUN true
-# COPY install.R /tmp/
-# RUN R -f /tmp/install.R
+COPY .renv_install.sh .
+RUN true
+COPY renv.lock .
+RUN bash .renv_install.sh
+## ensure renv lock is in the project directory
+COPY renv.lock /home/rstudio/renv.lock
+RUN true
+COPY install.R /tmp/
+RUN R -f /tmp/install.R
 
 # To apply a custom RStudio config uncomment the line below
 ENV RSTUDIO_CONFIG_HOME=/home/rstudio/work/isar/.rstudio_config_dir
 
 ## Clean up the /home/rstudio directory to avoid confusion in nested R projects
-# RUN rm /home/rstudio/.Rprofile; rm /home/rstudio/renv.lock
+RUN rm /home/rstudio/.Rprofile; rm /home/rstudio/renv.lock
 
 # install the python dependencies
 COPY requirements.txt /tmp/
