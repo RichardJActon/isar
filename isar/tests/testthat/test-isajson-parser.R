@@ -67,6 +67,7 @@ test_that("Samples", {
 	obj <- Sample$new()
 	ex <- BII_I_1_jsonlite$studies[[1]]$materials$samples[[1]]
 	warns <- capture_warnings(obj$from_list(ex))
+	# fix unit from_list for other conditions
 	expect_equal(unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex))
 })
 
