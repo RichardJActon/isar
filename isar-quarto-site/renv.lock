@@ -4,7 +4,7 @@
     "Repositories": [
       {
         "Name": "CRAN",
-        "URL": "https://p3m.dev/cran/2023-10-30"
+        "URL": "https://packagemanager.rstudio.com/cran/2024-02-29"
       }
     ]
   },
