@@ -51,7 +51,7 @@ UnitReferences <- R6::R6Class(
 				purrr::map(~{
 					u <- Unit$new(
 						ontology_source_references =
-							self$ontology_source_references#,
+							self$ontology_source_references,
 						# unit_references = self$unit_references,
 						source = source
 					)

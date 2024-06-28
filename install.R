@@ -4,7 +4,7 @@ setwd('/home/rstudio')
 options(renv.consent = TRUE)
 write("options(renv.consent = TRUE)", file="/home/rstudio/.Rprofile", append = TRUE)
 renv::init(force = TRUE)
-renv::restore(confirm = FALSE)
+renv::restore(confirm = FALSE, repos = "https://packagemanager.rstudio.com/cran/2024-02-29")
 
 # Uncomment and adapt to install additional R dependencies.
 # The installed packages will not be included in the project's renv.lock file

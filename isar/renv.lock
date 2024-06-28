@@ -1066,13 +1066,8 @@
     },
     "renv": {
       "Package": "renv",
-      "Version": "1.0.4",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "utils"
-      ],
-      "Hash": "11abaf7c540ff33f94514d50f929bfd1"
+      "Version": "0.17.3",
+      "Source": "Repository"
     },
     "rjson": {
       "Package": "rjson",
