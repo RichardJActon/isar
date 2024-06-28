@@ -19,13 +19,21 @@ Sample$new()
 \describe{
 \item{\code{name}}{A name/reference for the sample material.}
 
-\item{\code{factor_values}}{A list of \code{[FactorValue]}s used to qualify the material in terms of study factors/design.}
+\item{\code{factor_values}}{A list of \link{FactorValue}s used to qualify the material in terms of study factors/design.}
 
 \item{\code{characteristics}}{A list of Characteristics used to qualify the material properties.}
 
 \item{\code{derives_from}}{A link to the source material that the sample is derived from.}
 
 \item{\code{comments}}{Comments associated with instances of this class.}
+
+\item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object}
+
+\item{\code{category_references}}{an \link{CharacteristicCategoryReferences} object}
+
+\item{\code{unit_references}}{an \link{UnitReferences} object}
+
+\item{\code{sources}}{list of available \link{Source}s}
 }
 \if{html}{\out{</div>}}
 }
@@ -56,6 +64,7 @@ Sample$new()
   comments = NULL,
   ontology_source_references = NULL,
   category_references = NULL,
+  unit_references = NULL,
   sources = NULL
 )}\if{html}{\out{</div>}}
 }
@@ -65,13 +74,21 @@ Sample$new()
 \describe{
 \item{\code{name}}{A name/reference for the sample material.}
 
-\item{\code{factor_values}}{A list of \code{[FactorValue]} objects used to qualify the material in terms of study factors/design.}
+\item{\code{factor_values}}{A list of \link{FactorValue} objects used to qualify the material in terms of study factors/design.}
 
 \item{\code{characteristics}}{A list of Characteristics used to qualify the material properties.}
 
 \item{\code{derives_from}}{A link to the source material that the sample is derived from.}
 
 \item{\code{comments}}{Comments associated with instances of this class.}
+
+\item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object}
+
+\item{\code{category_references}}{an \link{CharacteristicCategoryReferences} object}
+
+\item{\code{unit_references}}{an \link{UnitReferences} object}
+
+\item{\code{sources}}{list of available \link{Source}s}
 }
 \if{html}{\out{</div>}}
 }
@@ -91,13 +108,13 @@ Create a new instance of sample
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{factor_values}}{factor values to be used in a \code{[Sample]} object
-A list of \code{[FactorValue]} objects}
+\item{\code{factor_values}}{factor values to be used in a \link{Sample} object
+A list of \link{FactorValue} objects}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-validates the factor_values field is a list of \code{[FactorValue]} objects
+validates the factor_values field is a list of \link{FactorValue} objects
 }
 
 }
@@ -113,7 +130,7 @@ validates the factor_values field is a list of \code{[FactorValue]} objects
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{factor_values}}{factor values used in the sample
-A list of \code{[FactorValue]} objects}
+A list of \link{FactorValue} objects}
 }
 \if{html}{\out{</div>}}
 }
@@ -158,6 +175,17 @@ generate an R list representation translatable to JSON
 \if{html}{\out{<div class="r">}}\preformatted{Sample$check_source(source)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{source}}{The name of a source to check is listed}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Checks that source is listed in the provided list of sources
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Sample-set_source"></a>}}
@@ -165,6 +193,17 @@ generate an R list representation translatable to JSON
 \subsection{Method \code{set_source()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Sample$set_source(source)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{source}}{The name of a source to set is listed}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Sets a source if that source is listed in the provided list of sources
 }
 
 }
@@ -179,12 +218,16 @@ generate an R list representation translatable to JSON
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{lst}}{a list serialization of a \code{[Sample]} factor object}
+\item{\code{lst}}{a list serialization of a \link{Sample} factor object}
+
+\item{\code{recursive}}{call to_list methods of any objects within this object (default TRUE)}
+
+\item{\code{json}}{json  (default TRUE)}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Make \code{[sample]} from list
+Make \link{sample} from list
 }
 
 }
@@ -194,6 +237,10 @@ Make \code{[sample]} from list
 \subsection{Method \code{print()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Sample$print()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Pretty Prints \link{Sample} objects
 }
 
 }

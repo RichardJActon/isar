@@ -15,9 +15,17 @@ R6 object to represent Materials
 
 \item{\code{type}}{the type of the material}
 
-\item{\code{characteristics}}{the characteristics of the material in the form of a \code{[Characteristics]} object}
+\item{\code{characteristics}}{the characteristics of the material in the form of a \link{Characteristics} object}
+
+\item{\code{characteristic_categories}}{an \link{CharacteristicCategoryReferences} object}
+
+\item{\code{ontology_source_references}}{\link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor.}
+
+\item{\code{unit_references}}{A list of units used as a \link{UnitReferences} object.}
 
 \item{\code{comments}}{comments}
+
+\item{\code{@id}}{identifier}
 }
 \if{html}{\out{</div>}}
 }
@@ -53,6 +61,7 @@ R6 object to represent Materials
   characteristics = NULL,
   characteristic_categories = NULL,
   ontology_source_references = NULL,
+  unit_references = NULL,
   comments = NULL,
   `@id` = character()
 )}\if{html}{\out{</div>}}
@@ -65,14 +74,22 @@ R6 object to represent Materials
 
 \item{\code{type}}{the type of the material}
 
-\item{\code{characteristics}}{a list of \code{[Characteristic]} objects}
+\item{\code{characteristics}}{a list of \link{Characteristic} objects}
+
+\item{\code{characteristic_categories}}{an \link{CharacteristicCategoryReferences} object}
+
+\item{\code{ontology_source_references}}{\link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor.}
+
+\item{\code{unit_references}}{A list of units used as a \link{UnitReferences} object.}
 
 \item{\code{comments}}{comments}
+
+\item{\code{@id}}{identifier}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Create a new \code{[Material]} object
+Create a new \link{Material} object
 }
 
 }
@@ -152,7 +169,7 @@ Check the the type has a non-zero length
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Set the type of the \code{[Material]}
+Set the type of the \link{Material}
 }
 
 }
@@ -167,12 +184,12 @@ Set the type of the \code{[Material]}
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{characteristics}}{a list of \code{[Characteristic]} objects}
+\item{\code{characteristics}}{a list of \link{Characteristic} objects}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-check characteristics is a list of \code{[Characteristic]} objects
+check characteristics is a list of \link{Characteristic} objects
 }
 
 }
@@ -187,12 +204,12 @@ check characteristics is a list of \code{[Characteristic]} objects
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{characteristics}}{a list of \code{[Characteristic]} objects}
+\item{\code{characteristics}}{a list of \link{Characteristic} objects}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-set characteristics if characteristics is a list of \code{[Characteristic]} objects
+set characteristics if characteristics is a list of \link{Characteristic} objects
 }
 
 }
@@ -272,7 +289,7 @@ Add comment if it is in a valid format
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-An R list representation of a \code{[Material]} object
+An R list representation of a \link{Material} object
 }
 
 }
@@ -296,7 +313,7 @@ An R list representation of a \code{[Material]} object
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Make \code{[Material]} object from list
+Make \link{Material} object from list
 }
 
 }
@@ -344,6 +361,10 @@ set the uuid of this object
 \subsection{Method \code{print()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Material$print()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Pretty Prints \link{Characteristic} objects
 }
 
 }

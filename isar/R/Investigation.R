@@ -7,7 +7,7 @@
 #'
 # #' @field id ...
 #' @field filename ...
-# #' @field identifier A locally unique identifier or an accession number provided by a repository.
+#' @field identifier A locally unique identifier or an accession number provided by a repository.
 #' @field title A concise name given to the investigation.
 #' @field description A textual description of the investigation.
 #' @field submission_date date on which the investigation was reported to the repository. This should be ISO8601 formatted.
@@ -24,7 +24,6 @@
 #' @export
 Investigation <- R6::R6Class(
 	"Investigation",
-	#inherit = OntologySourceReferences,
 	public = list(
 		filename = '',
 		identifier = character(),
@@ -41,7 +40,7 @@ Investigation <- R6::R6Class(
 		#' @details
 		#' Create a new investigation object
 		#' @param filename ...
-		# #' @param identifier A locally unique identifier or an accession number provided by a repository.
+		#' @param identifier A locally unique identifier or an accession number provided by a repository.
 		#' @param title A concise name given to the investigation.
 		#' @param description A textual description of the investigation.
 		#' @param submission_date date on which the investigation was reported to the repository. This should be ISO8601 formatted.
@@ -216,13 +215,18 @@ Investigation <- R6::R6Class(
 			}
 		},
 
+		#' @details
+		#' Check that input is an [OntologySourceReferences] object
+		#' @param ontology_source_references an [OntologySourceReferences] object
 		check_ontology_source_references = function(ontology_source_references) {
 			check <- checkmate::check_r6(
 				ontology_source_references, "OntologySourceReferences"
 			)
 			error_with_check_message_on_failure(check)
 		},
-
+		#' @details
+		#' Set ontology_source_references to be an [OntologySourceReferences] object
+		#' @param ontology_source_references an [OntologySourceReferences] object
 		set_ontology_source_references = function(ontology_source_references) {
 			if(self$check_ontology_source_references(ontology_source_references))
 				self$ontology_source_references <- ontology_source_references
@@ -296,6 +300,8 @@ Investigation <- R6::R6Class(
 		#' Make [Investigation] from list
 		#'
 		#' @param lst an ontology source object serialized to a list
+		#' @param recursive call to_list methods of any objects within this object (default TRUE)
+		#' @param json json  (default TRUE)
 		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			if(json) {
 				# self$filename <- lst[["filename"]]
@@ -392,6 +398,8 @@ Investigation <- R6::R6Class(
 		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
 			private$id <- generate_id(id, suffix)
 		},
+		#' @details
+		#' Pretty prints [Investigation] objects
 		print = function() {
 			cli::cli_h1(cli::col_blue("Investigation 🕵️"))
 			green_bold_name_plain_content("Title", self$title)

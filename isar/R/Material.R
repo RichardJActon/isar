@@ -2,8 +2,12 @@
 #'
 #' @field name name of the material
 #' @field type the type of the material
-#' @field characteristics the characteristics of the material in the form of a \code{[Characteristics]} object
+#' @field characteristics the characteristics of the material in the form of a [Characteristics] object
+#' @field characteristic_categories an [CharacteristicCategoryReferences] object
+#' @field ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor.
+#' @field unit_references A list of units used as a [UnitReferences] object.
 #' @field comments comments
+#' @field @id identifier
 #'
 #' @importFrom R6 R6Class
 #' @importFrom checkmate qtest check_string
@@ -24,11 +28,15 @@ Material <- R6::R6Class(
 		comments = NULL,
 		`@id` =  character(),
 		#' @details
-		#' Create a new \code{[Material]} object
+		#' Create a new [Material] object
 		#' @param name The name of the material
 		#' @param type the type of the material
-		#' @param characteristics a list of \code{[Characteristic]} objects
+		#' @param characteristics a list of [Characteristic] objects
+		#' @param characteristic_categories an [CharacteristicCategoryReferences] object
+		#' @param ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor.
+		#' @param unit_references A list of units used as a [UnitReferences] object.
 		#' @param comments comments
+		#' @param @id identifier
 		initialize = function(
 			name = character(),
 			type = character(),
@@ -77,14 +85,14 @@ Material <- R6::R6Class(
 			error_with_check_message_on_failure(check)
 		},
 		#' @details
-		#' Set the type of the \code{[Material]}
+		#' Set the type of the [Material]
 		#' @param type of the material
 		set_type = function(type) {
 			if (self$check_type(type)) { self$type <- type }
 		},
 		#' @details
-		#' check characteristics is a list of \code{[Characteristic]} objects
-		#' @param characteristics a list of \code{[Characteristic]} objects
+		#' check characteristics is a list of [Characteristic] objects
+		#' @param characteristics a list of [Characteristic] objects
 		check_characteristics = function(characteristics) {
 			if(
 				checkmate::test_list(characteristics, min.len = 1) &&
@@ -96,8 +104,8 @@ Material <- R6::R6Class(
 			}
 		},
 		#' @details
-		#' set characteristics if characteristics is a list of \code{[Characteristic]} objects
-		#' @param characteristics a list of \code{[Characteristic]} objects
+		#' set characteristics if characteristics is a list of [Characteristic] objects
+		#' @param characteristics a list of [Characteristic] objects
 		set_characteristics = function(characteristics) {
 			if (self$check_characteristics(characteristics)) {
 				self$characteristics <- characteristics
@@ -122,7 +130,7 @@ Material <- R6::R6Class(
 			}
 		},
 		#' @details
-		#' An R list representation of a \code{[Material]} object
+		#' An R list representation of a [Material] object
 		#' @param ld linked data (default FALSE)
 		to_list = function(ld = FALSE) {
 			list(
@@ -136,7 +144,7 @@ Material <- R6::R6Class(
 			)
 		},
 		#' @details
-		#' Make \code{[Material]} object from list
+		#' Make [Material] object from list
 		#' @param lst an Material object serialized to a list
 		#' @param json json  (default TRUE)
 		#' @param recursive call to_list methods of any objects within this object (default TRUE)
@@ -171,6 +179,8 @@ Material <- R6::R6Class(
 		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
 			private$id <- generate_id(id, suffix)
 		},
+		#' @details
+		#' Pretty Prints [Characteristic] objects
 		print = function() {
 			cli::cli_h1(cli::col_blue("Material"))
 			green_bold_name_plain_content("Name", self$name)

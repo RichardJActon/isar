@@ -15,7 +15,15 @@ A Characteristic acts as a qualifying property to a material object.
 
 \item{\code{unit}}{If applicable, a unit qualifier for the value (if the value is numeric).}
 
+\item{\code{category_references}}{an \link{CharacteristicCategoryReferences} object}
+
 \item{\code{comments}}{comments}
+
+\item{\code{@id}}{identifier}
+
+\item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object}
+
+\item{\code{unit_references}}{an \link{UnitReferences} object}
 }
 \if{html}{\out{</div>}}
 }
@@ -67,12 +75,20 @@ A Characteristic acts as a qualifying property to a material object.
 
 \item{\code{unit}}{If applicable, a unit qualifier for the value (if the value is numeric).}
 
+\item{\code{category_references}}{an \link{CharacteristicCategoryReferences} object}
+
 \item{\code{comments}}{comments}
+
+\item{\code{@id}}{identifier}
+
+\item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object}
+
+\item{\code{unit_references}}{an \link{UnitReferences} object}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Create a new \code{[Characteristics]} object
+Create a new \link{Characteristics} object
 }
 
 }
@@ -87,12 +103,12 @@ Create a new \code{[Characteristics]} object
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{category}}{an \code{[CharacteristicCategory]} object}
+\item{\code{category}}{an \link{CharacteristicCategory} object}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Check that category is an \code{[CharacteristicCategory]} object
+Check that category is an \link{CharacteristicCategory} object
 }
 
 }
@@ -107,7 +123,7 @@ Check that category is an \code{[CharacteristicCategory]} object
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{category}}{an \code{[CharacteristicCategory]} object}
+\item{\code{category}}{an \link{CharacteristicCategory} object}
 }
 \if{html}{\out{</div>}}
 }
@@ -167,12 +183,12 @@ set the value if input is valid
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{unit}}{a \code{[Unit]} object}
+\item{\code{unit}}{a \link{Unit} object}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-check if unit is a \code{[Unit]} object
+check if unit is a \link{Unit} object
 }
 
 }
@@ -187,7 +203,7 @@ check if unit is a \code{[Unit]} object
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{unit}}{a \code{[Unit]} object}
+\item{\code{unit}}{a \link{Unit} object}
 }
 \if{html}{\out{</div>}}
 }
@@ -264,6 +280,17 @@ Add comment if it is in a valid format
 \if{html}{\out{<div class="r">}}\preformatted{Characteristic$set_valid_category(category)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{category}}{a category}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Set a category and check that it is valid
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Characteristic-to_list"></a>}}
@@ -283,7 +310,7 @@ Add comment if it is in a valid format
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-An R list representation of a \code{[Characteristic]} object
+An R list representation of a \link{Characteristic} object
 }
 
 }
@@ -307,7 +334,7 @@ An R list representation of a \code{[Characteristic]} object
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Make \code{[Characteristic]} object from list
+Make \link{Characteristic} object from list
 }
 
 }
@@ -355,6 +382,10 @@ set the uuid of this object
 \subsection{Method \code{print()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Characteristic$print()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Pretty Prints \link{Characteristic} objects
 }
 
 }

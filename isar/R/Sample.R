@@ -3,10 +3,14 @@
 #' Represents a sample material in an experimental graph.
 #'
 #' @field name A name/reference for the sample material.
-#' @field factor_values A list of \code{[FactorValue]}s used to qualify the material in terms of study factors/design.
+#' @field factor_values A list of [FactorValue]s used to qualify the material in terms of study factors/design.
 #' @field characteristics A list of Characteristics used to qualify the material properties.
 #' @field derives_from A link to the source material that the sample is derived from.
 #' @field comments Comments associated with instances of this class.
+#' @field ontology_source_references an [OntologySourceReferences] object
+#' @field category_references an [CharacteristicCategoryReferences] object
+#' @field unit_references an [UnitReferences] object
+#' @field sources list of available [Source]s
 #'
 #' @importFrom checkmate check_string test_r6
 #' @importFrom glue glue
@@ -33,10 +37,14 @@ Sample <- R6::R6Class(
 		#' Create a new instance of sample
 		#'
 		#' @param name A name/reference for the sample material.
-		#' @param factor_values A list of \code{[FactorValue]} objects used to qualify the material in terms of study factors/design.
+		#' @param factor_values A list of [FactorValue] objects used to qualify the material in terms of study factors/design.
 		#' @param characteristics A list of Characteristics used to qualify the material properties.
 		#' @param derives_from A link to the source material that the sample is derived from.
 		#' @param comments Comments associated with instances of this class.
+		#' @param ontology_source_references an [OntologySourceReferences] object
+		#' @param category_references an [CharacteristicCategoryReferences] object
+		#' @param unit_references an [UnitReferences] object
+		#' @param sources list of available [Source]s
 		initialize = function(
 			name = character(),
 			factor_values = NULL,
@@ -71,10 +79,10 @@ Sample <- R6::R6Class(
 
 		#' @details
 		#'
-		#' validates the factor_values field is a list of \code{[FactorValue]} objects
+		#' validates the factor_values field is a list of [FactorValue] objects
 		#'
-		#' @param factor_values factor values to be used in a \code{[Sample]} object
-		#' A list of \code{[FactorValue]} objects
+		#' @param factor_values factor values to be used in a [Sample] object
+		#' A list of [FactorValue] objects
 		check_factor_values = function(factor_values) {
 			if(!is.list(factor_values)) {
 				stop(glue::glue(
@@ -106,7 +114,7 @@ Sample <- R6::R6Class(
 		#' Sets the factor values used in the sample
 		#'
 		#' @param factor_values factor values used in the sample
-		#' A list of \code{[FactorValue]} objects
+		#' A list of [FactorValue] objects
 		set_factor_values = function(factor_values) {
 			if(self$check_factor_values(factor_values)) {
 				self$factor_values <- factor_values
@@ -133,11 +141,17 @@ Sample <- R6::R6Class(
 			return(lst)
 		},
 
+		#' @details
+		#' Checks that source is listed in the provided list of sources
+		#' @param source The name of a source to check is listed
 		check_source = function(source) {
 			if(source %in% names(self$sources)) { return(TRUE) } else {
 				stop("source not listed!")
 			}
 		},
+		#' @details
+		#' Sets a source if that source is listed in the provided list of sources
+		#' @param source The name of a source to set is listed
 		set_source = function(source) {
 			if(is.null(self$sources)) {
 				self$derives_from$`@id` <- source
@@ -149,10 +163,10 @@ Sample <- R6::R6Class(
 		},
 
 		#' @details
-		#'
-		#' Make \code{[sample]} from list
-		#'
-		#' @param lst a list serialization of a \code{[Sample]} factor object
+		#' Make [sample] from list
+		#' @param lst a list serialization of a [Sample] factor object
+		#' @param json json  (default TRUE)
+		#' @param recursive call to_list methods of any objects within this object (default TRUE)
 		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			if(!json) {
 				private$id <- lst[["id"]]
@@ -241,7 +255,8 @@ Sample <- R6::R6Class(
 			# }
 			self$comments <- lst[["comments"]]
 		},
-
+		#' @details
+		#' Pretty Prints [Sample] objects
 		print = function() {
 			cli::cli_h1(cli::col_blue("Sample"))
 			green_bold_name_plain_content("Name", self$name)

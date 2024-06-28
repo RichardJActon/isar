@@ -25,6 +25,8 @@ An investigation maintains metadata about the project context and links to one o
 \describe{
 \item{\code{filename}}{...}
 
+\item{\code{identifier}}{A locally unique identifier or an accession number provided by a repository.}
+
 \item{\code{title}}{A concise name given to the investigation.}
 
 \item{\code{description}}{A textual description of the investigation.}
@@ -100,6 +102,8 @@ An investigation maintains metadata about the project context and links to one o
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{filename}}{...}
+
+\item{\code{identifier}}{A locally unique identifier or an accession number provided by a repository.}
 
 \item{\code{title}}{A concise name given to the investigation.}
 
@@ -374,6 +378,17 @@ Set public_release_date to a Date object
 \if{html}{\out{<div class="r">}}\preformatted{Investigation$check_ontology_source_references(ontology_source_references)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Check that input is an \link{OntologySourceReferences} object
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Investigation-set_ontology_source_references"></a>}}
@@ -381,6 +396,17 @@ Set public_release_date to a Date object
 \subsection{Method \code{set_ontology_source_references()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Investigation$set_ontology_source_references(ontology_source_references)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Set ontology_source_references to be an \link{OntologySourceReferences} object
 }
 
 }
@@ -516,6 +542,10 @@ generate an R list representation translatable to JSON
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{lst}}{an ontology source object serialized to a list}
+
+\item{\code{recursive}}{call to_list methods of any objects within this object (default TRUE)}
+
+\item{\code{json}}{json  (default TRUE)}
 }
 \if{html}{\out{</div>}}
 }
@@ -568,6 +598,10 @@ set the uuid of this object
 \subsection{Method \code{print()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Investigation$print()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Pretty prints \link{Investigation} objects
 }
 
 }

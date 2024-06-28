@@ -11,7 +11,7 @@ R6 class for OntologySourceReferences
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{ontology_source_references}}{...}
+\item{\code{ontology_source_references}}{a list of \link{OntologySource} objects}
 }
 \if{html}{\out{</div>}}
 }
@@ -37,6 +37,17 @@ R6 class for OntologySourceReferences
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{OntologySourceReferences$new(ontology_source_references = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ontology_source_references}}{a list of \link{OntologySource} objects}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Create a new OntologySourceReferences object
 }
 
 }
@@ -68,6 +79,13 @@ check ontology_sources is a list of \link{OntologySource} objects
 \if{html}{\out{<div class="r">}}\preformatted{OntologySourceReferences$add_ontology_sources(ontology_sources)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ontology_sources}}{list of \link{OntologySource} objects}
+}
+\if{html}{\out{</div>}}
+}
 \subsection{Details}{
 Add ontology sources to the
 }
@@ -140,6 +158,19 @@ a vector of ontology source names
 \if{html}{\out{<div class="r">}}\preformatted{OntologySourceReferences$get_ontology_source_origins()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+list of objects from which ontology source objects originate
+there should ideally only be the ontology sources explicitly
+listed in the investigation but if any other have been used
+without being specified or an ontology is missing where one should
+be used filler sources will be generated which will be listed as
+source references
+}
+
+\subsection{Returns}{
+character vector of the origins of the \link{OntologySource}
+objects in the reference
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OntologySourceReferences-to_list"></a>}}
@@ -147,6 +178,19 @@ a vector of ontology source names
 \subsection{Method \code{to_list()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{OntologySourceReferences$to_list(source = "any")}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{source}}{ontology sources of which origin to include
+if any includes all sources including those not explicitly provided
+(default: "any")}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Serialize object to a list
 }
 
 }
@@ -166,6 +210,11 @@ a vector of ontology source names
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{lst}}{an ontology source object serialized to a list}
+
+\item{\code{explicitly_provided}}{was the source explicitly provided
+as opposed to be automatically generated.}
+
+\item{\code{source}}{the origin of the  (default: NA)}
 }
 \if{html}{\out{</div>}}
 }
@@ -180,6 +229,10 @@ Make \link{OntologySourceReferences} from list
 \subsection{Method \code{print()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{OntologySourceReferences$print()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Pretty prints an \link{OntologySourceReferences} object
 }
 
 }

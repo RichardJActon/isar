@@ -1,7 +1,9 @@
 #' A parameter used by a protocol.
 #'
 #' @field parameter_name A parameter name as an ontology term
+#' @field ontology_source_references an [OntologySourceReferences] object
 #' @field comments Comments associated with instances of this class.
+#' @field @id identifier
 #'
 #' @importFrom R6 R6Class
 #' @importFrom uuid UUIDgenerate
@@ -15,7 +17,9 @@ ProtocolParameter <- R6::R6Class(
 		#' @details
 		#' Create a new \code{[ProtocolParameter]} object
 		#' @param parameter_name A parameter name as an ontology term
+		#' @param ontology_source_references an [OntologySourceReferences] object
 		#' @param comments Comments associated with instances of this class.
+		#' @param @id identifier
 		initialize = function(
 			parameter_name = NULL,
 			ontology_source_references = NULL,
@@ -126,7 +130,8 @@ ProtocolParameter <- R6::R6Class(
 		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
 			private$id <- generate_id(id, suffix)
 		},
-
+		#' @details
+		#' Pretty Prints [ProtocolParameter] objects
 		print = function() {
 			cli::cli_h1(cli::col_blue("Protocol Parameter"))
 			green_bold_name_plain_content("Name", self$parameter_name$term)

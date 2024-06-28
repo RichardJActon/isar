@@ -3,24 +3,26 @@
 \name{ParameterValue}
 \alias{ParameterValue}
 \title{An R6 object for representing ParameterValue
-A ParameterValue represents the instance value of a \code{[ProtocolParameter]}, used in a Process.}
+A ParameterValue represents the instance value of a \link{ProtocolParameter}, used in a Process.}
 \description{
 An R6 object for representing ParameterValue
-A ParameterValue represents the instance value of a \code{[ProtocolParameter]}, used in a Process.
+A ParameterValue represents the instance value of a \link{ProtocolParameter}, used in a Process.
 
 An R6 object for representing ParameterValue
-A ParameterValue represents the instance value of a \code{[ProtocolParameter]}, used in a Process.
+A ParameterValue represents the instance value of a \link{ProtocolParameter}, used in a Process.
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{category}}{A link to the relevant \code{[ProtocolParameter]} that the value is set for.}
+\item{\code{category}}{A link to the relevant \link{ProtocolParameter} that the value is set for.}
 
 \item{\code{value}}{The value of the parameter.}
 
 \item{\code{unit}}{The qualifying unit classifier, if the value is numeric.}
 
 \item{\code{comments}}{Comments associated with instances of this class.}
+
+\item{\code{@id}}{identifier}
 }
 \if{html}{\out{</div>}}
 }
@@ -58,18 +60,20 @@ A ParameterValue represents the instance value of a \code{[ProtocolParameter]}, 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{category}}{A link to the relevant \code{[ProtocolParameter]} that the value is set for.}
+\item{\code{category}}{A link to the relevant \link{ProtocolParameter} that the value is set for.}
 
 \item{\code{value}}{The value of the parameter.}
 
 \item{\code{unit}}{The qualifying unit classifier, if the value is numeric.}
 
 \item{\code{comments}}{Comments associated with instances of this class.}
+
+\item{\code{@id}}{identifier}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-New \code{[ParameterValue]} object
+New \link{ParameterValue} object
 }
 
 }
@@ -84,12 +88,12 @@ New \code{[ParameterValue]} object
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{unit}}{a \code{[Unit]} object}
+\item{\code{unit}}{a \link{Unit} object}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-check if unit is a \code{[Unit]} object
+check if unit is a \link{Unit} object
 }
 
 }
@@ -104,7 +108,7 @@ check if unit is a \code{[Unit]} object
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{unit}}{a \code{[Unit]} object}
+\item{\code{unit}}{a \link{Unit} object}
 }
 \if{html}{\out{</div>}}
 }
@@ -204,12 +208,16 @@ generate an R list representation translatable to JSON
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{lst}}{an \code{[Person]} object serialized to a list}
+\item{\code{lst}}{an \link{Person} object serialized to a list}
+
+\item{\code{recursive}}{call to_list methods of any objects within this object (default TRUE)}
+
+\item{\code{json}}{json  (default TRUE)}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Make \code{[Person]} from list
+Make \link{Person} from list
 }
 
 }

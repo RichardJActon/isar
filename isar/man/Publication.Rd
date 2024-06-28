@@ -38,6 +38,8 @@ Add comment if it is in a valid format
 convert the Publication object to a list
 
 Generate a \code{[Publication]} object from a list
+
+Pretty prints \link{Publication} objects
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
@@ -53,6 +55,8 @@ Generate a \code{[Publication]} object from a list
 \item{\code{status}}{A term describing the status of that publication (i.e.submitted, in preparation, published).}
 
 \item{\code{comments}}{Comments associated with instances of this class.}
+
+\item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object}
 }
 \if{html}{\out{</div>}}
 }
@@ -107,6 +111,8 @@ Generate a \code{[Publication]} object from a list
 \item{\code{status}}{status A term describing the status of that publication (i.e.submitted, in preparation, published).}
 
 \item{\code{comments}}{comments Comments associated with instances of this class.}
+
+\item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object}
 }
 \if{html}{\out{</div>}}
 }
@@ -315,6 +321,10 @@ Generate a \code{[Publication]} object from a list
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{lst}}{a list suitable for conversion to a Publication Object}
+
+\item{\code{recursive}}{call to_list methods of any objects within this object (default TRUE)}
+
+\item{\code{json}}{json  (default TRUE)}
 }
 \if{html}{\out{</div>}}
 }
@@ -327,6 +337,9 @@ Generate a \code{[Publication]} object from a list
 \if{html}{\out{<div class="r">}}\preformatted{Publication$print()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+none
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Publication-clone"></a>}}

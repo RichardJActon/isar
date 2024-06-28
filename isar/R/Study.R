@@ -439,7 +439,7 @@ Study <- R6::R6Class(
 					purrr::set_names(purrr::map_chr(., ~.x[["@id"]])) %>%
 					purrr::map(~{
 						src <- Source$new(
-							characteristic_category_references =
+							category_references =
 								self$characteristic_categories,
 							unit_references = self$unit_references
 						)

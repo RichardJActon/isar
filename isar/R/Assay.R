@@ -16,7 +16,7 @@
 #' @field filename  A field to specify the name of the assay file for compatibility with ISA-Tab.
 #' @field other_materials Materials associated with the assay.
 #' @field samples Samples associated with the assay.
-#' @field units A list of units used in the annotation of material units ? \code{[OntologyAnnotation]} !!.
+#' @field unit_references A list of units used as a [UnitReferences] object.
 #' @field characteristic_categories A list of \code{[OntologyAnnotation]} used in the annotation of material characteristics in the Assay.
 #' @field process_sequence A list of Process objects representing the experimental graphs at the Assay level.
 #' @field comments Comments associated with instances of this class.
@@ -62,7 +62,7 @@ Assay <- R6::R6Class(
 		#' @param filename  A field to specify the name of the assay file for compatibility with ISA-Tab.
 		#' @param other_materials Materials associated with the assay.
 		#' @param samples Samples associated with the assay.
-		#' @param unit_references A list of units used in the annotation of material units ? \code{[OntologyAnnotation]} !!.
+		#' @param unit_references A list of units used as a [UnitReferences] object.
 		#' @param characteristic_categories A list of \code{[OntologyAnnotation]} used in the annotation of material characteristics in the Assay.
 		#' @param process_sequence A list of Process objects representing the experimental graphs at the Assay level.
 		#' @param comments Comments associated with instances of this class.

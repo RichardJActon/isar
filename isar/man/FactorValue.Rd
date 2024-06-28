@@ -28,20 +28,21 @@ FactorValue$new(
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{factor_name}}{name of a quantity}
+\item{\code{factor}}{an experimental factor}
 
 \item{\code{value}}{value of a quantity}
 
 \item{\code{unit}}{units in which that quantity is measured}
 
+\item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object}
+
+\item{\code{study_factor_references}}{a \link{StudyFactorReferences} object}
+
+\item{\code{unit_references}}{an \link{UnitReferences} object}
+
 \item{\code{comments}}{comments}
-}
-\if{html}{\out{</div>}}
-}
-\section{Active bindings}{
-\if{html}{\out{<div class="r6-active-bindings">}}
-\describe{
-\item{\code{factor_name}}{name of a quantity}
+
+\item{\code{@id}}{identifier}
 }
 \if{html}{\out{</div>}}
 }
@@ -72,6 +73,7 @@ FactorValue$new(
   unit = NULL,
   ontology_source_references = NULL,
   study_factor_references = NULL,
+  unit_references = NULL,
   comments = NULL,
   `@id` = character()
 )}\if{html}{\out{</div>}}
@@ -80,11 +82,21 @@ FactorValue$new(
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
+\item{\code{factor}}{an experimental factor}
+
 \item{\code{value}}{the value of a quantity}
 
 \item{\code{unit}}{the unit of measurement}
 
+\item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object}
+
+\item{\code{study_factor_references}}{a \link{StudyFactorReferences} object}
+
+\item{\code{unit_references}}{an \link{UnitReferences} object}
+
 \item{\code{comments}}{comments}
+
+\item{\code{@id}}{identifier}
 }
 \if{html}{\out{</div>}}
 }
@@ -215,6 +227,17 @@ Add comment if it is in a valid format
 \if{html}{\out{<div class="r">}}\preformatted{FactorValue$set_valid_factor_category(factor)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{factor}}{an experimental factor}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+set an experimental factor of a valid category
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-FactorValue-to_list"></a>}}
@@ -248,6 +271,10 @@ generate an R list representation translatable to JSON
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{lst}}{an ontology source object serialized to a list}
+
+\item{\code{recursive}}{call to_list methods of any objects within this object (default TRUE)}
+
+\item{\code{json}}{json  (default TRUE)}
 }
 \if{html}{\out{</div>}}
 }
@@ -262,6 +289,10 @@ Make \link{OntologyAnnotation} from list
 \subsection{Method \code{print()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{FactorValue$print()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Pretty prints \link{FactorValue} objects
 }
 
 }

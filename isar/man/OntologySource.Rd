@@ -26,6 +26,13 @@ An \link{OntologySource} describes the resource from which the value of an \link
 \item{\code{terms_list}}{list of valid terms where keys are terms and values accessions}
 
 \item{\code{comments}}{comments}
+
+\item{\code{explicitly_provided}}{Was this \link{OntologySource} provided in the
+list of \link{OntologySourceReferences} for the \link{Investigation} (TRUE) or was
+it dynamically generated (FALSE)?}
+
+\item{\code{source}}{the source of the \link{OntologySource} object, was it listed in
+an investigation ontolgoy source reference list, elsewhere or auto generated}
 }
 \if{html}{\out{</div>}}
 }
@@ -100,6 +107,9 @@ An \link{OntologySource} describes the resource from which the value of an \link
 \item{\code{explicitly_provided}}{Was this \link{OntologySource} provided in the
 list of \link{OntologySourceReferences} for the \link{Investigation} (TRUE) or was
 it dynamically generated (FALSE)?}
+
+\item{\code{source}}{the source of the \link{OntologySource} object, was it listed in
+an investigation ontolgoy source reference list, elsewhere or auto generated}
 }
 \if{html}{\out{</div>}}
 }
@@ -460,6 +470,8 @@ make an R list convertible to json
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{lst}}{an ontology source object serialized to a list}
+
+\item{\code{json}}{(default TRUE)}
 }
 \if{html}{\out{</div>}}
 }
@@ -479,7 +491,7 @@ Make \link{OntologySource} from list
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{lst}}{an ontology source object serialized to a list}
+\item{\code{other_ontology_source}}{another \link{OntologySource}}
 }
 \if{html}{\out{</div>}}
 }
@@ -498,7 +510,7 @@ not necessarily an exactly identical object
 }
 
 \subsection{Details}{
-prints a pretty representation of the contents of the object
+Pretty prints an \link{OntologySource} object
 }
 
 }

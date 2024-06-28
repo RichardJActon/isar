@@ -8,8 +8,9 @@
 #' @field uri Pointer to protocol resources externally that can be accessed by their Uniform Resource Identifier (URI).
 #' @field version An identifier for the version to ensure protocol tracking.
 #' @field parameters A list of ProtocolParameter describing the list of required to execute the protocol.
-#' @field components A list of \code{[OntologyAnnotation]} describing a protocol's components; e.g. instrument names, software names, and reagents names.
+#' @field components A list of [OntologyAnnotation] describing a protocol's components; e.g. instrument names, software names, and reagents names.
 #' @field comments Comments associated with instances of this class.
+#' @field @id identifier
 Protocol <- R6::R6Class(
 	"Protocol",
 	public = list(
@@ -30,9 +31,10 @@ Protocol <- R6::R6Class(
 		#' @param description A free-text description of the protocol.
 		#' @param uri Pointer to protocol resources externally that can be accessed by their Uniform Resource Identifier (URI).
 		#' @param version An identifier for the version to ensure protocol tracking.
-		#' @param parameters A list of \code{[ProtocolParameter]}s describing the list of to execute the protocol.
-		#' @param components A list of \code{[OntologyAnnotation]} describing a protocol's components; e.g. instrument names, software names, and reagents names.
+		#' @param parameters A list of [ProtocolParameter]s describing the list of to execute the protocol.
+		#' @param components A list of [OntologyAnnotation] describing a protocol's components; e.g. instrument names, software names, and reagents names.
 		#' @param comments Comments associated with instances of this class.
+		#' @param @id identifier
 		initialize = function(
 			name = character(),
 			protocol_type = NULL,
@@ -133,8 +135,8 @@ Protocol <- R6::R6Class(
 		},
 
 		#' @details
-		#' Check that protocol_type is an \code{[OntologyAnnotation]} object
-		#' @param protocol_type an \code{[OntologyAnnotation]} object
+		#' Check that protocol_type is an [OntologyAnnotation] object
+		#' @param protocol_type an [OntologyAnnotation] object
 		check_protocol_type = function(protocol_type) {
 			check <- checkmate::check_r6(protocol_type, "OntologyAnnotation")
 			error_with_check_message_on_failure(
@@ -143,7 +145,7 @@ Protocol <- R6::R6Class(
 		},
 		#' @details
 		#' Set protocol_type if input is valid
-		#' @param protocol_type an \code{[OntologyAnnotation]} object
+		#' @param protocol_type an [OntologyAnnotation] object
 		set_protocol_type = function(protocol_type) {
 			if(self$check_protocol_type(protocol_type)) {
 				self$protocol_type <- protocol_type
@@ -151,7 +153,7 @@ Protocol <- R6::R6Class(
 		},
 		#' @details
 		#' Set parameters if input is valid
-		#' @param parameters a \code{[ProtcolParameter]} object
+		#' @param parameters a [ProtcolParameter] object
 		check_parameters = function(parameters) {
 			check <- checkmate::check_r6(parameters, "ProtcolParameter")
 			error_with_check_message_on_failure(
@@ -160,15 +162,15 @@ Protocol <- R6::R6Class(
 		},
 		#' @details
 		#' Set parameters if input is valid
-		#' @param parameters an \code{[ProtcolParameter]} object
+		#' @param parameters an [ProtcolParameter] object
 		set_parameters = function(parameters) {
 			if(self$check_parameters(parameters)) {
 				self$check_parameter <- parameters
 			}
 		},
 		#' @details
-		#' check components is a list of \code{[OntologyAnnotation]} objects
-		#' @param components a list of \code{[OntologyAnnotation]} objects
+		#' check components is a list of [OntologyAnnotation] objects
+		#' @param components a list of [OntologyAnnotation] objects
 		check_components = function(components) {
 			if(
 				checkmate::test_list(components, min.len = 1) &&
@@ -180,8 +182,8 @@ Protocol <- R6::R6Class(
 			}
 		},
 		#' @details
-		#' set components if components is a list of \code{[Study]} objects
-		#' @param components a list of \code{[Study]} objects
+		#' set components if components is a list of [Study] objects
+		#' @param components a list of [Study] objects
 		set_components = function(components) {
 			if (self$check_studies(components)) {
 				self$components <- components
@@ -207,7 +209,7 @@ Protocol <- R6::R6Class(
 			}
 		},
 		#' @details
-		#' An R list representation of a \code{[Protocol]} object
+		#' An R list representation of a [Protocol] object
 		#' @param ld linked data (default FALSE)
 		#' @param recursive use the `from_list()` method on list items that are also isar objects (default = TRUE)
 		to_list = function(ld = FALSE, recursive = TRUE){
@@ -268,9 +270,10 @@ Protocol <- R6::R6Class(
 			# return(protocol)
 		},
 		#' @details
-		#' Make \code{[Protocol]} object from list
+		#' Make [Protocol] object from list
 		#' @param lst an Protocol object serialized to a list
 		#' @param recursive use the `from_list()` method on list items that are also isar objects (default = TRUE)
+		#' @param json json  (default TRUE)
 		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			if(json) {
 				self$name <- lst[["name"]]
@@ -376,6 +379,8 @@ Protocol <- R6::R6Class(
 		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
 			private$id <- generate_id(id, suffix)
 		},
+		#' @details
+		#' Pretty Prints [Protocol] objects
 		print = function() {
 			cli::cli_h1(cli::col_blue("Protocol 📋"))
 

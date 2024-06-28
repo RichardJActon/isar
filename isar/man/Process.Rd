@@ -9,26 +9,35 @@ R6 object for Process
 R6 object for Process
 }
 \details{
-Process nodes represent the application of a protocol to some input material (e.g. a Source) to produce some output (e.g.a Sample).
+Process nodes represent the application of a protocol to some input material
+(e.g. a \link{Source}) to produce some output (e.g.a \link{Sample}).
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
 \item{\code{name}}{If relevant, a unique name for the process to disambiguate it from other processes.}
 
-\item{\code{executes_protocol}}{A reference to the Protocol that this process executes.}
+\item{\code{executes_protocol}}{A reference to the \link{Protocol} that this process executes.}
 
 \item{\code{date}}{A date formatted as an ISO8601 string corresponding to when the process event occurred.}
 
 \item{\code{performer}}{The name of the person or organisation that carried out the process.}
 
-\item{\code{parameter_values}}{A list of ParameterValues relevant to the executing protocol.}
+\item{\code{parameter_values}}{A list of \link{ParameterValue}s relevant to the executing protocol.}
 
-\item{\code{inputs}}{A list of input materials, possibly Sources, Samples, Materials, DataFiles}
+\item{\code{inputs}}{A list of input materials, possibly \link{Source}s, \link{Sample}s, \link{Material}s, \link{DataFile}s}
 
-\item{\code{outputs}}{A list of output materials, possibly Samples, Materials, DataFiles}
+\item{\code{outputs}}{A list of output materials, possibly \link{Sample}s, \link{Material}s, \link{DataFile}s}
 
 \item{\code{comments}}{Comments associated with instances of this class.}
+
+\item{\code{@id}}{identifier}
+
+\item{\code{protocols}}{list of available \link{Protocol}s}
+
+\item{\code{sources}}{list of available \link{Source}s}
+
+\item{\code{samples}}{list of available \link{Sample}s}
 }
 \if{html}{\out{</div>}}
 }
@@ -85,18 +94,26 @@ Process nodes represent the application of a protocol to some input material (e.
 
 \item{\code{performer}}{The name of the person or organisation that carried out the process.}
 
-\item{\code{parameter_values}}{A list of ParameterValues relevant to the executing protocol.}
+\item{\code{parameter_values}}{A list of \link{ParameterValue}s relevant to the executing protocol.}
 
-\item{\code{inputs}}{A list of input materials, possibly Sources, Samples, Materials, DataFiles}
+\item{\code{inputs}}{A list of input materials, possibly \link{Source}s, \link{Sample}s, \link{Material}s, \link{DataFile}s}
 
-\item{\code{outputs}}{A list of output materials, possibly Samples, Materials, DataFiles}
+\item{\code{outputs}}{A list of output materials, possibly \link{Sample}s, \link{Material}s, \link{DataFile}s}
 
 \item{\code{comments}}{Comments associated with instances of this class.}
+
+\item{\code{@id}}{identifier}
+
+\item{\code{protocols}}{list of available \link{Protocol}s}
+
+\item{\code{sources}}{list of available \link{Source}s}
+
+\item{\code{samples}}{list of available \link{Sample}s}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Create a new \code{[Process]}
+Create a new \link{Process}
 }
 
 }
@@ -136,7 +153,7 @@ Check the the name has a non-zero length
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Set the name of the \code{[Process]}
+Set the name of the \link{Process}
 }
 
 }
@@ -151,12 +168,12 @@ Set the name of the \code{[Process]}
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{performer}}{a list of \code{[Person]} objects}
+\item{\code{performer}}{a list of \link{Person} objects}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-check performer is a list of \code{[Person]} objects
+check performer is a list of \link{Person} objects
 }
 
 }
@@ -211,12 +228,12 @@ Set date to a Date object
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{performer}}{a list of \code{[Person]} objects}
+\item{\code{performer}}{a list of \link{Person} objects}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-set performer if performer is a list of \code{[Person]} objects
+set performer if performer is a list of \link{Person} objects
 }
 
 }
@@ -296,7 +313,7 @@ Add comment if it is in a valid format
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-An R list representation of a \code{[Process]} object
+An R list representation of a \link{Process} object
 }
 
 }
@@ -312,11 +329,15 @@ An R list representation of a \code{[Process]} object
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{lst}}{an Process object serialized to a list}
+
+\item{\code{recursive}}{call to_list methods of any objects within this object (default TRUE)}
+
+\item{\code{json}}{json  (default TRUE)}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Make \code{[Process]} object from list
+Make \link{Process} object from list
 }
 
 }
@@ -364,6 +385,10 @@ set the uuid of this object
 \subsection{Method \code{print()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Process$print()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Pretty Prints \link{Process} objects
 }
 
 }

@@ -9,7 +9,7 @@ R6 class for an experimental factor value
 R6 class for an experimental factor value
 }
 \details{
-\code{[OntologySource]}
+\link{OntologyAnnotation}
 }
 \examples{
 
@@ -24,11 +24,15 @@ OA <- OntologyAnnotation$new()
 \describe{
 \item{\code{term}}{the name of ontology term}
 
-\item{\code{term_source}}{the ontology that is the source of the term represented by an \code{[OntologySource]} object.}
+\item{\code{term_source}}{the ontology that is the source of the term represented by an \link{OntologySource} object}
 
 \item{\code{term_accession}}{the unique identifier of the ontology term}
 
 \item{\code{comments}}{comments}
+
+\item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object listing all the ontology sources used}
+
+\item{\code{@id}}{identifier}
 }
 \if{html}{\out{</div>}}
 }
@@ -74,13 +78,15 @@ OA <- OntologyAnnotation$new()
 \describe{
 \item{\code{term}}{the name of ontology term}
 
-\item{\code{term_source}}{the ontology that is the source of the term represented by an \code{[OntologySource]} object.}
+\item{\code{term_source}}{the ontology that is the source of the term represented by an \link{OntologySource} object.}
 
 \item{\code{term_accession}}{the unique identifier of the ontology term}
 
 \item{\code{comments}}{comments}
 
-\item{\code{id}}{a unique identifier ...}
+\item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object listing all the ontology sources used.}
+
+\item{\code{@id}}{identifier}
 }
 \if{html}{\out{</div>}}
 }
@@ -108,12 +114,12 @@ create a new factor value
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{term_source}}{an \code{[OntologySource]} object}
+\item{\code{term_source}}{an \link{OntologySource} object}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Checks that the source of ontology terms is an \code{[OntologySource]} object
+Checks that the source of ontology terms is an \link{OntologySource} object
 }
 
 }
@@ -168,7 +174,7 @@ Checks that the supplied term accession is in the the list of valid accession te
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{term_source}}{an \code{[OntologySource]} object}
+\item{\code{term_source}}{an \link{OntologySource} object}
 }
 \if{html}{\out{</div>}}
 }
@@ -223,6 +229,23 @@ Sets the term accession and the term corresponding to that accession if the acce
 \subsection{Method \code{set_valid_annotation()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{OntologyAnnotation$set_valid_annotation(term, term_accession, term_source_name)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{term}}{the ontology term}
+
+\item{\code{term_accession}}{the accesion of the ontology term}
+
+\item{\code{term_source_name}}{the name of the source of the ontology term}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Set the value of an ontology annotation checking that the term,
+accession, and source are mutually compatible and that the source
+is present in the ontology references
 }
 
 }
@@ -322,11 +345,13 @@ generate an R list representation translatable to JSON
 \item{\code{lst}}{an ontology source object serialized to a list}
 
 \item{\code{recursive}}{call to_list methods of any objects within this object (default FALSE)}
+
+\item{\code{json}}{json  (default TRUE)}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Make \code{[OntologyAnnotation]} from list
+Make \link{OntologyAnnotation} from list
 }
 
 }
@@ -374,6 +399,10 @@ set the uuid of this object
 \subsection{Method \code{print()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{OntologyAnnotation$print()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Pretty Prints \link{OntologyAnnotation} objects
 }
 
 }

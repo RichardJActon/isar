@@ -16,6 +16,12 @@ R6 class for a Source
 \item{\code{characteristics}}{A list of Characteristics used to qualify the material properties.}
 
 \item{\code{comments}}{Comments associated with instances of this class.}
+
+\item{\code{category_references}}{an \link{CharacteristicCategoryReferences} object}
+
+\item{\code{@id}}{identifier}
+
+\item{\code{unit_references}}{an \link{UnitReferences} object}
 }
 \if{html}{\out{</div>}}
 }
@@ -38,7 +44,7 @@ R6 class for a Source
   name = character(),
   characteristics = NULL,
   comments = NULL,
-  characteristic_category_references = NULL,
+  category_references = NULL,
   `@id` = character(),
   unit_references = NULL
 )}\if{html}{\out{</div>}}
@@ -52,6 +58,12 @@ R6 class for a Source
 \item{\code{characteristics}}{A list of Characteristics used to qualify the material properties.}
 
 \item{\code{comments}}{Comments associated with instances of this class.}
+
+\item{\code{category_references}}{an \link{CharacteristicCategoryReferences} object}
+
+\item{\code{@id}}{identifier}
+
+\item{\code{unit_references}}{an \link{UnitReferences} object}
 }
 \if{html}{\out{</div>}}
 }
@@ -70,7 +82,7 @@ R6 class for a Source
 \item{\code{ld}}{linked data (default FALSE)
 #' @details
 
-Make \code{[Source]} from list}
+Make \link{Source} from list}
 }
 \if{html}{\out{</div>}}
 }
@@ -91,6 +103,10 @@ make an R list convertible to json
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{lst}}{a source object serialized to a list}
+
+\item{\code{recursive}}{call to_list methods of any objects within this object (default TRUE)}
+
+\item{\code{json}}{json  (default TRUE)}
 }
 \if{html}{\out{</div>}}
 }
@@ -101,6 +117,10 @@ make an R list convertible to json
 \subsection{Method \code{print()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Source$print()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Pretty prints \link{Source} objects
 }
 
 }

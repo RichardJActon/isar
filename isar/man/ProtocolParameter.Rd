@@ -21,7 +21,11 @@ Person$new()
 \describe{
 \item{\code{parameter_name}}{A parameter name as an ontology term}
 
+\item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object}
+
 \item{\code{comments}}{Comments associated with instances of this class.}
+
+\item{\code{@id}}{identifier}
 }
 \if{html}{\out{</div>}}
 }
@@ -60,7 +64,11 @@ Person$new()
 \describe{
 \item{\code{parameter_name}}{A parameter name as an ontology term}
 
+\item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object}
+
 \item{\code{comments}}{Comments associated with instances of this class.}
+
+\item{\code{@id}}{identifier}
 }
 \if{html}{\out{</div>}}
 }
@@ -265,6 +273,10 @@ set the uuid of this object
 \subsection{Method \code{print()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ProtocolParameter$print()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Pretty Prints \link{ProtocolParameter} objects
 }
 
 }

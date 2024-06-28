@@ -5,7 +5,7 @@
 #' R6 class for MaterialReferences
 #'
 #'
-#' @field ontology_source_references ...
+#' @field material_references a list of [Material] objects
 #'
 #' @importFrom R6 R6Class
 #'
@@ -14,6 +14,10 @@ MaterialReferences <- R6::R6Class(
 	"MaterialReferences",
 	public = list(
 		material_references = NULL,
+		#' @details
+		#' Create and New [MaterialReferences] object.
+		#'
+		#' @param material_references a list of [Material] objects
 		initialize = function(material_references = NULL) {
 			self$material_references <- material_references
 		},
@@ -22,6 +26,7 @@ MaterialReferences <- R6::R6Class(
 		#' Make [MaterialReferences] from list
 		#'
 		#' @param lst a Material object serialized to a list
+		#' @param json json  (default TRUE)
 		from_list = function(lst, json = TRUE) {
 			material_references <- purrr::map(
 				lst, ~{
@@ -37,8 +42,8 @@ MaterialReferences <- R6::R6Class(
 			self$material_references <- material_references
 		},
 		#' @details
-		#' check Material is a list of [Material] objects
-		#' @param Material a list of [Material] objects
+		#' check materials is a list of [Material] objects
+		#' @param materials a list of [Material] objects
 		check_materials = function(materials) {
 			if(
 				checkmate::test_list(materials, min.len = 1, names = "named") &&
@@ -50,8 +55,8 @@ MaterialReferences <- R6::R6Class(
 			}
 		},
 		#' @details
-		#' Add ontology sources to the
-		#' @return a vector of ontology source names
+		#' Add [Material] objects to the reference
+		#' @param materials a list of [Material] objects
 		add_materials = function(materials) {
 			if(self$check_materials(materials)) {
 				self$material_references <- c(

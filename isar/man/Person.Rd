@@ -35,9 +35,14 @@ Person$new()
 
 \item{\code{orcid}}{Open Researcher and Contributor ID https://orcid.org/}
 
-\item{\code{roles}}{A list of role(s) performed by this person. Roles reported here need not correspond to roles held withing their affiliated organization.}
+\item{\code{roles}}{A list of role(s) performed by this person.
+Roles reported here need not correspond to roles held withing their affiliated organization.}
 
 \item{\code{comments}}{comments associated with instances of this class.}
+
+\item{\code{@id}}{identifier}
+
+\item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object}
 }
 \if{html}{\out{</div>}}
 }
@@ -56,8 +61,8 @@ Person$new()
 \item \href{#method-Person-from_list}{\code{Person$from_list()}}
 \item \href{#method-Person-get_id}{\code{Person$get_id()}}
 \item \href{#method-Person-set_id}{\code{Person$set_id()}}
-\item \href{#method-Person-print}{\code{Person$print()}}
 \item \href{#method-Person-get_full_name}{\code{Person$get_full_name()}}
+\item \href{#method-Person-print}{\code{Person$print()}}
 \item \href{#method-Person-clone}{\code{Person$clone()}}
 }
 }
@@ -107,6 +112,10 @@ Person$new()
 \item{\code{roles}}{A list of role(s) performed by this person. Roles reported here need not correspond to roles held withing their affiliated organization.}
 
 \item{\code{comments}}{comments associated with instances of this class.}
+
+\item{\code{@id}}{identifier}
+
+\item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object}
 }
 \if{html}{\out{</div>}}
 }
@@ -154,7 +163,7 @@ NB the regex used to validate emails is ... difficult to represent in roxygen sy
 }
 \subsection{Details}{
 sets the email address field
-email addresses ar e first checked for validity by \code{[check_email]}
+email addresses ar e first checked for validity by \link{check_email}
 }
 
 }
@@ -195,7 +204,7 @@ check if the ORCID is valid i.e. 4 lots of 4 digits separated by hyphens
 }
 \subsection{Details}{
 sets the orcid field
-ORCID's are first checked for validity by \code{[check_orcid]}
+ORCID's are first checked for validity by \link{check_orcid}
 }
 
 }
@@ -298,14 +307,14 @@ generate an R list representation translatable to JSON
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{lst}}{an \code{[Person]} object serialized to a list}
+\item{\code{lst}}{an \link{Person} object serialized to a list}
 
 \item{\code{json}}{default TRUE}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Make \code{[Person]} from list
+Make \link{Person} from list
 }
 
 }
@@ -348,15 +357,6 @@ set the uuid of this object
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Person-print"></a>}}
-\if{latex}{\out{\hypertarget{method-Person-print}{}}}
-\subsection{Method \code{print()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Person$print()}\if{html}{\out{</div>}}
-}
-
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Person-get_full_name"></a>}}
 \if{latex}{\out{\hypertarget{method-Person-get_full_name}{}}}
 \subsection{Method \code{get_full_name()}}{
@@ -371,6 +371,19 @@ Combine first name, middle initials, & last name
 \subsection{Returns}{
 string of full name
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Person-print"></a>}}
+\if{latex}{\out{\hypertarget{method-Person-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Person$print()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Pretty Prints \link{Person} objects
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Person-clone"></a>}}

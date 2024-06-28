@@ -28,7 +28,7 @@ experimental workflow described by a particular protocol.
 
 \item{\code{samples}}{Samples associated with the assay.}
 
-\item{\code{units}}{A list of units used in the annotation of material units ? \code{[OntologyAnnotation]} !!.}
+\item{\code{unit_references}}{A list of units used as a \link{UnitReferences} object.}
 
 \item{\code{characteristic_categories}}{A list of \code{[OntologyAnnotation]} used in the annotation of material characteristics in the Assay.}
 
@@ -78,12 +78,12 @@ experimental workflow described by a particular protocol.
   filename = character(),
   other_materials = NULL,
   samples = NULL,
-  units = NULL,
   characteristic_categories = NULL,
   process_sequence = NULL,
   comments = NULL,
   data_files = NULL,
   ontology_source_references = NULL,
+  unit_references = NULL,
   protocols = NULL,
   `@id` = character()
 )}\if{html}{\out{</div>}}
@@ -104,8 +104,6 @@ experimental workflow described by a particular protocol.
 
 \item{\code{samples}}{Samples associated with the assay.}
 
-\item{\code{units}}{A list of units used in the annotation of material units ? \code{[OntologyAnnotation]} !!.}
-
 \item{\code{characteristic_categories}}{A list of \code{[OntologyAnnotation]} used in the annotation of material characteristics in the Assay.}
 
 \item{\code{process_sequence}}{A list of Process objects representing the experimental graphs at the Assay level.}
@@ -115,6 +113,8 @@ experimental workflow described by a particular protocol.
 \item{\code{data_files}}{\link{DataFile} objects.}
 
 \item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object listing all the ontology sources used.}
+
+\item{\code{unit_references}}{A list of units used as a \link{UnitReferences} object.}
 
 \item{\code{protocols}}{\link{Protocols} objects}
 

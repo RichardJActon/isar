@@ -1,14 +1,20 @@
 #' R6 class for OntologySourceReferences
 #'
-#' @field ontology_source_references ...
+#' @field ontology_source_references a list of [OntologySource] objects
 #'
 #' @importFrom R6 R6Class
+#' @importFrom checkmate test_list test_r6
+#' @importFrom purrr map_lgl set_names map_chr map walk
+#' @importFrom cli cli_h1 col_blue
 #'
 #' @export
 OntologySourceReferences <- R6::R6Class(
 	"OntologySourceReferences",
 	public = list(
 		ontology_source_references = NULL,
+		#' @details
+		#' Create a new OntologySourceReferences object
+		#' @param ontology_source_references a list of [OntologySource] objects
 		initialize = function(ontology_source_references = NULL) {
 			self$ontology_source_references <- ontology_source_references
 		},
@@ -29,6 +35,7 @@ OntologySourceReferences <- R6::R6Class(
 		#' @details
 		#' Add ontology sources to the
 		#' @return a vector of ontology source names
+		#' @param ontology_sources list of [OntologySource] objects
 		add_ontology_sources = function(ontology_sources) {
 			if(self$check_ontology_sources(
 				c(self$ontology_source_references, ontology_sources)
@@ -67,16 +74,24 @@ OntologySourceReferences <- R6::R6Class(
 			}
 		},
 
-		# list of objects from which ontology source objects originate
-		# there should ideally only be the ontology sources explicitly
-		# listed in the investigation but if any other have been used
-		# without being specified or an ontology is missing where one should
-		# be used filler sources will be generated which will be listed as
-		# source references
+		#' @details
+		#' list of objects from which ontology source objects originate
+		#' there should ideally only be the ontology sources explicitly
+		#' listed in the investigation but if any other have been used
+		#' without being specified or an ontology is missing where one should
+		#' be used filler sources will be generated which will be listed as
+		#' source references
+		#' @return character vector of the origins of the [OntologySource]
+		#' objects in the reference
 		get_ontology_source_origins = function() {
 			purrr::map_chr(self$ontology_source_references, ~.x$source)
 		},
 
+		#' @details
+		#' Serialize object to a list
+		#' @param source ontology sources of which origin to include
+		#' if any includes all sources including those not explicitly provided
+		#' (default: "any")
 		to_list = function(source = "any") {
 			if(source == "any") {
 				self$ontology_source_references %>%
@@ -101,7 +116,12 @@ OntologySourceReferences <- R6::R6Class(
 		#' Make [OntologySourceReferences] from list
 		#'
 		#' @param lst an ontology source object serialized to a list
-		from_list = function(lst, explicitly_provided = logical(), source = NA) {#, json = TRUE
+		#' @param explicitly_provided was the source explicitly provided
+		#' as opposed to be automatically generated.
+		#' @param source the origin of the  (default: NA)
+		from_list = function(
+			lst, explicitly_provided = logical(), source = NA
+		) {#, json = TRUE
 		# add_from_list = function(lst) {#, json = TRUE
 			ontology_sources <- purrr::map(
 				lst, ~{
@@ -115,9 +135,13 @@ OntologySourceReferences <- R6::R6Class(
 			)
 			# possible problems with name collisions and different versions
 			# of the same ontology! - use a unique id instead
-			names(ontology_sources) <- purrr::map_chr(ontology_sources, ~.x$name)
+			names(ontology_sources) <- purrr::map_chr(
+				ontology_sources, ~.x$name
+			)
 			self$ontology_source_references <- ontology_sources
 		},
+		#' @details
+		#' Pretty prints an [OntologySourceReferences] object
 		print = function() {
 			cli::cli_h1(cli::col_blue("Ontology Source References"))
 			purrr::walk(self$ontology_source_references, ~.x$print())

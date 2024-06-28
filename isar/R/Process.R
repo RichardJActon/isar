@@ -1,14 +1,19 @@
 #' R6 object for Process
 #' @details
-#' Process nodes represent the application of a protocol to some input material (e.g. a Source) to produce some output (e.g.a Sample).
+#' Process nodes represent the application of a protocol to some input material
+#'  (e.g. a [Source]) to produce some output (e.g.a [Sample]).
 #' @field name If relevant, a unique name for the process to disambiguate it from other processes.
-#' @field executes_protocol A reference to the Protocol that this process executes.
+#' @field executes_protocol A reference to the [Protocol] that this process executes.
 #' @field date A date formatted as an ISO8601 string corresponding to when the process event occurred.
 #' @field performer The name of the person or organisation that carried out the process.
-#' @field parameter_values A list of ParameterValues relevant to the executing protocol.
-#' @field inputs A list of input materials, possibly Sources, Samples, Materials, DataFiles
-#' @field outputs A list of output materials, possibly Samples, Materials, DataFiles
+#' @field parameter_values A list of [ParameterValue]s relevant to the executing protocol.
+#' @field inputs A list of input materials, possibly [Source]s, [Sample]s, [Material]s, [DataFile]s
+#' @field outputs A list of output materials, possibly [Sample]s, [Material]s, [DataFile]s
 #' @field comments Comments associated with instances of this class.
+#' @field @id identifier
+#' @field protocols list of available [Protocol]s
+#' @field sources list of available [Source]s
+#' @field samples list of available [Sample]s
 Process <- R6::R6Class(
 	"Process",
 	public = list(
@@ -25,15 +30,19 @@ Process <- R6::R6Class(
 		sources = NULL,
 		samples = NULL,
 		#' @details
-		#' Create a new \code{[Process]}
+		#' Create a new [Process]
 		#' @param name If relevant, a unique name for the process to disambiguate it from other processes.
 		#' @param executes_protocol A reference to the Protocol that this process executes.
 		#' @param date A date formatted as an ISO8601 string corresponding to when the process event occurred.
 		#' @param performer The name of the person or organisation that carried out the process.
-		#' @param parameter_values A list of ParameterValues relevant to the executing protocol.
-		#' @param inputs A list of input materials, possibly Sources, Samples, Materials, DataFiles
-		#' @param outputs A list of output materials, possibly Samples, Materials, DataFiles
+		#' @param parameter_values A list of [ParameterValue]s relevant to the executing protocol.
+		#' @param inputs A list of input materials, possibly [Source]s, [Sample]s, [Material]s, [DataFile]s
+		#' @param outputs A list of output materials, possibly [Sample]s, [Material]s, [DataFile]s
 		#' @param comments Comments associated with instances of this class.
+		#' @param @id identifier
+		#' @param protocols list of available [Protocol]s
+		#' @param sources list of available [Source]s
+		#' @param samples list of available [Sample]s
 		initialize = function(
 			name = character(),
 			executes_protocol = NULL,
@@ -69,7 +78,7 @@ Process <- R6::R6Class(
 			error_with_check_message_on_failure(check)
 		},
 		#' @details
-		#' Set the name of the \code{[Process]}
+		#' Set the name of the [Process]
 		#' @param name of the process
 		set_name = function(name) {
 			if(is.null(name)) {
@@ -80,8 +89,8 @@ Process <- R6::R6Class(
 			}
 		},
 		#' @details
-		#' check performer is a list of \code{[Person]} objects
-		#' @param performer a list of \code{[Person]} objects
+		#' check performer is a list of [Person] objects
+		#' @param performer a list of [Person] objects
 		check_performer = function(performer) {
 			if(
 				checkmate::test_list(performer, min.len = 1) &&
@@ -110,8 +119,8 @@ Process <- R6::R6Class(
 			if(self$check_submission_date(date)) { self$date <- date }
 		},
 		#' @details
-		#' set performer if performer is a list of \code{[Person]} objects
-		#' @param performer a list of \code{[Person]} objects
+		#' set performer if performer is a list of [Person] objects
+		#' @param performer a list of [Person] objects
 		set_performer = function(performer) {
 			if (self$check_performer(performer)) { self$performer <- performer }
 		},
@@ -134,7 +143,7 @@ Process <- R6::R6Class(
 			}
 		},
 		#' @details
-		#' An R list representation of a \code{[Process]} object
+		#' An R list representation of a [Process] object
 		#' @param ld linked data (default FALSE)
 		to_list = function(ld = FALSE){
 			lst <- list()
@@ -170,8 +179,10 @@ Process <- R6::R6Class(
 			return(lst)
 		},
 		#' @details
-		#' Make \code{[Process]} object from list
+		#' Make [Process] object from list
 		#' @param lst an Process object serialized to a list
+		#' @param json json  (default TRUE)
+		#' @param recursive call to_list methods of any objects within this object (default TRUE)
 		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			# browser()
 			if(json) {
@@ -231,6 +242,8 @@ Process <- R6::R6Class(
 		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
 			private$id <- generate_id(id, suffix)
 		},
+		#' @details
+		#' Pretty Prints [Process] objects
 		print = function() {
 			cli::cli_h1(cli::col_blue("Process ⚙️"))
 			green_bold_name_plain_content("Name", self$name)

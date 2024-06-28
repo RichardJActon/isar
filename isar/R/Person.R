@@ -17,8 +17,12 @@
 #' @field address The address of a person.
 #' @field affiliation The organization affiliation for a person.
 #' @field orcid Open Researcher and Contributor ID https://orcid.org/
-#' @field roles A list of role(s) performed by this person. Roles reported here need not correspond to roles held withing their affiliated organization.
+#' @field roles A list of role(s) performed by this person.
+#' Roles reported here need not correspond to roles held withing their affiliated organization.
 #' @field comments comments associated with instances of this class.
+#' @field @id identifier
+#' @field ontology_source_references an [OntologySourceReferences] object
+#'
 #'
 #' @importFrom checkmate qtest
 #' @importFrom R6 R6Class
@@ -54,6 +58,8 @@ Person <- R6::R6Class(
 		#' @param orcid Open Researcher and Contributor ID https://orcid.org/
 		#' @param roles A list of role(s) performed by this person. Roles reported here need not correspond to roles held withing their affiliated organization.
 		#' @param comments comments associated with instances of this class.
+		#' @param @id identifier
+		#' @param ontology_source_references an [OntologySourceReferences] object
 		initialize = function(
 			last_name = character(),
 			first_name = character(),
@@ -112,7 +118,13 @@ Person <- R6::R6Class(
 				warning("Empty email field")
 				return(TRUE)
 			} else {
-				stop("Invalid email address!")
+				stop(
+					"Probable invalid email address!\n",
+					"at least according to this regex: ",
+					"'^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$'",
+					"(RFC 5322 is very permissive, if the email failed",
+					"this check it is likely to fail others)"
+				)
 			}
 		},
 
@@ -120,7 +132,7 @@ Person <- R6::R6Class(
 
 		#' @details
 		#' sets the email address field
-		#' email addresses ar e first checked for validity by \code{[check_email]}
+		#' email addresses ar e first checked for validity by [check_email]
 		#'
 		#' @param email an email address
 		set_email = function(email) {
@@ -143,7 +155,7 @@ Person <- R6::R6Class(
 
 		#' @details
 		#' sets the orcid field
-		#' ORCID's are first checked for validity by \code{[check_orcid]}
+		#' ORCID's are first checked for validity by [check_orcid]
 		#'
 		#' @param orcid an ORCID
 		set_orcid = function(orcid) {
@@ -195,9 +207,9 @@ Person <- R6::R6Class(
 
 		#' @details
 		#'
-		#' Make \code{[Person]} from list
+		#' Make [Person] from list
 		#'
-		#' @param lst an \code{[Person]} object serialized to a list
+		#' @param lst an [Person] object serialized to a list
 		#' @param json default TRUE
 		from_list = function(lst, json = TRUE) {
 			if(json) {
@@ -263,6 +275,15 @@ Person <- R6::R6Class(
 		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
 			private$id <- generate_id(id, suffix)
 		},
+		#' @details
+		#' Combine first name, middle initials, & last name
+		#' @return string of full name
+		get_full_name = function() { paste(
+			c(self$first_name, self$mid_initials, self$last_name),
+			collapse = " "
+		) },
+		#' @details
+		#' Pretty Prints [Person] objects
 		print = function() {
 			cli::cli_h1(cli::col_blue("Person 👤"))
 			green_bold_name_plain_content("Name", self$get_full_name())
@@ -297,14 +318,7 @@ Person <- R6::R6Class(
 			# 	sep = "\n"
 			# )
 			pretty_print_comments(self$comments)
-		},
-		#' @details
-		#' Combine first name, middle initials, & last name
-		#' @return string of full name
-		get_full_name = function() { paste(
-			c(self$first_name, self$mid_initials, self$last_name),
-			collapse = " "
-		) }
+		}
 	),
 	private = list(
 		id = generate_id()

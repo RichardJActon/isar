@@ -19,7 +19,7 @@ R6 object for specifying a unit of measurement
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Unit-new}{\code{Unit$new()}}
-\item \href{#method-Unit-set_unit_from_string}{\code{Unit$set_unit_from_string()}}
+\item \href{#method-Unit-set_valid_unit}{\code{Unit$set_valid_unit()}}
 \item \href{#method-Unit-get_unit_string}{\code{Unit$get_unit_string()}}
 \item \href{#method-Unit-to_list}{\code{Unit$to_list()}}
 \item \href{#method-Unit-from_list}{\code{Unit$from_list()}}
@@ -34,8 +34,8 @@ R6 object for specifying a unit of measurement
 \if{html}{\out{<div class="r">}}\preformatted{Unit$new(
   unit = NULL,
   `@id` = character(),
-  unit_references = NULL,
   ontology_source_references = NULL,
+  unit_references = NULL,
   source = NA
 )}\if{html}{\out{</div>}}
 }
@@ -53,11 +53,11 @@ Create a new \code{[Unit]} object
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Unit-set_unit_from_string"></a>}}
-\if{latex}{\out{\hypertarget{method-Unit-set_unit_from_string}{}}}
-\subsection{Method \code{set_unit_from_string()}}{
+\if{html}{\out{<a id="method-Unit-set_valid_unit"></a>}}
+\if{latex}{\out{\hypertarget{method-Unit-set_valid_unit}{}}}
+\subsection{Method \code{set_valid_unit()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Unit$set_unit_from_string(unit)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Unit$set_valid_unit(term, term_accession, term_source)}\if{html}{\out{</div>}}
 }
 
 }

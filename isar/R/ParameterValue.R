@@ -1,9 +1,10 @@
 #' An R6 object for representing ParameterValue
-#' A ParameterValue represents the instance value of a \code{[ProtocolParameter]}, used in a Process.
-#' @field category A link to the relevant \code{[ProtocolParameter]} that the value is set for.
+#' A ParameterValue represents the instance value of a [ProtocolParameter], used in a Process.
+#' @field category A link to the relevant [ProtocolParameter] that the value is set for.
 #' @field value The value of the parameter.
 #' @field unit The qualifying unit classifier, if the value is numeric.
 #' @field comments Comments associated with instances of this class.
+#' @field @id identifier
 #'
 #' @importFrom R6 R6Class
 #' @importFrom checkmate check_r6
@@ -17,17 +18,18 @@ ParameterValue <- R6::R6Class(
 		comments = NULL,
 		`@id` = character(),
 		#' @details
-		#' New \code{[ParameterValue]} object
-		#' @param category A link to the relevant \code{[ProtocolParameter]} that the value is set for.
+		#' New [ParameterValue] object
+		#' @param category A link to the relevant [ProtocolParameter] that the value is set for.
 		#' @param value The value of the parameter.
 		#' @param unit The qualifying unit classifier, if the value is numeric.
 		#' @param comments Comments associated with instances of this class.
+		#' @param @id identifier
 		initialize = function(
 			category = NULL,
 			value = NULL,
 			unit = NULL,
 			comments = NULL,
-		`@id` = character()
+			`@id` = character()
 		){
 			self$category <- category
 			self$value <- value
@@ -38,15 +40,15 @@ ParameterValue <- R6::R6Class(
 			self$`@id` <- paste0("#parameter/", gsub(" ", "_", self$value))
 		},
 		#' @details
-		#' check if unit is a \code{[Unit]} object
-		#' @param unit a \code{[Unit]} object
+		#' check if unit is a [Unit] object
+		#' @param unit a [Unit] object
 		check_unit = function(unit) {
 			check <- checkmate::check_r6(unit, "Unit")
 			error_with_check_message_on_failure(check)
 		},
 		#' @details
 		#' set unit if input is valid
-		#' @param unit a \code{[Unit]} object
+		#' @param unit a [Unit] object
 		set_unit = function(unit) {
 			if(self$check_unit(unit)) { self$unit <- unit }
 		},
@@ -84,9 +86,11 @@ ParameterValue <- R6::R6Class(
 
 		#' @details
 		#'
-		#' Make \code{[Person]} from list
+		#' Make [Person] from list
 		#'
-		#' @param lst an \code{[Person]} object serialized to a list
+		#' @param lst an [Person] object serialized to a list
+		#' @param json json  (default TRUE)
+		#' @param recursive call to_list methods of any objects within this object (default TRUE)
 		from_list = function(lst, recursive = TRUE, json = FALSE) {
 			if(json) {
 				self$category <- lst[["category"]]

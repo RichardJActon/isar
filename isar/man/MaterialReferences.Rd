@@ -11,14 +11,7 @@ R6 class for MaterialReferences
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{ontology_source_references}}{...}
-}
-\if{html}{\out{</div>}}
-}
-\section{Active bindings}{
-\if{html}{\out{<div class="r6-active-bindings">}}
-\describe{
-\item{\code{ontology_source_references}}{...}
+\item{\code{material_references}}{a list of \link{Material} objects}
 }
 \if{html}{\out{</div>}}
 }
@@ -41,6 +34,17 @@ R6 class for MaterialReferences
 \if{html}{\out{<div class="r">}}\preformatted{MaterialReferences$new(material_references = NULL)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{material_references}}{a list of \link{Material} objects}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Create and New \link{MaterialReferences} object.
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-MaterialReferences-from_list"></a>}}
@@ -54,6 +58,8 @@ R6 class for MaterialReferences
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{lst}}{a Material object serialized to a list}
+
+\item{\code{json}}{json  (default TRUE)}
 }
 \if{html}{\out{</div>}}
 }
@@ -73,12 +79,12 @@ Make \link{MaterialReferences} from list
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{Material}}{a list of \link{Material} objects}
+\item{\code{materials}}{a list of \link{Material} objects}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-check Material is a list of \link{Material} objects
+check materials is a list of \link{Material} objects
 }
 
 }
@@ -90,13 +96,17 @@ check Material is a list of \link{Material} objects
 \if{html}{\out{<div class="r">}}\preformatted{MaterialReferences$add_materials(materials)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{materials}}{a list of \link{Material} objects}
+}
+\if{html}{\out{</div>}}
+}
 \subsection{Details}{
-Add ontology sources to the
+Add \link{Material} objects to the reference
 }
 
-\subsection{Returns}{
-a vector of ontology source names
-}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-MaterialReferences-get_material_reference_names"></a>}}

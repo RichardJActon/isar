@@ -1,19 +1,19 @@
-# commentable
-
 #' R6 class for an experimental factor value
 #'
 #' @details
-#' \code{[OntologySource]}
+#' [OntologyAnnotation]
 #'
-#' @field term  the name of ontology term
-#' @field term_source the ontology that is the source of the term represented by an \code{[OntologySource]} object.
+#' @field term the name of ontology term
+#' @field term_source the ontology that is the source of the term represented by an [OntologySource] object
 #' @field term_accession the unique identifier of the ontology term
 #' @field comments comments
+#' @field ontology_source_references an [OntologySourceReferences] object listing all the ontology sources used
+#' @field @id identifier
 #'
 #' @importFrom R6 R6Class
 #' @importFrom uuid UUIDgenerate
-#' @importFrom shiny NS tagList verbatimTextOutput renderText moduleServer
-#' @importFrom shinyWidgets pickerInput pickerOptions
+# #' @importFrom shiny NS tagList verbatimTextOutput renderText moduleServer
+# #' @importFrom shinyWidgets pickerInput pickerOptions
 #'
 #' @export
 OntologyAnnotation <- R6::R6Class(
@@ -28,10 +28,11 @@ OntologyAnnotation <- R6::R6Class(
 		#' @details
 		#' create a new factor value
 		#' @param term the name of ontology term
-		#' @param term_source the ontology that is the source of the term represented by an \code{[OntologySource]} object.
+		#' @param term_source the ontology that is the source of the term represented by an [OntologySource] object.
 		#' @param term_accession the unique identifier of the ontology term
 		#' @param comments comments
-		#' @param id a unique identifier ...
+		#' @param ontology_source_references an [OntologySourceReferences] object listing all the ontology sources used.
+		#' @param @id identifier
 		#'
 		#' @examples
 		#' OA <- OntologyAnnotation$new()
@@ -121,8 +122,8 @@ OntologyAnnotation <- R6::R6Class(
 		},
 
 		#' @details
-		#' Checks that the source of ontology terms is an \code{[OntologySource]} object
-		#' @param term_source an \code{[OntologySource]} object
+		#' Checks that the source of ontology terms is an [OntologySource] object
+		#' @param term_source an [OntologySource] object
 		check_term_source = function(term_source) {
 			check <- checkmate::check_r6(term_source, "OntologySource")
 			error_with_check_message_on_failure(check)
@@ -174,7 +175,7 @@ OntologyAnnotation <- R6::R6Class(
 		#'
 		#' Sets the value of term_source if it passes the checks
 		#'
-		#' @param term_source an \code{[OntologySource]} object
+		#' @param term_source an [OntologySource] object
 		set_term_source = function(term_source) {
 			if(self$check_term_source(term_source)) {
 				self$term_source <- term_source
@@ -202,9 +203,14 @@ OntologyAnnotation <- R6::R6Class(
 			}
 		},
 
+		#' @details
+		#' Set the value of an ontology annotation checking that the term,
+		#' accession, and source are mutually compatible and that the source
+		#' is present in the ontology references
+		#' @param term the ontology term
+		#' @param term_accession the accesion of the ontology term
+		#' @param term_source_name the name of the source of the ontology term
 		set_valid_annotation = function(term, term_accession, term_source_name) {
-			# browser()
-			# if(is.null(term_accession)) { term_accession <- "" }
 			term_accession <- switch(
 				as.character(is.null(term_accession)),
 				"TRUE" = "", "FALSE" = term_accession
@@ -213,7 +219,6 @@ OntologyAnnotation <- R6::R6Class(
 			if(is.null(term_source_name)) { term_source_name <- "" }
 			if(!checkmate::test_string(term, min.chars = 1)) {
 				term <- "Unspecified Term"
-				#term <- ""
 				warning("Unspecified Term!")
 			}
 
@@ -397,9 +402,10 @@ OntologyAnnotation <- R6::R6Class(
 		},
 
 		#' @details
-		#' Make \code{[OntologyAnnotation]} from list
+		#' Make [OntologyAnnotation] from list
 		#' @param lst an ontology source object serialized to a list
 		#' @param recursive call to_list methods of any objects within this object (default FALSE)
+		#' @param json json  (default TRUE)
 		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			if(json) {
 				# remediate ontology annotation lists with missing members :(
@@ -510,7 +516,8 @@ OntologyAnnotation <- R6::R6Class(
 		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
 			private$id <- generate_id(id, suffix)
 		},
-
+		#' @details
+		#' Pretty Prints [OntologyAnnotation] objects
 		print = function() {
 			cli::cli_h1(cli::col_blue("Ontology Annotation"))
 			green_bold_name_plain_content("Term", self$term)

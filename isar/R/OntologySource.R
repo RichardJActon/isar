@@ -17,13 +17,19 @@
 #' @field get_terms_list function to generate valid terms for file
 #' @field terms_list list of valid terms where keys are terms and values accessions
 #' @field comments comments
+#' @field explicitly_provided Was this [OntologySource] provided in the
+#' list of [OntologySourceReferences] for the [Investigation] (TRUE) or was
+#' it dynamically generated (FALSE)?
+#' @field source the source of the [OntologySource] object, was it listed in
+#' an investigation ontolgoy source reference list, elsewhere or auto generated
 #'
-#' @importFrom glue glue
 #' @importFrom R6 R6Class
-#' @importFrom checkmate check_string qtest
-#' @importFrom crayon green yellow bold italic
+#' @importFrom checkmate qtest check_string check_list
+#' @importFrom glue glue
+# #' @importFrom crayon green yellow bold italic
+#' @importFrom cli cli_h1 cli_h2 cli_text col_yellow style_italic
 #' @importFrom purrr iwalk
-#' @importFrom stringr str_wrap
+# #' @importFrom stringr str_wrap
 #'
 #' @export
 OntologySource <- R6::R6Class(
@@ -56,7 +62,8 @@ OntologySource <- R6::R6Class(
 		#' @param explicitly_provided Was this [OntologySource] provided in the
 		#' list of [OntologySourceReferences] for the [Investigation] (TRUE) or was
 		#' it dynamically generated (FALSE)?
-		#'
+		#' @param source the source of the [OntologySource] object, was it listed in
+		#' an investigation ontolgoy source reference list, elsewhere or auto generated
 		initialize = function(
 			name = character(),
 			file = character(),
@@ -308,6 +315,7 @@ OntologySource <- R6::R6Class(
 		#' Make [OntologySource] from list
 		#'
 		#' @param lst an ontology source object serialized to a list
+		#' @param json (default TRUE)
 		from_list = function(lst, json = TRUE) {
 			if(json) {
 				self$name = lst[["name"]]
@@ -333,11 +341,9 @@ OntologySource <- R6::R6Class(
 		},
 
 		#' @details
-		#'
 		#' test if [OntologySource] is equivalent another OntologySource
 		#' not necessarily an exactly identical object
-		#'
-		#' @param lst an ontology source object serialized to a list
+		#' @param other_ontology_source another [OntologySource]
 		is_same_ontology_as = function(other_ontology_source) {
 			tests_lgl <- c(
 				other_ontology_source$name == self$name,
@@ -346,10 +352,13 @@ OntologySource <- R6::R6Class(
 			)
 			if(all(tests_lgl)) {
 				if(other_ontology_source$version == self$version) {
-					if(
-						!identical(other_ontology_source$comments, self$comments)
-					) {
-						warning("Comments differ! but everything else is the same consider merging the comments.")
+					if(!identical(
+						other_ontology_source$comments, self$comments
+					)) {
+						warning(
+							"Comments differ! but everything else is",
+							"the same consider merging the comments."
+						)
 					}
 					return(TRUE)
 				} else {
@@ -360,7 +369,7 @@ OntologySource <- R6::R6Class(
 		},
 
 		#' @details
-		#' prints a pretty representation of the contents of the object
+		#' Pretty prints an [OntologySource] object
 		print = function(){
 			cli::cli_h1(cli::col_blue("Ontology Source"))
 			green_bold_name_plain_content("Name", self$name)
@@ -379,9 +388,9 @@ OntologySource <- R6::R6Class(
 				head(self$terms_list),
 				~cli::cli_text(paste0("    ", cli::style_bold(.y), ": ", .x))
 			)
-			cli::col_yellow(cli::style_italic(
-				paste0("    ... of: ", format(length(self$terms_list), big.mark = ","))
-			))
+			cli::col_yellow(cli::style_italic(paste0(
+				"    ... of: ", format(length(self$terms_list), big.mark = ",")
+			)))
 			#cat(green_bold("Terms:"), sep = "\n")
 			# purrr::iwalk(
 			# 	head(self$terms_list),

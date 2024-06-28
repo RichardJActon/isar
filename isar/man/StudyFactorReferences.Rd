@@ -36,7 +36,8 @@ R6 Class for StudyFactorReferences
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{StudyFactorReferences$new(
   study_factor_references = NULL,
-  ontology_source_references = NULL
+  ontology_source_references = NULL,
+  unit_references = NULL
 )}\if{html}{\out{</div>}}
 }
 

@@ -12,6 +12,7 @@
 #' @field title The title of publication associated with the investigation.
 #' @field status A term describing the status of that publication (i.e.submitted, in preparation, published).
 #' @field comments Comments associated with instances of this class.
+#' @field ontology_source_references an [OntologySourceReferences] object
 #' @export
 Publication <- R6::R6Class(
 	"Publication",
@@ -31,6 +32,7 @@ Publication <- R6::R6Class(
 		#' @param title title The title of publication associated with the investigation.
 		#' @param status status A term describing the status of that publication (i.e.submitted, in preparation, published).
 		#' @param comments comments Comments associated with instances of this class.
+		#' @param ontology_source_references an [OntologySourceReferences] object
 		initialize = function(
 			pubmed_id = NULL, # https://www.ncbi.nlm.nih.gov/pmc/tools/id-converter-api/
 			doi = character(),
@@ -184,6 +186,8 @@ Publication <- R6::R6Class(
 		#' @details
 		#' Generate a \code{[Publication]} object from a list
 		#' @param lst a list suitable for conversion to a Publication Object
+		#' @param json json  (default TRUE)
+		#' @param recursive call to_list methods of any objects within this object (default TRUE)
 		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			if(json) {
 				self$set_pubmed_id(lst[["pubMedID"]])
@@ -228,6 +232,10 @@ Publication <- R6::R6Class(
 				self$set_comments(lst[["comments"]])
 			}
 		},
+
+		#' @details
+		#' Pretty prints [Publication] objects
+		#' @return none
 		print = function() {
 			cat(
 				crayon::blue(crayon::bold("Publication")),

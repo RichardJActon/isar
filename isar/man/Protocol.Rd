@@ -26,9 +26,11 @@ An experimental Protocol used in the study.
 
 \item{\code{parameters}}{A list of ProtocolParameter describing the list of required to execute the protocol.}
 
-\item{\code{components}}{A list of \code{[OntologyAnnotation]} describing a protocol's components; e.g. instrument names, software names, and reagents names.}
+\item{\code{components}}{A list of \link{OntologyAnnotation} describing a protocol's components; e.g. instrument names, software names, and reagents names.}
 
 \item{\code{comments}}{Comments associated with instances of this class.}
+
+\item{\code{@id}}{identifier}
 }
 \if{html}{\out{</div>}}
 }
@@ -92,11 +94,13 @@ An experimental Protocol used in the study.
 
 \item{\code{version}}{An identifier for the version to ensure protocol tracking.}
 
-\item{\code{parameters}}{A list of \code{[ProtocolParameter]}s describing the list of to execute the protocol.}
+\item{\code{parameters}}{A list of \link{ProtocolParameter}s describing the list of to execute the protocol.}
 
-\item{\code{components}}{A list of \code{[OntologyAnnotation]} describing a protocol's components; e.g. instrument names, software names, and reagents names.}
+\item{\code{components}}{A list of \link{OntologyAnnotation} describing a protocol's components; e.g. instrument names, software names, and reagents names.}
 
 \item{\code{comments}}{Comments associated with instances of this class.}
+
+\item{\code{@id}}{identifier}
 }
 \if{html}{\out{</div>}}
 }
@@ -276,12 +280,12 @@ Set version if it passes validation
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{protocol_type}}{an \code{[OntologyAnnotation]} object}
+\item{\code{protocol_type}}{an \link{OntologyAnnotation} object}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Check that protocol_type is an \code{[OntologyAnnotation]} object
+Check that protocol_type is an \link{OntologyAnnotation} object
 }
 
 }
@@ -296,7 +300,7 @@ Check that protocol_type is an \code{[OntologyAnnotation]} object
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{protocol_type}}{an \code{[OntologyAnnotation]} object}
+\item{\code{protocol_type}}{an \link{OntologyAnnotation} object}
 }
 \if{html}{\out{</div>}}
 }
@@ -316,7 +320,7 @@ Set protocol_type if input is valid
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{parameters}}{a \code{[ProtcolParameter]} object}
+\item{\code{parameters}}{a \link{ProtcolParameter} object}
 }
 \if{html}{\out{</div>}}
 }
@@ -336,7 +340,7 @@ Set parameters if input is valid
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{parameters}}{an \code{[ProtcolParameter]} object}
+\item{\code{parameters}}{an \link{ProtcolParameter} object}
 }
 \if{html}{\out{</div>}}
 }
@@ -356,12 +360,12 @@ Set parameters if input is valid
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{components}}{a list of \code{[OntologyAnnotation]} objects}
+\item{\code{components}}{a list of \link{OntologyAnnotation} objects}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-check components is a list of \code{[OntologyAnnotation]} objects
+check components is a list of \link{OntologyAnnotation} objects
 }
 
 }
@@ -376,12 +380,12 @@ check components is a list of \code{[OntologyAnnotation]} objects
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{components}}{a list of \code{[Study]} objects}
+\item{\code{components}}{a list of \link{Study} objects}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-set components if components is a list of \code{[Study]} objects
+set components if components is a list of \link{Study} objects
 }
 
 }
@@ -463,7 +467,7 @@ Add comment if it is in a valid format
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-An R list representation of a \code{[Protocol]} object
+An R list representation of a \link{Protocol} object
 }
 
 }
@@ -481,11 +485,13 @@ An R list representation of a \code{[Protocol]} object
 \item{\code{lst}}{an Protocol object serialized to a list}
 
 \item{\code{recursive}}{use the \code{from_list()} method on list items that are also isar objects (default = TRUE)}
+
+\item{\code{json}}{json  (default TRUE)}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Make \code{[Protocol]} object from list
+Make \link{Protocol} object from list
 }
 
 }
@@ -533,6 +539,10 @@ set the uuid of this object
 \subsection{Method \code{print()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Protocol$print()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Pretty Prints \link{Protocol} objects
 }
 
 }

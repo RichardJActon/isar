@@ -5,7 +5,11 @@
 #' @field category The classifier of the type of characteristic being described.
 #' @field value The value of this instance of a characteristic as relevant to the attached material.
 #' @field unit If applicable, a unit qualifier for the value (if the value is numeric).
+#' @field category_references an [CharacteristicCategoryReferences] object
 #' @field comments comments
+#' @field @id identifier
+#' @field ontology_source_references an [OntologySourceReferences] object
+#' @field unit_references an [UnitReferences] object
 #'
 #' @export
 Characteristic <- R6::R6Class(
@@ -20,11 +24,15 @@ Characteristic <- R6::R6Class(
 		ontology_source_references = NULL,
 		unit_references = NULL,
 		#' @details
-		#' Create a new \code{[Characteristics]} object
+		#' Create a new [Characteristics] object
 		#' @param category The classifier of the type of characteristic being described.
 		#' @param value The value of this instance of a characteristic as relevant to the attached material.
 		#' @param unit If applicable, a unit qualifier for the value (if the value is numeric).
+		#' @param category_references an [CharacteristicCategoryReferences] object
 		#' @param comments comments
+		#' @param @id identifier
+		#' @param ontology_source_references an [OntologySourceReferences] object
+		#' @param unit_references an [UnitReferences] object
 		initialize = function(
 			category = NULL,
 			value = NULL,
@@ -55,8 +63,8 @@ Characteristic <- R6::R6Class(
 			#self$`@id` <- paste0("#characteristic_category/", self$)
 		},
 		#' @details
-		#' Check that category is an \code{[CharacteristicCategory]} object
-		#' @param category an \code{[CharacteristicCategory]} object
+		#' Check that category is an [CharacteristicCategory] object
+		#' @param category an [CharacteristicCategory] object
 		check_category = function(category) {
 			check <- checkmate::check_r6(category, "CharacteristicCategory")
 			error_with_check_message_on_failure(
@@ -65,7 +73,7 @@ Characteristic <- R6::R6Class(
 		},
 		#' @details
 		#' Set category if input is valid
-		#' @param category an \code{[CharacteristicCategory]} object
+		#' @param category an [CharacteristicCategory] object
 		set_category = function(category) {
 			if(self$check_category(category)) { self$category <- category }
 		},
@@ -82,15 +90,15 @@ Characteristic <- R6::R6Class(
 			if(self$check_value(value)) { self$value <- value }
 		},
 		#' @details
-		#' check if unit is a \code{[Unit]} object
-		#' @param unit a \code{[Unit]} object
+		#' check if unit is a [Unit] object
+		#' @param unit a [Unit] object
 		check_unit = function(unit) {
 			check <- checkmate::check_r6(unit, "Unit")
 			error_with_check_message_on_failure(check)
 		},
 		#' @details
 		#' set unit if input is valid
-		#' @param unit a \code{[Unit]} object
+		#' @param unit a [Unit] object
 		set_unit = function(unit) {
 			if(self$check_unit(unit)) { self$unit <- unit }
 		},
@@ -114,6 +122,9 @@ Characteristic <- R6::R6Class(
 		},
 
 		#set_valid_category_and_value = function(category, value) {
+		#' @details
+		#' Set a category and check that it is valid
+		#' @param category a category
 		set_valid_category = function(category) {
 			#if (self$check_category(category)) {
 			#browser()
@@ -154,7 +165,7 @@ Characteristic <- R6::R6Class(
 			#}
 		},
 		#' @details
-		#' An R list representation of a \code{[Characteristic]} object
+		#' An R list representation of a [Characteristic] object
 		#' @param ld linked data (default FALSE)
 		#' @param recursive call to_list methods of any objects within this object (default FALSE)
 		to_list = function(ld = FALSE, recursive = TRUE) {
@@ -180,7 +191,7 @@ Characteristic <- R6::R6Class(
 			return(lst)
 		},
 		#' @details
-		#' Make \code{[Characteristic]} object from list
+		#' Make [Characteristic] object from list
 		#' @param lst an Characteristic object serialized to a list
 		#' @param json json  (default TRUE)
 		#' @param recursive call to_list methods of any objects within this object (default TRUE)
@@ -293,6 +304,8 @@ Characteristic <- R6::R6Class(
 		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
 			private$id <- generate_id(id, suffix)
 		},
+		#' @details
+		#' Pretty Prints [Characteristic] objects
 		print = function() {
 			cli::cli_h1(cli::col_blue("Characteristic"))
 			green_bold_name_plain_content("category", self$category[["@id"]])

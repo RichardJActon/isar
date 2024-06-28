@@ -5,10 +5,14 @@
 #' @details
 #' A factor_value represents the value instance of a [StudyFactor].
 #'
-#' @field factor_name name of a quantity
+#' @field factor an experimental factor
 #' @field value value of a quantity
 #' @field unit units in which that quantity is measured
+#' @field ontology_source_references an [OntologySourceReferences] object
+#' @field study_factor_references a [StudyFactorReferences] object
+#' @field unit_references an [UnitReferences] object
 #' @field comments comments
+#' @field @id identifier
 #'
 #' @importFrom checkmate check_r6
 #'
@@ -27,9 +31,15 @@ FactorValue <- R6Class(
 		`@id` =  character(),
 		#' @details
 		#' create a new factor value
+		#' @param factor an experimental factor
 		#' @param value the value of a quantity
 		#' @param unit the unit of measurement
+		#' @param ontology_source_references an [OntologySourceReferences] object
+		#' @param study_factor_references a [StudyFactorReferences] object
+		#' @param unit_references an [UnitReferences] object
 		#' @param comments comments
+		#' @param @id identifier
+
 		#'
 		#' @examples
 		#' \dontrun{
@@ -131,7 +141,9 @@ FactorValue <- R6Class(
 				self$comments <- c(comments, comment)
 			}
 		},
-
+		#' @details
+		#' set an experimental factor of a valid category
+		#' @param factor an experimental factor
 		set_valid_factor_category = function(factor) {
 			#browser()
 			if(
@@ -177,6 +189,8 @@ FactorValue <- R6Class(
 		#' Make [OntologyAnnotation] from list
 		#'
 		#' @param lst an ontology source object serialized to a list
+		#' @param recursive call to_list methods of any objects within this object (default TRUE)
+		#' @param json json  (default TRUE)
 		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			if(json){
 				#self$set_id()
@@ -232,6 +246,8 @@ FactorValue <- R6Class(
 				self$comments <- lst[["comments"]]
 			}
 		},
+		#' @details
+		#' Pretty prints [FactorValue] objects
 		print = function() {
 			cli::cli_h1(cli::col_blue("Factor Value"))
 			#green_bold_name_plain_content("Name", self$factor_name$name)
