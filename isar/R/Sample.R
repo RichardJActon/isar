@@ -26,6 +26,7 @@ Sample <- R6::R6Class(
 		comments = NULL,
 		ontology_source_references = NULL,
 		category_references = NULL,
+		unit_references = NULL,
 		sources = NULL,
 		#' @details
 		#'
@@ -44,6 +45,7 @@ Sample <- R6::R6Class(
 			comments = NULL,
 			ontology_source_references = NULL,
 			category_references = NULL,
+			unit_references = NULL,
 			sources = NULL
 		) {
 			if (checkmate::qtest(name, "S[0]")) {
@@ -62,6 +64,7 @@ Sample <- R6::R6Class(
 
 			self$ontology_source_references <- ontology_source_references
 			self$category_references <- category_references
+			self$unit_references <- unit_references
 			self$sources <- sources
 			self$comments <- comments
 		},
@@ -184,14 +187,16 @@ Sample <- R6::R6Class(
 				self$category_references <-
 					CharacteristicCategoryReferences$new(
 						ontology_source_references =
-							self$ontology_source_references
+							self$ontology_source_references,
+						unit_references = self$unit_references
 					)
 			}
 			self$characteristics <- purrr::map(lst[["characteristics"]], ~{
 				chr <- Characteristic$new(
 					ontology_source_references =
 						self$ontology_source_references,
-					category_references = self$category_references
+					category_references = self$category_references,
+					unit_references = self$unit_references
 				)
 				chr$from_list(.x, json = json, recursive = recursive)
 				chr

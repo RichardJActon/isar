@@ -463,7 +463,7 @@ Add comment if it is in a valid format
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-An R list representation of a \code{[Process]} object
+An R list representation of a \code{[Protocol]} object
 }
 
 }

@@ -21,6 +21,7 @@ R6 Class for StudyFactorReferences
 \item \href{#method-StudyFactorReferences-new}{\code{StudyFactorReferences$new()}}
 \item \href{#method-StudyFactorReferences-check_study_factors}{\code{StudyFactorReferences$check_study_factors()}}
 \item \href{#method-StudyFactorReferences-add_study_factors}{\code{StudyFactorReferences$add_study_factors()}}
+\item \href{#method-StudyFactorReferences-to_list}{\code{StudyFactorReferences$to_list()}}
 \item \href{#method-StudyFactorReferences-from_list}{\code{StudyFactorReferences$from_list()}}
 \item \href{#method-StudyFactorReferences-get_study_factor_names}{\code{StudyFactorReferences$get_study_factor_names()}}
 \item \href{#method-StudyFactorReferences-get_study_factor_ids}{\code{StudyFactorReferences$get_study_factor_ids()}}
@@ -55,6 +56,15 @@ R6 Class for StudyFactorReferences
 \subsection{Method \code{add_study_factors()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{StudyFactorReferences$add_study_factors(study_factors)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-StudyFactorReferences-to_list"></a>}}
+\if{latex}{\out{\hypertarget{method-StudyFactorReferences-to_list}{}}}
+\subsection{Method \code{to_list()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{StudyFactorReferences$to_list()}\if{html}{\out{</div>}}
 }
 
 }

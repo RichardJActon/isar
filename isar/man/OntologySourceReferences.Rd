@@ -24,6 +24,7 @@ R6 class for OntologySourceReferences
 \item \href{#method-OntologySourceReferences-get_ontology_source_names}{\code{OntologySourceReferences$get_ontology_source_names()}}
 \item \href{#method-OntologySourceReferences-get_ontology_source_provision}{\code{OntologySourceReferences$get_ontology_source_provision()}}
 \item \href{#method-OntologySourceReferences-get_ontology_sources}{\code{OntologySourceReferences$get_ontology_sources()}}
+\item \href{#method-OntologySourceReferences-get_ontology_source_origins}{\code{OntologySourceReferences$get_ontology_source_origins()}}
 \item \href{#method-OntologySourceReferences-to_list}{\code{OntologySourceReferences$to_list()}}
 \item \href{#method-OntologySourceReferences-from_list}{\code{OntologySourceReferences$from_list()}}
 \item \href{#method-OntologySourceReferences-print}{\code{OntologySourceReferences$print()}}
@@ -132,11 +133,20 @@ a vector of ontology source names
 }
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OntologySourceReferences-get_ontology_source_origins"></a>}}
+\if{latex}{\out{\hypertarget{method-OntologySourceReferences-get_ontology_source_origins}{}}}
+\subsection{Method \code{get_ontology_source_origins()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OntologySourceReferences$get_ontology_source_origins()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OntologySourceReferences-to_list"></a>}}
 \if{latex}{\out{\hypertarget{method-OntologySourceReferences-to_list}{}}}
 \subsection{Method \code{to_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OntologySourceReferences$to_list()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{OntologySourceReferences$to_list(source = "any")}\if{html}{\out{</div>}}
 }
 
 }

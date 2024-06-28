@@ -33,6 +33,7 @@ Unit <- R6::R6Class(
 		unit = NULL,
 		`@id` = character(),
 		ontology_source_references = NULL,
+		unit_references = NULL,
 		source = NA,
 		#' @details
 		#' Create a new \code{[Unit]} object
@@ -41,6 +42,7 @@ Unit <- R6::R6Class(
 			unit = NULL,
 			`@id` = character(),
 			ontology_source_references = NULL,
+			unit_references = NULL,
 			source = NA
 		) {
 			if (is.null(unit)) { self$unit <- unit } else {
@@ -53,45 +55,41 @@ Unit <- R6::R6Class(
 			}
 			self$`@id` <- `@id`
 			self$ontology_source_references <- ontology_source_references
+			self$unit_references <- unit_references
 			self$source <- source
 		},
-		set_unit_from_string = function(unit) {
-			#browser()
-			check <- checkmate::check_string(unit)
-			error_with_check_message_on_failure(check)
-
-			if (unit %in% OM$terms_list || unit %in% names(OM$terms_list)) {
-				if(
-					!"OM" %in%
-					self$ontology_source_references$get_ontology_source_names()
-				) {
-					self$ontology_source_references$add_ontology_sources(
-						list("OM" = OM)
-					)
+		set_valid_unit = function(term, term_accession, term_source) {
+			# browser()
+			if (!is.null(term)) {
+				if (term %in% OM$terms_list || term %in% names(OM$terms_list)) {
+					if(
+						!"OM" %in%
+						self$ontology_source_references$get_ontology_source_names()
+					) {
+						self$ontology_source_references$add_ontology_sources(
+							list("OM" = OM)
+						)
+					}
 				}
 			}
 
-			if (unit %in% OM$terms_list) {
-				self$unit <- OntologyAnnotation$new(
-					term = unit,
-					term_source = OM,
-					ontology_source_references = self$ontology_source_references
-				)
-			} else if (unit %in% names(OM$terms_list)) {
-				self$unit <- OntologyAnnotation$new(
-					term_accession = unit,
-					term_source = OM,
-					ontology_source_references = self$ontology_source_references
-				)
+			if (self$`@id` %in% self$unit_references$get_unit_ids()) {
+				self$unit <- self$unit_references$unit_references[[self$`@id`]]
 			} else {
-				self$unit <- OntologyAnnotation$new(
-					ontology_source_references = self$ontology_source_references
+				un <- Unit$new(
+					ontology_source_references = self$ontology_source_references,
+					unit_references = self$unit_references
 				)
-				self$unit$set_valid_annotation(
-					term = unit, term_accession = NULL,
-					term_source_name = "UnknownSource"
+				un$set_valid_annotation(
+					term = term, term_accession = term_accession,
+					term_source_name = term_source
+				)
+				self$unit_references$add_unit_references(
+					list("UnknownUnit" = un)
 				)
 			}
+
+
 		},
 		get_unit_string = function() {
 			self$unit$term
@@ -109,7 +107,14 @@ Unit <- R6::R6Class(
 		#' @param lst an Unit object serialized to a list
 		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			self$`@id` <- lst[["@id"]]
-			self$set_unit_from_string(lst[["annotationValue"]])
+			self$set_valid_unit(
+				lst[["annotationValue"]],
+				lst[["termAccession"]],
+				lst[["termSource"]]
+			)
+			# lst[["termAccession"]]
+			# lst[["termSource"]]
+			#self$set_unit_from_string(lst[["annotationValue"]])
 			# self$unit <- OntologyAnnotation$new(
 			# 	ontology_source_references = self$ontology_source_references
 			# )

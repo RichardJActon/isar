@@ -9,7 +9,7 @@ BII_S_3_jsonlite <- jsonlite::read_json(
 	)))
 
 )
-test_uuid <- uuid::UUIDgenerate()
+# test_uuid <- uuid::UUIDgenerate()
 
 # Ontology Source References ----
 # inv <- Investigation$new()

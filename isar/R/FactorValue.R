@@ -22,6 +22,7 @@ FactorValue <- R6Class(
 		unit = NULL,
 		ontology_source_references = NULL,
 		study_factor_references = NULL,
+		unit_references = NULL,
 		comments = NULL,
 		`@id` =  character(),
 		#' @details
@@ -45,6 +46,7 @@ FactorValue <- R6Class(
 			unit = NULL,
 			ontology_source_references = NULL,
 			study_factor_references = NULL,
+			unit_references = NULL,
 			comments = NULL,
 			`@id` = character()
 		) {
@@ -85,6 +87,7 @@ FactorValue <- R6Class(
 			self$unit <- unit
 
 			self$ontology_source_references <- ontology_source_references
+			self$unit_references <- unit_references
 
 			if(is.null(study_factor_references)) {
 				self$study_factor_references <- StudyFactorReferences$new(
@@ -208,7 +211,12 @@ FactorValue <- R6Class(
 					self$value <- lst[["value"]]
 				}
 				if(!is.null(lst[["unit"]])) {
-					self$unit <- Unit$new(`@id` = lst[["unit"]][["@id"]])
+					self$unit <- Unit$new(
+						ontology_source_references =
+							self$ontology_source_references,
+						unit_references = self$unit_references
+					)
+					self$unit <- self$unit$from_list(lst[["unit"]])
 				}
 				self$set_comments(lst[["comments"]])
 			} else {

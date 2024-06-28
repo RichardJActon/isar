@@ -32,8 +32,9 @@ UnitReferences <- R6::R6Class(
 			}
 		},
 		add_unit_references = function(units) {
-			if(self$check_unit_references(c(self$unit_references, units))) {
-				self$unit_references <- c(self$unit_references, units)
+			comb <- c(self$unit_references, units)
+			if(self$check_unit_references(comb)) {
+				self$unit_references <- comb
 			}
 		},
 		get_unit_ids = function(){
@@ -50,7 +51,8 @@ UnitReferences <- R6::R6Class(
 				purrr::map(~{
 					u <- Unit$new(
 						ontology_source_references =
-							self$ontology_source_references,
+							self$ontology_source_references#,
+						# unit_references = self$unit_references,
 						source = source
 					)
 					u$from_list(.x)

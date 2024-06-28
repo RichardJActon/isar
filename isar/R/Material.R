@@ -20,6 +20,7 @@ Material <- R6::R6Class(
 		characteristics = NULL,
 		characteristic_categories = NULL,
 		ontology_source_references = NULL,
+		unit_references = NULL,
 		comments = NULL,
 		`@id` =  character(),
 		#' @details
@@ -34,6 +35,7 @@ Material <- R6::R6Class(
 			characteristics = NULL,
 			characteristic_categories = NULL,
 			ontology_source_references = NULL,
+			unit_references = NULL,
 			comments = NULL,
 			`@id` =  character()
 		) {
@@ -51,6 +53,7 @@ Material <- R6::R6Class(
 			self$comments <- comments
 			self$characteristic_categories <- characteristic_categories
 			self$ontology_source_references <- ontology_source_references
+			self$unit_references <- unit_references
 			self$`@id` <- `@id`
 		},
 		#' @details
@@ -146,7 +149,8 @@ Material <- R6::R6Class(
 				chr <- Characteristic$new(
 					ontology_source_references =
 						self$ontology_source_references,
-					category_references = self$characteristic_categories
+					category_references = self$characteristic_categories,
+					unit_references = self$unit_references
 				)
 				chr$from_list(.x, json = json, recursive = recursive)
 				chr

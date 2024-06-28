@@ -11,9 +11,11 @@ StudyFactorReferences <- R6::R6Class(
 	public = list(
 		study_factor_references = NULL,
 		ontology_source_references = NULL,
+		unit_references = NULL,
 		initialize = function(
 			study_factor_references = NULL,
-			ontology_source_references = NULL
+			ontology_source_references = NULL,
+			unit_references = NULL
 		) {
 			if (is.null(study_factor_references)) {
 				self$study_factor_references <- NULL
@@ -21,6 +23,7 @@ StudyFactorReferences <- R6::R6Class(
 				self$add_study_factors(study_factor_references)
 			}
 			self$ontology_source_references <- ontology_source_references
+			self$unit_references <- unit_references
 		},
 		check_study_factors = function(study_factors) {
 			if(
@@ -52,7 +55,8 @@ StudyFactorReferences <- R6::R6Class(
 			study_factors <- purrr::map(lst,~{
 				sf <- StudyFactor$new(
 					explicitly_provided = explicitly_provided,
-					ontology_source_references = self$ontology_source_references
+					ontology_source_references = self$ontology_source_references,
+					unit_references = self$unit_references
 				)
 				sf$from_list(.x)
 				sf

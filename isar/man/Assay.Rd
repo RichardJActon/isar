@@ -24,7 +24,9 @@ experimental workflow described by a particular protocol.
 
 \item{\code{filename}}{A field to specify the name of the assay file for compatibility with ISA-Tab.}
 
-\item{\code{materials}}{Materials associated with the assay, lists of '\code{[Sample]}s' and other_material'.}
+\item{\code{other_materials}}{Materials associated with the assay.}
+
+\item{\code{samples}}{Samples associated with the assay.}
 
 \item{\code{units}}{A list of units used in the annotation of material units ? \code{[OntologyAnnotation]} !!.}
 
@@ -34,14 +36,13 @@ experimental workflow described by a particular protocol.
 
 \item{\code{comments}}{Comments associated with instances of this class.}
 
-\item{\code{graph}}{A graph representation of the assay graph.}
-}
-\if{html}{\out{</div>}}
-}
-\section{Active bindings}{
-\if{html}{\out{<div class="r6-active-bindings">}}
-\describe{
-\item{\code{materials}}{Materials associated with the assay, lists of '\code{[Sample]}s' and other_material'.}
+\item{\code{data_files}}{\link{DataFile} objects.}
+
+\item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object listing all the ontology sources used.}
+
+\item{\code{protocols}}{\link{Protocols} objects}
+
+\item{\code{@id}}{identifier}
 }
 \if{html}{\out{</div>}}
 }
@@ -81,7 +82,6 @@ experimental workflow described by a particular protocol.
   characteristic_categories = NULL,
   process_sequence = NULL,
   comments = NULL,
-  graph = NULL,
   data_files = NULL,
   ontology_source_references = NULL,
   protocols = NULL,
@@ -100,6 +100,10 @@ experimental workflow described by a particular protocol.
 
 \item{\code{filename}}{A field to specify the name of the assay file for compatibility with ISA-Tab.}
 
+\item{\code{other_materials}}{Materials associated with the assay.}
+
+\item{\code{samples}}{Samples associated with the assay.}
+
 \item{\code{units}}{A list of units used in the annotation of material units ? \code{[OntologyAnnotation]} !!.}
 
 \item{\code{characteristic_categories}}{A list of \code{[OntologyAnnotation]} used in the annotation of material characteristics in the Assay.}
@@ -108,7 +112,13 @@ experimental workflow described by a particular protocol.
 
 \item{\code{comments}}{Comments associated with instances of this class.}
 
-\item{\code{graph}}{A graph representation of the assay graph.}
+\item{\code{data_files}}{\link{DataFile} objects.}
+
+\item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object listing all the ontology sources used.}
+
+\item{\code{protocols}}{\link{Protocols} objects}
+
+\item{\code{@id}}{identifier}
 }
 \if{html}{\out{</div>}}
 }
@@ -369,6 +379,10 @@ make an R list convertible to json
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{lst}}{an ontology source object serialized to a list}
+
+\item{\code{recursive}}{recursively parse}
+
+\item{\code{json}}{reading from json}
 }
 \if{html}{\out{</div>}}
 }

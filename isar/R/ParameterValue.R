@@ -126,17 +126,3 @@ ParameterValue <- R6::R6Class(
 		id = generate_id()
 	)
 )
-
-#' identical.ParameterValue
-#'
-#' Allows checking for the identity of \code{[ParameterValue]} objects
-#'
-#' @param x a \code{[ParameterValue]} object
-#' @param y a \code{[ParameterValue]} object
-#' @export
-identical.ParameterValue <- s3_identical_maker(c(
-	"category",
-	"value",
-	"unit",
-	"comments"
-))

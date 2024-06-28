@@ -196,10 +196,20 @@ Characteristic <- R6::R6Class(
 					lst[["value"]], recursive = recursive, json = json
 				)
 			} else {
-				if (lst[["unit"]][["@id"]] %in% self$unit_references$get_unit_ids()) {
+				if (
+					lst[["unit"]][["@id"]] %in%
+					self$unit_references$get_unit_ids()
+				) {
 					self$unit <- self$unit_references$unit_references[[
 						lst[["unit"]][["@id"]]
 					]]
+				} else {
+					self$unit <- Unit$new(
+						ontology_source_references =
+							self$ontology_source_references,
+						unit_references = self$unit_references
+					)
+					self$unit$from_list(lst[["unit"]])
 				}
 				self$set_value(lst[["value"]])
 			}

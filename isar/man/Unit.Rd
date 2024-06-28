@@ -34,6 +34,7 @@ R6 object for specifying a unit of measurement
 \if{html}{\out{<div class="r">}}\preformatted{Unit$new(
   unit = NULL,
   `@id` = character(),
+  unit_references = NULL,
   ontology_source_references = NULL,
   source = NA
 )}\if{html}{\out{</div>}}

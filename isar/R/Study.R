@@ -378,7 +378,9 @@ Study <- R6::R6Class(
 				# )
 
 				self$factors <- StudyFactorReferences$new(
-					ontology_source_references = self$ontology_source_references
+					ontology_source_references =
+						self$ontology_source_references,
+					unit_references = self$unit_references
 				)
 				self$factors$from_list(
 					lst[["factors"]], explicitly_provided = TRUE
@@ -395,7 +397,8 @@ Study <- R6::R6Class(
 				self$characteristic_categories <-
 					CharacteristicCategoryReferences$new(
 						ontology_source_references =
-							self$ontology_source_references
+							self$ontology_source_references,
+						unit_references = self$unit_references
 					)
 				self$characteristic_categories$from_list(
 					lst[["characteristicCategories"]],
@@ -420,7 +423,8 @@ Study <- R6::R6Class(
 						characteristic_categories =
 							self$characteristic_categories,
 						ontology_source_references =
-							self$ontology_source_references
+							self$ontology_source_references,
+						unit_references = self$unit_references
 					)
 					self$other_materials$from_list(
 						lst[["materials"]][["otherMaterials"]]
@@ -453,7 +457,8 @@ Study <- R6::R6Class(
 								self$ontology_source_references,
 							category_references =
 								self$characteristic_categories,
-							sources = self$sources
+							sources = self$sources,
+							unit_references = self$unit_references
 						)
 						smpl$from_list(.x, recursive = recursive, json = json)
 						smpl
@@ -494,7 +499,8 @@ Study <- R6::R6Class(
 							self$ontology_source_references,
 						characteristic_categories =
 							self$characteristic_categories,
-						protocols = self$protocols
+						protocols = self$protocols,
+						unit_references = self$unit_references
 					)
 					a$from_list(.x, recursive = recursive, json = json)
 					a

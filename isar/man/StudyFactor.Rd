@@ -228,7 +228,7 @@ generate an R list representation translatable to JSON
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Make \code{[OntologyAnnotation]} from list
+Make \code{[StudyFactor]} from list
 }
 
 }
