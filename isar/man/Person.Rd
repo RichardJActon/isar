@@ -59,8 +59,6 @@ Roles reported here need not correspond to roles held withing their affiliated o
 \item \href{#method-Person-add_comment}{\code{Person$add_comment()}}
 \item \href{#method-Person-to_list}{\code{Person$to_list()}}
 \item \href{#method-Person-from_list}{\code{Person$from_list()}}
-\item \href{#method-Person-get_id}{\code{Person$get_id()}}
-\item \href{#method-Person-set_id}{\code{Person$set_id()}}
 \item \href{#method-Person-get_full_name}{\code{Person$get_full_name()}}
 \item \href{#method-Person-print}{\code{Person$print()}}
 \item \href{#method-Person-clone}{\code{Person$clone()}}
@@ -315,44 +313,6 @@ generate an R list representation translatable to JSON
 }
 \subsection{Details}{
 Make \link{Person} from list
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Person-get_id"></a>}}
-\if{latex}{\out{\hypertarget{method-Person-get_id}{}}}
-\subsection{Method \code{get_id()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Person$get_id()}\if{html}{\out{</div>}}
-}
-
-\subsection{Details}{
-Get the uuid of this object
-}
-
-\subsection{Returns}{
-a uuid
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Person-set_id"></a>}}
-\if{latex}{\out{\hypertarget{method-Person-set_id}{}}}
-\subsection{Method \code{set_id()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Person$set_id(id = uuid::UUIDgenerate(), suffix = character())}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{id}}{a uuid}
-
-\item{\code{suffix}}{a human readable suffix}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-set the uuid of this object
 }
 
 }

@@ -32,8 +32,6 @@ Organisation$new()
 \item \href{#method-Organisation-add_comment}{\code{Organisation$add_comment()}}
 \item \href{#method-Organisation-to_list}{\code{Organisation$to_list()}}
 \item \href{#method-Organisation-from_list}{\code{Organisation$from_list()}}
-\item \href{#method-Organisation-get_id}{\code{Organisation$get_id()}}
-\item \href{#method-Organisation-set_id}{\code{Organisation$set_id()}}
 \item \href{#method-Organisation-clone}{\code{Organisation$clone()}}
 }
 }
@@ -156,50 +154,12 @@ generate an R list representation translatable to JSON
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{lst}}{an \code{[Organisation]} object serialized to a list}
+\item{\code{lst}}{an \link{Organisation} object serialized to a list}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Make \code{[Organisation]} from list
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Organisation-get_id"></a>}}
-\if{latex}{\out{\hypertarget{method-Organisation-get_id}{}}}
-\subsection{Method \code{get_id()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Organisation$get_id()}\if{html}{\out{</div>}}
-}
-
-\subsection{Details}{
-Get the uuid of this object
-}
-
-\subsection{Returns}{
-a uuid
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Organisation-set_id"></a>}}
-\if{latex}{\out{\hypertarget{method-Organisation-set_id}{}}}
-\subsection{Method \code{set_id()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Organisation$set_id(id = uuid::UUIDgenerate(), suffix = character())}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{id}}{a uuid}
-
-\item{\code{suffix}}{a human readable suffix}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-set the uuid of this object
+Make \link{Organisation} from list
 }
 
 }

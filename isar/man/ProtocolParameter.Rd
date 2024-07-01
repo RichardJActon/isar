@@ -40,8 +40,6 @@ Person$new()
 \item \href{#method-ProtocolParameter-add_comment}{\code{ProtocolParameter$add_comment()}}
 \item \href{#method-ProtocolParameter-to_list}{\code{ProtocolParameter$to_list()}}
 \item \href{#method-ProtocolParameter-from_list}{\code{ProtocolParameter$from_list()}}
-\item \href{#method-ProtocolParameter-get_id}{\code{ProtocolParameter$get_id()}}
-\item \href{#method-ProtocolParameter-set_id}{\code{ProtocolParameter$set_id()}}
 \item \href{#method-ProtocolParameter-print}{\code{ProtocolParameter$print()}}
 \item \href{#method-ProtocolParameter-clone}{\code{ProtocolParameter$clone()}}
 }
@@ -73,7 +71,7 @@ Person$new()
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Create a new \code{[ProtocolParameter]} object
+Create a new \link{ProtocolParameter} object
 }
 
 }
@@ -88,12 +86,12 @@ Create a new \code{[ProtocolParameter]} object
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{parameter_name}}{an \code{[OntologyAnnotation]} object}
+\item{\code{parameter_name}}{an \link{OntologyAnnotation} object}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Check that parameter_name is an \code{[OntologyAnnotation]} object
+Check that parameter_name is an \link{OntologyAnnotation} object
 }
 
 }
@@ -108,7 +106,7 @@ Check that parameter_name is an \code{[OntologyAnnotation]} object
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{parameter_name}}{an \code{[OntologyAnnotation]} object}
+\item{\code{parameter_name}}{an \link{OntologyAnnotation} object}
 }
 \if{html}{\out{</div>}}
 }
@@ -218,52 +216,14 @@ generate an R list representation translatable to JSON
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{lst}}{an \code{[OntologyAnnotation]} object serialized to a list}
+\item{\code{lst}}{an \link{OntologyAnnotation} object serialized to a list}
 
 \item{\code{recursive}}{use the \code{from_list()} method on list items that are also isar objects (default = TRUE)}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Make \code{[OntologyAnnotation]} from list
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-ProtocolParameter-get_id"></a>}}
-\if{latex}{\out{\hypertarget{method-ProtocolParameter-get_id}{}}}
-\subsection{Method \code{get_id()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ProtocolParameter$get_id()}\if{html}{\out{</div>}}
-}
-
-\subsection{Details}{
-Get the uuid of this object
-}
-
-\subsection{Returns}{
-a uuid
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-ProtocolParameter-set_id"></a>}}
-\if{latex}{\out{\hypertarget{method-ProtocolParameter-set_id}{}}}
-\subsection{Method \code{set_id()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ProtocolParameter$set_id(id = uuid::UUIDgenerate(), suffix = character())}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{id}}{a uuid}
-
-\item{\code{suffix}}{a human readable suffix}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-set the uuid of this object
+Make \link{OntologyAnnotation} from list
 }
 
 }

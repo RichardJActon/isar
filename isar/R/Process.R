@@ -14,6 +14,12 @@
 #' @field protocols list of available [Protocol]s
 #' @field sources list of available [Source]s
 #' @field samples list of available [Sample]s
+#'
+#' @importFrom checkmate check_string test_list test_r6 check_date
+#' @importFrom purrr map map_lgl
+#' @importFrom cli cli_h1 col_blue cli_h2 cli_ul
+#'
+#' @export
 Process <- R6::R6Class(
 	"Process",
 	public = list(
@@ -229,19 +235,20 @@ Process <- R6::R6Class(
 			self$comments <- lst[["comments"]]
 		},
 
-		#' @details
-		#' Get the uuid of this object
-		#' @return a uuid
-		get_id = function() {
-			private$id
-		},
-		#' @details
-		#' set the uuid of this object
-		#' @param id a uuid
-		#' @param suffix a human readable suffix
-		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
-			private$id <- generate_id(id, suffix)
-		},
+		# #' @details
+		# #' Get the uuid of this object
+		# #' @return a uuid
+		# get_id = function() {
+		# 	private$id
+		# },
+		# #' @details
+		# #' set the uuid of this object
+		# #' @param id a uuid
+		# #' @param suffix a human readable suffix
+		# set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
+		# 	private$id <- generate_id(id, suffix)
+		# },
+
 		#' @details
 		#' Pretty Prints [Process] objects
 		print = function() {
@@ -281,9 +288,9 @@ Process <- R6::R6Class(
 
 			pretty_print_comments(self$comments)
 		}
-	),
-	private = list(
-		id = generate_id()
-	)
+	)# ,
+	# private = list(
+	# 	id = generate_id()
+	# )
 )
 

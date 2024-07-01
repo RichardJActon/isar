@@ -57,8 +57,6 @@ An experimental Protocol used in the study.
 \item \href{#method-Protocol-add_comment}{\code{Protocol$add_comment()}}
 \item \href{#method-Protocol-to_list}{\code{Protocol$to_list()}}
 \item \href{#method-Protocol-from_list}{\code{Protocol$from_list()}}
-\item \href{#method-Protocol-get_id}{\code{Protocol$get_id()}}
-\item \href{#method-Protocol-set_id}{\code{Protocol$set_id()}}
 \item \href{#method-Protocol-print}{\code{Protocol$print()}}
 \item \href{#method-Protocol-clone}{\code{Protocol$clone()}}
 }
@@ -492,44 +490,6 @@ An R list representation of a \link{Protocol} object
 }
 \subsection{Details}{
 Make \link{Protocol} object from list
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Protocol-get_id"></a>}}
-\if{latex}{\out{\hypertarget{method-Protocol-get_id}{}}}
-\subsection{Method \code{get_id()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Protocol$get_id()}\if{html}{\out{</div>}}
-}
-
-\subsection{Details}{
-Get the uuid of this object
-}
-
-\subsection{Returns}{
-a uuid
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Protocol-set_id"></a>}}
-\if{latex}{\out{\hypertarget{method-Protocol-set_id}{}}}
-\subsection{Method \code{set_id()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Protocol$set_id(id = uuid::UUIDgenerate(), suffix = character())}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{id}}{a uuid}
-
-\item{\code{suffix}}{a human readable suffix}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-set the uuid of this object
 }
 
 }

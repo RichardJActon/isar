@@ -13,6 +13,11 @@
 #' @field status A term describing the status of that publication (i.e.submitted, in preparation, published).
 #' @field comments Comments associated with instances of this class.
 #' @field ontology_source_references an [OntologySourceReferences] object
+#'
+#' @importFrom R6 R6Class
+#' @importFrom checkmate qtest test_list test_r6
+#' @importFrom purrr map_lgl
+#'
 #' @export
 Publication <- R6::R6Class(
 	"Publication",
@@ -25,7 +30,7 @@ Publication <- R6::R6Class(
 		comments = NULL,
 		ontology_source_references = NULL,
 		#' @details
-		#' Create a new \code{[Publication]} Object
+		#' Create a new [Publication Object
 		#' @param pubmed_id pubmed_id The PubMed IDs of the described publication(s) associated with this investigation.
 		#' @param doi doi A Digital Object Identifier (DOI) for that publication (where available).
 		#' @param author_list author_list The list of authors associated with that publication.
@@ -111,7 +116,7 @@ Publication <- R6::R6Class(
 			if(self$check_doi(doi)) { self$doi <- doi }
 		},
 		#' @details
-		#' Check that all Authors listed are represented with \code{[Person]} objects
+		#' Check that all Authors listed are represented with [Person objects
 		#' @param author_list A list of authors of the Investigation or Study (list of Person objects)
 		check_author_list = function(author_list) {
 			if(
@@ -143,7 +148,7 @@ Publication <- R6::R6Class(
 			error_with_check_message_on_failure(check)
 		},
 		#' @details
-		#' Set the title of the \code{[Publication]}
+		#' Set the title of the [Publication
 		#' @param title of the publication
 		set_title = function(title) {
 			if (self$check_title(title)) { self$title <- title }
@@ -170,7 +175,7 @@ Publication <- R6::R6Class(
 		#' convert the Publication object to a list
 		#' @param ld linked data
 		to_list = function(ld = FALSE) {
-			publication = list(
+			lst = list(
 				"doi" = self$doi,
 				"pubMedID" = as.character(self$pubmed_id), # https://www.ncbi.nlm.nih.gov/pmc/tools/id-converter-api/
 				"status" = self$status$to_list(), #  https://sparontologies.github.io/pso/current/pso.html
@@ -181,10 +186,10 @@ Publication <- R6::R6Class(
 			# if(!is.null(self$author_list)) {
 			# 	publication[["author_list"]] <- self$author_list$to_list()
 			# }
-			return(publication)
+			return(lst)
 		},
 		#' @details
-		#' Generate a \code{[Publication]} object from a list
+		#' Generate a [Publication object from a list
 		#' @param lst a list suitable for conversion to a Publication Object
 		#' @param json json  (default TRUE)
 		#' @param recursive call to_list methods of any objects within this object (default TRUE)
@@ -237,19 +242,10 @@ Publication <- R6::R6Class(
 		#' Pretty prints [Publication] objects
 		#' @return none
 		print = function() {
-			cat(
-				crayon::blue(crayon::bold("Publication")),
-				green_bold_name_plain_content("Title", self$title),
-				sep = "\n"
-			)
-				#green_bold_name_plain_content("", self$author_list),
-			cat(
-				green_bold_name_plain_content("pubmed id", self$pubmed_id),
-				green_bold_name_plain_content("DOI", self$doi),
-				# ~
-				# green_bold_name_plain_content("status", self$status),
-				sep = "\n"
-			)
+			cli::cli_h1(cli::col_blue("Publication 📖️️"))
+			green_bold_name_plain_content("Title", self$title)
+			green_bold_name_plain_content("pubmed id", self$pubmed_id)
+			green_bold_name_plain_content("DOI", self$doi)
 			pretty_print_comments(self$comments)
 		}
 	)

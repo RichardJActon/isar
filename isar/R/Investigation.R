@@ -228,8 +228,13 @@ Investigation <- R6::R6Class(
 		#' Set ontology_source_references to be an [OntologySourceReferences] object
 		#' @param ontology_source_references an [OntologySourceReferences] object
 		set_ontology_source_references = function(ontology_source_references) {
-			if(self$check_ontology_source_references(ontology_source_references))
+			if(
+				self$check_ontology_source_references(
+					ontology_source_references
+				)
+			) {
 				self$ontology_source_references <- ontology_source_references
+			}
 		},
 
 		#' @details
@@ -276,7 +281,7 @@ Investigation <- R6::R6Class(
 		#' generate an R list representation translatable to JSON
 		#' @param ld logical json-ld
 		to_list = function(ld = FALSE) {
-			investigation = list(
+			lst <- list(
 				"submissionDate" = self$submission_date,
 				"people" = purrr::map(self$contacts, ~.x$to_list()),
 				"publications" = purrr::map(self$publications, ~.x$to_list()),
@@ -292,7 +297,7 @@ Investigation <- R6::R6Class(
 				#"id" = private$id,
 				"title" = self$title
 			)
-			return(investigation)
+			return(lst)
 		},
 
 		#' @details
@@ -358,7 +363,7 @@ Investigation <- R6::R6Class(
 				self$comments <- lst[["comments"]]
 			} else {
 				self$filename <- lst[["filename"]]
-				private$id <- lst[["id"]]
+				# private$id <- lst[["id"]]
 				self$title <- lst[["title"]]
 				self$description <- lst[["description"]]
 				self$submission_date <- lst[["submission_date"]]
@@ -385,12 +390,13 @@ Investigation <- R6::R6Class(
 			}
 		},
 
-		#' @details
-		#' Get the uuid of this object
-		#' @return a uuid
-		get_id = function() {
-			private$id
-		},
+		# #' @details
+		# #' Get the uuid of this object
+		# #' @return a uuid
+		# get_id = function() {
+		# 	private$id
+		# },
+
 		#' @details
 		#' set the uuid of this object
 		#' @param id a uuid
@@ -403,7 +409,7 @@ Investigation <- R6::R6Class(
 		print = function() {
 			cli::cli_h1(cli::col_blue("Investigation 🕵️"))
 			green_bold_name_plain_content("Title", self$title)
-			green_bold_name_plain_content("ID", private$id)
+			#  green_bold_name_plain_content("ID", private$id)
 			green_bold_name_plain_content("Filename", self$filename) # 📄
 			green_bold_name_plain_content("📅 Submission date️", self$submission_date)
 			green_bold_name_plain_content("📅 Public release date️", self$public_release_dat)
@@ -429,8 +435,8 @@ Investigation <- R6::R6Class(
 			)
 			pretty_print_comments(self$comments)
 		}
-	),
-	private = list(
-		id = generate_id()
-	)
+	)# ,
+	# private = list(
+	# 	id = generate_id()
+	# )
 )

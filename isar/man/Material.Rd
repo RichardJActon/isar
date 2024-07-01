@@ -44,7 +44,6 @@ R6 object to represent Materials
 \item \href{#method-Material-add_comment}{\code{Material$add_comment()}}
 \item \href{#method-Material-to_list}{\code{Material$to_list()}}
 \item \href{#method-Material-from_list}{\code{Material$from_list()}}
-\item \href{#method-Material-get_id}{\code{Material$get_id()}}
 \item \href{#method-Material-set_id}{\code{Material$set_id()}}
 \item \href{#method-Material-print}{\code{Material$print()}}
 \item \href{#method-Material-clone}{\code{Material$clone()}}
@@ -316,22 +315,6 @@ An R list representation of a \link{Material} object
 Make \link{Material} object from list
 }
 
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Material-get_id"></a>}}
-\if{latex}{\out{\hypertarget{method-Material-get_id}{}}}
-\subsection{Method \code{get_id()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Material$get_id()}\if{html}{\out{</div>}}
-}
-
-\subsection{Details}{
-Get the uuid of this object
-}
-
-\subsection{Returns}{
-a uuid
-}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Material-set_id"></a>}}

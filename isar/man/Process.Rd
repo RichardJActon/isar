@@ -56,8 +56,6 @@ Process nodes represent the application of a protocol to some input material
 \item \href{#method-Process-add_comment}{\code{Process$add_comment()}}
 \item \href{#method-Process-to_list}{\code{Process$to_list()}}
 \item \href{#method-Process-from_list}{\code{Process$from_list()}}
-\item \href{#method-Process-get_id}{\code{Process$get_id()}}
-\item \href{#method-Process-set_id}{\code{Process$set_id()}}
 \item \href{#method-Process-print}{\code{Process$print()}}
 \item \href{#method-Process-clone}{\code{Process$clone()}}
 }
@@ -338,44 +336,6 @@ An R list representation of a \link{Process} object
 }
 \subsection{Details}{
 Make \link{Process} object from list
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Process-get_id"></a>}}
-\if{latex}{\out{\hypertarget{method-Process-get_id}{}}}
-\subsection{Method \code{get_id()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Process$get_id()}\if{html}{\out{</div>}}
-}
-
-\subsection{Details}{
-Get the uuid of this object
-}
-
-\subsection{Returns}{
-a uuid
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Process-set_id"></a>}}
-\if{latex}{\out{\hypertarget{method-Process-set_id}{}}}
-\subsection{Method \code{set_id()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Process$set_id(id = uuid::UUIDgenerate(), suffix = character())}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{id}}{a uuid}
-
-\item{\code{suffix}}{a human readable suffix}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-set the uuid of this object
 }
 
 }

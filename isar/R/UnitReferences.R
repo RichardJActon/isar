@@ -13,7 +13,7 @@ UnitReferences <- R6::R6Class(
 	public = list(
 		unit_references = NULL,
 		ontology_source_references = NULL,
-		#' @param unit_references A list of units used as a [UnitReferences] object
+		#' @param unit_references A list of units used as a [Unit] object
 		#' @param ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor
 		initialize = function(
 			unit_references = NULL,
@@ -46,6 +46,11 @@ UnitReferences <- R6::R6Class(
 		#' Add new units to the unit reference
 		#' @param units a list of [Unit] objects
 		add_unit_references = function(units) {
+			# browser()
+			# remove any duplicates
+			# ur_lgl <- names(units) %in% names(self$unit_references)
+			# units <- units[!ur_lgl]
+
 			comb <- c(self$unit_references, units)
 			if(self$check_unit_references(comb)) {
 				self$unit_references <- comb

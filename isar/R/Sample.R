@@ -12,11 +12,12 @@
 #' @field unit_references an [UnitReferences] object
 #' @field sources list of available [Source]s
 #'
+#' @importFrom R6 R6Class
 #' @importFrom checkmate check_string test_r6
+#' @importFrom cli cli_h1 cli col_blue
 #' @importFrom glue glue
 #' @importFrom purrr map_lgl
 #' @importFrom uuid UUIDgenerate
-#' @importFrom R6 R6Class
 #'
 #' @export
 Sample <- R6::R6Class(
@@ -272,9 +273,9 @@ Sample <- R6::R6Class(
 
 			pretty_print_comments(self$comments)
 		}
-	),
-	private = list(
-		id = generate_id()
-	)
+	)# ,
+	# private = list(
+	# 	id = generate_id()
+	# )
 )
 

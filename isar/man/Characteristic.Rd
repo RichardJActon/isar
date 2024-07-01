@@ -41,9 +41,9 @@ A Characteristic acts as a qualifying property to a material object.
 \item \href{#method-Characteristic-set_comments}{\code{Characteristic$set_comments()}}
 \item \href{#method-Characteristic-add_comment}{\code{Characteristic$add_comment()}}
 \item \href{#method-Characteristic-set_valid_category}{\code{Characteristic$set_valid_category()}}
+\item \href{#method-Characteristic-set_valid_unit}{\code{Characteristic$set_valid_unit()}}
 \item \href{#method-Characteristic-to_list}{\code{Characteristic$to_list()}}
 \item \href{#method-Characteristic-from_list}{\code{Characteristic$from_list()}}
-\item \href{#method-Characteristic-get_id}{\code{Characteristic$get_id()}}
 \item \href{#method-Characteristic-set_id}{\code{Characteristic$set_id()}}
 \item \href{#method-Characteristic-print}{\code{Characteristic$print()}}
 \item \href{#method-Characteristic-clone}{\code{Characteristic$clone()}}
@@ -293,6 +293,30 @@ Set a category and check that it is valid
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Characteristic-set_valid_unit"></a>}}
+\if{latex}{\out{\hypertarget{method-Characteristic-set_valid_unit}{}}}
+\subsection{Method \code{set_valid_unit()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$set_valid_unit(term, term_accession, term_source)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{term}}{the term of the unit}
+
+\item{\code{term_accession}}{the accession of the ontology term of the unit}
+
+\item{\code{term_source}}{the name of the source of the ontology term}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Set the unit as a valid ontology term
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Characteristic-to_list"></a>}}
 \if{latex}{\out{\hypertarget{method-Characteristic-to_list}{}}}
 \subsection{Method \code{to_list()}}{
@@ -305,7 +329,8 @@ Set a category and check that it is valid
 \describe{
 \item{\code{ld}}{linked data (default FALSE)}
 
-\item{\code{recursive}}{call to_list methods of any objects within this object (default FALSE)}
+\item{\code{recursive}}{call to_list methods of any objects within this
+object (default FALSE)}
 }
 \if{html}{\out{</div>}}
 }
@@ -337,22 +362,6 @@ An R list representation of a \link{Characteristic} object
 Make \link{Characteristic} object from list
 }
 
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Characteristic-get_id"></a>}}
-\if{latex}{\out{\hypertarget{method-Characteristic-get_id}{}}}
-\subsection{Method \code{get_id()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Characteristic$get_id()}\if{html}{\out{</div>}}
-}
-
-\subsection{Details}{
-Get the uuid of this object
-}
-
-\subsection{Returns}{
-a uuid
-}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Characteristic-set_id"></a>}}

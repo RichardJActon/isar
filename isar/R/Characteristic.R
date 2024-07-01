@@ -60,7 +60,6 @@ Characteristic <- R6::R6Class(
 			self$`@id` <- `@id`
 			self$ontology_source_references <- ontology_source_references
 			self$unit_references <- unit_references
-			#self$`@id` <- paste0("#characteristic_category/", self$)
 		},
 		#' @details
 		#' Check that category is an [CharacteristicCategory] object
@@ -164,10 +163,54 @@ Characteristic <- R6::R6Class(
 				}
 			#}
 		},
+
+		#' @details
+		#' Set the unit as a valid ontology term
+		#' @param term the term of the unit
+		#' @param term_accession the accession of the ontology term of the unit
+		#' @param term_source the name of the source of the ontology term
+		set_valid_unit = function(term, term_accession, term_source) {
+			# browser()
+			if (!is.null(term)) {
+				if (term %in% OM$terms_list || term %in% names(OM$terms_list)) {
+					if(
+						!"OM" %in%
+						self$ontology_source_references$get_ontology_source_names()
+					) {
+						self$ontology_source_references$add_ontology_sources(
+							list("OM" = OM)
+						)
+					}
+				}
+			}
+
+			if (is.null(self$unit_references)) {
+				self$unit_references <- UnitReferences$new()
+			}
+
+			if (self$`@id` %in% self$unit_references$get_unit_ids()) {
+				self$unit <- self$unit_references$unit_references[[self$`@id`]]
+			} else {
+				un <- Unit$new(
+					ontology_source_references =
+						self$ontology_source_references,
+					unit_references = self$unit_references
+				)
+				un$set_valid_annotation(
+					term = term, term_accession = term_accession,
+					term_source_name = term_source
+				)
+				self$unit_references$add_unit_references(
+					list("UnknownUnit" = un)
+				)
+			}
+		},
+
 		#' @details
 		#' An R list representation of a [Characteristic] object
 		#' @param ld linked data (default FALSE)
-		#' @param recursive call to_list methods of any objects within this object (default FALSE)
+		#' @param recursive call to_list methods of any objects within this
+		#' object (default FALSE)
 		to_list = function(ld = FALSE, recursive = TRUE) {
 			lst <- list()
 			if(recursive) {
@@ -180,8 +223,8 @@ Characteristic <- R6::R6Class(
 				lst[["comments"]] <- self$comments
 
 			} else {
-				characteristic <- list(
-					"id" = private$id,
+				lst <- list(
+					"@id" = self$`@id`,
 					"category" = self$category$term,
 					"value" = self$value$term,
 					"unit" = self$unit$unit$term,
@@ -215,12 +258,20 @@ Characteristic <- R6::R6Class(
 						lst[["unit"]][["@id"]]
 					]]
 				} else {
-					self$unit <- Unit$new(
-						ontology_source_references =
-							self$ontology_source_references,
-						unit_references = self$unit_references
+					self$set_valid_unit(
+						lst[["unit"]][["@id"]],
+						lst[["unit"]][["annotationValue"]],
+						lst[["unit"]][["termAccession"]],
+						lst[["unit"]][["termSource"]]
 					)
-					self$unit$from_list(lst[["unit"]])
+					# self$unit <- Unit$new(
+					# 	ontology_source_references =
+					# 		self$ontology_source_references,
+					# 	unit_references = self$unit_references
+					# )
+					# self$unit$from_list(lst[["unit"]])
+					#
+					# set_valid_unit()
 				}
 				self$set_value(lst[["value"]])
 			}
@@ -292,12 +343,6 @@ Characteristic <- R6::R6Class(
 		},
 
 		#' @details
-		#' Get the uuid of this object
-		#' @return a uuid
-		get_id = function() {
-			private$id
-		},
-		#' @details
 		#' set the uuid of this object
 		#' @param id a uuid
 		#' @param suffix a human readable suffix
@@ -316,9 +361,6 @@ Characteristic <- R6::R6Class(
 			}
 			pretty_print_comments(self$comments)
 		}
-	),
-	private = list(
-		id = generate_id()
 	)
 )
 

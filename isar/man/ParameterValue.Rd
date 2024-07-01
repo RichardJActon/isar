@@ -37,7 +37,6 @@ A ParameterValue represents the instance value of a \link{ProtocolParameter}, us
 \item \href{#method-ParameterValue-add_comment}{\code{ParameterValue$add_comment()}}
 \item \href{#method-ParameterValue-to_list}{\code{ParameterValue$to_list()}}
 \item \href{#method-ParameterValue-from_list}{\code{ParameterValue$from_list()}}
-\item \href{#method-ParameterValue-get_id}{\code{ParameterValue$get_id()}}
 \item \href{#method-ParameterValue-get_value_in_units}{\code{ParameterValue$get_value_in_units()}}
 \item \href{#method-ParameterValue-set_id}{\code{ParameterValue$set_id()}}
 \item \href{#method-ParameterValue-clone}{\code{ParameterValue$clone()}}
@@ -220,22 +219,6 @@ generate an R list representation translatable to JSON
 Make \link{Person} from list
 }
 
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-ParameterValue-get_id"></a>}}
-\if{latex}{\out{\hypertarget{method-ParameterValue-get_id}{}}}
-\subsection{Method \code{get_id()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ParameterValue$get_id()}\if{html}{\out{</div>}}
-}
-
-\subsection{Details}{
-Get the uuid of this object
-}
-
-\subsection{Returns}{
-a uuid
-}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ParameterValue-get_value_in_units"></a>}}

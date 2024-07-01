@@ -15,10 +15,12 @@
 #' @field @id identifier
 #'
 #' @importFrom R6 R6Class
-#' @importFrom checkmate check_r6
-#' @importFrom uuid UUIDgenerate
+#' @importFrom checkmate qtest check_r6
+#' @importFrom fs path_file file_exists path_join
 #' @importFrom digest digest
-#' @importFrom fs path_file file_exists
+#' @importFrom uuid UUIDgenerate
+#'
+#' @export
 DataFile <- R6::R6Class(
 	"DataFile",
 	public = list(
@@ -204,7 +206,7 @@ DataFile <- R6::R6Class(
 		to_list = function(ld = FALSE){
 			date_file <- list(
 				"@id" = self$`@id`,
-				"id" = private$id,
+				#"id" = private$id,
 				"filename" = self$filename,
 				"file_path" = self$file_path,
 				"check_file_exists" = self$check_file_exists,
@@ -229,7 +231,7 @@ DataFile <- R6::R6Class(
 				self$`@id` <- lst[["@id"]]
 				self$comments <- lst[["comments"]]
 			} else {
-				private$id <- lst[["id"]]
+				# private$id <- lst[["id"]]
 				self$filename <- lst[["filename"]]
 				self$file_path <- lst[["file_path"]]
 				self$check_file_exists <- lst[["check_file_exists"]]
@@ -246,9 +248,9 @@ DataFile <- R6::R6Class(
 		print = function() {
 			cli::cli_h1(cli::col_blue("Data File"))
 			green_bold_name_plain_content("@id", self$`@id`)
-			green_bold_name_plain_content("ID", private$id)
+			# green_bold_name_plain_content("ID", private$id)
 			green_bold_name_plain_content("Hash Algorithm", private$hash_algo)
-			green_bold_name_plain_content("Hash", private$hash)
+			# green_bold_name_plain_content("Hash", private$hash)
 			green_bold_name_plain_content("Filename", self$filename)
 			green_bold_name_plain_content("File path", self$file_path)
 			green_bold_name_plain_content("Type", self$type)
@@ -258,22 +260,23 @@ DataFile <- R6::R6Class(
 		},
 		#' @details
 		#' Get the hash of the file
-		#' @return a uuid
-		get_hash = function() { private$hash },
-		#' @details
-		#' Get the uuid of this object
-		#' @return a uuid
-		get_id = function() { private$id },
-		#' @details
-		#' set the uuid of this object
-		#' @param id a uuid
-		#' @param suffix a human readable suffix
-		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
-			private$id <- generate_id(id, suffix)
-		}
-	),
-	private = list(
-		id = generate_id(),
-		hash = NULL
-	)
+		#' @return a hash
+		get_hash = function() { private$hash }#,
+
+		# #' @details
+		# #' Get the uuid of this object
+		# #' @return a uuid
+		# get_id = function() { private$id },
+		# #' @details
+		# #' set the uuid of this object
+		# #' @param id a uuid
+		# #' @param suffix a human readable suffix
+		# set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
+		# 	private$id <- generate_id(id, suffix)
+		# }
+	)#,
+	# private = list(
+	# 	id = generate_id(),
+	# 	hash = NULL
+	# )
 )

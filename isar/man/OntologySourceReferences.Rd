@@ -147,7 +147,7 @@ Get ontology sources
 }
 
 \subsection{Returns}{
-a vector of ontology source names
+a vector of ontology source objects
 }
 }
 \if{html}{\out{<hr>}}

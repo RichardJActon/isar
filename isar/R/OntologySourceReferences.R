@@ -65,7 +65,7 @@ OntologySourceReferences <- R6::R6Class(
 		#' @details
 		#' Get ontology sources
 		#' @param names default return all names
-		#' @return a vector of ontology source names
+		#' @return a vector of ontology source objects
 		get_ontology_sources = function(names = "all") {
 			if(names == "all") {
 				self$ontology_source_references

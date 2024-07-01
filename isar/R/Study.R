@@ -28,6 +28,8 @@
 #' #field graph Graph representation of the study graph.
 #'
 #' @importFrom R6 R6Class
+#' @importFrom cli cli_h1 col_blue col_green cli_h2
+#' @importFrom purrr set_names map
 #'
 #' @export
 Study <- R6::R6Class(
@@ -399,8 +401,8 @@ Study <- R6::R6Class(
 				self$characteristic_categories <-
 					CharacteristicCategoryReferences$new(
 						ontology_source_references =
-							self$ontology_source_references,
-						unit_references = self$unit_references
+							self$ontology_source_references#,
+						#unit_references = self$unit_references
 					)
 				self$characteristic_categories$from_list(
 					lst[["characteristicCategories"]],
@@ -539,19 +541,20 @@ Study <- R6::R6Class(
 				# self$units <- lst[["units"]]
 			}
 		},
-		#' @details
-		#' Get the uuid of this object
-		#' @return a uuid
-		get_id = function() {
-			private$id
-		},
-		#' @details
-		#' set the uuid of this object
-		#' @param id a uuid
-		#' @param suffix a human readable suffix
-		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
-			private$id <- generate_id(id, suffix)
-		},
+		# #' @details
+		# #' Get the uuid of this object
+		# #' @return a uuid
+		# get_id = function() {
+		# 	private$id
+		# },
+		# #' @details
+		# #' set the uuid of this object
+		# #' @param id a uuid
+		# #' @param suffix a human readable suffix
+		# set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
+		# 	private$id <- generate_id(id, suffix)
+		# },
+
 		#' @details
 		#' Pretty prints [Study] objects
 		print = function() {
@@ -623,9 +626,9 @@ Study <- R6::R6Class(
 			# )
 			# pretty_print_comments(self$comments)
 		}
-	),
-	private = list(
-		id = generate_id()
-	)
+	)# ,
+	# private = list(
+	# 	id = generate_id()
+	# )
 )
 

@@ -44,8 +44,6 @@ StudyFactor$new()
 \item \href{#method-StudyFactor-add_comment}{\code{StudyFactor$add_comment()}}
 \item \href{#method-StudyFactor-to_list}{\code{StudyFactor$to_list()}}
 \item \href{#method-StudyFactor-from_list}{\code{StudyFactor$from_list()}}
-\item \href{#method-StudyFactor-get_id}{\code{StudyFactor$get_id()}}
-\item \href{#method-StudyFactor-set_id}{\code{StudyFactor$set_id()}}
 \item \href{#method-StudyFactor-print}{\code{StudyFactor$print()}}
 \item \href{#method-StudyFactor-clone}{\code{StudyFactor$clone()}}
 }
@@ -228,7 +226,20 @@ generate an R list representation translatable to JSON
 \describe{
 \item{\code{lst}}{a list serialization of a study factor object}
 
-\item{\code{recursive}}{call to_list methods of any objects within this object (default TRUE)}
+\item{\code{recursive}}{call to_list methods of any objects within this object (default TRUE)
+#' @details
+#' Get the uuid of this object
+#' @return a uuid
+get_id = function() {
+private$id
+},
+#' @details
+#' set the uuid of this object
+#' @param id a uuid
+#' @param suffix a human readable suffix
+set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
+private$id <- generate_id(id, suffix)
+},}
 
 \item{\code{json}}{json  (default TRUE)}
 }
@@ -236,44 +247,6 @@ generate an R list representation translatable to JSON
 }
 \subsection{Details}{
 Make \link{StudyFactor} from list
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-StudyFactor-get_id"></a>}}
-\if{latex}{\out{\hypertarget{method-StudyFactor-get_id}{}}}
-\subsection{Method \code{get_id()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{StudyFactor$get_id()}\if{html}{\out{</div>}}
-}
-
-\subsection{Details}{
-Get the uuid of this object
-}
-
-\subsection{Returns}{
-a uuid
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-StudyFactor-set_id"></a>}}
-\if{latex}{\out{\hypertarget{method-StudyFactor-set_id}{}}}
-\subsection{Method \code{set_id()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{StudyFactor$set_id(id = uuid::UUIDgenerate(), suffix = character())}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{id}}{a uuid}
-
-\item{\code{suffix}}{a human readable suffix}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-set the uuid of this object
 }
 
 }

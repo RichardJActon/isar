@@ -11,6 +11,13 @@
 #' @field components A list of [OntologyAnnotation] describing a protocol's components; e.g. instrument names, software names, and reagents names.
 #' @field comments Comments associated with instances of this class.
 #' @field @id identifier
+#'
+#' @importFrom R6 R6Class
+#' @importFrom checkmate qtest check_string check_r6 test_list
+#' @importFrom purrr map_lgl set_names map
+#' @importFrom cli cli_h1 col_blue cli_h2 col_green cli_text cli_par cli_end cli_ul
+#'
+#' @export
 Protocol <- R6::R6Class(
 	"Protocol",
 	public = list(
@@ -366,19 +373,20 @@ Protocol <- R6::R6Class(
 			}
 		},
 
-		#' @details
-		#' Get the uuid of this object
-		#' @return a uuid
-		get_id = function() {
-			private$id
-		},
-		#' @details
-		#' set the uuid of this object
-		#' @param id a uuid
-		#' @param suffix a human readable suffix
-		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
-			private$id <- generate_id(id, suffix)
-		},
+		# #' @details
+		# #' Get the uuid of this object
+		# #' @return a uuid
+		# get_id = function() {
+		# 	private$id
+		# },
+		# #' @details
+		# #' set the uuid of this object
+		# #' @param id a uuid
+		# #' @param suffix a human readable suffix
+		# set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
+		# 	private$id <- generate_id(id, suffix)
+		# },
+
 		#' @details
 		#' Pretty Prints [Protocol] objects
 		print = function() {
@@ -411,8 +419,8 @@ Protocol <- R6::R6Class(
 			}
 			pretty_print_comments(self$comments)
 		}
-	),
-	private = list(
-		id = generate_id()
-	)
+	)#  ,
+	# private = list(
+	# 	id = generate_id()
+	# )
 )

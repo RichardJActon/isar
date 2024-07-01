@@ -10,18 +10,18 @@
 #' experimental workflow described by a particular protocol.
 #'
 #'
-#' @field measurement_type An \code{[OntologyAnnotation]} to qualify the endpoint, or  what is being measured (e.g. gene expression profiling or protein  identification).
-#' @field technology_type An \code{[OntologyAnnotation]} to identify the technology  used to perform the measurement.
-#' @field technology_platform Manufacturer and platform name, e.g. Bruker AVANCE.
-#' @field filename  A field to specify the name of the assay file for compatibility with ISA-Tab.
-#' @field other_materials Materials associated with the assay.
-#' @field samples Samples associated with the assay.
-#' @field unit_references A list of units used as a [UnitReferences] object.
-#' @field characteristic_categories A list of \code{[OntologyAnnotation]} used in the annotation of material characteristics in the Assay.
-#' @field process_sequence A list of Process objects representing the experimental graphs at the Assay level.
-#' @field comments Comments associated with instances of this class.
-#' @field data_files [DataFile] objects.
-#' @field ontology_source_references an [OntologySourceReferences] object listing all the ontology sources used.
+#' @field measurement_type An [OntologyAnnotation] to qualify the endpoint, or  what is being measured (e.g. gene expression profiling or protein  identification)
+#' @field technology_type An [OntologyAnnotation] to identify the technology  used to perform the measurement
+#' @field technology_platform Manufacturer and platform name, e.g. Bruker AVANCE
+#' @field filename  A field to specify the name of the assay file for compatibility with ISA-Tab
+#' @field other_materials Materials associated with the assay
+#' @field samples Samples associated with the assay
+#' @field unit_references A list of units used as a [UnitReferences] object
+#' @field characteristic_categories A list of [OntologyAnnotation] used in the annotation of material characteristics in the Assay
+#' @field process_sequence A list of Process objects representing the experimental graphs at the Assay level
+#' @field comments Comments associated with instances of this class
+#' @field data_files [DataFile] objects
+#' @field ontology_source_references an [OntologySourceReferences] object listing all the ontology sources used
 #' @field protocols [Protocols] objects
 #' @field @id identifier
 #'
@@ -40,10 +40,8 @@ Assay <- R6::R6Class(
 		technology_type = NULL,
 		technology_platform = character(),
 		filename = character(),
-		#materials = NULL,
 		other_materials = NULL,
 		samples = NULL,
-		# units = NULL,
 		characteristic_categories = NULL,
 		process_sequence = NULL,
 		comments = NULL,
@@ -56,14 +54,14 @@ Assay <- R6::R6Class(
 		#' @details
 		#' Create a new assay
 		#'
-		#' @param measurement_type An \code{[OntologyAnnotation]} to qualify the endpoint, or  what is being measured (e.g. gene expression profiling or protein  identification).
-		#' @param technology_type An \code{[OntologyAnnotation]} to identify the technology  used to perform the measurement.
+		#' @param measurement_type An [OntologyAnnotation] to qualify the endpoint, or  what is being measured (e.g. gene expression profiling or protein  identification).
+		#' @param technology_type An [OntologyAnnotation] to identify the technology  used to perform the measurement.
 		#' @param technology_platform Manufacturer and platform name, e.g. Bruker AVANCE.
 		#' @param filename  A field to specify the name of the assay file for compatibility with ISA-Tab.
 		#' @param other_materials Materials associated with the assay.
 		#' @param samples Samples associated with the assay.
 		#' @param unit_references A list of units used as a [UnitReferences] object.
-		#' @param characteristic_categories A list of \code{[OntologyAnnotation]} used in the annotation of material characteristics in the Assay.
+		#' @param characteristic_categories A list of [OntologyAnnotation] used in the annotation of material characteristics in the Assay.
 		#' @param process_sequence A list of Process objects representing the experimental graphs at the Assay level.
 		#' @param comments Comments associated with instances of this class.
 		#' @param data_files [DataFile] objects.
@@ -75,10 +73,8 @@ Assay <- R6::R6Class(
 			technology_type = NULL,
 			technology_platform = character(),
 			filename = character(),
-			#materials = NULL,
 			other_materials = NULL,
 			samples = NULL,
-			#units = NULL,
 			characteristic_categories = NULL,
 			process_sequence = NULL,
 			comments = NULL,
@@ -109,10 +105,8 @@ Assay <- R6::R6Class(
 			} else {
 				self$set_filename(filename)
 			}
-			# self$materials <- materials
 			self$other_materials <- other_materials
 			self$samples <- samples
-			#self$units <- units
 			self$characteristic_categories <- characteristic_categories
 			self$process_sequence <- process_sequence
 			self$comments <- comments
@@ -122,12 +116,13 @@ Assay <- R6::R6Class(
 			self$unit_references <- unit_references
 			self$protocols <- protocols
 			self$`@id` <- `@id`
-			# self$string()
 		},
 		#' @details
-		#' checks the  measurement_type is an instance of \code{[OntologyAnnotation]}
+		#' checks the  measurement_type is an instance of [OntologyAnnotation]
 		#'
-		#' @param measurement_type An \code{[OntologyAnnotation]} to qualify the endpoint, or  what is being measured (e.g. gene expression profiling or protein  identification).
+		#' @param measurement_type An [OntologyAnnotation] to qualify the
+		#' endpoint, or  what is being measured
+		#' (e.g. gene expression profiling or protein  identification).
 		check_measurement_type = function(measurement_type) {
 			check <- checkmate::check_r6(measurement_type, "OntologyAnnotation")
 			if (isTRUE(check)) { return(TRUE) } else { stop(check) }
@@ -136,16 +131,19 @@ Assay <- R6::R6Class(
 		#'
 		#' set the measurement type
 		#'
-		#' @param measurement_type An \code{[OntologyAnnotation]} to qualify the endpoint, or  what is being measured (e.g. gene expression profiling or protein  identification).
+		#' @param measurement_type An [OntologyAnnotation] to qualify the
+		#' endpoint, or  what is being measured
+		#' (e.g. gene expression profiling or protein  identification).
 		set_measurement_type = function(measurement_type) {
 			if (self$check_measurement_type(measurement_type)) {
 				self$measurement_type <- measurement_type
 			}
 		},
 		#' @details
-		#' checks that technology_type an instance of \code{[OntologyAnnotation]}
+		#' checks that technology_type an instance of [OntologyAnnotation]
 		#'
-		#' @param technology_type An \code{[OntologyAnnotation]} to identify the technology  used to perform the measurement.
+		#' @param technology_type An [OntologyAnnotation] to identify the
+		#' technology  used to perform the measurement.
 		check_technology_type = function(technology_type) {
 			check <- checkmate::check_r6(technology_type, "OntologyAnnotation")
 			if (isTRUE(check)) { return(TRUE) } else { stop(check) }
@@ -154,7 +152,8 @@ Assay <- R6::R6Class(
 		#'
 		#' set the technology type
 		#'
-		#' @param technology_type An \code{[OntologyAnnotation]} to identify the technology  used to perform the measurement.
+		#' @param technology_type An [OntologyAnnotation] to identify the
+		#' technology  used to perform the measurement.
 		set_technology_type = function(technology_type) {
 			if (self$check_technology_type(technology_type)) {
 				self$technology_type <- technology_type
@@ -164,7 +163,9 @@ Assay <- R6::R6Class(
 		#' Check if the technology_platform of the assay is a string
 		#' @param technology_platform The technology_platform of the assay
 		check_technology_platform = function(technology_platform) {
-			check <- checkmate::check_string(technology_platform, min.chars = 1L)
+			check <- checkmate::check_string(
+				technology_platform, min.chars = 1L
+			)
 			error_with_check_message_on_failure(check)
 		},
 		#' @details
@@ -270,124 +271,129 @@ Assay <- R6::R6Class(
 		},
 		#' @details
 		#'
-		#' Make \code{[Assay]} from list
+		#' Make [Assay] from list
 		#'
 		#' @param lst an ontology source object serialized to a list
 		#' @param recursive recursively parse
 		#' @param json reading from json
 		from_list = function(lst, recursive = TRUE, json = TRUE) {
-			if (json) {
-				# if (recursive) {}
-				self$`@id` <- lst$`@id`
+			self$`@id` <- lst$`@id`
 
-				self$measurement_type <- OntologyAnnotation$new(
-					ontology_source_references = self$ontology_source_references
+			self$measurement_type <- OntologyAnnotation$new(
+				ontology_source_references = self$ontology_source_references
+			)
+
+			if (!is.null(self$unit_references)) {
+				self$unit_references <- UnitReferences$new(
+					ontology_source_references =
+						self$ontology_source_references#,
+					#unit_references = self$unit_references
 				)
+			}
 
-				if (!is.null(self$unit_references)) {
-					self$unit_references <- UnitReferences$new(
+			if (!checkmate::test_list(lst[["unitCategories"]], len = 0)) {
+				#browser()
+				self$unit_references$from_list(
+					lst[["unitCategories"]], source = self$`@id`,
+					add = TRUE#,
+					#recursive = recursive, json = json
+				)
+			}
+
+			if (is.null(self$characteristic_categories)) {
+				self$characteristic_categories <-
+					CharacteristicCategoryReferences$new(
 						ontology_source_references =
 							self$ontology_source_references,
+						unit_references = self$unit_references,
+						source = self$`@id`
+					)
+			}
+			# add any categories not found in the supplied reference
+			self$characteristic_categories$from_list(
+				lst[["characteristicCategories"]], # source ?
+				explicitly_provided = TRUE, add = TRUE, source = self$`@id`
+			)
+
+			self$measurement_type$from_list(
+				lst[["measurementType"]], recursive = recursive, json = json
+			)
+			self$technology_type <- OntologyAnnotation$new(
+				ontology_source_references = self$ontology_source_references
+			)
+			self$technology_type$from_list(
+				lst[["technologyType"]], recursive = recursive, json = json
+			)
+			#self$data_files <- lst[["dataFiles"]]
+			self$data_files <-
+				lst[["dataFiles"]] %>%
+				purrr::set_names(purrr::map_chr(., ~.x$`@id`)) %>%
+				purrr::map( ~{
+					df <- DataFile$new()
+					df$from_list(.x, json = json)
+					df
+				})
+
+			self$technology_platform <- lst[["technologyPlatform"]]
+			self$filename <- lst[["filename"]]
+
+			#self$materials <- lst[["materials"]]
+			self$other_materials <-
+				lst[["materials"]][["otherMaterials"]] %>%
+				purrr::set_names(purrr::map_chr(., ~.x$`@id`)) %>%
+				purrr::map(~{
+					m <- Material$new(
+						ontology_source_references =
+							self$ontology_source_references,
+						characteristic_categories =
+							self$characteristic_categories,
 						unit_references = self$unit_references
 					)
+					m$from_list(.x, recursive = recursive, json = json)
+					m
+				})
+
+			self$samples <- self$samples[
+				purrr::map_chr(lst[["materials"]][["samples"]], ~.x$`@id`)
+			]
+
+			# process_sequence_order <- get_process_sequence_order_from_json(
+			# 	lst[["processSequence"]]
+			# )
+
+			self$process_sequence <- purrr::map(
+				lst[["processSequence"]], ~{
+					ps <- Process$new(protocols = self$protocols)
+					ps$from_list(.x, recursive = recursive, json = json) # recursive!
+					ps
 				}
+			)#[order(process_sequence_order)]
 
-				if (!checkmate::test_list(lst[["unitCategories"]], len = 0)) {
-					self$unit_references$from_list(
-						lst[["unitCategories"]], source = self$`@id`,
-						add = TRUE,
-						recursive = recursive, json = json
-					)
-				}
+			self$comments <- lst[["comments"]]
+			# self$graph <- lst[["graph"]]
+		},
+		#' @details
+		#' Pretty prints [Assay] objects
+		print = function() { # ⚖️
+			cli::cli_h1(cli::col_blue("Assay ⚖️️"))
 
-				if (is.null(self$characteristic_categories)) {
-					self$characteristic_categories <-
-						CharacteristicCategoryReferences$new(
-							ontology_source_references =
-								self$ontology_source_references,
-							unit_references = self$unit_references,
-							source = self$`@id`
-						)
-				}
-				# add any categories not found in the supplied reference
-				self$characteristic_categories$from_list(
-					lst[["characteristicCategories"]], # source ?
-					explicitly_provided = TRUE, add = TRUE, source = self$`@id`
-				)
+			green_bold_name_plain_content("@id", self$`@id`)
+			green_bold_name_plain_content("Measurement Type", self$measurement_type)
+			green_bold_name_plain_content("Technology Type", self$technology_type)
+			# green_bold_name_plain_content("", self$technology_platform)
+			green_bold_name_plain_content("Filename", self$filename)
+			# green_bold_name_plain_content("", self$other_materials)
+			# green_bold_name_plain_content("", self$samples)
+			# green_bold_name_plain_content("", self$unit_references)
+			# green_bold_name_plain_content("", self$characteristic_categories)
+			# green_bold_name_plain_content("", self$process_sequence)
+			#
+			# green_bold_name_plain_content("", self$data_files)
+			# green_bold_name_plain_content("", self$ontology_source_references)
+			# green_bold_name_plain_content("", self$protocols)
 
-				self$measurement_type$from_list(
-					lst[["measurementType"]], recursive = recursive, json = json
-				)
-				self$technology_type <- OntologyAnnotation$new(
-					ontology_source_references = self$ontology_source_references
-				)
-				self$technology_type$from_list(
-					lst[["technologyType"]], recursive = recursive, json = json
-				)
-				#self$data_files <- lst[["dataFiles"]]
-				self$data_files <-
-					lst[["dataFiles"]] %>%
-					purrr::set_names(purrr::map_chr(., ~.x$`@id`)) %>%
-					purrr::map( ~{
-						df <- DataFile$new()
-						df$from_list(.x, json = json)
-						df
-					})
-
-				self$technology_platform <- lst[["technologyPlatform"]]
-				self$filename <- lst[["filename"]]
-
-				#self$materials <- lst[["materials"]]
-				self$other_materials <-
-					lst[["materials"]][["otherMaterials"]] %>%
-					purrr::set_names(purrr::map_chr(., ~.x$`@id`)) %>%
-					purrr::map(~{
-						m <- Material$new(
-							ontology_source_references =
-								self$ontology_source_references,
-							characteristic_categories =
-								self$characteristic_categories,
-							unit_references = self$unit_references
-						)
-						m$from_list(.x, recursive = recursive, json = json)
-						m
-					})
-
-				self$samples <- self$samples[
-					purrr::map_chr(lst[["materials"]][["samples"]], ~.x$`@id`)
-				]
-
-				# process_sequence_order <- get_process_sequence_order_from_json(
-				# 	lst[["processSequence"]]
-				# )
-
-				self$process_sequence <- purrr::map(
-					lst[["processSequence"]], ~{
-						ps <- Process$new(protocols = self$protocols)
-						ps$from_list(.x, recursive = recursive, json = json) # recursive!
-						ps
-					}
-				)#[order(process_sequence_order)]
-
-				self$comments <- lst[["comments"]]
-				# self$graph <- lst[["graph"]]
-			} else {
-				self$measurement_type <- lst[["measurement_type"]]
-				self$technology_type <- lst[["technology_type"]]
-
-				self$technology_platform <- lst[["technology_platform"]]
-				self$filename <- lst[["filename"]]
-				self$materials <- lst[["materials"]]
-
-				self$units <- lst[["units"]]
-				self$characteristic_categories <- lst[["characteristic_categories"]]
-
-				self$process_sequence <- lst[["process_sequence"]]
-				self$comments <- lst[["comments"]]
-				self$graph <- lst[["graph"]]
-			}
+			pretty_print_comments(self$comments)
 		}
-
 		# #' @details
 		# #'
 		# #' stringify

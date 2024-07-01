@@ -14,10 +14,11 @@
 #' @field comments comments
 #' @field @id identifier
 #'
+#' @importFrom R6 R6Class
 #' @importFrom checkmate check_r6
 #'
 #' @export
-FactorValue <- R6Class(
+FactorValue <- R6::R6Class(
 	"FactorValue",
 	#inherit = StudyFactor,
 	public = list(
@@ -111,15 +112,15 @@ FactorValue <- R6Class(
 			self$`@id` <- `@id`
 		},
 		#' @details
-		#' check if unit is a \code{[Unit]} object
-		#' @param unit a \code{[Unit]} object
+		#' check if unit is a [Unit] object
+		#' @param unit a [Unit] object
 		check_unit = function(unit) {
 			check <- checkmate::check_r6(unit, "Unit")
 			error_with_check_message_on_failure(check)
 		},
 		#' @details
 		#' set unit if input is valid
-		#' @param unit a \code{[Unit]} object
+		#' @param unit a [Unit] object
 		set_unit = function(unit) {
 			if(self$check_unit(unit)) { self$unit <- unit }
 		},
@@ -230,7 +231,8 @@ FactorValue <- R6Class(
 							self$ontology_source_references,
 						unit_references = self$unit_references
 					)
-					self$unit <- self$unit$from_list(lst[["unit"]])
+					#self$unit <-
+					self$unit$from_list(lst[["unit"]])
 				}
 				self$set_comments(lst[["comments"]])
 			} else {

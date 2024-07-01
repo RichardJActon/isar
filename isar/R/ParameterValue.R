@@ -74,14 +74,14 @@ ParameterValue <- R6::R6Class(
 		#' generate an R list representation translatable to JSON
 		#' @param ld logical json-ld
 		to_list = function(ld = FALSE) {
-			parameter_value = list(
+			lst <- list(
 				"id" = private$id,
 				"category" = self$category,
 				"value" = self$value,
 				"unit" = self$unit,
 				"comments" = self$comments
 			)
-			return(parameter_value)
+			return(lst)
 		},
 
 		#' @details
@@ -98,7 +98,7 @@ ParameterValue <- R6::R6Class(
 				self$unit <- lst[["unit"]]
 				self$comments <- lst[["comments"]]
 			} else {
-				private$id <- lst[["id"]]
+				# private$id <- lst[["id"]]
 				self$category <- lst[["category"]]
 				self$value <- lst[["value"]]
 				self$unit <- lst[["unit"]]
@@ -106,12 +106,13 @@ ParameterValue <- R6::R6Class(
 			}
 		},
 
-		#' @details
-		#' Get the uuid of this object
-		#' @return a uuid
-		get_id = function() {
-			private$id
-		},
+		# #' @details
+		# #' Get the uuid of this object
+		# #' @return a uuid
+		# get_id = function() {
+		# 	private$id
+		# #' },
+
 		#' @details
 		#' Get the value and unit of this parameter value as a combined string
 		#' @return a string
@@ -125,8 +126,8 @@ ParameterValue <- R6::R6Class(
 		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
 			private$id <- generate_id(id, suffix)
 		}
-	),
-	private = list(
-		id = generate_id()
-	)
+	)#,
+	# private = list(
+	# 	id = generate_id()
+	# )
 )

@@ -11,7 +11,7 @@ possible use of  https://docs.ropensci.org/rcrossref/index.html
 
 consider a strict mode where the ID must be able to be identified in suitable databases
 
-Create a new \code{[Publication]} Object
+Create a new [Publication Object
 
 Check for a valid PubMed ID
 
@@ -21,13 +21,13 @@ Check for a valid DOI (Digital Object Identifier)
 
 Set the DOI (Digital Object Identifier) if valid
 
-Check that all Authors listed are represented with \code{[Person]} objects
+Check that all Authors listed are represented with [Person objects
 
 Set the list of authors of the Investigation or Study if they are valid
 
 Check the the title has a non-zero length
 
-Set the title of the \code{[Publication]}
+Set the title of the [Publication
 
 checks if comments are a named list of character vectors
 
@@ -37,7 +37,7 @@ Add comment if it is in a valid format
 
 convert the Publication object to a list
 
-Generate a \code{[Publication]} object from a list
+Generate a [Publication object from a list
 
 Pretty prints \link{Publication} objects
 }

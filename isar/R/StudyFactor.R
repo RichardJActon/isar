@@ -141,33 +141,35 @@ StudyFactor <- R6::R6Class(
 			}
 		},
 
-		#' @details
-		#' Get the uuid of this object
-		#' @return a uuid
-		get_id = function() {
-			private$id
-		},
-		#' @details
-		#' set the uuid of this object
-		#' @param id a uuid
-		#' @param suffix a human readable suffix
-		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
-			private$id <- generate_id(id, suffix)
-		},
+		#' #' @details
+		#' #' Get the uuid of this object
+		#' #' @return a uuid
+		#' get_id = function() {
+		#' 	private$id
+		#' },
+
+				#' #' @details
+		#' #' set the uuid of this object
+		#' #' @param id a uuid
+		#' #' @param suffix a human readable suffix
+		#' set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
+		#' 	private$id <- generate_id(id, suffix)
+		#' },
+
 		#' @details
 		#' Pretty prints [StudyFactor] objects
 		print = function() {
 			cli::cli_h1(cli::col_blue("Study Factor"))
 			green_bold_name_plain_content("@id", self$`@id`)
-			green_bold_name_plain_content("ID", private$id)
+			# green_bold_name_plain_content("ID", private$id)
 			green_bold_name_plain_content("factor name", self$factor_name)
 			green_bold_name_plain_content("factor type", self$factor_type$term)
 			#pretty_print_comments(self$comments)
 		}
-	),
+	)# ,
 	# active = list(
 	# ),
-	private = list(
-		id = generate_id()
-	)
+	# private = list(
+	# 	id = generate_id()
+	# )
 )

@@ -41,7 +41,7 @@ R6 class for UnitReferences
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{unit_references}}{A list of units used as a \link{UnitReferences} object}
+\item{\code{unit_references}}{A list of units used as a \link{Unit} object}
 
 \item{\code{ontology_source_references}}{\link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor}
 }

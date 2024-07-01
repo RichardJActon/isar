@@ -52,8 +52,6 @@ Represents a data file in an experimental graph.
 \item \href{#method-DataFile-from_list}{\code{DataFile$from_list()}}
 \item \href{#method-DataFile-print}{\code{DataFile$print()}}
 \item \href{#method-DataFile-get_hash}{\code{DataFile$get_hash()}}
-\item \href{#method-DataFile-get_id}{\code{DataFile$get_id()}}
-\item \href{#method-DataFile-set_id}{\code{DataFile$set_id()}}
 \item \href{#method-DataFile-clone}{\code{DataFile$clone()}}
 }
 }
@@ -389,46 +387,8 @@ Get the hash of the file
 }
 
 \subsection{Returns}{
-a uuid
+a hash
 }
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-DataFile-get_id"></a>}}
-\if{latex}{\out{\hypertarget{method-DataFile-get_id}{}}}
-\subsection{Method \code{get_id()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DataFile$get_id()}\if{html}{\out{</div>}}
-}
-
-\subsection{Details}{
-Get the uuid of this object
-}
-
-\subsection{Returns}{
-a uuid
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-DataFile-set_id"></a>}}
-\if{latex}{\out{\hypertarget{method-DataFile-set_id}{}}}
-\subsection{Method \code{set_id()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DataFile$set_id(id = uuid::UUIDgenerate(), suffix = character())}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{id}}{a uuid}
-
-\item{\code{suffix}}{a human readable suffix}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-set the uuid of this object
-}
-
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DataFile-clone"></a>}}

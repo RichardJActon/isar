@@ -4,8 +4,10 @@
 #' @importFrom checkmate check_list test_string
 #' @importFrom purrr map_lgl
 #'
-#' @importFrom checkmate check_list test_string
-#' @importFrom purrr map_lgl
+#' @importFrom checkmate check_list test_string test_date
+#' @importFrom purrr map_lgl iwalk
+#' @importFrom cli col_red col_green col_yellow col_red col_cyan style_bold cli_h2 cli_h3 cli_text
+#'
 check_comments <- function(comments) {
 	check <- checkmate::check_list(
 		comments, min.len = 1, types = "character", names = "named",
@@ -157,24 +159,30 @@ date_string_conversion <- function(date_string) {
 				"\n",
 				#emo::ji("rage"),
 				"😡",
-				crayon::red(crayon::bold(" Date is not formated correctly!\n")),
+				cli::col_red(cli::style_bold(" Date is not formated correctly!\n")),
+				# crayon::red(crayon::bold(" Date is not formated correctly!\n")),
 				#emo::ji("halo"),
 				"😇",
-				crayon::green(
-					" Please use ISO8601 compliant date strings: YYYY-mm-dd\n"
-				),
+				cli::col_green(" Please use ISO8601 compliant date strings: YYYY-mm-dd\n"),
+				# crayon::green(
+				# 	" Please use ISO8601 compliant date strings: YYYY-mm-dd\n"
+				# ),
+
 				#emo::ji("worried"),
 				"😟",
-				crayon::yellow(
-					" Attempting other date formats...\n"
-
-				),
-				crayon::yellow(crayon::bold(
-				"This may result in errors!\n"
-				)),
-				crayon::yellow(
-					"There may be ambiguity in other date formats please use the correct one!"
-				)
+				cli::col_yellow(" Attempting other date formats...\n"),
+				# crayon::yellow(
+				# 	" Attempting other date formats...\n"
+				#
+				# ),
+				cli::col_yellow(cli::style_bold("This may result in errors!\n")),
+				# crayon::yellow(crayon::bold(
+				# "This may result in errors!\n"
+				# )),
+				cli::col_yellow("There may be ambiguity in other date formats please use the correct one!")
+				# crayon::yellow(
+				# 	"There may be ambiguity in other date formats please use the correct one!"
+				# )
 			))
 		}
 	)
@@ -192,7 +200,8 @@ date_string_conversion <- function(date_string) {
 				stop(paste0(
 					#emo::ji("disappointed"),
 					"😞",
-					crayon::red(" No Valid Date format found!")
+					cli::col_red(" No Valid Date format found!")
+					#crayon::red(" No Valid Date format found!")
 				))
 			}
 		)

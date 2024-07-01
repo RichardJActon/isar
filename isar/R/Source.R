@@ -9,6 +9,7 @@
 #'
 #'
 #' @importFrom R6 R6Class
+#' @importFrom  purrr map
 #'
 #' @export
 Source <- R6::R6Class(
@@ -101,8 +102,8 @@ Source <- R6::R6Class(
 			))
 			pretty_print_comments(self$comments)
 		}
-	),
-	private = list(
-		id = generate_id()
-	)
+	)# ,
+	# private = list(
+	# 	id = generate_id()
+	# )
 )

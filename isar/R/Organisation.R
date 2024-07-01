@@ -2,6 +2,7 @@
 #'
 #' @field comments comments associated with instances of this class.
 #'
+#' @importFrom R6 R6Class
 #' @importFrom uuid UUIDgenerate
 #'
 #' @export
@@ -42,7 +43,7 @@ Organisation <- R6::R6Class(
 		#' Organisation$new()
 		to_list = function(ld = FALSE) {
 			person = list(
-				"id" = private$id,
+				# "id" = private$id,
 
 				"comments" = self$comments
 			)
@@ -51,29 +52,29 @@ Organisation <- R6::R6Class(
 
 		#' @details
 		#'
-		#' Make \code{[Organisation]} from list
+		#' Make [Organisation] from list
 		#'
-		#' @param lst an \code{[Organisation]} object serialized to a list
+		#' @param lst an [Organisation] object serialized to a list
 		from_list = function(lst) {
-			private$id <- lst[["id"]]
+			# private$id <- lst[["id"]]
 
 			self$comments <- lst[["comments"]]
-		},
-		#' @details
-		#' Get the uuid of this object
-		#' @return a uuid
-		get_id = function() {
-			private$id
-		},
-		#' @details
-		#' set the uuid of this object
-		#' @param id a uuid
-		#' @param suffix a human readable suffix
-		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
-			private$id <- generate_id(id, suffix)
-		}
-	),
-	private = list(
-		id = generate_id()
-	)
+		}# ,
+		# #' @details
+		# #' Get the uuid of this object
+		# #' @return a uuid
+		# get_id = function() {
+		# 	private$id
+		# },
+		# #' @details
+		# #' set the uuid of this object
+		# #' @param id a uuid
+		# #' @param suffix a human readable suffix
+		# set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
+		# 	private$id <- generate_id(id, suffix)
+		# }
+	)# ,
+	# private = list(
+	# 	id = generate_id()
+	# )
 )

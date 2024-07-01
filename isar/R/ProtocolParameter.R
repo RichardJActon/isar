@@ -6,7 +6,10 @@
 #' @field @id identifier
 #'
 #' @importFrom R6 R6Class
+#' @importFrom checkmate check_r6
 #' @importFrom uuid UUIDgenerate
+#'
+#' @export
 ProtocolParameter <- R6::R6Class(
 	"ProtocolParameter",
 	public = list(
@@ -15,7 +18,7 @@ ProtocolParameter <- R6::R6Class(
 		comments = NULL,
 		`@id` = character(),
 		#' @details
-		#' Create a new \code{[ProtocolParameter]} object
+		#' Create a new [ProtocolParameter] object
 		#' @param parameter_name A parameter name as an ontology term
 		#' @param ontology_source_references an [OntologySourceReferences] object
 		#' @param comments Comments associated with instances of this class.
@@ -36,8 +39,8 @@ ProtocolParameter <- R6::R6Class(
 			self$`@id` <- `@id`
 		},
 		#' @details
-		#' Check that parameter_name is an \code{[OntologyAnnotation]} object
-		#' @param parameter_name an \code{[OntologyAnnotation]} object
+		#' Check that parameter_name is an [OntologyAnnotation] object
+		#' @param parameter_name an [OntologyAnnotation] object
 		check_parameter_name = function(parameter_name) {
 			check <- checkmate::check_r6(parameter_name, "OntologyAnnotation")
 			error_with_check_message_on_failure(
@@ -46,7 +49,7 @@ ProtocolParameter <- R6::R6Class(
 		},
 		#' @details
 		#' Set parameter_name if input is valid
-		#' @param parameter_name an \code{[OntologyAnnotation]} object
+		#' @param parameter_name an [OntologyAnnotation] object
 		set_parameter_name = function(parameter_name) {
 			if(self$check_parameter_name(parameter_name)) {
 				self$parameter_name <- parameter_name
@@ -91,12 +94,12 @@ ProtocolParameter <- R6::R6Class(
 
 		#' @details
 		#'
-		#' Make \code{[OntologyAnnotation]} from list
+		#' Make [OntologyAnnotation] from list
 		#'
-		#' @param lst an \code{[OntologyAnnotation]} object serialized to a list
+		#' @param lst an [OntologyAnnotation] object serialized to a list
 		#' @param recursive use the `from_list()` method on list items that are also isar objects (default = TRUE)
 		from_list = function(lst, recursive = TRUE) {
-			private$id <- lst[["id"]]
+			# private$id <- lst[["id"]]
 			self$`@id` <- lst[["@id"]]
 			if(recursive) {
 				self$parameter_name <- OntologyAnnotation$new(
@@ -117,19 +120,20 @@ ProtocolParameter <- R6::R6Class(
 			self$comments <- lst[["comments"]]
 		},
 
-		#' @details
-		#' Get the uuid of this object
-		#' @return a uuid
-		get_id = function() {
-			private$id
-		},
-		#' @details
-		#' set the uuid of this object
-		#' @param id a uuid
-		#' @param suffix a human readable suffix
-		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
-			private$id <- generate_id(id, suffix)
-		},
+		# #' @details
+		# #' Get the uuid of this object
+		# #' @return a uuid
+		# get_id = function() {
+		# 	private$id
+		# },
+		# #' @details
+		# #' set the uuid of this object
+		# #' @param id a uuid
+		# #' @param suffix a human readable suffix
+		# set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
+		# 	private$id <- generate_id(id, suffix)
+		# },
+
 		#' @details
 		#' Pretty Prints [ProtocolParameter] objects
 		print = function() {
@@ -145,9 +149,9 @@ ProtocolParameter <- R6::R6Class(
 			# green_bold_name_plain_content("ID", private$id)
 			pretty_print_comments(self$comments)
 		}
-	),
-	private = list(
-		id = generate_id()
-	)
+	)# ,
+	# private = list(
+	# 	id = generate_id()
+	# )
 )
 

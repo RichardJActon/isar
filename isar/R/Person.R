@@ -24,8 +24,10 @@
 #' @field ontology_source_references an [OntologySourceReferences] object
 #'
 #'
-#' @importFrom checkmate qtest
 #' @importFrom R6 R6Class
+#' @importFrom checkmate qtest
+#' @importFrom purrr map
+#' @importFrom cli cli_h1 col_blue cli_h2 col_cyan
 #' @importFrom uuid UUIDgenerate
 #'
 #' @export
@@ -262,19 +264,19 @@ Person <- R6::R6Class(
 				self$comments <- lst[["comments"]]
 			}
 		},
-		#' @details
-		#' Get the uuid of this object
-		#' @return a uuid
-		get_id = function() {
-			private$id
-		},
-		#' @details
-		#' set the uuid of this object
-		#' @param id a uuid
-		#' @param suffix a human readable suffix
-		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
-			private$id <- generate_id(id, suffix)
-		},
+		# #' @details
+		# #' Get the uuid of this object
+		# #' @return a uuid
+		# get_id = function() {
+		# 	private$id
+		# },
+		# #' @details
+		# #' set the uuid of this object
+		# #' @param id a uuid
+		# #' @param suffix a human readable suffix
+		# set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
+		# 	private$id <- generate_id(id, suffix)
+		# },
 		#' @details
 		#' Combine first name, middle initials, & last name
 		#' @return string of full name
@@ -319,9 +321,9 @@ Person <- R6::R6Class(
 			# )
 			pretty_print_comments(self$comments)
 		}
-	),
-	private = list(
-		id = generate_id()
-	)
+	)# ,
+	# private = list(
+	# 	id = generate_id()
+	# )
 )
 

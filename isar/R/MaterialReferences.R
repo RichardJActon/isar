@@ -8,6 +8,8 @@
 #' @field material_references a list of [Material] objects
 #'
 #' @importFrom R6 R6Class
+#' @importFrom purrr map map_chr map_lgl
+#' @importFrom checkmate test_list test_r6
 #'
 #' @export
 MaterialReferences <- R6::R6Class(

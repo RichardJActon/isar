@@ -6,6 +6,9 @@
 #' @field unit_references A list of units used as a [UnitReferences] object
 #'
 #' @importFrom R6 R6Class
+#' @importFrom checkmate test_list test_r6 check_logical
+#' @importFrom purrr map_lgl map set_names map_chr
+#' @importFrom cli cli_h1 col_blue
 #'
 #' @export
 StudyFactorReferences <- R6::R6Class(
@@ -81,8 +84,8 @@ StudyFactorReferences <- R6::R6Class(
 				sf <- StudyFactor$new(
 					explicitly_provided = explicitly_provided,
 					ontology_source_references =
-						self$ontology_source_references,
-					unit_references = self$unit_references
+						self$ontology_source_references#,
+					#unit_references = self$unit_references
 				)
 				sf$from_list(.x)
 				sf

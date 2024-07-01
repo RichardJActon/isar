@@ -166,12 +166,13 @@ Material <- R6::R6Class(
 			self$comments <- lst[["comments"]]
 		},
 
-		#' @details
-		#' Get the uuid of this object
-		#' @return a uuid
-		get_id = function() {
-			private$id
-		},
+		# #' @details
+		# #' Get the uuid of this object
+		# #' @return a uuid
+		# get_id = function() {
+		# 	private$id
+		# },
+
 		#' @details
 		#' set the uuid of this object
 		#' @param id a uuid
@@ -185,7 +186,7 @@ Material <- R6::R6Class(
 			cli::cli_h1(cli::col_blue("Material"))
 			green_bold_name_plain_content("Name", self$name)
 			green_bold_name_plain_content("Type", self$type)
-			green_bold_name_plain_content("ID", self$get_id())
+			# green_bold_name_plain_content("ID", self$get_id())
 			green_bold_name_plain_content("@id", self$`@id`)
 			cli::cli_h2(cli::col_cyan("Characteristics"))
 			purrr::walk(
@@ -200,8 +201,8 @@ Material <- R6::R6Class(
 			#green_bold_name_plain_content("unit", self$unit)
 			pretty_print_comments(self$comments)
 		}
-	),
-	private = list(
-		id = generate_id()
-	)
+	)# ,
+	# private = list(
+	# 	id = generate_id()
+	# )
 )

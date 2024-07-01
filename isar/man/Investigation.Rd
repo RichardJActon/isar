@@ -72,7 +72,6 @@ An investigation maintains metadata about the project context and links to one o
 \item \href{#method-Investigation-add_comment}{\code{Investigation$add_comment()}}
 \item \href{#method-Investigation-to_list}{\code{Investigation$to_list()}}
 \item \href{#method-Investigation-from_list}{\code{Investigation$from_list()}}
-\item \href{#method-Investigation-get_id}{\code{Investigation$get_id()}}
 \item \href{#method-Investigation-set_id}{\code{Investigation$set_id()}}
 \item \href{#method-Investigation-print}{\code{Investigation$print()}}
 \item \href{#method-Investigation-clone}{\code{Investigation$clone()}}
@@ -553,22 +552,6 @@ generate an R list representation translatable to JSON
 Make \link{Investigation} from list
 }
 
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Investigation-get_id"></a>}}
-\if{latex}{\out{\hypertarget{method-Investigation-get_id}{}}}
-\subsection{Method \code{get_id()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Investigation$get_id()}\if{html}{\out{</div>}}
-}
-
-\subsection{Details}{
-Get the uuid of this object
-}
-
-\subsection{Returns}{
-a uuid
-}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Investigation-set_id"></a>}}

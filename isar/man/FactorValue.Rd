@@ -130,12 +130,12 @@ FactorValue$new(
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{unit}}{a \code{[Unit]} object}
+\item{\code{unit}}{a \link{Unit} object}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-check if unit is a \code{[Unit]} object
+check if unit is a \link{Unit} object
 }
 
 }
@@ -150,7 +150,7 @@ check if unit is a \code{[Unit]} object
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{unit}}{a \code{[Unit]} object}
+\item{\code{unit}}{a \link{Unit} object}
 }
 \if{html}{\out{</div>}}
 }

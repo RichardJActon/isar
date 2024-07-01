@@ -16,29 +16,29 @@ experimental workflow described by a particular protocol.
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{measurement_type}}{An \code{[OntologyAnnotation]} to qualify the endpoint, or  what is being measured (e.g. gene expression profiling or protein  identification).}
+\item{\code{measurement_type}}{An \link{OntologyAnnotation} to qualify the endpoint, or  what is being measured (e.g. gene expression profiling or protein  identification)}
 
-\item{\code{technology_type}}{An \code{[OntologyAnnotation]} to identify the technology  used to perform the measurement.}
+\item{\code{technology_type}}{An \link{OntologyAnnotation} to identify the technology  used to perform the measurement}
 
-\item{\code{technology_platform}}{Manufacturer and platform name, e.g. Bruker AVANCE.}
+\item{\code{technology_platform}}{Manufacturer and platform name, e.g. Bruker AVANCE}
 
-\item{\code{filename}}{A field to specify the name of the assay file for compatibility with ISA-Tab.}
+\item{\code{filename}}{A field to specify the name of the assay file for compatibility with ISA-Tab}
 
-\item{\code{other_materials}}{Materials associated with the assay.}
+\item{\code{other_materials}}{Materials associated with the assay}
 
-\item{\code{samples}}{Samples associated with the assay.}
+\item{\code{samples}}{Samples associated with the assay}
 
-\item{\code{unit_references}}{A list of units used as a \link{UnitReferences} object.}
+\item{\code{unit_references}}{A list of units used as a \link{UnitReferences} object}
 
-\item{\code{characteristic_categories}}{A list of \code{[OntologyAnnotation]} used in the annotation of material characteristics in the Assay.}
+\item{\code{characteristic_categories}}{A list of \link{OntologyAnnotation} used in the annotation of material characteristics in the Assay}
 
-\item{\code{process_sequence}}{A list of Process objects representing the experimental graphs at the Assay level.}
+\item{\code{process_sequence}}{A list of Process objects representing the experimental graphs at the Assay level}
 
-\item{\code{comments}}{Comments associated with instances of this class.}
+\item{\code{comments}}{Comments associated with instances of this class}
 
-\item{\code{data_files}}{\link{DataFile} objects.}
+\item{\code{data_files}}{\link{DataFile} objects}
 
-\item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object listing all the ontology sources used.}
+\item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object listing all the ontology sources used}
 
 \item{\code{protocols}}{\link{Protocols} objects}
 
@@ -63,6 +63,7 @@ experimental workflow described by a particular protocol.
 \item \href{#method-Assay-add_comment}{\code{Assay$add_comment()}}
 \item \href{#method-Assay-to_list}{\code{Assay$to_list()}}
 \item \href{#method-Assay-from_list}{\code{Assay$from_list()}}
+\item \href{#method-Assay-print}{\code{Assay$print()}}
 \item \href{#method-Assay-clone}{\code{Assay$clone()}}
 }
 }
@@ -92,9 +93,9 @@ experimental workflow described by a particular protocol.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{measurement_type}}{An \code{[OntologyAnnotation]} to qualify the endpoint, or  what is being measured (e.g. gene expression profiling or protein  identification).}
+\item{\code{measurement_type}}{An \link{OntologyAnnotation} to qualify the endpoint, or  what is being measured (e.g. gene expression profiling or protein  identification).}
 
-\item{\code{technology_type}}{An \code{[OntologyAnnotation]} to identify the technology  used to perform the measurement.}
+\item{\code{technology_type}}{An \link{OntologyAnnotation} to identify the technology  used to perform the measurement.}
 
 \item{\code{technology_platform}}{Manufacturer and platform name, e.g. Bruker AVANCE.}
 
@@ -104,7 +105,7 @@ experimental workflow described by a particular protocol.
 
 \item{\code{samples}}{Samples associated with the assay.}
 
-\item{\code{characteristic_categories}}{A list of \code{[OntologyAnnotation]} used in the annotation of material characteristics in the Assay.}
+\item{\code{characteristic_categories}}{A list of \link{OntologyAnnotation} used in the annotation of material characteristics in the Assay.}
 
 \item{\code{process_sequence}}{A list of Process objects representing the experimental graphs at the Assay level.}
 
@@ -138,12 +139,14 @@ Create a new assay
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{measurement_type}}{An \code{[OntologyAnnotation]} to qualify the endpoint, or  what is being measured (e.g. gene expression profiling or protein  identification).}
+\item{\code{measurement_type}}{An \link{OntologyAnnotation} to qualify the
+endpoint, or  what is being measured
+(e.g. gene expression profiling or protein  identification).}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-checks the  measurement_type is an instance of \code{[OntologyAnnotation]}
+checks the  measurement_type is an instance of \link{OntologyAnnotation}
 }
 
 }
@@ -158,7 +161,9 @@ checks the  measurement_type is an instance of \code{[OntologyAnnotation]}
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{measurement_type}}{An \code{[OntologyAnnotation]} to qualify the endpoint, or  what is being measured (e.g. gene expression profiling or protein  identification).}
+\item{\code{measurement_type}}{An \link{OntologyAnnotation} to qualify the
+endpoint, or  what is being measured
+(e.g. gene expression profiling or protein  identification).}
 }
 \if{html}{\out{</div>}}
 }
@@ -178,12 +183,13 @@ set the measurement type
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{technology_type}}{An \code{[OntologyAnnotation]} to identify the technology  used to perform the measurement.}
+\item{\code{technology_type}}{An \link{OntologyAnnotation} to identify the
+technology  used to perform the measurement.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-checks that technology_type an instance of \code{[OntologyAnnotation]}
+checks that technology_type an instance of \link{OntologyAnnotation}
 }
 
 }
@@ -198,7 +204,8 @@ checks that technology_type an instance of \code{[OntologyAnnotation]}
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{technology_type}}{An \code{[OntologyAnnotation]} to identify the technology  used to perform the measurement.}
+\item{\code{technology_type}}{An \link{OntologyAnnotation} to identify the
+technology  used to perform the measurement.}
 }
 \if{html}{\out{</div>}}
 }
@@ -387,7 +394,20 @@ make an R list convertible to json
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Make \code{[Assay]} from list
+Make \link{Assay} from list
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Assay-print"></a>}}
+\if{latex}{\out{\hypertarget{method-Assay-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Assay$print()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Pretty prints \link{Assay} objects
 }
 
 }
