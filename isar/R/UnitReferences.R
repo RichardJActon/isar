@@ -1,8 +1,11 @@
 #' R6 class for UnitReferences
 #'
-#' @field unit_references ...
+#' @field unit_references A list of units used as a [UnitReferences] object
+#' @field ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor
 #'
 #' @importFrom R6 R6Class
+#' @importFrom checkmate test_list test_r6
+#' @importFrom purrr map_lgl map set_names map_chr
 #'
 #' @export
 UnitReferences <- R6::R6Class(
@@ -10,6 +13,8 @@ UnitReferences <- R6::R6Class(
 	public = list(
 		unit_references = NULL,
 		ontology_source_references = NULL,
+		#' @param unit_references A list of units used as a [UnitReferences] object
+		#' @param ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor
 		initialize = function(
 			unit_references = NULL,
 			ontology_source_references = NULL
@@ -17,6 +22,9 @@ UnitReferences <- R6::R6Class(
 			self$unit_references <- unit_references
 			self$ontology_source_references <- ontology_source_references
 		},
+		#' @details
+		#' Check if this input is a list of [Unit] objects
+		#' @param units  a list of [Unit] objects
 		check_unit_references = function(units) {
 			if (
 				checkmate::test_list(units, names = "unique", min.len = 1) &&
@@ -26,24 +34,42 @@ UnitReferences <- R6::R6Class(
 				stop("Unit references must be a uniquely named list of Unit objects!")
 			}
 		},
+		#' @details
+		#' Set new units of the unit reference, overwrites current units
+		#' @param units a list of [Unit] objects
 		set_unit_references = function(units) {
 			if(self$check_unit_references(units)) {
 				self$unit_references <- units
 			}
 		},
+		#' @details
+		#' Add new units to the unit reference
+		#' @param units a list of [Unit] objects
 		add_unit_references = function(units) {
 			comb <- c(self$unit_references, units)
 			if(self$check_unit_references(comb)) {
 				self$unit_references <- comb
 			}
 		},
+		#' @details
+		#' Get the @ids of the unit references
+		#' @return character vector of unit reference @ids
 		get_unit_ids = function(){
 			names(self$unit_references)
 		},
+		#' @details
+		#' Generate an R list representation of a [UnitReferences] object
+		#' @return An R list representation of a [UnitReferences] object
 		to_list = function() {
 			purrr::map(self$unit_references, ~.x$to_list()) %>%
 				purrr::set_names(NULL)
 		},
+		#' @details
+		#' Make a [UnitReferences] object from list
+		#' @param lst a [UnitReferences] object serialized to a list
+		#' @param source the source of the [Unit] object, if it was it listed
+		#' in study unit categories list which one?
+		#' @param add (logical) add new ob
 		from_list = function(lst, source = NA, add = FALSE) {
 			# browser()
 			ur <- lst %>%

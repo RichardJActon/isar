@@ -11,7 +11,11 @@ R6 Class for StudyFactorReferences
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{study_factor_references}}{}
+\item{\code{study_factor_references}}{an \link{StudyFactorReferences} object}
+
+\item{\code{ontology_source_references}}{\link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor}
+
+\item{\code{unit_references}}{A list of units used as a \link{UnitReferences} object}
 }
 \if{html}{\out{</div>}}
 }
@@ -41,6 +45,17 @@ R6 Class for StudyFactorReferences
 )}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{study_factor_references}}{an \link{StudyFactorReferences} object}
+
+\item{\code{ontology_source_references}}{\link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor}
+
+\item{\code{unit_references}}{A list of units used as a \link{UnitReferences} object}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-StudyFactorReferences-check_study_factors"></a>}}
@@ -48,6 +63,17 @@ R6 Class for StudyFactorReferences
 \subsection{Method \code{check_study_factors()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{StudyFactorReferences$check_study_factors(study_factors)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{study_factors}}{a list of \link{StudyFactor} objects}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Check if this input is a list of \link{StudyFactors} objects
 }
 
 }
@@ -59,6 +85,17 @@ R6 Class for StudyFactorReferences
 \if{html}{\out{<div class="r">}}\preformatted{StudyFactorReferences$add_study_factors(study_factors)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{study_factors}}{a list of \link{StudyFactor} objects}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Add new study factors to the study factor reference
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-StudyFactorReferences-to_list"></a>}}
@@ -66,6 +103,17 @@ R6 Class for StudyFactorReferences
 \subsection{Method \code{to_list()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{StudyFactorReferences$to_list()}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{The name of the material}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Generate an R list representation of a \link{StudyFactorReferences} object
 }
 
 }
@@ -77,6 +125,21 @@ R6 Class for StudyFactorReferences
 \if{html}{\out{<div class="r">}}\preformatted{StudyFactorReferences$from_list(lst, explicitly_provided = logical())}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{lst}}{a list}
+
+\item{\code{explicitly_provided}}{(logical) used to indicate if the study
+factor was explicitly listed in the input as opposed to being
+inferred to exist.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Populate a \link{StudyFactorReferences} object from a list
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-StudyFactorReferences-get_study_factor_names"></a>}}
@@ -86,6 +149,13 @@ R6 Class for StudyFactorReferences
 \if{html}{\out{<div class="r">}}\preformatted{StudyFactorReferences$get_study_factor_names()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+Get the names of the study factor references
+}
+
+\subsection{Returns}{
+character vector of study factor reference names
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-StudyFactorReferences-get_study_factor_ids"></a>}}
@@ -95,6 +165,13 @@ R6 Class for StudyFactorReferences
 \if{html}{\out{<div class="r">}}\preformatted{StudyFactorReferences$get_study_factor_ids()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+Get the @ids of the study factor references
+}
+
+\subsection{Returns}{
+character vector of study factor reference @ids
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-StudyFactorReferences-print"></a>}}
@@ -102,6 +179,10 @@ R6 Class for StudyFactorReferences
 \subsection{Method \code{print()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{StudyFactorReferences$print()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Pretty prints \link{StudyFactorReferences} objects
 }
 
 }

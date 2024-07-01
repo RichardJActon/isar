@@ -180,7 +180,7 @@ Material <- R6::R6Class(
 			private$id <- generate_id(id, suffix)
 		},
 		#' @details
-		#' Pretty Prints [Characteristic] objects
+		#' Pretty prints [Materials] objects
 		print = function() {
 			cli::cli_h1(cli::col_blue("Material"))
 			green_bold_name_plain_content("Name", self$name)

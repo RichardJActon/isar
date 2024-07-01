@@ -1,13 +1,16 @@
 #' R6 class for an experimental factor
 #'
-#' A \code{[StudyFactor]} corresponds to an independent variable manipulated by the
+#' A [StudyFactor] corresponds to an independent variable manipulated by the
 #' experimentalist with the intention to affect biological systems in a way
 #' that can be measured by an assay.
 #'
 #'
-#' @field name The name of the factor
-#' @field factor_type An \code{[OntologyAnnotation]} reference of the study factor type
+#' @field factor_name The name of the factor
+#' @field factor_type An [OntologyAnnotation] reference of the study factor type
 #' @field comments Comments associated with instances of this class.
+#' @field @id identifier
+#' @field explicitly_provided Explicitly listed in the study as a factor (logical)
+#' @field ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor.
 #'
 #' @importFrom checkmate qtest check_string
 #' @importFrom R6 R6Class
@@ -28,9 +31,11 @@ StudyFactor <- R6::R6Class(
 		#' create a new study factor
 		#'
 		#' @param factor_name The name of the factor
-		#' @param factor_type An \code{[OntologyAnnotation]} reference of the study factor_type
+		#' @param factor_type An [OntologyAnnotation] reference of the study factor_type
 		#' @param comments Comments associated with instances of this class.
+		#' @param @id identifier
 		#' @param explicitly_provided Explicitly listed in the study as a factor (logical)
+		#' @param ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor.
 		#'
 		initialize = function(
 		factor_name = character(),
@@ -109,9 +114,11 @@ StudyFactor <- R6::R6Class(
 
 		#' @details
 		#'
-		#' Make \code{[StudyFactor]} from list
+		#' Make [StudyFactor] from list
 		#'
 		#' @param lst a list serialization of a study factor object
+		#' @param json json  (default TRUE)
+		#' @param recursive call to_list methods of any objects within this object (default TRUE)
 		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			if(json) {
 				self$factor_name <- lst[["factorName"]]
@@ -147,7 +154,8 @@ StudyFactor <- R6::R6Class(
 		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
 			private$id <- generate_id(id, suffix)
 		},
-
+		#' @details
+		#' Pretty prints [StudyFactor] objects
 		print = function() {
 			cli::cli_h1(cli::col_blue("Study Factor"))
 			green_bold_name_plain_content("@id", self$`@id`)

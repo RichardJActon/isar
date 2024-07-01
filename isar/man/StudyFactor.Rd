@@ -4,7 +4,7 @@
 \alias{StudyFactor}
 \title{R6 class for an experimental factor}
 \description{
-A \code{[StudyFactor]} corresponds to an independent variable manipulated by the
+A \link{StudyFactor} corresponds to an independent variable manipulated by the
 experimentalist with the intention to affect biological systems in a way
 that can be measured by an assay.
 }
@@ -19,18 +19,17 @@ StudyFactor$new()
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{name}}{The name of the factor}
+\item{\code{factor_name}}{The name of the factor}
 
-\item{\code{factor_type}}{An \code{[OntologyAnnotation]} reference of the study factor type}
+\item{\code{factor_type}}{An \link{OntologyAnnotation} reference of the study factor type}
 
 \item{\code{comments}}{Comments associated with instances of this class.}
-}
-\if{html}{\out{</div>}}
-}
-\section{Active bindings}{
-\if{html}{\out{<div class="r6-active-bindings">}}
-\describe{
-\item{\code{name}}{The name of the factor}
+
+\item{\code{@id}}{identifier}
+
+\item{\code{explicitly_provided}}{Explicitly listed in the study as a factor (logical)}
+
+\item{\code{ontology_source_references}}{\link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor.}
 }
 \if{html}{\out{</div>}}
 }
@@ -71,11 +70,15 @@ StudyFactor$new()
 \describe{
 \item{\code{factor_name}}{The name of the factor}
 
-\item{\code{factor_type}}{An \code{[OntologyAnnotation]} reference of the study factor_type}
+\item{\code{factor_type}}{An \link{OntologyAnnotation} reference of the study factor_type}
 
 \item{\code{comments}}{Comments associated with instances of this class.}
 
+\item{\code{@id}}{identifier}
+
 \item{\code{explicitly_provided}}{Explicitly listed in the study as a factor (logical)}
+
+\item{\code{ontology_source_references}}{\link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor.}
 }
 \if{html}{\out{</div>}}
 }
@@ -224,11 +227,15 @@ generate an R list representation translatable to JSON
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{lst}}{a list serialization of a study factor object}
+
+\item{\code{recursive}}{call to_list methods of any objects within this object (default TRUE)}
+
+\item{\code{json}}{json  (default TRUE)}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Make \code{[StudyFactor]} from list
+Make \link{StudyFactor} from list
 }
 
 }
@@ -276,6 +283,10 @@ set the uuid of this object
 \subsection{Method \code{print()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{StudyFactor$print()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Pretty prints \link{StudyFactor} objects
 }
 
 }

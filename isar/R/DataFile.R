@@ -11,6 +11,8 @@
 #' @field label The data file type, as indicated by a label such as 'Array Data File' or 'Raw Data File'
 #' @field generated_from Reference to Sample(s) the DataFile is generated from
 #' @field comments Comments associated with instances of this class.
+#' @field type type
+#' @field @id identifier
 #'
 #' @importFrom R6 R6Class
 #' @importFrom checkmate check_r6
@@ -41,7 +43,7 @@ DataFile <- R6::R6Class(
 		#' @param generated_from Reference to Sample(s) the DataFile is generated from
 		#' @param comments Comments associated with instances of this class.
 		#' @param type type
-		#' @param `@id` json LD id
+		#' @param @id identifier
 		initialize = function(
 			filename = character(),
 			file_path = character(),
@@ -111,29 +113,29 @@ DataFile <- R6::R6Class(
 			)
 		},
 		#' @details
-		#' Check if the filename of the \code{[DataFile]} is a string
-		#' @param filename The filename of the \code{[DataFile]}
+		#' Check if the filename of the [DataFile] is a string
+		#' @param filename The filename of the [DataFile]
 		check_filename = function(filename) {
 			check <- checkmate::check_string(filename, min.chars = 1L)
 			error_with_check_message_on_failure(check)
 		},
 		#' @details
-		#' set the filename of the \code{[DataFile]} if valid
-		#' @param filename The filename of the \code{[DataFile]}
+		#' set the filename of the [DataFile] if valid
+		#' @param filename The filename of the [DataFile]
 		set_filename = function(filename) {
 			if (self$check_filename(filename)) { self$filename <- filename }
 		},
 
 		#' @details
-		#' Check if the file_path of the \code{[DataFile]} is a string
-		#' @param file_path The file_path of the \code{[DataFile]}
+		#' Check if the file_path of the [DataFile] is a string
+		#' @param file_path The file_path of the [DataFile]
 		check_file_path = function(file_path) {
 			check <- checkmate::check_string(file_path, min.chars = 1L)
 			error_with_check_message_on_failure(check)
 		},
 		#' @details
-		#' set the file_path of the \code{[DataFile]} if valid
-		#' @param file_path The file_path of the \code{[DataFile]}
+		#' set the file_path of the [DataFile] if valid
+		#' @param file_path The file_path of the [DataFile]
 		set_file_path = function(file_path) {
 			if (self$check_file_path(file_path)) { self$file_path <- file_path }
 		},
@@ -149,8 +151,8 @@ DataFile <- R6::R6Class(
 		},
 
 		#' @details
-		#' Check that generated_from is an \code{[Sample]} object
-		#' @param generated_from an \code{[Sample]} object
+		#' Check that generated_from is an [Sample] object
+		#' @param generated_from an [Sample] object
 		check_generated_from = function(generated_from) {
 			check <- checkmate::check_r6(generated_from, "Sample")
 			error_with_check_message_on_failure(
@@ -159,7 +161,7 @@ DataFile <- R6::R6Class(
 		},
 		#' @details
 		#' Set generated_from if input is valid
-		#' @param generated_from an \code{[Sample]} object
+		#' @param generated_from an [Sample] object
 		set_generated_from = function(generated_from) {
 			if(self$check_generated_from(generated_from)) {
 				self$generated_from <- generated_from
@@ -197,7 +199,7 @@ DataFile <- R6::R6Class(
 		},
 
 		#' @details
-		#' An R list representation of a \code{[DataFile]} object
+		#' An R list representation of a [DataFile] object
 		#' @param ld linked data (default FALSE)
 		to_list = function(ld = FALSE){
 			date_file <- list(
@@ -216,8 +218,9 @@ DataFile <- R6::R6Class(
 			return(date_file)
 		},
 		#' @details
-		#' Make \code{[DataFile]} object from list
+		#' Make [DataFile] object from list
 		#' @param lst an Characteristic object serialized to a list
+		#' @param json json  (default TRUE)
 		from_list = function(lst, json = FALSE) {
 			if (json) {
 				#self$name <- lst[["name"]]
@@ -238,6 +241,8 @@ DataFile <- R6::R6Class(
 				self$type <- lst[["type"]]
 			}
 		},
+		#' @details
+		#' Pretty prints [DataFile] objects
 		print = function() {
 			cli::cli_h1(cli::col_blue("Data File"))
 			green_bold_name_plain_content("@id", self$`@id`)
@@ -272,18 +277,3 @@ DataFile <- R6::R6Class(
 		hash = NULL
 	)
 )
-
-#' identical.DataFile
-#'
-#' Allows checking for the identity of \code{[DataFile]} objects
-#'
-#' @param x a \code{[DataFile]} object
-#' @param y a \code{[DataFile]} object
-#' @export
-identical.DataFile <- s3_identical_maker(c(
-	"filename",
-	"label",
-	"generated_from",
-	"comments"
-))
-

@@ -11,7 +11,9 @@ R6 class for UnitReferences
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{unit_references}}{...}
+\item{\code{unit_references}}{A list of units used as a \link{UnitReferences} object}
+
+\item{\code{ontology_source_references}}{\link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor}
 }
 \if{html}{\out{</div>}}
 }
@@ -36,6 +38,15 @@ R6 class for UnitReferences
 \if{html}{\out{<div class="r">}}\preformatted{UnitReferences$new(unit_references = NULL, ontology_source_references = NULL)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{unit_references}}{A list of units used as a \link{UnitReferences} object}
+
+\item{\code{ontology_source_references}}{\link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-UnitReferences-check_unit_references"></a>}}
@@ -43,6 +54,17 @@ R6 class for UnitReferences
 \subsection{Method \code{check_unit_references()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{UnitReferences$check_unit_references(units)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{units}}{a list of \link{Unit} objects}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Check if this input is a list of \link{Unit} objects
 }
 
 }
@@ -54,6 +76,17 @@ R6 class for UnitReferences
 \if{html}{\out{<div class="r">}}\preformatted{UnitReferences$set_unit_references(units)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{units}}{a list of \link{Unit} objects}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Set new units of the unit reference, overwrites current units
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-UnitReferences-add_unit_references"></a>}}
@@ -61,6 +94,17 @@ R6 class for UnitReferences
 \subsection{Method \code{add_unit_references()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{UnitReferences$add_unit_references(units)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{units}}{a list of \link{Unit} objects}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Add new units to the unit reference
 }
 
 }
@@ -72,6 +116,13 @@ R6 class for UnitReferences
 \if{html}{\out{<div class="r">}}\preformatted{UnitReferences$get_unit_ids()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+Get the @ids of the unit references
+}
+
+\subsection{Returns}{
+character vector of unit reference @ids
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-UnitReferences-to_list"></a>}}
@@ -81,6 +132,13 @@ R6 class for UnitReferences
 \if{html}{\out{<div class="r">}}\preformatted{UnitReferences$to_list()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+Generate an R list representation of a \link{UnitReferences} object
+}
+
+\subsection{Returns}{
+An R list representation of a \link{UnitReferences} object
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-UnitReferences-from_list"></a>}}
@@ -88,6 +146,22 @@ R6 class for UnitReferences
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{UnitReferences$from_list(lst, source = NA, add = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{lst}}{a \link{UnitReferences} object serialized to a list}
+
+\item{\code{source}}{the source of the \link{Unit} object, if it was it listed
+in study unit categories list which one?}
+
+\item{\code{add}}{(logical) add new ob}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Make a \link{UnitReferences} object from list
 }
 
 }

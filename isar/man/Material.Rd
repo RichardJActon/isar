@@ -364,7 +364,7 @@ set the uuid of this object
 }
 
 \subsection{Details}{
-Pretty Prints \link{Characteristic} objects
+Pretty prints \link{Materials} objects
 }
 
 }

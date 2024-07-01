@@ -27,6 +27,12 @@
 
 #' R6 object for specifying a unit of measurement
 #' @field unit a unit of measurement
+#' @field @id identifier
+#' @field ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor
+#' @field unit_references A list of units used as a [UnitReferences] object.
+#' @field source the source of the [OntologySource] object, was it listed in
+#'
+#' @export
 Unit <- R6::R6Class(
 	"Unit",
 	public = list(
@@ -36,8 +42,12 @@ Unit <- R6::R6Class(
 		unit_references = NULL,
 		source = NA,
 		#' @details
-		#' Create a new \code{[Unit]} object
+		#' Create a new [Unit] object
 		#' @param unit a unit of measurement
+		#' @param @id identifier
+		#' @param ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor
+		#' @param unit_references A list of units used as a [UnitReferences] object.
+		#' @param source the source of the [OntologySource] object, was it listed in
 		initialize = function(
 			unit = NULL,
 			`@id` = character(),
@@ -58,6 +68,11 @@ Unit <- R6::R6Class(
 			self$unit_references <- unit_references
 			self$source <- source
 		},
+		#' @details
+		#' Set the unit as a valid ontology term
+		#' @param term the term of the unit
+		#' @param term_accession the accession of the ontology term of the unit
+		#' @param term_source the name of the source of the ontology term
 		set_valid_unit = function(term, term_accession, term_source) {
 			# browser()
 			if (!is.null(term)) {
@@ -91,11 +106,14 @@ Unit <- R6::R6Class(
 
 
 		},
+		#' @details
+		#' Get the term associated with the unit as a string
+		#' @return a character vector of length one with the term of the unit
 		get_unit_string = function() {
 			self$unit$term
 		},
 		#' @details
-		#' An R list representation of a \code{[Unit]} object
+		#' An R list representation of a [Unit] object
 		#' @param ld linked data (default FALSE)
 		to_list = function(ld = FALSE) {
 			lst <- list("@id" = self$`@id`)
@@ -103,8 +121,10 @@ Unit <- R6::R6Class(
 			return(lst)
 		},
 		#' @details
-		#' Make \code{[Unit]} object from list
+		#' Make [Unit] object from list
 		#' @param lst an Unit object serialized to a list
+		#' @param json json  (default TRUE)
+		#' @param recursive call to_list methods of any objects within this object (default TRUE)
 		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			self$`@id` <- lst[["@id"]]
 			self$set_valid_unit(
@@ -122,55 +142,6 @@ Unit <- R6::R6Class(
 		}
 	)
 )
-
-# UnitAnnotation <- R6::R6Class(
-# 	"UnitAnnotation",
-# 	public = list(
-# 		value = numeric(),
-# 		unit = NULL,
-# 		check_function = NULL,
-# 		initialize = function(
-# 			value = numeric(),
-# 			unit = NULL,
-# 			check_function = NULL
-# 		) {
-# 			if(is.null(value)) { self$value <- value } else { self$set_value(value) }
-# 			if(is.null(unit)) { self$unit <- unit } else { self$set_unit(unit)}
-# 			if(is.null(check_function)) {
-# 				self$check_function <- function(x) {TRUE}
-# 			} else {
-# 				self$check_function <- check_function
-# 			}
-# 		},
-# 		check_unit = function(unit) {
-# 			check <- checkmate::check_r6(unit, "Unit")
-# 			if (isTRUE(check)) { return(TRUE) } else { stop(check) }
-# 		},
-# 		set_unit = function(unit) {
-# 			if(self$check_unit(unit)) { self$unit <- unit }
-# 		},
-# 		check_value = function(value) {
-# 			check <- checkmate::check_number(value)
-# 			if (isTRUE(check)) { return(TRUE) } else { stop(check) }
-# 		},
-# 		set_value = function(value) {
-# 			if(self$check_value(value)) { self$value <- value }
-# 		},
-# 		to_list = function(ld = FALSE){
-# 			UnitAnnotation <- list(
-# 				value = self$value,
-# 				unit = self$unit,
-# 				check_function = self$check_function
-# 			)
-# 		},
-# 		from_list = function(lst){
-# 			self$value <- lst[["value"]]
-# 			self$unit <- lst[["unit"]]
-# 			self$check_function <- lst[["check_function"]]
-# 		}
-# 	)
-# )
-
 
 # metre <- Unit$new("metre")
 # UnitAnnotation$new(1,metre)

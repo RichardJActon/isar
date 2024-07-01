@@ -26,6 +26,10 @@ Represents a data file in an experimental graph.
 \item{\code{generated_from}}{Reference to Sample(s) the DataFile is generated from}
 
 \item{\code{comments}}{Comments associated with instances of this class.}
+
+\item{\code{type}}{type}
+
+\item{\code{@id}}{identifier}
 }
 \if{html}{\out{</div>}}
 }
@@ -93,7 +97,7 @@ Represents a data file in an experimental graph.
 
 \item{\code{type}}{type}
 
-\item{\code{`@id`}}{json LD id}
+\item{\code{@id}}{identifier}
 }
 \if{html}{\out{</div>}}
 }
@@ -113,12 +117,12 @@ Make a new DataFile object
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{filename}}{The filename of the \code{[DataFile]}}
+\item{\code{filename}}{The filename of the \link{DataFile}}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Check if the filename of the \code{[DataFile]} is a string
+Check if the filename of the \link{DataFile} is a string
 }
 
 }
@@ -133,12 +137,12 @@ Check if the filename of the \code{[DataFile]} is a string
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{filename}}{The filename of the \code{[DataFile]}}
+\item{\code{filename}}{The filename of the \link{DataFile}}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-set the filename of the \code{[DataFile]} if valid
+set the filename of the \link{DataFile} if valid
 }
 
 }
@@ -153,12 +157,12 @@ set the filename of the \code{[DataFile]} if valid
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{file_path}}{The file_path of the \code{[DataFile]}}
+\item{\code{file_path}}{The file_path of the \link{DataFile}}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Check if the file_path of the \code{[DataFile]} is a string
+Check if the file_path of the \link{DataFile} is a string
 }
 
 }
@@ -173,12 +177,12 @@ Check if the file_path of the \code{[DataFile]} is a string
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{file_path}}{The file_path of the \code{[DataFile]}}
+\item{\code{file_path}}{The file_path of the \link{DataFile}}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-set the file_path of the \code{[DataFile]} if valid
+set the file_path of the \link{DataFile} if valid
 }
 
 }
@@ -209,12 +213,12 @@ logical
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{generated_from}}{an \code{[Sample]} object}
+\item{\code{generated_from}}{an \link{Sample} object}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Check that generated_from is an \code{[Sample]} object
+Check that generated_from is an \link{Sample} object
 }
 
 }
@@ -229,7 +233,7 @@ Check that generated_from is an \code{[Sample]} object
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{generated_from}}{an \code{[Sample]} object}
+\item{\code{generated_from}}{an \link{Sample} object}
 }
 \if{html}{\out{</div>}}
 }
@@ -333,7 +337,7 @@ logical
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-An R list representation of a \code{[DataFile]} object
+An R list representation of a \link{DataFile} object
 }
 
 }
@@ -349,11 +353,13 @@ An R list representation of a \code{[DataFile]} object
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{lst}}{an Characteristic object serialized to a list}
+
+\item{\code{json}}{json  (default TRUE)}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Make \code{[DataFile]} object from list
+Make \link{DataFile} object from list
 }
 
 }
@@ -363,6 +369,10 @@ Make \code{[DataFile]} object from list
 \subsection{Method \code{print()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DataFile$print()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Pretty prints \link{DataFile} objects
 }
 
 }

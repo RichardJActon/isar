@@ -12,6 +12,14 @@ R6 object for specifying a unit of measurement
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
 \item{\code{unit}}{a unit of measurement}
+
+\item{\code{@id}}{identifier}
+
+\item{\code{ontology_source_references}}{\link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor}
+
+\item{\code{unit_references}}{A list of units used as a \link{UnitReferences} object.}
+
+\item{\code{source}}{the source of the \link{OntologySource} object, was it listed in}
 }
 \if{html}{\out{</div>}}
 }
@@ -44,11 +52,19 @@ R6 object for specifying a unit of measurement
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{unit}}{a unit of measurement}
+
+\item{\code{@id}}{identifier}
+
+\item{\code{ontology_source_references}}{\link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor}
+
+\item{\code{unit_references}}{A list of units used as a \link{UnitReferences} object.}
+
+\item{\code{source}}{the source of the \link{OntologySource} object, was it listed in}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Create a new \code{[Unit]} object
+Create a new \link{Unit} object
 }
 
 }
@@ -60,6 +76,21 @@ Create a new \code{[Unit]} object
 \if{html}{\out{<div class="r">}}\preformatted{Unit$set_valid_unit(term, term_accession, term_source)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{term}}{the term of the unit}
+
+\item{\code{term_accession}}{the accession of the ontology term of the unit}
+
+\item{\code{term_source}}{the name of the source of the ontology term}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Set the unit as a valid ontology term
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Unit-get_unit_string"></a>}}
@@ -69,6 +100,13 @@ Create a new \code{[Unit]} object
 \if{html}{\out{<div class="r">}}\preformatted{Unit$get_unit_string()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+Get the term associated with the unit as a string
+}
+
+\subsection{Returns}{
+a character vector of length one with the term of the unit
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Unit-to_list"></a>}}
@@ -86,7 +124,7 @@ Create a new \code{[Unit]} object
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-An R list representation of a \code{[Unit]} object
+An R list representation of a \link{Unit} object
 }
 
 }
@@ -102,11 +140,15 @@ An R list representation of a \code{[Unit]} object
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{lst}}{an Unit object serialized to a list}
+
+\item{\code{recursive}}{call to_list methods of any objects within this object (default TRUE)}
+
+\item{\code{json}}{json  (default TRUE)}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Make \code{[Unit]} object from list
+Make \link{Unit} object from list
 }
 
 }

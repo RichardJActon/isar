@@ -1,7 +1,9 @@
 #' R6 Class for StudyFactorReferences
 #'
 #'
-#' @field study_factor_references
+#' @field study_factor_references an [StudyFactorReferences] object
+#' @field ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor
+#' @field unit_references A list of units used as a [UnitReferences] object
 #'
 #' @importFrom R6 R6Class
 #'
@@ -12,6 +14,9 @@ StudyFactorReferences <- R6::R6Class(
 		study_factor_references = NULL,
 		ontology_source_references = NULL,
 		unit_references = NULL,
+		#' @param study_factor_references an [StudyFactorReferences] object
+		#' @param ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor
+		#' @param unit_references A list of units used as a [UnitReferences] object
 		initialize = function(
 			study_factor_references = NULL,
 			ontology_source_references = NULL,
@@ -20,11 +25,16 @@ StudyFactorReferences <- R6::R6Class(
 			if (is.null(study_factor_references)) {
 				self$study_factor_references <- NULL
 			} else {
+				# currently adding by default not setting (overwriting) ?
 				self$add_study_factors(study_factor_references)
 			}
+			# check and set these?
 			self$ontology_source_references <- ontology_source_references
 			self$unit_references <- unit_references
 		},
+		#' @details
+		#' Check if this input is a list of [StudyFactors] objects
+		#' @param study_factors  a list of [StudyFactor] objects
 		check_study_factors = function(study_factors) {
 			if(
 				checkmate::test_list(
@@ -39,6 +49,9 @@ StudyFactorReferences <- R6::R6Class(
 				stop("All Study Factors must be StudyFactor objects!")
 			}
 		},
+		#' @details
+		#' Add new study factors to the study factor reference
+		#' @param study_factors a list of [StudyFactor] objects
 		add_study_factors = function(study_factors) {
 			if(self$check_study_factors(study_factors)) {
 				self$study_factor_references <- c(
@@ -46,16 +59,29 @@ StudyFactorReferences <- R6::R6Class(
 				)
 			}
 		},
+		#' @details
+		#' Generate an R list representation of a [StudyFactorReferences] object
+		#' @param name The name of the material
 		to_list = function() {
 			self$study_factor_references %>%
 				purrr::map(~.x$to_list()) %>%
 				purrr::set_names(NULL)
 		},
+		#' @details
+		#' Populate a [StudyFactorReferences] object from a list
+		#' @param lst a list
+		#' @param explicitly_provided (logical) used to indicate if the study
+		#' factor was explicitly listed in the input as opposed to being
+		#' inferred to exist.
 		from_list = function(lst, explicitly_provided = logical()) {
-			study_factors <- purrr::map(lst,~{
+			check <- checkmate::check_logical(explicitly_provided)
+			error_with_check_message_on_failure(check)
+
+			study_factors <- purrr::map(lst, ~{
 				sf <- StudyFactor$new(
 					explicitly_provided = explicitly_provided,
-					ontology_source_references = self$ontology_source_references,
+					ontology_source_references =
+						self$ontology_source_references,
 					unit_references = self$unit_references
 				)
 				sf$from_list(.x)
@@ -63,17 +89,22 @@ StudyFactorReferences <- R6::R6Class(
 			})
 
 			names(study_factors) <- purrr::map_chr(study_factors, ~.x$`@id`)
-			# names(study_factors) <- purrr::map_chr(
-			# 	study_factors, ~.x$factor_name
-			# )
 			self$study_factor_references <- study_factors
 		},
+		#' @details
+		#' Get the names of the study factor references
+		#' @return character vector of study factor reference names
 		get_study_factor_names = function() {
 			self$study_factor_references %>% purrr::map_chr(~.x$factor_name)
 		},
+		#' @details
+		#' Get the @ids of the study factor references
+		#' @return character vector of study factor reference @ids
 		get_study_factor_ids = function() {
 			names(self$study_factor_references)
 		},
+		#' @details
+		#' Pretty prints [StudyFactorReferences] objects
 		print = function() {
 			cli::cli_h1(cli::col_blue("Study Factor References"))
 			purrr::walk(self$study_factor_references, ~.x$print())
