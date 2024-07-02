@@ -295,7 +295,7 @@ Study <- R6::R6Class(
 			)
 			lst[["publicReleaseDate"]] <- self$public_release_date
 			lst[["characteristicCategories"]] <-
-				self$characteristic_categories$to_list()
+				self$characteristic_categories$to_list(source = self$`@id`)
 			lst[["assays"]] <- purrr::map(self$assays, ~.x$to_list())
 			lst[["filename"]] <- self$filename
 			lst[["factors"]] <- self$factors$to_list()

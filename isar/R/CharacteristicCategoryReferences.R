@@ -56,6 +56,17 @@ CharacteristicCategoryReferences <- R6::R6Class(
 				self$categories <- categories
 			}
 		},
+
+		#' @details
+		#' Get characteristic categories
+		#' @param names default return all names
+		#' @return a vector of [CharacteristicCategory] objects
+		get_characterisic_categories = function(names = "all") {
+			if(names == "all") { self$categories } else {
+				self$categories[[names]]
+			}
+		},
+
 		#' @details
 		#' Checks that the type is [CharacteristicCategory]
 		#' @param type category type
@@ -83,13 +94,36 @@ CharacteristicCategoryReferences <- R6::R6Class(
 		get_category_names = function() {
 			purrr::map_chr(self$categories, ~.x$type$term)
 		},
+
+		#' @details
+		#'
+		#' @return character vector of characteristic category sources
+		get_characteristic_catagory_origins = function() {
+			purrr::map_chr(self$categories, ~.x$source)
+		},
+
 		#' @details
 		#' Serialize [CharaceristicCategoryReferences] object to an R list
 		#' @return an R list
-		to_list = function() {
-			self$categories %>%
-				purrr::map(~.x$to_list()) %>%
-				purrr::set_names(NULL)
+		to_list = function(source = "any") {
+			if(source == "any") {
+				self$categories %>%
+					purrr::map(~.x$to_list()) %>%
+					purrr::set_names(NULL)
+			} else if(source %in% self$get_characteristic_catagory_origins()) {
+				self$categories %>%
+					`[`(
+						self$get_characteristic_catagory_origins() %in% source
+					) %>%
+					purrr::map(~.x$to_list()) %>%
+					purrr::set_names(NULL)
+			} else {
+				possible_values <-
+					self$get_characteristic_catagory_origins() %>%
+					unique() %>%
+					paste0(collapse = ", ")
+				stop(paste0("source must be one of: any, ", possible_values))
+			}
 		},
 		#' @details
 		#' Populate [CharaceristicCategoryReferences] object from a list

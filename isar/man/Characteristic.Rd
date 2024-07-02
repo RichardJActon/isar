@@ -44,7 +44,6 @@ A Characteristic acts as a qualifying property to a material object.
 \item \href{#method-Characteristic-set_valid_unit}{\code{Characteristic$set_valid_unit()}}
 \item \href{#method-Characteristic-to_list}{\code{Characteristic$to_list()}}
 \item \href{#method-Characteristic-from_list}{\code{Characteristic$from_list()}}
-\item \href{#method-Characteristic-set_id}{\code{Characteristic$set_id()}}
 \item \href{#method-Characteristic-print}{\code{Characteristic$print()}}
 \item \href{#method-Characteristic-clone}{\code{Characteristic$clone()}}
 }
@@ -297,7 +296,7 @@ Set a category and check that it is valid
 \if{latex}{\out{\hypertarget{method-Characteristic-set_valid_unit}{}}}
 \subsection{Method \code{set_valid_unit()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Characteristic$set_valid_unit(term, term_accession, term_source)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$set_valid_unit(lst)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -352,7 +351,14 @@ An R list representation of a \link{Characteristic} object
 \describe{
 \item{\code{lst}}{an Characteristic object serialized to a list}
 
-\item{\code{recursive}}{call to_list methods of any objects within this object (default TRUE)}
+\item{\code{recursive}}{call to_list methods of any objects within this object (default TRUE)
+#' @details
+#' set the uuid of this object
+#' @param id a uuid
+#' @param suffix a human readable suffix
+set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
+private$id <- generate_id(id, suffix)
+},}
 
 \item{\code{json}}{json  (default TRUE)}
 }
@@ -360,28 +366,6 @@ An R list representation of a \link{Characteristic} object
 }
 \subsection{Details}{
 Make \link{Characteristic} object from list
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Characteristic-set_id"></a>}}
-\if{latex}{\out{\hypertarget{method-Characteristic-set_id}{}}}
-\subsection{Method \code{set_id()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Characteristic$set_id(id = uuid::UUIDgenerate(), suffix = character())}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{id}}{a uuid}
-
-\item{\code{suffix}}{a human readable suffix}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-set the uuid of this object
 }
 
 }

@@ -267,6 +267,24 @@ pretty_print_comments <- function(comments) {
 #'
 unlist_sort_by_name <- function(x) {
 	x <- unlist(x)
-	x <- x[sort(names(x))]
+	x <- x[order(names(x))]
 	x
+}
+
+#' recursive_sort_list_by_name
+#'
+#' @param x a list
+#'
+recursive_sort_list_by_name <- function(x) {
+	if (is.null(names(x))) {
+		srt <- x
+	} else {
+		srt <- x[order(names(x))]
+	}
+	for(i in seq_along(srt)) {
+		if(is.list(srt[[i]])) {
+			srt[[i]] <- sort_list_by_name(srt[[i]])
+		}
+	}
+	srt
 }

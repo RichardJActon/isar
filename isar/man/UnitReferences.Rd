@@ -17,6 +17,13 @@ R6 class for UnitReferences
 }
 \if{html}{\out{</div>}}
 }
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
+\describe{
+\item{\code{unit_references}}{A list of units used as a \link{UnitReferences} object}
+}
+\if{html}{\out{</div>}}
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
@@ -35,15 +42,15 @@ R6 class for UnitReferences
 \if{latex}{\out{\hypertarget{method-UnitReferences-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{UnitReferences$new(unit_references = NULL, ontology_source_references = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{UnitReferences$new(units = NULL, ontology_source_references = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{unit_references}}{A list of units used as a \link{Unit} object}
-
 \item{\code{ontology_source_references}}{\link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor}
+
+\item{\code{unit_references}}{A list of units used as a \link{Unit} object}
 }
 \if{html}{\out{</div>}}
 }

@@ -177,11 +177,11 @@ FactorValue <- R6::R6Class(
 				lst[["value"]] <- self$value$to_list()
 			} else {
 				lst[["value"]] <- self$value
-				lst[["unit"]] <- self$unit$to_list()
+				lst[["unit"]] <- self$unit$to_list(recursive = FALSE)
 			}
 			lst[["comments"]] <- self$comments
 			#"@id" = super$`@id`
-			lst[["@id"]] <- self$`@id`
+			lst[["category"]][["@id"]] <- self$`@id`
 			return(lst)
 		},
 
@@ -228,8 +228,7 @@ FactorValue <- R6::R6Class(
 				if(!is.null(lst[["unit"]])) {
 					self$unit <- Unit$new(
 						ontology_source_references =
-							self$ontology_source_references,
-						unit_references = self$unit_references
+							self$ontology_source_references
 					)
 					#self$unit <-
 					self$unit$from_list(lst[["unit"]])

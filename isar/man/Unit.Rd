@@ -40,7 +40,6 @@ R6 object for specifying a unit of measurement
   unit = NULL,
   `@id` = character(),
   ontology_source_references = NULL,
-  unit_references = NULL,
   source = NA
 )}\if{html}{\out{</div>}}
 }
@@ -53,6 +52,10 @@ R6 object for specifying a unit of measurement
 \item{\code{@id}}{identifier}
 
 \item{\code{ontology_source_references}}{\link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor}
+
+\item{\code{source}}{the source of the \link{OntologySource} object, was it listed in}
+
+\item{\code{unit_references}}{A list of units used as a \link{UnitReferences} object}
 }
 \if{html}{\out{</div>}}
 }
@@ -102,7 +105,7 @@ An R list representation of a \link{Unit} object
 \if{latex}{\out{\hypertarget{method-Unit-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Unit$from_list(lst, recursive = TRUE, json = TRUE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Unit$from_list(lst, source = NA, add = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -110,9 +113,9 @@ An R list representation of a \link{Unit} object
 \describe{
 \item{\code{lst}}{an Unit object serialized to a list}
 
-\item{\code{recursive}}{call to_list methods of any objects within this object (default TRUE)}
-
 \item{\code{json}}{json  (default TRUE)}
+
+\item{\code{recursive}}{call to_list methods of any objects within this object (default TRUE)}
 }
 \if{html}{\out{</div>}}
 }

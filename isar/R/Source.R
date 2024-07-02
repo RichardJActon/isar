@@ -43,9 +43,18 @@ Source <- R6::R6Class(
 			}
 			self$comments <- comments
 			self$`@id` <- `@id`
-			self$category_references <-
-				category_references
-			self$unit_references <- unit_references
+			if(is.null(category_references)) {
+				self$category_references <-
+					CharacteristicCategoryReferences$new()
+			} else {
+				self$category_references <- category_references
+			}
+
+			if(is.null(self$unit_references)) {
+				self$unit_references <- UnitReferences$new()
+			} else {
+				self$unit_references <- unit_references
+			}
 		},
 
 		#' @details
@@ -95,7 +104,7 @@ Source <- R6::R6Class(
 			cli::cli_h1(cli::col_blue("Source"))
 			green_bold_name_plain_content("Name", self$name)
 			green_bold_name_plain_content("@id", self$`@id`)
-			green_bold_name_plain_content("ID", private$id)
+			# green_bold_name_plain_content("ID", private$id)
 			cli::cli_h1(cli::col_green("Characteristics"))
 			cli::cli_ul(purrr::map_chr(
 				self$characteristics, ~.x$category[["@id"]]

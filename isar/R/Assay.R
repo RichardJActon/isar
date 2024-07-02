@@ -257,11 +257,12 @@ Assay <- R6::R6Class(
 			lst[["materials"]][["samples"]] <- purrr::map(
 				self$samples, ~.x$to_list()
 			)
-			lst[["unitCategories"]] <- purrr::map(self$unit_references, ~{
-				c(list(`@id` = .x$`@id`), .x$to_list())
-			})
+			lst[["unitCategories"]] <- self$unit_references$to_list()
+			# purrr::map(self$unit_references, ~{
+			# 	c(list(`@id` = .x$`@id`), .x$to_list())
+			# })
 			lst[["characteristicCategories"]] <-
-				self$characteristic_categories$to_list()
+				self$characteristic_categories$to_list(source = self$`@id`)
 			lst[["processSequence"]] <- purrr::map(
 				self$process_sequence, ~.x$to_list()
 			)
@@ -304,9 +305,7 @@ Assay <- R6::R6Class(
 				self$characteristic_categories <-
 					CharacteristicCategoryReferences$new(
 						ontology_source_references =
-							self$ontology_source_references,
-						unit_references = self$unit_references,
-						source = self$`@id`
+							self$ontology_source_references
 					)
 			}
 			# add any categories not found in the supplied reference
@@ -379,7 +378,7 @@ Assay <- R6::R6Class(
 
 			green_bold_name_plain_content("@id", self$`@id`)
 			green_bold_name_plain_content("Measurement Type", self$measurement_type)
-			green_bold_name_plain_content("Technology Type", self$technology_type)
+			green_bold_name_plain_content("Technology Type", self$technology_type$term)
 			# green_bold_name_plain_content("", self$technology_platform)
 			green_bold_name_plain_content("Filename", self$filename)
 			# green_bold_name_plain_content("", self$other_materials)

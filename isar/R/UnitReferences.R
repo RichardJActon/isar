@@ -11,15 +11,15 @@
 UnitReferences <- R6::R6Class(
 	"UnitReferences",
 	public = list(
-		unit_references = NULL,
+		units = NULL,
 		ontology_source_references = NULL,
 		#' @param unit_references A list of units used as a [Unit] object
 		#' @param ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor
 		initialize = function(
-			unit_references = NULL,
+			units = NULL,
 			ontology_source_references = NULL
 		) {
-			self$unit_references <- unit_references
+			self$units <- units
 			self$ontology_source_references <- ontology_source_references
 		},
 		#' @details
@@ -39,7 +39,7 @@ UnitReferences <- R6::R6Class(
 		#' @param units a list of [Unit] objects
 		set_unit_references = function(units) {
 			if(self$check_unit_references(units)) {
-				self$unit_references <- units
+				self$units <- units
 			}
 		},
 		#' @details
@@ -51,22 +51,22 @@ UnitReferences <- R6::R6Class(
 			# ur_lgl <- names(units) %in% names(self$unit_references)
 			# units <- units[!ur_lgl]
 
-			comb <- c(self$unit_references, units)
+			comb <- c(self$units, units)
 			if(self$check_unit_references(comb)) {
-				self$unit_references <- comb
+				self$units <- comb
 			}
 		},
 		#' @details
 		#' Get the @ids of the unit references
 		#' @return character vector of unit reference @ids
-		get_unit_ids = function(){
-			names(self$unit_references)
+		get_unit_ids = function() {
+			names(self$units)
 		},
 		#' @details
 		#' Generate an R list representation of a [UnitReferences] object
 		#' @return An R list representation of a [UnitReferences] object
 		to_list = function() {
-			purrr::map(self$unit_references, ~.x$to_list()) %>%
+			purrr::map(self$units, ~.x$to_list()) %>%
 				purrr::set_names(NULL)
 		},
 		#' @details

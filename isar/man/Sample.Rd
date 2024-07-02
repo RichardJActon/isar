@@ -34,6 +34,8 @@ Sample$new()
 \item{\code{unit_references}}{an \link{UnitReferences} object}
 
 \item{\code{sources}}{list of available \link{Source}s}
+
+\item{\code{@id}}{identifier}
 }
 \if{html}{\out{</div>}}
 }
@@ -65,7 +67,8 @@ Sample$new()
   ontology_source_references = NULL,
   category_references = NULL,
   unit_references = NULL,
-  sources = NULL
+  sources = NULL,
+  `@id` = NULL
 )}\if{html}{\out{</div>}}
 }
 
@@ -89,6 +92,8 @@ Sample$new()
 \item{\code{unit_references}}{an \link{UnitReferences} object}
 
 \item{\code{sources}}{list of available \link{Source}s}
+
+\item{\code{@id}}{identifier}
 }
 \if{html}{\out{</div>}}
 }

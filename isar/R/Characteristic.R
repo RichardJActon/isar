@@ -58,8 +58,18 @@ Characteristic <- R6::R6Class(
 			}
 			self$comments <- comments
 			self$`@id` <- `@id`
-			self$ontology_source_references <- ontology_source_references
-			self$unit_references <- unit_references
+			if(is.null(ontology_source_references)) {
+				self$ontology_source_references <- OntologySourceReferences$new()
+			} else {
+				self$ontology_source_references <- ontology_source_references
+			}
+			if(is.null(unit_references)) {
+				self$unit_references <- UnitReferences$new(
+					ontology_source_references = self$ontology_source_references
+				)
+			} else {
+				self$unit_references <- unit_references
+			}
 		},
 		#' @details
 		#' Check that category is an [CharacteristicCategory] object
@@ -169,40 +179,36 @@ Characteristic <- R6::R6Class(
 		#' @param term the term of the unit
 		#' @param term_accession the accession of the ontology term of the unit
 		#' @param term_source the name of the source of the ontology term
-		set_valid_unit = function(term, term_accession, term_source) {
+		#set_valid_unit = function(unit_id, term, term_accession, term_source) {
+		set_valid_unit = function(lst) {
 			# browser()
-			if (!is.null(term)) {
-				if (term %in% OM$terms_list || term %in% names(OM$terms_list)) {
-					if(
-						!"OM" %in%
-						self$ontology_source_references$get_ontology_source_names()
-					) {
-						self$ontology_source_references$add_ontology_sources(
-							list("OM" = OM)
-						)
-					}
-				}
-			}
+			# if (!is.null(term)) {
+			# 	if (term %in% OM$terms_list || term %in% names(OM$terms_list)) {
+			# 		if(
+			# 			!"OM" %in%
+			# 			self$ontology_source_references$get_ontology_source_names()
+			# 		) {
+			# 			self$ontology_source_references$add_ontology_sources(
+			# 				list("OM" = OM)
+			# 			)
+			# 		}
+			# 	}
+			# }
 
-			if (is.null(self$unit_references)) {
-				self$unit_references <- UnitReferences$new()
-			}
-
-			if (self$`@id` %in% self$unit_references$get_unit_ids()) {
-				self$unit <- self$unit_references$unit_references[[self$`@id`]]
+			# if (is.null(self$unit_references)) {
+			# 	self$unit_references <- UnitReferences$new()
+			# }
+			unit_id <- lst[["@id"]]
+			if (unit_id %in% self$unit_references$get_unit_ids()) {
+				self$unit <- self$unit_references$unit_references[[unit_id]]
 			} else {
-				un <- Unit$new(
+				self$unit <- Unit$new(
 					ontology_source_references =
-						self$ontology_source_references,
-					unit_references = self$unit_references
+						self$ontology_source_references
 				)
-				un$set_valid_annotation(
-					term = term, term_accession = term_accession,
-					term_source_name = term_source
-				)
-				self$unit_references$add_unit_references(
-					list("UnknownUnit" = un)
-				)
+				self$unit$from_list(lst)
+				self$unit %>% list() %>% purrr::set_names(unit_id) %>%
+					self$unit_references$add_unit_references()
 			}
 		},
 
@@ -214,11 +220,16 @@ Characteristic <- R6::R6Class(
 		to_list = function(ld = FALSE, recursive = TRUE) {
 			lst <- list()
 			if(recursive) {
+				# browser()
 				# lst[["@id"]] <- self$`@id`
 				lst[["category"]][["@id"]] <- self$category$`@id`
-				lst[["value"]] <- self$value$to_list()
 				if(!is.null(self$unit)) {
-					lst[["unit"]] <- self$unit$to_list()
+					lst[["unit"]] <- self$unit$to_list(recursive = FALSE)
+				}
+				if(checkmate::test_r6(self$value, "OntologyAnnotation")) {
+					lst[["value"]] <- self$value$to_list()
+				} else {
+					lst[["value"]] <- self$value
 				}
 				lst[["comments"]] <- self$comments
 
@@ -250,29 +261,21 @@ Characteristic <- R6::R6Class(
 					lst[["value"]], recursive = recursive, json = json
 				)
 			} else {
-				if (
-					lst[["unit"]][["@id"]] %in%
-					self$unit_references$get_unit_ids()
-				) {
-					self$unit <- self$unit_references$unit_references[[
-						lst[["unit"]][["@id"]]
-					]]
-				} else {
-					self$set_valid_unit(
-						lst[["unit"]][["@id"]],
-						lst[["unit"]][["annotationValue"]],
-						lst[["unit"]][["termAccession"]],
-						lst[["unit"]][["termSource"]]
-					)
-					# self$unit <- Unit$new(
-					# 	ontology_source_references =
-					# 		self$ontology_source_references,
-					# 	unit_references = self$unit_references
-					# )
-					# self$unit$from_list(lst[["unit"]])
-					#
-					# set_valid_unit()
-				}
+				self$set_valid_unit(
+					lst[["unit"]]
+					# lst[["unit"]][["@id"]],
+					# lst[["unit"]][["annotationValue"]],
+					# lst[["unit"]][["termAccession"]],
+					# lst[["unit"]][["termSource"]]
+				)
+				# self$unit <- Unit$new(
+				# 	ontology_source_references =
+				# 		self$ontology_source_references,
+				# 	unit_references = self$unit_references
+				# )
+				# self$unit$from_list(lst[["unit"]])
+				#
+				# set_valid_unit()
 				self$set_value(lst[["value"]])
 			}
 			self$set_comments(lst[["comments"]])
@@ -342,22 +345,23 @@ Characteristic <- R6::R6Class(
 			# }
 		},
 
-		#' @details
-		#' set the uuid of this object
-		#' @param id a uuid
-		#' @param suffix a human readable suffix
-		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
-			private$id <- generate_id(id, suffix)
-		},
+		#' #' @details
+		#' #' set the uuid of this object
+		#' #' @param id a uuid
+		#' #' @param suffix a human readable suffix
+		#' set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
+		#' 	private$id <- generate_id(id, suffix)
+		#' },
 		#' @details
 		#' Pretty Prints [Characteristic] objects
 		print = function() {
 			cli::cli_h1(cli::col_blue("Characteristic"))
 			green_bold_name_plain_content("category", self$category[["@id"]])
-			green_bold_name_plain_content("ID", self$get_id())
-			green_bold_name_plain_content("value", self$value$term)
-			if(!is.null(self$unit)) {
-				green_bold_name_plain_content("unit", self$unit)
+			# green_bold_name_plain_content("ID", self$get_id())
+			if(is.null(self$unit)) {
+				green_bold_name_plain_content("value", self$value$term)
+			} else {
+				green_bold_name_plain_content("unit", self$unit$term)
 			}
 			pretty_print_comments(self$comments)
 		}

@@ -81,7 +81,7 @@ ProtocolParameter <- R6::R6Class(
 		#' Person$new()
 		to_list = function(ld = FALSE, recursive = FALSE) {
 			protocol_parameter = list(
-				"id" = private$id,
+				#"id" = private$id,
 				"parameter_name" = switch(
 					as.character(recursive),
 					"TRUE" = self$parameter_name$to_list(),

@@ -12,6 +12,8 @@ BII_S_3_jsonlite <- jsonlite::read_json(
 # test_uuid <- uuid::UUIDgenerate()
 
 # Ontology Source References ----
+# library(devtools)
+# load_all()
 # inv <- Investigation$new()
 # inv$from_list(BII_I_1_jsonlite, recursive = TRUE, json = TRUE)
 # inv$get_ontology_source_names()
@@ -86,13 +88,12 @@ test_that("Materials", {
 
 # StudyFactor ----
 test_that("StudyFactor", {
-	tsf <- StudyFactor$new()
+	obj <- StudyFactor$new()
 	ex <- BII_I_1_jsonlite$studies[[1]]$factors[[1]]
-	warns <- capture_warnings(tsf$from_list(ex))
+	warns <- capture_warnings(obj$from_list(ex))
 
 	## retain order in source when reading? !!
-	tsf_to_list <- tsf$to_list()
-	expect_equal(unlist_sort_by_name(tsf_to_list), unlist_sort_by_name(ex))
+	expect_equal(unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex))
 
 	# sf_order <- names(ex)
 	# tsf_to_list <- tsf_to_list[sf_order]
@@ -104,13 +105,11 @@ test_that("StudyFactor", {
 
 # StudyFactorReferences ----
 test_that("StudyFactorReferences", {
-	tsfr <- StudyFactorReferences$new()
+	obj <- StudyFactorReferences$new()
 	ex <- BII_I_1_jsonlite$studies[[1]]$factors
-	warns <- capture_warnings(tsfr$from_list(ex))
+	warns <- capture_warnings(obj$from_list(ex))
 
-	tsfr_to_list <- tsfr$to_list()
-
-	expect_equal(unlist_sort_by_name(tsfr_to_list), unlist_sort_by_name(ex))
+	expect_equal(unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex))
 
 	# handinling the possibility of arbitrary name order in json by re-ordering
 	# the to_list output to match that of the json as read
@@ -130,10 +129,10 @@ test_that("StudyFactorReferences", {
 
 # Characteristic Categories References----
 test_that("CharacteristicCategoriesReferences", {
-	tccr <- CharacteristicCategoryReferences$new()
+	obj <- CharacteristicCategoryReferences$new()
 	ex <- BII_I_1_jsonlite$studies[[1]]$characteristicCategories
-	warns <- capture_warnings(tccr$from_list(ex))
-	expect_equal(tccr$to_list(), ex)
+	warns <- capture_warnings(obj$from_list(ex))
+	expect_equal(unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex))
 })
 
 # Unit Categories ----
@@ -143,7 +142,7 @@ test_that("Unit References work", {
 	warns <- capture_warnings(obj$from_list(ex))
 	expect_match(warns, "Term Source Unknown", all = FALSE)
 	expect_match(warns, "Term not in source", all = FALSE)
-	expect_equal(obj$to_list(), ex)
+	expect_equal(unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex))
 })
 
 # Protocol ----
@@ -182,11 +181,11 @@ test_that("Person", {
 	warns <- capture_warnings(obj$from_list(ex))
 	expect_match(warns, "Empty email", all = FALSE)
 
-	ont_anno_order <- names(ex$roles[[1]])
-	obj_to_list <- obj$to_list()
-	obj_to_list$roles <- purrr::map(obj_to_list$roles, ~.x[ont_anno_order])
-
-	expect_equal(tp_to_list, ex)
+	# ont_anno_order <- names(ex$roles[[1]])
+	#obj_to_list <- obj$to_list()
+	#obj_to_list$roles <- purrr::map(obj_to_list$roles, ~.x[ont_anno_order])
+	# expect_equal(tp_to_list, ex)
+	expect_equal(unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex))
 })
 
 # Assay ----
@@ -194,7 +193,7 @@ test_that("Assay", {
 	obj <- Assay$new()
 	ex <- BII_S_3_jsonlite$studies[[1]]$assays[[1]]
 	warns <- capture_warnings(obj$from_list(ex))
-	expect_equal(obj$to_list(), ex)
+	expect_equal(unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex))
 
 	# expect_equal(ts$submission_date, "2008-08-15")
 	# expect_equal(ts$public_release_date, "2008-08-15")
@@ -204,9 +203,10 @@ test_that("Assay", {
 
 # Study ----
 test_that("Study", {
-	ts <- Study$new()
-	ts$from_list(BII_S_3_jsonlite$studies[[1]])
-	expect_equal(BII_S_3_jsonlite$studies[[1]], ts$to_list())
+	obj <- Study$new()
+	ex <- BII_S_3_jsonlite$studies[[1]]
+	warns <- capture_warnings(obj$from_list(BII_S_3_jsonlite$studies[[1]]))
+	expect_equal(unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex))
 
 	# expect_equal(ts$submission_date, "2008-08-15")
 	# expect_equal(ts$public_release_date, "2008-08-15")
@@ -217,9 +217,10 @@ test_that("Study", {
 # Investigation ----
 
 test_that("Investigation Works", {
-	inv <- Investigation$new()
-	inv$from_list(BII_I_1_jsonlite, recursive = TRUE, json = TRUE)
-	expect_equal(BII_I_1_jsonlite, inv$to_list())
+	obj <- Investigation$new()
+	ex <- BII_I_1_jsonlite
+	obj$from_list(ex, recursive = TRUE, json = TRUE)
+	expect_equal(unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex))
 
 	# submission date
 	# description

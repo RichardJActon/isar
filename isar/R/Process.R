@@ -155,15 +155,15 @@ Process <- R6::R6Class(
 			lst <- list()
 			# handling names when reading without parent objects to supply
 			# sample and source objects
-			lst[["outputs"]] <- if (is.character(self$outputs)) {
-				purrr::map(self$outputs, ~list("@id" = .x))
+			if (is.character(self$outputs)) {
+				lst[["outputs"]] <- purrr::map(self$outputs, ~list("@id" = .x))
 			} else {
-				purrr::map(self$outputs, ~.x$to_list())
+				lst[["outputs"]] <- purrr::map(self$outputs, ~.x$to_list())
 			}
-			lst[["inputs"]] <- if (is.character(self$inputs)) {
-				purrr::map(self$inputs, ~list("@id" = .x))
+			if (is.character(self$inputs)) {
+				lst[["inputs"]] <- purrr::map(self$inputs, ~list("@id" = .x))
 			} else {
-				purrr::map(self$inputs, ~.x$to_list())
+				lst[["inputs"]] <- purrr::map(self$inputs, ~.x$to_list())
 			}
 
 			lst[["parameterValues"]] <- self$parameter_values

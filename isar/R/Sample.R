@@ -11,6 +11,7 @@
 #' @field category_references an [CharacteristicCategoryReferences] object
 #' @field unit_references an [UnitReferences] object
 #' @field sources list of available [Source]s
+#' @field @id identifier
 #'
 #' @importFrom R6 R6Class
 #' @importFrom checkmate check_string test_r6
@@ -33,6 +34,7 @@ Sample <- R6::R6Class(
 		category_references = NULL,
 		unit_references = NULL,
 		sources = NULL,
+		`@id` = NULL,
 		#' @details
 		#'
 		#' Create a new instance of sample
@@ -46,6 +48,7 @@ Sample <- R6::R6Class(
 		#' @param category_references an [CharacteristicCategoryReferences] object
 		#' @param unit_references an [UnitReferences] object
 		#' @param sources list of available [Source]s
+		#' @param @id identifier
 		initialize = function(
 			name = character(),
 			factor_values = NULL,
@@ -55,7 +58,8 @@ Sample <- R6::R6Class(
 			ontology_source_references = NULL,
 			category_references = NULL,
 			unit_references = NULL,
-			sources = NULL
+			sources = NULL,
+			`@id` = NULL
 		) {
 			if (checkmate::qtest(name, "S[0]")) {
 				self$name <- name
@@ -76,6 +80,7 @@ Sample <- R6::R6Class(
 			self$unit_references <- unit_references
 			self$sources <- sources
 			self$comments <- comments
+			self$`@id` <- `@id`
 		},
 
 		#' @details
@@ -130,6 +135,7 @@ Sample <- R6::R6Class(
 		to_list = function(ld = FALSE) {
 			lst <- list()
 			# "id" = private$id
+			lst[["@id"]] <- self$`@id`
 			lst[["name"]] <- self$name
 			lst[["factorValues"]] <- purrr::map(
 				self$factor_values, ~.x$to_list()
@@ -169,9 +175,7 @@ Sample <- R6::R6Class(
 		#' @param json json  (default TRUE)
 		#' @param recursive call to_list methods of any objects within this object (default TRUE)
 		from_list = function(lst, recursive = TRUE, json = TRUE) {
-			if(!json) {
-				private$id <- lst[["id"]]
-			}
+			self$`@id` <- lst[["@id"]]
 			self$name <- lst[["name"]]
 
 			self$set_source(lst[["derivesFrom"]][[1]][["@id"]]) # multiple inputs? # are all always sources?
@@ -202,8 +206,7 @@ Sample <- R6::R6Class(
 				self$category_references <-
 					CharacteristicCategoryReferences$new(
 						ontology_source_references =
-							self$ontology_source_references,
-						unit_references = self$unit_references
+							self$ontology_source_references
 					)
 			}
 			self$characteristics <- purrr::map(lst[["characteristics"]], ~{
@@ -261,7 +264,7 @@ Sample <- R6::R6Class(
 		print = function() {
 			cli::cli_h1(cli::col_blue("Sample"))
 			green_bold_name_plain_content("Name", self$name)
-			green_bold_name_plain_content("ID", private$id)
+			# green_bold_name_plain_content("ID", private$id)
 			green_bold_name_plain_content("Derives from", self$derives_from$name)
 			cli::cli_h1(cli::col_green("Factor Categories"))
 			cli::cli_ul(purrr::map_chr(self$factor_values, ~.x$`@id`))

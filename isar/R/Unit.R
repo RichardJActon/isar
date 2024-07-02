@@ -49,68 +49,37 @@ Unit <- R6::R6Class(
 		#' @param @id identifier
 		#' @param ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor
 		#' @param source the source of the [OntologySource] object, was it listed in
- 		# #' @param unit_references A list of units used as a [UnitReferences] object
+ 		#' @param unit_references A list of units used as a [UnitReferences] object
 		initialize = function(
 			unit = NULL,
 			`@id` = character(),
 			ontology_source_references = NULL,
-			unit_references = NULL,
+			# unit_references = NULL,
 			source = NA
 		) {
-			if (is.null(unit)) { self$unit <- unit } else {
-				# need a list of ontology annotations to account for
-				# composit units e.g. ms^-2 is meters and seconds
-				# need a separate field for the unit and the ontology
-				# annotation(s) used in the unit
-				#self$unit <- OntologyAnnotation$new(unit, OM)
-				self$set_unit_from_string(unit)
-			}
+			# self$set_unit_from_string(unit)
+			# need a list of ontology annotations to account for
+			# composit units e.g. ms^-2 is meters and seconds
+			# need a separate field for the unit and the ontology
+			# annotation(s) used in the unit
+			#self$unit <- OntologyAnnotation$new(unit, OM)
 			self$`@id` <- `@id`
-			self$ontology_source_references <- ontology_source_references
+			if(is.null(ontology_source_references)) {
+				self$ontology_source_references <-
+					OntologySourceReferences$new()
+			} else {
+				self$ontology_source_references <- ontology_source_references
+			}
+			if (is.null(unit)) {
+				unit <- OntologyAnnotation$new(
+					ontology_source_references = self$ontology_source_references
+				)
+			} else {
+				self$unit <- unit
+			}
 			# self$unit_references <- unit_references
 			self$source <- source
 		},
-		#' #' @details
-		#' #' Set the unit as a valid ontology term
-		#' #' @param term the term of the unit
-		#' #' @param term_accession the accession of the ontology term of the unit
-		#' #' @param term_source the name of the source of the ontology term
-		#' set_valid_unit = function(term, term_accession, term_source) {
-		#' 	# browser()
-		#' 	if (!is.null(term)) {
-		#' 		if (term %in% OM$terms_list || term %in% names(OM$terms_list)) {
-		#' 			if(
-		#' 				!"OM" %in%
-		#' 				self$ontology_source_references$get_ontology_source_names()
-		#' 			) {
-		#' 				self$ontology_source_references$add_ontology_sources(
-		#' 					list("OM" = OM)
-		#' 				)
-		#' 			}
-		#' 		}
-		#' 	}
-		#'
-		#' 	if (is.null(self$unit_references)) {
-		#' 		self$unit_references <- UnitReferences$new()
-		#' 	}
-		#'
-		#' 	if (self$`@id` %in% self$unit_references$get_unit_ids()) {
-		#' 		self$unit <- self$unit_references$unit_references[[self$`@id`]]
-		#' 	} else {
-		#' 		un <- Unit$new(
-		#' 			ontology_source_references = self$ontology_source_references,
-		#' 			unit_references = self$unit_references
-		#' 		)
-		#' 		un$set_valid_annotation(
-		#' 			term = term, term_accession = term_accession,
-		#' 			term_source_name = term_source
-		#' 		)
-		#' 		self$unit_references$add_unit_references(
-		#' 			list("UnknownUnit" = un)
-		#' 		)
-		#' 	}
-		#' },
-
 		#' @details
 		#' Get the term associated with the unit as a string
 		#' @return a character vector of length one with the term of the unit
@@ -119,10 +88,13 @@ Unit <- R6::R6Class(
 		},
 		#' @details
 		#' An R list representation of a [Unit] object
-		#' @param ld linked data (default FALSE)
-		to_list = function(ld = FALSE) {
-			lst <- list("@id" = self$`@id`)
-			lst <- c(lst, self$unit$to_list())
+		#' @param recursive linked data (default FALSE)
+		to_list = function(recursive = TRUE) {
+			lst <- list()
+			lst[["@id"]] <- self$`@id`
+			if(recursive) {
+				lst <- c(lst, self$unit$to_list())
+			}
 			return(lst)
 		},
 		#' @details
@@ -130,36 +102,13 @@ Unit <- R6::R6Class(
 		#' @param lst an Unit object serialized to a list
 		#' @param json json  (default TRUE)
 		#' @param recursive call to_list methods of any objects within this object (default TRUE)
-		from_list = function(lst, recursive = TRUE, json = TRUE) {
-			# browser()
-			if(
-				lst[["@id"]] %in%
-				self$ontology_source_references$get_ontology_source_names()
-			) {
-				self$ontology_source_references$ontology_source_references[[
-					lst[["@id"]]
-				]]#$from_list(lst)
-
-			} else {
-
-				self$ontology_source_references$add_ontology_sources()
-			}
-			#
-			# self$`@id` <- lst[["@id"]]
-			#
-			# self$set_valid_unit(
-			# 	lst[["annotationValue"]],
-			# 	lst[["termAccession"]],
-			# 	lst[["termSource"]]
-			# )
-
-			# lst[["termAccession"]]
-			# lst[["termSource"]]
-			#self$set_unit_from_string(lst[["annotationValue"]])
+		from_list = function(lst, source = NA, add = FALSE) {
+			self$`@id` <- lst[["@id"]]
 			self$unit <- OntologyAnnotation$new(
 				ontology_source_references = self$ontology_source_references
 			)
-			self$unit <- self$unit$from_list(lst)
+			#self$unit <-
+			self$unit$from_list(lst)
 		}
 	)
 )
