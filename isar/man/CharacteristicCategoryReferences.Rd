@@ -24,10 +24,12 @@ CharacteristicCategoryReferences
 \item \href{#method-CharacteristicCategoryReferences-check_categories}{\code{CharacteristicCategoryReferences$check_categories()}}
 \item \href{#method-CharacteristicCategoryReferences-add_categories}{\code{CharacteristicCategoryReferences$add_categories()}}
 \item \href{#method-CharacteristicCategoryReferences-set_categories}{\code{CharacteristicCategoryReferences$set_categories()}}
+\item \href{#method-CharacteristicCategoryReferences-get_characterisic_categories}{\code{CharacteristicCategoryReferences$get_characterisic_categories()}}
 \item \href{#method-CharacteristicCategoryReferences-check_type}{\code{CharacteristicCategoryReferences$check_type()}}
 \item \href{#method-CharacteristicCategoryReferences-set_type}{\code{CharacteristicCategoryReferences$set_type()}}
 \item \href{#method-CharacteristicCategoryReferences-get_category_ids}{\code{CharacteristicCategoryReferences$get_category_ids()}}
 \item \href{#method-CharacteristicCategoryReferences-get_category_names}{\code{CharacteristicCategoryReferences$get_category_names()}}
+\item \href{#method-CharacteristicCategoryReferences-get_characteristic_catagory_origins}{\code{CharacteristicCategoryReferences$get_characteristic_catagory_origins()}}
 \item \href{#method-CharacteristicCategoryReferences-to_list}{\code{CharacteristicCategoryReferences$to_list()}}
 \item \href{#method-CharacteristicCategoryReferences-from_list}{\code{CharacteristicCategoryReferences$from_list()}}
 \item \href{#method-CharacteristicCategoryReferences-print}{\code{CharacteristicCategoryReferences$print()}}
@@ -122,6 +124,29 @@ overwrites existing categories
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CharacteristicCategoryReferences-get_characterisic_categories"></a>}}
+\if{latex}{\out{\hypertarget{method-CharacteristicCategoryReferences-get_characterisic_categories}{}}}
+\subsection{Method \code{get_characterisic_categories()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CharacteristicCategoryReferences$get_characterisic_categories(names = "all")}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{names}}{default return all names}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Get characteristic categories
+}
+
+\subsection{Returns}{
+a vector of \link{CharacteristicCategory} objects
+}
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-CharacteristicCategoryReferences-check_type"></a>}}
 \if{latex}{\out{\hypertarget{method-CharacteristicCategoryReferences-check_type}{}}}
 \subsection{Method \code{check_type()}}{
@@ -194,11 +219,23 @@ character vector
 }
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CharacteristicCategoryReferences-get_characteristic_catagory_origins"></a>}}
+\if{latex}{\out{\hypertarget{method-CharacteristicCategoryReferences-get_characteristic_catagory_origins}{}}}
+\subsection{Method \code{get_characteristic_catagory_origins()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CharacteristicCategoryReferences$get_characteristic_catagory_origins()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+character vector of characteristic category sources
+}
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-CharacteristicCategoryReferences-to_list"></a>}}
 \if{latex}{\out{\hypertarget{method-CharacteristicCategoryReferences-to_list}{}}}
 \subsection{Method \code{to_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{CharacteristicCategoryReferences$to_list()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{CharacteristicCategoryReferences$to_list(source = "any")}\if{html}{\out{</div>}}
 }
 
 \subsection{Details}{

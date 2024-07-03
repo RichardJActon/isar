@@ -28,6 +28,7 @@ R6 object for specifying a unit of measurement
 \item \href{#method-Unit-get_unit_string}{\code{Unit$get_unit_string()}}
 \item \href{#method-Unit-to_list}{\code{Unit$to_list()}}
 \item \href{#method-Unit-from_list}{\code{Unit$from_list()}}
+\item \href{#method-Unit-print}{\code{Unit$print()}}
 \item \href{#method-Unit-clone}{\code{Unit$clone()}}
 }
 }
@@ -85,13 +86,13 @@ a character vector of length one with the term of the unit
 \if{latex}{\out{\hypertarget{method-Unit-to_list}{}}}
 \subsection{Method \code{to_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Unit$to_list(ld = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Unit$to_list(recursive = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{ld}}{linked data (default FALSE)}
+\item{\code{recursive}}{linked data (default FALSE)}
 }
 \if{html}{\out{</div>}}
 }
@@ -121,6 +122,19 @@ An R list representation of a \link{Unit} object
 }
 \subsection{Details}{
 Make \link{Unit} object from list
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Unit-print"></a>}}
+\if{latex}{\out{\hypertarget{method-Unit-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Unit$print()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Pretty prints \link{Unit} objects
 }
 
 }

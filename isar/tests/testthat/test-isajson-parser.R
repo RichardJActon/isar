@@ -192,6 +192,7 @@ test_that("Person", {
 test_that("Assay", {
 	obj <- Assay$new()
 	ex <- BII_S_3_jsonlite$studies[[1]]$assays[[1]]
+	#ex <- BII_I_1_jsonlite$studies[[1]]$assays[[1]]
 	warns <- capture_warnings(obj$from_list(ex))
 	expect_equal(unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex))
 
@@ -205,6 +206,7 @@ test_that("Assay", {
 test_that("Study", {
 	obj <- Study$new()
 	ex <- BII_S_3_jsonlite$studies[[1]]
+	# ex <- BII_I_1_jsonlite$studies[[1]]
 	warns <- capture_warnings(obj$from_list(BII_S_3_jsonlite$studies[[1]]))
 	expect_equal(unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex))
 
@@ -219,7 +221,7 @@ test_that("Study", {
 test_that("Investigation Works", {
 	obj <- Investigation$new()
 	ex <- BII_I_1_jsonlite
-	obj$from_list(ex, recursive = TRUE, json = TRUE)
+	warns <- capture_warnings(obj$from_list(ex, recursive = TRUE, json = TRUE))
 	expect_equal(unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex))
 
 	# submission date

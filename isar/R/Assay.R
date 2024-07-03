@@ -207,6 +207,63 @@ Assay <- R6::R6Class(
 				self$comments <- c(comments, comment)
 			}
 		},
+		#' @details
+		#' Check that all samples are [Sample] objects
+		#' @param samples a list of [Sample] objects
+		check_samples = function(samples) {
+			if(
+				checkmate::test_list(samples, min.len = 1) &&
+				all(
+					purrr::map_lgl(samples, ~checkmate::test_r6(.x, "Sample"))
+				)
+			) { return(TRUE) }
+			stop("All samples must be Sample objects")
+		},
+		#' @details
+		#' Check that all sample ids reference on of the supplied sample objects
+		#' @param sample_ids a vector of sample IDs
+		check_sample_ids = function(sample_ids) {
+			lgl <- sample_ids %in% names(self$samples)
+			if(all(lgl)) { return(TRUE) } else {
+				if (any(lgl)) {
+					stop(
+						"These samples are present:\n",
+						paste0(sample_ids[lgl], collapse = ", "),
+						"\n but these are missing!: \n",
+						paste0(sample_ids[!lgl], collapse = ", ")
+					)
+				}
+			}
+			stop("None of the samples with the supplied IDs were found!")
+		},
+		#' @details
+		#' Set samples if samples is a list of [Sample] objects
+		#' @param samples a list of [Sample] objects
+		set_samples = function(samples) {
+			if (self$check_samples(samples)) {
+				self$samples <- samples
+			}
+		},
+		set_samples_by_id = function(sample_ids) {
+			lgl <- sample_ids %in% names(self$samples)
+			if(all(lgl)) {
+				self$samples <- self$samples[sample_ids]
+			} else {
+				if (any(lgl)) {
+					stop(
+						"These samples are present:\n",
+						paste0(sample_ids[lgl], collapse = ", "),
+						"\n but these are missing!: \n",
+						paste0(sample_ids[!lgl], collapse = ", ")
+					)
+				}
+			}
+			warning(
+				"None of the samples with the supplied IDs were found!\n",
+				"Recording IDs in place referencing appropriate sample objects!"
+			)
+			self$samples <- sample_ids
+		},
 		# # Getters
 		# ## Shiny
 		# 		# #' @details
@@ -254,10 +311,18 @@ Assay <- R6::R6Class(
 			lst[["materials"]][["otherMaterials"]] <- purrr::map(
 				self$other_materials, ~.x$to_list()
 			)
-			lst[["materials"]][["samples"]] <- purrr::map(
-				self$samples, ~.x$to_list()
-			)
-			lst[["unitCategories"]] <- self$unit_references$to_list()
+			if(is.character(self$samples)) {
+				lst[["materials"]][["samples"]] <- self$samples
+			} else {
+				lst[["materials"]][["samples"]] <- purrr::map(
+					self$samples, ~.x$to_list()
+				)
+			}
+			if(is.null(self$unit_references)) {
+				lst[["unitCategories"]] <- list()
+			} else {
+				lst[["unitCategories"]] <- self$unit_references$to_list()
+			}
 			# purrr::map(self$unit_references, ~{
 			# 	c(list(`@id` = .x$`@id`), .x$to_list())
 			# })
@@ -352,9 +417,9 @@ Assay <- R6::R6Class(
 					m
 				})
 
-			self$samples <- self$samples[
-				purrr::map_chr(lst[["materials"]][["samples"]], ~.x$`@id`)
-			]
+			lst[["materials"]][["samples"]] %>%
+				purrr::map_chr(~.x$`@id`) %>%
+				self$set_samples_by_id()
 
 			# process_sequence_order <- get_process_sequence_order_from_json(
 			# 	lst[["processSequence"]]
@@ -377,7 +442,7 @@ Assay <- R6::R6Class(
 			cli::cli_h1(cli::col_blue("Assay ⚖️️"))
 
 			green_bold_name_plain_content("@id", self$`@id`)
-			green_bold_name_plain_content("Measurement Type", self$measurement_type)
+			green_bold_name_plain_content("Measurement Type", self$measurement_type$term)
 			green_bold_name_plain_content("Technology Type", self$technology_type$term)
 			# green_bold_name_plain_content("", self$technology_platform)
 			green_bold_name_plain_content("Filename", self$filename)

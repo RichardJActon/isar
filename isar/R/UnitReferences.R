@@ -94,6 +94,12 @@ UnitReferences <- R6::R6Class(
 			} else {
 				self$set_unit_references(ur)
 			}
+		},
+		#' @details
+		#' Pretty prints [UnitReference] objects
+		print = function() {
+			cli::cli_h1(cli::col_blue("Unit References"))
+			purrr::walk(self$units, ~.x$print())
 		}
 	)
 )

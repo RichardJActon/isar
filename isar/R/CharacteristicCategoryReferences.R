@@ -98,7 +98,7 @@ CharacteristicCategoryReferences <- R6::R6Class(
 		#' @details
 		#'
 		#' @return character vector of characteristic category sources
-		get_characteristic_catagory_origins = function() {
+		get_characteristic_category_origins = function() {
 			purrr::map_chr(self$categories, ~.x$source)
 		},
 
@@ -110,19 +110,20 @@ CharacteristicCategoryReferences <- R6::R6Class(
 				self$categories %>%
 					purrr::map(~.x$to_list()) %>%
 					purrr::set_names(NULL)
-			} else if(source %in% self$get_characteristic_catagory_origins()) {
+			} else if(source %in% self$get_characteristic_category_origins()) {
 				self$categories %>%
 					`[`(
-						self$get_characteristic_catagory_origins() %in% source
+						self$get_characteristic_category_origins() %in% source
 					) %>%
 					purrr::map(~.x$to_list()) %>%
 					purrr::set_names(NULL)
 			} else {
-				possible_values <-
-					self$get_characteristic_catagory_origins() %>%
-					unique() %>%
-					paste0(collapse = ", ")
-				stop(paste0("source must be one of: any, ", possible_values))
+				list()
+				# possible_values <-
+				# 	self$get_characteristic_category_origins() %>%
+				# 	unique() %>%
+				# 	paste0(collapse = ", ")
+				# stop(paste0("source must be one of: any, ", possible_values))
 			}
 		},
 		#' @details

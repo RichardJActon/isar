@@ -34,6 +34,7 @@ R6 class for UnitReferences
 \item \href{#method-UnitReferences-get_unit_ids}{\code{UnitReferences$get_unit_ids()}}
 \item \href{#method-UnitReferences-to_list}{\code{UnitReferences$to_list()}}
 \item \href{#method-UnitReferences-from_list}{\code{UnitReferences$from_list()}}
+\item \href{#method-UnitReferences-print}{\code{UnitReferences$print()}}
 \item \href{#method-UnitReferences-clone}{\code{UnitReferences$clone()}}
 }
 }
@@ -169,6 +170,19 @@ in study unit categories list which one?}
 }
 \subsection{Details}{
 Make a \link{UnitReferences} object from list
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-UnitReferences-print"></a>}}
+\if{latex}{\out{\hypertarget{method-UnitReferences-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{UnitReferences$print()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Pretty prints \link{UnitReference} objects
 }
 
 }

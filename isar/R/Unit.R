@@ -109,6 +109,14 @@ Unit <- R6::R6Class(
 			)
 			#self$unit <-
 			self$unit$from_list(lst)
+		},
+		#' @details
+		#' Pretty prints [Unit] objects
+		print = function() {
+			cli::cli_h1(cli::col_blue("Unit"))
+			green_bold_name_plain_content("@id", self[["@id"]])
+			green_bold_name_plain_content("Type", self$unit$term)
+			green_bold_name_plain_content("Source", self$source)
 		}
 	)
 )

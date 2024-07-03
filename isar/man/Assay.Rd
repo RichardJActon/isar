@@ -61,6 +61,10 @@ experimental workflow described by a particular protocol.
 \item \href{#method-Assay-check_comments}{\code{Assay$check_comments()}}
 \item \href{#method-Assay-set_comments}{\code{Assay$set_comments()}}
 \item \href{#method-Assay-add_comment}{\code{Assay$add_comment()}}
+\item \href{#method-Assay-check_samples}{\code{Assay$check_samples()}}
+\item \href{#method-Assay-check_sample_ids}{\code{Assay$check_sample_ids()}}
+\item \href{#method-Assay-set_samples}{\code{Assay$set_samples()}}
+\item \href{#method-Assay-set_samples_by_id}{\code{Assay$set_samples_by_id()}}
 \item \href{#method-Assay-to_list}{\code{Assay$to_list()}}
 \item \href{#method-Assay-from_list}{\code{Assay$from_list()}}
 \item \href{#method-Assay-print}{\code{Assay$print()}}
@@ -351,6 +355,75 @@ Sets comments if they are in a valid format
 }
 \subsection{Details}{
 Add comment if it is in a valid format
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Assay-check_samples"></a>}}
+\if{latex}{\out{\hypertarget{method-Assay-check_samples}{}}}
+\subsection{Method \code{check_samples()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Assay$check_samples(samples)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{samples}}{a list of \link{Sample} objects}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Check that all samples are \link{Sample} objects
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Assay-check_sample_ids"></a>}}
+\if{latex}{\out{\hypertarget{method-Assay-check_sample_ids}{}}}
+\subsection{Method \code{check_sample_ids()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Assay$check_sample_ids(sample_ids)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{sample_ids}}{a vector of sample IDs}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Check that all sample ids reference on of the supplied sample objects
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Assay-set_samples"></a>}}
+\if{latex}{\out{\hypertarget{method-Assay-set_samples}{}}}
+\subsection{Method \code{set_samples()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Assay$set_samples(samples)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{samples}}{a list of \link{Sample} objects}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Set samples if samples is a list of \link{Sample} objects
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Assay-set_samples_by_id"></a>}}
+\if{latex}{\out{\hypertarget{method-Assay-set_samples_by_id}{}}}
+\subsection{Method \code{set_samples_by_id()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Assay$set_samples_by_id(sample_ids)}\if{html}{\out{</div>}}
 }
 
 }

@@ -2,6 +2,7 @@
 
 export(Assay)
 export(Characteristic)
+export(CharacteristicCategory)
 export(CharacteristicCategoryReferences)
 export(DataFile)
 export(FactorValue)
