@@ -222,7 +222,9 @@ Protocol <- R6::R6Class(
 		to_list = function(ld = FALSE, recursive = TRUE){
 			lst <- list()
 			lst[["parameters"]] <- if(!is.null(self$parameters)) {
-				purrr::map(self$parameters, ~.x$to_list())
+				self$parameters %>%
+					purrr::map(~.x$to_list()) %>%
+					purrr::set_names(NULL)
 			} else { list() }
 			lst[["components"]] <- if (!is.null(self$components)) {
 				purrr::map(self$components, ~.x$to_list())
@@ -235,12 +237,12 @@ Protocol <- R6::R6Class(
 
 			# weird inconsistencies with missing data in the json output?
 			ptl <- self$protocol_type$to_list()
-			if(ptl[["termAccession"]] == "") {
-				ptl <- ptl[names(ptl) != "termAccession"]
-			}
-			if(ptl[["termSource"]] == "") {
-				ptl <- ptl[names(ptl) != "termSource"]
-			}
+			# if(ptl[["termAccession"]] == "") {
+			# 	ptl <- ptl[names(ptl) != "termAccession"]
+			# }
+			# if(ptl[["termSource"]] == "") {
+			# 	ptl <- ptl[names(ptl) != "termSource"]
+			# }
 			if(ptl[["annotationValue"]] == "Unspecified Term") {
 				ptl[["annotationValue"]] <- ""
 			}

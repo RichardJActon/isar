@@ -35,6 +35,8 @@ Process <- R6::R6Class(
 		protocols = NULL,
 		sources = NULL,
 		samples = NULL,
+		next_process = NULL,
+		previous_process = NULL,
 		#' @details
 		#' Create a new [Process]
 		#' @param name If relevant, a unique name for the process to disambiguate it from other processes.
@@ -61,7 +63,9 @@ Process <- R6::R6Class(
 			`@id` = NULL,
 			protocols = NULL,
 			sources = NULL,
-			samples = NULL
+			samples = NULL,
+			next_process = NULL,
+			previous_process = NULL
 		) {
 			self$name <- name
 			self$executes_protocol <- executes_protocol
@@ -75,6 +79,8 @@ Process <- R6::R6Class(
 			self$protocols <- protocols
 			self$sources <- sources
 			self$samples <- samples
+			self$next_process <- next_process
+			self$previous_process <- previous_process
 		},
 		#' @details
 		#' Check the the name has a non-zero length
@@ -155,19 +161,41 @@ Process <- R6::R6Class(
 			lst <- list()
 			# handling names when reading without parent objects to supply
 			# sample and source objects
+			# if (is.character(self$outputs)) {
+			# 	lst[["outputs"]] <- self$outputs %>%
+			# 		purrr::map(~list("@id" = .x)) %>% purrr::set_names(NULL)
+			# } else {
+			# 	lst[["outputs"]] <- self$outputs %>%
+			# 		purrr::map(~.x$to_list()) %>% purrr::set_names(NULL)
+			# }
+			# if (is.character(self$inputs)) {
+			# 	lst[["inputs"]] <- self$inputs %>%
+			# 		purrr::map(~list("@id" = .x)) %>% purrr::set_names(NULL)
+			# } else {
+			# 	lst[["inputs"]] <- self$inputs %>%
+			# 		purrr::map(~.x$to_list()) %>% purrr::set_names(NULL)
+			# }
 			if (is.character(self$outputs)) {
-				lst[["outputs"]] <- purrr::map(self$outputs, ~list("@id" = .x))
+				lst[["outputs"]] <- self$outputs %>%
+					purrr::map(~list("@id" = .x)) %>% purrr::set_names(NULL)
 			} else {
-				lst[["outputs"]] <- purrr::map(self$outputs, ~.x$to_list())
+				lst[["outputs"]] <- self$outputs %>%
+					purrr::map(~list("@id" = .x$`@id`)) %>%
+					purrr::set_names(NULL)
 			}
+
 			if (is.character(self$inputs)) {
-				lst[["inputs"]] <- purrr::map(self$inputs, ~list("@id" = .x))
+				lst[["inputs"]] <- self$inputs %>%
+					purrr::map(~list("@id" = .x)) %>% purrr::set_names(NULL)
 			} else {
-				lst[["inputs"]] <- purrr::map(self$inputs, ~.x$to_list())
+				lst[["inputs"]] <- self$inputs %>%
+					purrr::map(~list("@id" = .x$`@id`)) %>%
+					purrr::set_names(NULL)
 			}
 
 			lst[["parameterValues"]] <- self$parameter_values
-			lst$`@id` <- self$`@id`
+			lst[["@id"]] <- self$`@id`
+
 			lst[["date"]] <- self$date
 			lst[["comments"]] <- self$comments
 			lst[["performer"]] <- self$performer# purrr::map(self$performer, ~.x$to_list),
@@ -177,11 +205,29 @@ Process <- R6::R6Class(
 			# )
 			if(is.null(self$executes_protocol)) {
 				lst[["executesProtocol"]] <- list()
-			} else if(is.character(self$executes_protocol)) {
-				lst[["executesProtocol"]] <- list("@id" = self$executes_protocol)
 			} else {
-				lst[["executesProtocol"]] <- self$executes_protocol$to_list()
+				lst[["executesProtocol"]] <- list(
+					"@id" = self$executes_protocol$`@id`
+				)
 			}
+			# } else if(is.character(self$executes_protocol)) {
+			# 	lst[["executesProtocol"]] <- list("@id" = self$executes_protocol)
+			# } else {
+			# 	lst[["executesProtocol"]] <- self$executes_protocol$to_list()
+			# }
+
+			if(!is.null(self$next_process)) {
+				lst[["nextProcess"]][["@id"]] <- self$next_process
+			}
+			if(!is.null(self$previous_process)) {
+				lst[["previousProcess"]][["@id"]] <- self$previous_process
+			}
+			# only last processes are named for some reason?
+			if(is.null(self$next_process) && !is.null(self$previous_process)) {
+				lst[["name"]] <- self$name
+			}
+
+
 			return(lst)
 		},
 		#' @details
@@ -248,6 +294,22 @@ Process <- R6::R6Class(
 		# set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
 		# 	private$id <- generate_id(id, suffix)
 		# },
+
+		add_process_order = function(lst, available_processes) {
+			next_id <- lst[["nextProcess"]][["@id"]]
+			if(!is.null(next_id)) {
+				if(next_id %in% available_processes) {
+					self$next_process <- next_id
+				}
+			}
+			previous_id <- lst[["previousProcess"]][["@id"]]
+			if (!is.null(previous_id)) {
+				if (previous_id %in% available_processes) {
+					self$previous_process <- previous_id
+				}
+
+			}
+		},
 
 		#' @details
 		#' Pretty Prints [Process] objects

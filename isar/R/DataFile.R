@@ -204,26 +204,29 @@ DataFile <- R6::R6Class(
 		#' An R list representation of a [DataFile] object
 		#' @param ld linked data (default FALSE)
 		to_list = function(ld = FALSE){
-			date_file <- list(
+			lst <- list(
 				"@id" = self$`@id`,
-				#"id" = private$id,
-				"filename" = self$filename,
-				"file_path" = self$file_path,
-				"check_file_exists" = self$check_file_exists,
-				"compute_hash" = self$compute_hash,
-				"hash_algo" = self$hash_algo,
-				"label" = self$label,
-				"generated_from" = self$generated_from,
+				"name" = self$filename,
 				"type" = self$type,
 				"comments" = self$comments
+				#"id" = private$id,
+
+				# "filename" = self$filename,
+
+				# "file_path" = self$file_path,
+				#"check_file_exists" = self$check_file_exists,
+				#"compute_hash" = self$compute_hash,
+				#"hash_algo" = self$hash_algo,
+				#"label" = self$label,
+				#"generated_from" = self$generated_from,
 			)
-			return(date_file)
+			return(lst)
 		},
 		#' @details
 		#' Make [DataFile] object from list
 		#' @param lst an Characteristic object serialized to a list
 		#' @param json json  (default TRUE)
-		from_list = function(lst, json = FALSE) {
+		from_list = function(lst, json = TRUE) {
 			if (json) {
 				#self$name <- lst[["name"]]
 				self$filename <- lst[["name"]]

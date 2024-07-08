@@ -304,15 +304,20 @@ Assay <- R6::R6Class(
 		#' @param ld linked data (default FALSE)
 		to_list = function(ld = FALSE) {
 			lst <- list()
+			lst[["@id"]] <- self$`@id`
 			lst[["measurementType"]] <- self$measurement_type$to_list()
 			lst[["technologyType"]] <- self$technology_type$to_list()
 			lst[["technologyPlatform"]] <- self$technology_platform
 			lst[["filename"]] <- self$filename
-			lst[["materials"]][["otherMaterials"]] <- purrr::map(
-				self$other_materials, ~.x$to_list()
-			)
+			lst[["dataFiles"]] <- self$data_files %>%
+				purrr::map(~.x$to_list()) %>%
+				purrr::set_names(NULL)
+			lst[["materials"]][["otherMaterials"]] <- self$other_materials %>%
+				purrr::map(~.x$to_list()) %>%
+				purrr::set_names(NULL)
 			if(is.character(self$samples)) {
-				lst[["materials"]][["samples"]] <- self$samples
+				lst[["materials"]][["samples"]] <- self$samples %>%
+					purrr::map(~list(`@id` = .x))
 			} else {
 				lst[["materials"]][["samples"]] <- purrr::map(
 					self$samples, ~.x$to_list()
@@ -328,9 +333,9 @@ Assay <- R6::R6Class(
 			# })
 			lst[["characteristicCategories"]] <-
 				self$characteristic_categories$to_list(source = self$`@id`)
-			lst[["processSequence"]] <- purrr::map(
-				self$process_sequence, ~.x$to_list()
-			)
+			lst[["processSequence"]] <- self$process_sequence %>%
+				purrr::map(~.x$to_list()) %>%
+				purrr::set_names(NULL)
 			lst[["comments"]] <- self$comments
 			# lst[["graph"]] <- self$graph
 			return(lst)
@@ -425,13 +430,18 @@ Assay <- R6::R6Class(
 			# 	lst[["processSequence"]]
 			# )
 
-			self$process_sequence <- purrr::map(
-				lst[["processSequence"]], ~{
-					ps <- Process$new(protocols = self$protocols)
-					ps$from_list(.x, recursive = recursive, json = json) # recursive!
-					ps
-				}
-			)#[order(process_sequence_order)]
+			self$process_sequence <- lst[["processSequence"]] %>%
+				purrr::set_names(purrr::map_chr(., ~.x$`@id`)) %>%
+				purrr::map(~{
+						ps <- Process$new(protocols = self$protocols)
+						ps$from_list(.x, recursive = recursive, json = json) # recursive!
+						ps
+					}
+				)#[order(process_sequence_order)]
+
+			purrr::walk2(lst[["processSequence"]], self$process_sequence, ~{
+				.y$add_process_order(.x, names(self$process_sequence))
+			})
 
 			self$comments <- lst[["comments"]]
 			# self$graph <- lst[["graph"]]

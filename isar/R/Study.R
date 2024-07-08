@@ -283,14 +283,14 @@ Study <- R6::R6Class(
 			lst <- list()
 			# lst[["id"]] <- private$id
 			lst[["submissionDate"]] <- self$submission_date
-			lst[["processSequence"]] <- purrr::map(
-				self$process_sequence, ~.x$to_list()
-			)
+			lst[["processSequence"]] <- self$process_sequence %>%
+				purrr::map(~.x$to_list()) %>%
+				purrr::set_names(NULL)
 			lst[["people"]] <- purrr::map(self$contacts, ~.x$to_list())
 			lst[["comments"]] <- self$comments
 			lst[["description"]] <- self$description
 			lst[["unitCategories"]] <- self$unit_references$to_list()
-			lst[["designDescriptors"]] <- purrr::map(
+			lst[["studyDesignDescriptors"]] <- purrr::map(
 				self$design_descriptors, ~.x$to_list()
 			)
 			lst[["publicReleaseDate"]] <- self$public_release_date

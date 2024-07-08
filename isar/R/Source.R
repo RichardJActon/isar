@@ -50,7 +50,7 @@ Source <- R6::R6Class(
 				self$category_references <- category_references
 			}
 
-			if(is.null(self$unit_references)) {
+			if(is.null(unit_references)) {
 				self$unit_references <- UnitReferences$new()
 			} else {
 				self$unit_references <- unit_references

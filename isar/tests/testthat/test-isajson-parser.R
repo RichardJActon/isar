@@ -208,7 +208,63 @@ test_that("Study", {
 	ex <- BII_S_3_jsonlite$studies[[1]]
 	# ex <- BII_I_1_jsonlite$studies[[1]]
 	warns <- capture_warnings(obj$from_list(BII_S_3_jsonlite$studies[[1]]))
-	expect_equal(unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex))
+
+	obj_lst <- obj$to_list()
+	expect_equal(unlist_sort_by_name(obj_lst), unlist_sort_by_name(ex))
+
+	purrr::walk2(obj_lst$factors, ex$factors,
+		~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
+	)
+	purrr::walk2(obj_lst$assays, ex$assays,
+		~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
+	)
+	purrr::walk2(obj_lst$characteristicCategories, ex$characteristicCategories,
+		~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
+	)
+	purrr::walk2(obj_lst$protocols, ex$protocols,
+		~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
+	)
+	purrr::walk2(obj_lst$comments, ex$comments,
+		~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
+	)
+	purrr::walk2(obj_lst$processSequence, ex$processSequence,
+		~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
+	)
+	purrr::walk2(obj_lst$materials$otherMaterials, ex$materials$otherMaterials,
+		~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
+	)
+	purrr::walk2(obj_lst$materials$samples, ex$materials$samples,
+		~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
+	)
+
+	##!!
+	purrr::walk2(obj_lst$materials$sources, ex$materials$sources,
+		~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
+	)
+	##!!
+	# .x <- obj_lst$materials$sources[[4]]
+	# .y <- ex$materials$sources[[4]]
+	# expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
+	# issue with the value not becoming the annotation value when ontology annotation used
+	# need to add terms
+	# non numeric entries: obj_lst$materials$sources[[4]]$characteristics %>% purrr::map(~.x$value)
+	# e.g. number 28
+	# obj$characteristic_categories$categories[["#characteristic_category/fluorescence"]]$ontology_source_references
+
+
+	purrr::walk2(obj_lst$studyDesignDescriptors, ex$studyDesignDescriptors,
+		~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
+	)
+	purrr::walk2(obj_lst$people, ex$people,
+		~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
+	)
+	purrr::walk2(obj_lst$publications, ex$publications,
+		~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
+	)
+	purrr::walk2(obj_lst$unitCategories, ex$unitCategories,
+		~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
+	)
+
 
 	# expect_equal(ts$submission_date, "2008-08-15")
 	# expect_equal(ts$public_release_date, "2008-08-15")

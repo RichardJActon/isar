@@ -59,7 +59,8 @@ Characteristic <- R6::R6Class(
 			self$comments <- comments
 			self$`@id` <- `@id`
 			if(is.null(ontology_source_references)) {
-				self$ontology_source_references <- OntologySourceReferences$new()
+				self$ontology_source_references <-
+					OntologySourceReferences$new()
 			} else {
 				self$ontology_source_references <- ontology_source_references
 			}
@@ -200,7 +201,7 @@ Characteristic <- R6::R6Class(
 			# }
 			unit_id <- lst[["@id"]]
 			if (unit_id %in% self$unit_references$get_unit_ids()) {
-				self$unit <- self$unit_references$unit_references[[unit_id]]
+				self$unit <- self$unit_references$units[[unit_id]]
 			} else {
 				self$unit <- Unit$new(
 					ontology_source_references =

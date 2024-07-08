@@ -79,17 +79,18 @@ ProtocolParameter <- R6::R6Class(
 		#' @param recursive use the `from_list()` method on list items that are also isar objects (default = TRUE)
 		#' @examples
 		#' Person$new()
-		to_list = function(ld = FALSE, recursive = FALSE) {
-			protocol_parameter = list(
+		to_list = function(ld = FALSE, recursive = TRUE) {
+			lst <- list(
 				#"id" = private$id,
-				"parameter_name" = switch(
+				"parameterName" = switch(
 					as.character(recursive),
 					"TRUE" = self$parameter_name$to_list(),
 					"FALSE" = self$parameter_name$term
 				),
-				"comments" = self$comments
+				"comments" = self$comments,
+				"@id" = self$`@id`
 			)
-			return(protocol_parameter)
+			return(lst)
 		},
 
 		#' @details
