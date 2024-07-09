@@ -60,7 +60,6 @@ Collate:
     'Organisation.R'
     'ParameterValue.R'
     'Person.R'
-    'ProcessSequenceNode.R'
     'Process.R'
     'Protocol.R'
     'ProtocolParameter.R'
