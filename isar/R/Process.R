@@ -207,7 +207,7 @@ Process <- R6::R6Class(
 				lst[["executesProtocol"]] <- list()
 			} else {
 				lst[["executesProtocol"]] <- list(
-					"@id" = self$executes_protocol$`@id`
+					"@id" = self$executes_protocol#$`@id`
 				)
 			}
 			# } else if(is.character(self$executes_protocol)) {
@@ -222,11 +222,15 @@ Process <- R6::R6Class(
 			if(!is.null(self$previous_process)) {
 				lst[["previousProcess"]][["@id"]] <- self$previous_process
 			}
-			# only last processes are named for some reason?
-			if(is.null(self$next_process) && !is.null(self$previous_process)) {
+			# only ~~last processes~~ non-empty named processes have name keys for some reason?
+			if(!(
+				test_empty(self$name, mode = "character") || self$name == ''
+			)) {
 				lst[["name"]] <- self$name
 			}
-
+			# if(is.null(self$next_process) && !is.null(self$previous_process)) {
+			# 	lst[["name"]] <- self$name
+			# }
 
 			return(lst)
 		},
