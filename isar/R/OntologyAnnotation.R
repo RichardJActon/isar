@@ -211,7 +211,7 @@ OntologyAnnotation <- R6::R6Class(
 		#' accession, and source are mutually compatible and that the source
 		#' is present in the ontology references
 		#' @param term the ontology term
-		#' @param term_accession the accesion of the ontology term
+		#' @param term_accession the accession of the ontology term
 		#' @param term_source_name the name of the source of the ontology term
 		set_valid_annotation = function(term, term_accession, term_source_name) {
 			term_accession <- switch(
@@ -220,7 +220,8 @@ OntologyAnnotation <- R6::R6Class(
 			)
 
 			if(is.null(term_source_name)) { term_source_name <- "" }
-			if(!checkmate::test_string(term, min.chars = 1)) {
+			#if(!checkmate::test_string(term, min.chars = 1)) {
+			if(term == '') {
 				term <- "Unspecified Term"
 				warning("Unspecified Term!")
 			}
@@ -285,11 +286,11 @@ OntologyAnnotation <- R6::R6Class(
 				# 	"UnknownSource"
 				# )
 			}
-
 			if(term %in% names(self$term_source$terms)) {# get_?
 				self$term <- term
 				self$term_accession <- term_accession
 			} else {
+				#browser()
 				warning("Term not in source! Attempting to add...")
 				if (checkmate::test_string(term_accession, min.chars = 1)) {
 					self$term_source$add_terms(
