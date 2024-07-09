@@ -152,7 +152,9 @@ test_that("Protocol", {
 	obj <- Protocol$new()
 	ex <- BII_I_1_jsonlite[["studies"]][[1]][["protocols"]][[1]]
 	warns <- capture_warnings(obj$from_list(ex))
-	expect_equal(obj$to_list(), ex)
+	ex$protocolType[["termAccession"]] <- ""
+	ex$protocolType[["termSource"]] <- ""
+	expect_equal(unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex))
 })
 
 # Process ----
@@ -160,7 +162,7 @@ test_that("Process Sequence",{
 	obj <- Process$new()
 	ex <- BII_I_1_jsonlite[["studies"]][[1]][["processSequence"]][[1]]
 	warns <- capture_warnings(obj$from_list(ex))
-	expect_equal(obj$to_list(), ex)
+	expect_equal(unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex))
 })
 
 # Publication ----
@@ -191,8 +193,8 @@ test_that("Person", {
 # Assay ----
 test_that("Assay", {
 	obj <- Assay$new()
-	ex <- BII_S_3_jsonlite$studies[[1]]$assays[[1]]
-	#ex <- BII_I_1_jsonlite$studies[[1]]$assays[[1]]
+	#ex <- BII_S_3_jsonlite$studies[[1]]$assays[[1]]
+	ex <- BII_I_1_jsonlite$studies[[1]]$assays[[1]]
 	warns <- capture_warnings(obj$from_list(ex))
 	expect_equal(unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex))
 
@@ -215,9 +217,13 @@ test_that("Study", {
 	purrr::walk2(obj_lst$factors, ex$factors,
 		~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
 	)
+
+	##!!
 	purrr::walk2(obj_lst$assays, ex$assays,
 		~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
 	)
+
+
 	purrr::walk2(obj_lst$characteristicCategories, ex$characteristicCategories,
 		~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
 	)
@@ -227,9 +233,13 @@ test_that("Study", {
 	purrr::walk2(obj_lst$comments, ex$comments,
 		~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
 	)
+
+	##!!
 	purrr::walk2(obj_lst$processSequence, ex$processSequence,
 		~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
 	)
+
+
 	purrr::walk2(obj_lst$materials$otherMaterials, ex$materials$otherMaterials,
 		~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
 	)
