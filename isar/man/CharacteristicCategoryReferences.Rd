@@ -29,7 +29,7 @@ CharacteristicCategoryReferences
 \item \href{#method-CharacteristicCategoryReferences-set_type}{\code{CharacteristicCategoryReferences$set_type()}}
 \item \href{#method-CharacteristicCategoryReferences-get_category_ids}{\code{CharacteristicCategoryReferences$get_category_ids()}}
 \item \href{#method-CharacteristicCategoryReferences-get_category_names}{\code{CharacteristicCategoryReferences$get_category_names()}}
-\item \href{#method-CharacteristicCategoryReferences-get_characteristic_catagory_origins}{\code{CharacteristicCategoryReferences$get_characteristic_catagory_origins()}}
+\item \href{#method-CharacteristicCategoryReferences-get_characteristic_category_origins}{\code{CharacteristicCategoryReferences$get_characteristic_category_origins()}}
 \item \href{#method-CharacteristicCategoryReferences-to_list}{\code{CharacteristicCategoryReferences$to_list()}}
 \item \href{#method-CharacteristicCategoryReferences-from_list}{\code{CharacteristicCategoryReferences$from_list()}}
 \item \href{#method-CharacteristicCategoryReferences-print}{\code{CharacteristicCategoryReferences$print()}}
@@ -219,11 +219,11 @@ character vector
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-CharacteristicCategoryReferences-get_characteristic_catagory_origins"></a>}}
-\if{latex}{\out{\hypertarget{method-CharacteristicCategoryReferences-get_characteristic_catagory_origins}{}}}
-\subsection{Method \code{get_characteristic_catagory_origins()}}{
+\if{html}{\out{<a id="method-CharacteristicCategoryReferences-get_characteristic_category_origins"></a>}}
+\if{latex}{\out{\hypertarget{method-CharacteristicCategoryReferences-get_characteristic_category_origins}{}}}
+\subsection{Method \code{get_characteristic_category_origins()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{CharacteristicCategoryReferences$get_characteristic_catagory_origins()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{CharacteristicCategoryReferences$get_characteristic_category_origins()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{

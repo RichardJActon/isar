@@ -56,6 +56,7 @@ Process nodes represent the application of a protocol to some input material
 \item \href{#method-Process-add_comment}{\code{Process$add_comment()}}
 \item \href{#method-Process-to_list}{\code{Process$to_list()}}
 \item \href{#method-Process-from_list}{\code{Process$from_list()}}
+\item \href{#method-Process-add_process_order}{\code{Process$add_process_order()}}
 \item \href{#method-Process-print}{\code{Process$print()}}
 \item \href{#method-Process-clone}{\code{Process$clone()}}
 }
@@ -77,7 +78,9 @@ Process nodes represent the application of a protocol to some input material
   `@id` = NULL,
   protocols = NULL,
   sources = NULL,
-  samples = NULL
+  samples = NULL,
+  next_process = NULL,
+  previous_process = NULL
 )}\if{html}{\out{</div>}}
 }
 
@@ -336,6 +339,15 @@ An R list representation of a \link{Process} object
 }
 \subsection{Details}{
 Make \link{Process} object from list
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Process-add_process_order"></a>}}
+\if{latex}{\out{\hypertarget{method-Process-add_process_order}{}}}
+\subsection{Method \code{add_process_order()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Process$add_process_order(lst, available_processes)}\if{html}{\out{</div>}}
 }
 
 }

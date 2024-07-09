@@ -344,7 +344,7 @@ An R list representation of a \link{DataFile} object
 \if{latex}{\out{\hypertarget{method-DataFile-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DataFile$from_list(lst, json = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DataFile$from_list(lst, json = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

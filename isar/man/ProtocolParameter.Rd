@@ -180,7 +180,7 @@ Add comment if it is in a valid format
 \if{latex}{\out{\hypertarget{method-ProtocolParameter-to_list}{}}}
 \subsection{Method \code{to_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ProtocolParameter$to_list(ld = FALSE, recursive = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ProtocolParameter$to_list(ld = FALSE, recursive = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
