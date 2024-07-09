@@ -354,7 +354,7 @@ Assay <- R6::R6Class(
 				ontology_source_references = self$ontology_source_references
 			)
 
-			if (!is.null(self$unit_references)) {
+			if (is.null(self$unit_references)) {
 				self$unit_references <- UnitReferences$new(
 					ontology_source_references =
 						self$ontology_source_references#,
