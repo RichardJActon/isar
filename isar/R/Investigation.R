@@ -444,21 +444,30 @@ Investigation <- R6::R6Class(
 			#green_bold("Description: ")
 			cli::cli_h2(cli::col_green("Description"))
 			cli::cli_text(self$description) # indentation?
-			cli::cli_h2(cli::col_green("Publications 📖"))
+			cli::cli_h2(cli::col_green(
+				"Publications (", length(self$publications), ") 📖"
+			))
 			purrr::walk(
 				# Improve comment formatting for longer comments
 				self$publications, ~cli::cli_text(
 					"    ", cli::style_bold("Title: "), .x$title
 				)
 			)
-			cli::cli_h2(cli::col_green("Contacts 👤"))
+			cli::cli_h2(
+				cli::col_green("Contacts (",length(self$contacts),") 👤")
+			)
 			cli::cli_ul(purrr::map_chr(self$contacts, ~.x$get_full_name()))
-			cli::cli_h2(cli::col_green("Studies 🔎"))
+			cli::cli_h2(
+				cli::col_green("Studies (", length(self$studies), ") 🔎")
+			)
 			purrr::walk(
-				# Improve comment formatting for longer comments
-				self$studies, ~cli::cli_text(
-					"    ", cli::style_bold("Title: "), .x$title
-				)
+				self$studies, ~{
+					cli::cli_par()
+					cli::cli_text(
+						"    ", cli::style_bold("Title: "), .x$title
+					)
+					cli::cli_end()
+				}
 			)
 			pretty_print_comments(self$comments)
 		}
