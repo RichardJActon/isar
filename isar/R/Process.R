@@ -94,8 +94,17 @@ Process <- R6::R6Class(
 		#' @param name of the process
 		set_name = function(name) {
 			if(is.null(name)) {
-				warning("Process Name Missing!")
-				self$name <- ""# character()
+				# warning("Process Name Missing!")
+				# self$name <- ""# character()
+				#
+				if(!is.null(self$`@id`)) {
+					warning("Process Name Missing! attempting to infer from @id...")
+					self$name <- sub("#process/(.*)", "\\1", self$`@id`)
+					private$infered_name <- TRUE
+				} else {
+					warning("Process Name Missing!")
+					self$name <- ""# character()
+				}
 			} else if (self$check_name(name)) {
 				self$name <- name
 			}
@@ -231,11 +240,12 @@ Process <- R6::R6Class(
 				lst[["previousProcess"]][["@id"]] <- self$previous_process
 			}
 			# only ~~last processes~~ non-empty named processes have name keys for some reason?
+			name_tmp <- self$name
+			# ? make conditional on some kind of preserve exact input flag?
+			if (private$infered_name) { name_tmp <- "" }
 			if(!(
-				test_empty(self$name, mode = "character") || self$name == ''
-			)) {
-				lst[["name"]] <- self$name
-			}
+				test_empty(name_tmp, mode = "character") || name_tmp == ''
+			)) { lst[["name"]] <- name_tmp }
 			# if(is.null(self$next_process) && !is.null(self$previous_process)) {
 			# 	lst[["name"]] <- self$name
 			# }
@@ -278,6 +288,7 @@ Process <- R6::R6Class(
 				# self$outputs <- lst[["outputs"]] # sample obj ?
 				# self$inputs <- lst[["inputs"]] # source obj
 			}
+			self$`@id` <- lst[["@id"]]
 			self$set_name(lst[["name"]])
 			self$date <- lst[["date"]]
 			if(recursive && !json) {
@@ -289,7 +300,6 @@ Process <- R6::R6Class(
 			} else {
 				self$performer <- lst[["performer"]]
 			}
-			self$`@id` <- lst[["@id"]]
 			self$comments <- lst[["comments"]]
 		},
 
@@ -362,9 +372,10 @@ Process <- R6::R6Class(
 
 			pretty_print_comments(self$comments)
 		}
-	)# ,
-	# private = list(
-	# 	id = generate_id()
-	# )
+	),
+	private = list(
+		# id = generate_id()
+		infered_name = FALSE
+	)
 )
 
