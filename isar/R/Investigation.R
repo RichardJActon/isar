@@ -278,6 +278,32 @@ Investigation <- R6::R6Class(
 		},
 
 		#' @details
+		#' get a list of all of the [Material] objects used in studies in this investigation
+		#' @return list of [Material]s
+		get_materials = function() {
+			self$studies %>% purrr::map(~{
+				.x$assays %>% purrr::map(~{
+					.x$other_materials
+				}) %>% unlist(recursive = FALSE)
+			}) %>% unlist(recursive = FALSE)
+		},
+
+		#' @details
+		#' get a list of all of the [Sample] objects used in studies in this investigation
+		#' @return list of [Sample]s
+		get_samples = function() {
+			self$studies %>%
+				purrr::map(~.x$samples) %>% unlist(recursive = FALSE)
+		},
+		#' @details
+		#' get a list of all of the [Source] objects used in studies in this investigation
+		#' @return list of [Source]s
+		get_sources = function() {
+			self$studies %>%
+				purrr::map(~.x$sources) %>% unlist(recursive = FALSE)
+		},
+
+		#' @details
 		#' generate an R list representation translatable to JSON
 		#' @param ld logical json-ld
 		to_list = function(ld = FALSE) {
