@@ -286,7 +286,8 @@ Investigation <- R6::R6Class(
 				"people" = purrr::map(self$contacts, ~.x$to_list()),
 				"publications" = purrr::map(self$publications, ~.x$to_list()),
 				"description" = self$description,
-				"studies" = purrr::map(self$studies, ~.x$to_list()),
+				"studies" = self$studies %>%
+					purrr::map(~.x$to_list()) %>% purrr::set_names(NULL),
 				"publicReleaseDate" = self$public_release_date,
 				"ontologySourceReferences" =
 					self$ontology_source_references$to_list(
