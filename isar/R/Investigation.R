@@ -448,7 +448,6 @@ Investigation <- R6::R6Class(
 				"Publications (", length(self$publications), ") 📖"
 			))
 			purrr::walk(
-				# Improve comment formatting for longer comments
 				self$publications, ~cli::cli_text(
 					"    ", cli::style_bold("Title: "), .x$title
 				)
