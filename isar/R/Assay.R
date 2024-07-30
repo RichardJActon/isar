@@ -326,7 +326,9 @@ Assay <- R6::R6Class(
 			if(is.null(self$unit_references)) {
 				lst[["unitCategories"]] <- list()
 			} else {
-				lst[["unitCategories"]] <- self$unit_references$to_list()
+				lst[["unitCategories"]] <- self$unit_references$to_list(
+					source = self$`@id`
+				)
 			}
 			# purrr::map(self$unit_references, ~{
 			# 	c(list(`@id` = .x$`@id`), .x$to_list())

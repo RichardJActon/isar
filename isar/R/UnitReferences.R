@@ -62,12 +62,29 @@ UnitReferences <- R6::R6Class(
 		get_unit_ids = function() {
 			names(self$units)
 		},
+
+		#' @details
+		#'
+		#' @return character vector of characteristic category sources
+		get_unit_origins = function() {
+			purrr::map_chr(self$units, ~.x$source)
+		},
 		#' @details
 		#' Generate an R list representation of a [UnitReferences] object
 		#' @return An R list representation of a [UnitReferences] object
-		to_list = function() {
-			purrr::map(self$units, ~.x$to_list()) %>%
-				purrr::set_names(NULL)
+		to_list = function(source = "any") {
+			if(source == "any") {
+				self$units %>%
+					purrr::map(~.x$to_list()) %>%
+					purrr::set_names(NULL)
+			} else if (source %in% self$get_unit_origins()) {
+				self$units %>%
+					`[`(
+						self$get_unit_origins() %in% source
+					) %>%
+					purrr::map(~.x$to_list()) %>%
+					purrr::set_names(NULL)
+			} else { list() }
 		},
 		#' @details
 		#' Make a [UnitReferences] object from list

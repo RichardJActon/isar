@@ -289,7 +289,9 @@ Study <- R6::R6Class(
 			lst[["people"]] <- purrr::map(self$contacts, ~.x$to_list())
 			lst[["comments"]] <- self$comments
 			lst[["description"]] <- self$description
-			lst[["unitCategories"]] <- self$unit_references$to_list()
+			lst[["unitCategories"]] <- self$unit_references$to_list(
+				source = self$`@id`
+			)
 			lst[["studyDesignDescriptors"]] <- purrr::map(
 				self$design_descriptors, ~.x$to_list()
 			)
