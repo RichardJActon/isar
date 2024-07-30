@@ -562,7 +562,7 @@ Study <- R6::R6Class(
 		print = function() {
 			cli::cli_h1(cli::col_blue("Study 🔎"))
 			green_bold_name_plain_content("Title", self$title)
-			green_bold_name_plain_content("ID", private$id)
+			# green_bold_name_plain_content("ID", private$id)
 			green_bold_name_plain_content("Submission Date", self$submission_date)
 			green_bold_name_plain_content("Public Release Date", self$public_release_date)
 
