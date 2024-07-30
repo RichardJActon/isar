@@ -569,13 +569,23 @@ Study <- R6::R6Class(
 			cli::cli_h2(cli::col_green("Description"))
 			cli::cli_text(self$description)
 
-			cli::cli_h2(cli::col_green("Contacts"))
+			cli::cli_h2(
+				cli::col_green("Contacts (",length(self$contacts),") 👤")
+			)
 			cli::cli_ul(purrr::map_chr(self$contacts, ~.x$get_full_name()))
 
-			cli::cli_h2(cli::col_green("Publications 📖"))
-			cli::cli_ul(purrr::map_chr(self$publications, ~.x$title))
+			cli::cli_h2(cli::col_green(
+				"Publications (", length(self$publications), ") 📖"
+			))
+			purrr::walk(
+				self$publications, ~cli::cli_text(
+					"    ", cli::style_bold("Title: "), .x$title
+				)
+			)
 
-			cli::cli_h2(cli::col_green("Factors"))
+			cli::cli_h2(cli::col_green(
+				"Factors (", length(self$factors$get_study_factor_names()),")"
+			))
 			cli::cli_ul(self$factors$get_study_factor_names())
 
 			cli::cli_h2(cli::col_green("Design Descriptors"))
@@ -584,13 +594,17 @@ Study <- R6::R6Class(
 # 			cli::cli_h2(cli::col_green("Units"))
 # 			cli::cli_ul(purrr::map_chr(self$units, ~.x$term))
 
-			cli::cli_h2(cli::col_green("Protocols"))
+			cli::cli_h2(cli::col_green(
+				"Protocols (", length(self$protocols), ") 📋"
+			))
 			cli::cli_ul(purrr::map_chr(self$protocols, ~.x$name))
 
-			cli::cli_h2(cli::col_green("Processes"))
+			cli::cli_h2(cli::col_green(
+				"Processes (", length(self$process_sequence) ,") ⚙️"
+			))
 			cli::cli_ol(purrr::map_chr(self$process_sequence, ~.x$name))
 
-			cli::cli_h2(cli::col_green("Sources"))
+			cli::cli_h2(cli::col_green("Sources (", length(self$sources), ")"))
 			cli::cli_ol(purrr::map_chr(self$sources, ~.x$name))
 
 			pretty_print_comments(self$comments)
