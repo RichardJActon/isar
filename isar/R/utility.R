@@ -245,20 +245,27 @@ green_bold_name_plain_content <- function(label, content) {
 #'
 #' @export
 pretty_print_comments <- function(comments) {
-	cli::cli_h2(cli::col_cyan("Comments 🗩"))
-	#cat(green_bold("Comments:\n")) # 🗩
-	purrr::iwalk(
-		# Improve comment formatting for longer comments
-		# comments, ~cat(
-		# 	paste0("    ", crayon::bold(.y), ": "),
-		# 	stringr::str_wrap(.x, indent = 4, exdent = 4),
-		# 	sep = "\n"
-		# )
-		comments, ~{
-			cli::cli_h3(.y)
-			cli::cli_text(.x)
-		}
-	)
+	if (length(comments) > 0) {
+		cli::cli_h2(cli::col_cyan("Comments (", length(comments), ") 🗩"))
+		#cat(green_bold("Comments:\n")) # 🗩
+		purrr::iwalk(
+			# Improve comment formatting for longer comments
+			# comments, ~cat(
+			# 	paste0("    ", crayon::bold(.y), ": "),
+			# 	stringr::str_wrap(.x, indent = 4, exdent = 4),
+			# 	sep = "\n"
+			# )
+			comments, ~{
+				cli::cli_par()
+				#cli::cli_h3(cli::cli_text( .y, ". ", .x$name))
+				cli::style_bold(cli::cli_text( .y, ". ", .x$name))
+				cli::cli_end()
+				cli::cli_par()
+				cli::cli_text(.x$value)
+				cli::cli_end()
+			}
+		)
+	}
 }
 
 #' unlist_sort_by_name
