@@ -458,7 +458,9 @@ Investigation <- R6::R6Class(
 			cli::cli_h2(
 				cli::col_green("Contacts (",length(self$contacts),") 👤")
 			)
-			cli::cli_ul(purrr::map_chr(self$contacts, ~.x$get_full_name()))
+			cli::cli_ul(purrr::map_chr(self$contacts, ~{
+				paste0(.x$get_full_name(), cli::col_grey(" (", .x$`@id`, ")"))
+			}))
 			cli::cli_h2(
 				cli::col_green("Studies (", length(self$studies), ") 🔎")
 			)
@@ -468,6 +470,7 @@ Investigation <- R6::R6Class(
 					cli::cli_text(
 						"    ", cli::style_bold("Title: "), .x$title
 					)
+					cli::cli_text("    ", cli::style_bold("@id: "), .x$`@id`)
 					cli::cli_end()
 				}
 			)
