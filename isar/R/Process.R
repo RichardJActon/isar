@@ -204,10 +204,18 @@ Process <- R6::R6Class(
 			# 	self$executes_protocol, ~.x$to_list()
 			# )
 			if(is.null(self$executes_protocol)) {
+				# When no protocol is listed
 				lst[["executesProtocol"]] <- list()
-			} else {
+			} else if (is.character(self$executes_protocol)) {
+				# When referencing a protocol by its ID
 				lst[["executesProtocol"]] <- list(
-					"@id" = self$executes_protocol#$`@id`
+					"@id" = self$executes_protocol
+				)
+			} else {
+				# When a protocol object is present
+				lst[["executesProtocol"]] <- list(
+					"@id" = self$executes_protocol$`@id`
+					# "@id" = self$executes_protocol$to_list()
 				)
 			}
 			# } else if(is.character(self$executes_protocol)) {
