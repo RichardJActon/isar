@@ -221,6 +221,14 @@ OntologyAnnotation <- R6::R6Class(
 
 			if(is.null(term_source_name)) { term_source_name <- "" }
 			#if(!checkmate::test_string(term, min.chars = 1)) {
+			# if (!checkmate::test_string(term, n.chars = 0, null.ok = TRUE)) {
+			# 	term <- "Unspecified Term"
+			# 	warning("Unspecified Term!")
+			# }
+			if (is.null(term)) {
+				term <- "Unspecified Term"
+				warning("Unspecified Term!")
+			}
 			if(term == '') {
 				term <- "Unspecified Term"
 				warning("Unspecified Term!")
@@ -297,7 +305,7 @@ OntologyAnnotation <- R6::R6Class(
 						purrr::set_names(list(term_accession), term)
 					)
 				} else {
-					warning("Missing term accession! using term...")
+					warning("Missing term accession! using term as accession...")
 					self$term_source$add_terms(
 						purrr::set_names(list(term), term)
 					)
