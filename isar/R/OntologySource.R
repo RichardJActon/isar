@@ -267,8 +267,8 @@ OntologySource <- R6::R6Class(
 				))
 			} else if(
 				checkmate::test_list(
-					terms_list, types = "character", names = "unique"
-				) && all(purrr::map_lgl(terms_list, checkmate::test_string))
+					terms_list, names = "unique"# types = "character",
+				)# && all(purrr::map_lgl(terms_list, checkmate::test_string))
 			) {
 				self$terms_list <- c(self$terms_list, terms_list)
 			} else {
