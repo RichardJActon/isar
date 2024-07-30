@@ -309,7 +309,8 @@ Investigation <- R6::R6Class(
 		to_list = function(ld = FALSE) {
 			lst <- list(
 				"submissionDate" = self$submission_date,
-				"people" = purrr::map(self$contacts, ~.x$to_list()),
+				"people" = self$contacts %>%
+					purrr::map(~.x$to_list()) %>% purrr::set_names(NULL),
 				"publications" = purrr::map(self$publications, ~.x$to_list()),
 				"description" = self$description,
 				"studies" = self$studies %>%
@@ -367,14 +368,16 @@ Investigation <- R6::R6Class(
 					p$from_list(.x, recursive = recursive, json = json)
 					p
 				})
-				self$contacts <- purrr::map(lst[["people"]], ~{
-					p <- Person$new(
-						ontology_source_references =
-							self$ontology_source_references
-					)
-					p$from_list(.x, json = json)
-					p
-				})
+				self$contacts <- lst[["people"]] %>%
+					purrr::set_names(purrr::map_chr(., ~.x$`@id`)) %>%
+					purrr::map(~{
+						p <- Person$new(
+							ontology_source_references =
+								self$ontology_source_references
+						)
+						p$from_list(.x, json = json)
+						p
+					})
 				self$studies <- lst[["studies"]] %>%
 					purrr::set_names(purrr::map_chr(., ~.x$identifier)) %>%
 					purrr::map(~{
