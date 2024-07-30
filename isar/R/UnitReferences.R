@@ -58,11 +58,35 @@ UnitReferences <- R6::R6Class(
 		},
 		#' @details
 		#' Get the @ids of the unit references
+		#' @param source the ids of the source of the units for which you would like to get ids
 		#' @return character vector of unit reference @ids
-		get_unit_ids = function() {
-			names(self$units)
+		get_unit_ids = function(source = "any") {
+			if(source == "any") {
+				names(self$units)
+			} else if (source %in% self$get_unit_origins()) {
+				self$units %>%
+					`[`(
+						self$get_unit_origins() %in% source
+					) %>%
+					names()
+			}
 		},
-
+		#' @details
+		#' Get the types of the unit references
+		#' @param source the ids of the source of the units for which you would like to get types
+		#' @return character vector of unit types
+		get_unit_types = function(source = "any") {
+			if(source == "any") {
+				self$units %>%
+					purrr::map_chr(~.x$unit$term)
+			} else if (source %in% self$get_unit_origins()) {
+				self$units %>%
+					`[`(
+						self$get_unit_origins() %in% source
+					) %>%
+					purrr::map_chr(~.x$unit$term)
+			}
+		},
 		#' @details
 		#'
 		#' @return character vector of characteristic category sources
