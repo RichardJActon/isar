@@ -384,18 +384,26 @@ OntologyAnnotation <- R6::R6Class(
 		#' @param ld logical json-ld
 		#' @param recursive call to_list methods of any objects within this object (default FALSE)
 		to_list = function(ld = FALSE, recursive = TRUE) {
-			list(
-				#termAccession = self$term_accession,
-				termAccession = ifelse(
-					self$term_source$name == "UnknownSource",
-					"", self$term_accession
-				),
-				annotationValue = self$term,
-				termSource = ifelse(
-					self$term_source$name == "UnknownSource",
-					"", self$term_source$name
-				)
-			)
+			lst <- list()
+
+			if (private$null_accession) { } else if(
+				self$term_source$name == "UnknownSource"
+			) {
+				lst[["termAccession"]] <- ""
+			} else {
+				lst[["termAccession"]] <- self$term_accession
+			}
+
+			lst[["annotationValue"]] <- self$term
+
+			if (private$null_source) { } else if(
+				self$term_source$name == "UnknownSource"
+			) {
+				lst[["termSource"]] <- ""
+			} else {
+				lst[["termSource"]] <- self$term_source$name
+			}
+			return(lst)
 			# ontology_annotation = list(
 			# 	"id" = private$id,
 			# 	"annotation_value" = self$term,
@@ -424,9 +432,11 @@ OntologyAnnotation <- R6::R6Class(
 				# such as: BII_I_1_jsonlite[["studies"]][[1]][["protocols"]][[1]][["protocolType"]]
 				if(is.null(lst[["termAccession"]])) {
 					lst[["termAccession"]] <- ""
+					private$null_accession <- TRUE
 				}
 				if(is.null(lst[["termSource"]])) {
 					lst[["termSource"]] <- ""
+					private$null_source <- TRUE
 				}
 				# recursive?
 				#self$term_source$name <- lst[["termSource"]]
@@ -493,8 +503,14 @@ OntologyAnnotation <- R6::R6Class(
 			# green_bold_name_plain_content("ID", private$id)
 			pretty_print_comments(self$comments)
 		}
-	)# ,
-	# private = list(
-	# 	id = generate_id()
-	# )
+	),
+	private = list(
+		# id = generate_id()
+		# record if in the input the source or accession where missing
+		# entirely as opposed to empty so that this can be preserved in output
+		#!! TODO add flag to make this optional? is it really a desirable
+		# behaviour to not have have explicit nulls?
+		null_accession = FALSE,
+		null_source = FALSE
+	)
 )
