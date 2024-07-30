@@ -277,6 +277,42 @@ Study <- R6::R6Class(
 			}
 		},
 		#' @details
+		#' get the ids of [Sample]s
+		#' @return character vector of sample IDs
+		get_sample_ids = function() {
+			names(self$samples)
+		},
+		#' @details
+		#' get the ids of [Source]s
+		#' @return character vector of sources IDs
+		get_source_ids = function() {
+			names(self$sources)
+		},
+		#' @details
+		#' get the ids of [Process]es
+		#' @return character vector of sources IDs
+		get_process_ids = function() {
+			names(self$process_sequence)
+		},
+		#' @details
+		#' get the names of [Sample]s
+		#' @return character vector of sample names
+		get_sample_names = function() {
+			self$samples %>% purrr::map_chr(~.x$name)
+		},
+		#' @details
+		#' get the names of [Source]s
+		#' @return character vector of sources names
+		get_source_names = function() {
+			self$sources %>% purrr::map_chr(~.x$name)
+		},
+		#' @details
+		#' get the names of [Process]es
+		#' @return character vector of sources names
+		get_process_names = function() {
+			self$process_sequence %>% purrr::map_chr(~.x$name)
+		},
+		#' @details
 		#' An R list representation of a [Study] object
 		#' @param ld linked data (default FALSE)
 		to_list = function(ld = FALSE) {
@@ -572,7 +608,9 @@ Study <- R6::R6Class(
 			cli::cli_h2(
 				cli::col_green("Contacts (",length(self$contacts),") 👤")
 			)
-			cli::cli_ul(purrr::map_chr(self$contacts, ~.x$get_full_name()))
+			cli::cli_ul(purrr::map_chr(self$contacts, ~{
+				paste0(.x$get_full_name(), cli::col_grey(" (", .x$`@id`, ")"))
+			}))
 
 			cli::cli_h2(cli::col_green(
 				"Publications (", length(self$publications), ") 📖"
@@ -586,14 +624,24 @@ Study <- R6::R6Class(
 			cli::cli_h2(cli::col_green(
 				"Factors (", length(self$factors$get_study_factor_names()),")"
 			))
-			cli::cli_ul(self$factors$get_study_factor_names())
+			cli::cli_ul(paste0(
+				self$factors$get_study_factor_names(), cli::col_grey(" (",
+				self$factors$get_study_factor_ids(), ")")
+			))
 
 			cli::cli_h2(cli::col_green("Design Descriptors"))
 			cli::cli_ul(purrr::map_chr(self$design_descriptors, ~.x$term))
-#
-# 			cli::cli_h2(cli::col_green("Units"))
-# 			cli::cli_ul(purrr::map_chr(self$units, ~.x$term))
 
+			cli::cli_h2(cli::col_green("Units"))
+# 			cli::cli_ul(purrr::map_chr(self$units, ~.x$term))
+			cli::cli_ul(paste0(
+				self$unit_references$get_unit_types(source = self$`@id`),
+				cli::col_grey(
+					" (",
+					self$unit_references$get_unit_ids(source = self$`@id`),
+					")"
+				)
+			))
 			cli::cli_h2(cli::col_green(
 				"Protocols (", length(self$protocols), ") 📋"
 			))
@@ -602,45 +650,24 @@ Study <- R6::R6Class(
 			cli::cli_h2(cli::col_green(
 				"Processes (", length(self$process_sequence) ,") ⚙️"
 			))
-			cli::cli_ol(purrr::map_chr(self$process_sequence, ~.x$name))
+			cli::cli_ol(paste0(
+				self$get_process_names(),
+				cli::col_grey(" (", self$get_process_ids(), ")")
+			))
 
 			cli::cli_h2(cli::col_green("Sources (", length(self$sources), ")"))
-			cli::cli_ol(purrr::map_chr(self$sources, ~.x$name))
+			cli::cli_ol(paste0(
+				self$get_source_names(),
+				cli::col_grey(" (", self$get_source_ids(), ")")
+			))
+
+			cli::cli_h2(cli::col_green("Samples (", length(self$samples), ")"))
+			cli::cli_ol(paste0(
+				self$get_sample_names(),
+				cli::col_grey(" (", self$get_sample_ids(), ")")
+			))
 
 			pretty_print_comments(self$comments)
-			# ---
-			# cat(
-			# 	crayon::blue(crayon::bold("Study")),
-			# 	green_bold_name_plain_content("Title", self$title),
-			# 	green_bold_name_plain_content("ID", private$id),
-			# 	green_bold("Description: "),
-			# 	# green_bold_name_plain_content("Title", self$title),
-			# 	sep = "\n"
-			# )
-			# cat(
-			# 	stringr::str_wrap(self$description, indent = 4, exdent = 4),
-			# 	sep = "\n"
-			# )
-			# cat(
-			# 	green_bold_name_plain_content("Submission Date", self$submission_date),
-			# 	green_bold_name_plain_content("Public Release Date", self$public_release_date),
-			# 	sep = "\n"
-			# )
-			# cat(green_bold("Publications:\n")) #
-			# purrr::walk(
-			# 	# Improve comment formatting for longer comments
-			# 	self$publications, ~cat(paste0(
-			# 		"    ", crayon::bold("Title: "), .x$title
-			# 	), sep = "\n")
-			# )
-			# cat(green_bold("Factors:\n")) # 🔎
-			# purrr::walk(
-			# 	# Improve comment formatting for longer comments
-			# 	self$factors, ~cat(paste0(
-			# 		"    ", crayon::bold("Name: "), .x$name
-			# 	), sep = "\n")
-			# )
-			# pretty_print_comments(self$comments)
 		}
 	)# ,
 	# private = list(
