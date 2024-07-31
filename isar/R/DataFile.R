@@ -252,7 +252,7 @@ DataFile <- R6::R6Class(
 			cli::cli_h1(cli::col_blue("Data File"))
 			green_bold_name_plain_content("@id", self$`@id`)
 			# green_bold_name_plain_content("ID", private$id)
-			green_bold_name_plain_content("Hash Algorithm", private$hash_algo)
+			green_bold_name_plain_content("Hash Algorithm", self$hash_algo)
 			# green_bold_name_plain_content("Hash", private$hash)
 			green_bold_name_plain_content("Filename", self$filename)
 			green_bold_name_plain_content("File path", self$file_path)
