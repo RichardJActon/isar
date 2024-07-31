@@ -220,7 +220,7 @@ Assay <- R6::R6Class(
 			stop("All samples must be Sample objects")
 		},
 		#' @details
-		#' Check that all sample ids reference on of the supplied sample objects
+		#' Check that all sample ids reference one of the supplied sample objects
 		#' @param sample_ids a vector of sample IDs
 		check_sample_ids = function(sample_ids) {
 			lgl <- sample_ids %in% names(self$samples)
@@ -257,12 +257,12 @@ Assay <- R6::R6Class(
 						paste0(sample_ids[!lgl], collapse = ", ")
 					)
 				}
+				warning(
+					"None of the samples with the supplied IDs were found!\n",
+					"Recording IDs in place referencing appropriate sample objects!"
+				)
+				self$samples <- sample_ids
 			}
-			warning(
-				"None of the samples with the supplied IDs were found!\n",
-				"Recording IDs in place referencing appropriate sample objects!"
-			)
-			self$samples <- sample_ids
 		},
 		# # Getters
 		# ## Shiny
@@ -319,9 +319,10 @@ Assay <- R6::R6Class(
 				lst[["materials"]][["samples"]] <- self$samples %>%
 					purrr::map(~list(`@id` = .x))
 			} else {
-				lst[["materials"]][["samples"]] <- purrr::map(
-					self$samples, ~.x$to_list()
-				)
+				lst[["materials"]][["samples"]] <- self$samples %>%
+					#purrr::map(~.x$to_list()) %>%
+					purrr::map(~list(`@id` = .x$`@id`)) %>%
+					purrr::set_names(NULL)
 			}
 			if(is.null(self$unit_references)) {
 				lst[["unitCategories"]] <- list()
