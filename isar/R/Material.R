@@ -136,7 +136,8 @@ Material <- R6::R6Class(
 			list(
 				#"id" = private$id,
 				"@id" = self$`@id`,
-				"name" = self$name,
+				"name" = sub("#.*?/(.*)", "\\1", self$`@id`),
+				# "name" = self$name,
 				"type" = self$type,
 				"characteristics" = self$characteristics %>%
 					purrr::map(~.x$to_list())
@@ -149,7 +150,8 @@ Material <- R6::R6Class(
 		#' @param json json  (default TRUE)
 		#' @param recursive call to_list methods of any objects within this object (default TRUE)
 		from_list = function(lst, recursive = TRUE, json = TRUE) {
-			self$name <- lst[["name"]]
+			# self$name <- lst[["name"]]
+			self$name <- sub(".*?-(.*)", "\\1", lst[["name"]])
 			#private$id <- lst[["id"]]
 			self$`@id` <- lst[["@id"]]
 			self$type <- lst[["type"]]
