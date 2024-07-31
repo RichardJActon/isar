@@ -173,12 +173,11 @@ Publication <- R6::R6Class(
 		},
 		#' @details
 		#' convert the Publication object to a list
-		#' @param ld linked data
-		to_list = function(ld = FALSE) {
-			lst = list(
+		#' @return list
+		to_list = function() {
+			lst <- list(
 				"doi" = self$doi,
 				"pubMedID" = as.character(self$pubmed_id), # https://www.ncbi.nlm.nih.gov/pmc/tools/id-converter-api/
-				"status" = self$status$to_list(), #  https://sparontologies.github.io/pso/current/pso.html
 				"title" = self$title,
 				"authorList" = self$author_list#,
 				#"comments" = self$comments
@@ -186,6 +185,12 @@ Publication <- R6::R6Class(
 			# if(!is.null(self$author_list)) {
 			# 	publication[["author_list"]] <- self$author_list$to_list()
 			# }
+			if(is.null(self$status)) {
+				lst[["status"]] <- self$status
+			} else {
+				lst[["status"]] <- self$status$to_list()
+			}
+			#  https://sparontologies.github.io/pso/current/pso.html
 			return(lst)
 		},
 		#' @details
