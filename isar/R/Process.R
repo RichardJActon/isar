@@ -353,6 +353,12 @@ Process <- R6::R6Class(
 			cli::cli_h2("Outputs")
 			cli::cli_ul(names(self$outputs))
 
+			cli::cli_h2("Previous Process")
+			cli::cli_ul(self$previous_process)
+
+			cli::cli_h2("Next Process")
+			cli::cli_ul(self$next_process)
+
 			if(checkmate::test_r6(self$executes_protocol, "Protocol")){
 				green_bold_name_plain_content(
 					"Executes Protocol", self$executes_protocol$name
