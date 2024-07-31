@@ -277,12 +277,12 @@ DataFile <- R6::R6Class(
 		#' @details
 		#' Get the hash of the file
 		#' @return a hash
-		get_hash = function() { private$hash }#,
+		get_hash = function() { private$hash },
 
 		# #' @details
 		# #' Get the uuid of this object
 		# #' @return a uuid
-		# get_id = function() { private$id },
+		get_id = function() { self$`@id` }
 		# #' @details
 		# #' set the uuid of this object
 		# #' @param id a uuid
@@ -290,9 +290,9 @@ DataFile <- R6::R6Class(
 		# set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
 		# 	private$id <- generate_id(id, suffix)
 		# }
-	)#,
-	# private = list(
-	# 	id = generate_id(),
-	# 	hash = NULL
-	# )
+	),
+	private = list(
+		# id = generate_id(),
+		hash = NULL
+	)
 )

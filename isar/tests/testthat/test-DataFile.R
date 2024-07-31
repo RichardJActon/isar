@@ -26,14 +26,16 @@ test_that("DataFile works", {
 	# test_data_file$to_list()
 
 	example_list <- list(
-		id = test_data_file$get_id(),
-		filename = fs::path_file(tmpf),
-		file_path = tmpf,
-		check_file_exists = TRUE,
-		compute_hash = TRUE,
-		hash_algo = "md5",
-		label = NULL,
-		generated_from = NULL,
+		"@id" = test_data_file$get_id(),
+		name = fs::path_file(tmpf),
+		#filename
+		#file_path = tmpf,
+		#check_file_exists = TRUE,
+		#compute_hash = TRUE,
+		#hash_algo = "md5",
+		#label = NULL,
+		#generated_from = NULL,
+		type = NULL,
 		comments = NULL
 	)
 
