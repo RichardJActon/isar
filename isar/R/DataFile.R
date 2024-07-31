@@ -223,6 +223,19 @@ DataFile <- R6::R6Class(
 			return(lst)
 		},
 		#' @details
+		#' serialise DataFile object to a tabular format (tibble)
+		#' @return a tibble
+		to_table = function() {
+			dplyr::bind_cols(
+				self$comments %>% purrr::map_dfc(~{
+					tibble::tibble_row(.x$value) %>%
+						purrr::set_names(paste0("Comment[", .x$name, "]"))
+				}),
+				tibble::tibble_row(self$filename) %>%
+					purrr::set_names(self$type)
+			)
+		},
+		#' @details
 		#' Make [DataFile] object from list
 		#' @param lst an Characteristic object serialized to a list
 		#' @param json json  (default TRUE)
