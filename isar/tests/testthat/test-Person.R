@@ -12,7 +12,7 @@ test_that("Person works", {
 	expect_true(test_person$check_email(good_email))
 	expect_error(
 		test_person$check_email(bad_email),
-		regexp = "Invalid email address"
+		regexp = "invalid email address"
 	)
 
 	expect_true(test_person$check_orcid(good_orcid))
@@ -25,7 +25,7 @@ test_that("Person works", {
 	expect_equal(test_person$email, good_email)
 	expect_error(
 		test_person$check_email(bad_email),
-		regexp = "Invalid email address"
+		regexp = "invalid email address"
 	)
 
 	test_person$set_orcid(good_orcid)
