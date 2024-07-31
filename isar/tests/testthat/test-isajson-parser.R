@@ -40,30 +40,55 @@ test_that("OntologyAnnotation", {
 
 
 ## OntologySource ----
-test_that("OntologySource", {
-	obj <- OntologySource$new()
-	ex <- json_example$ontologySourceReferences[[1]]
-	obj$from_list(ex)
-	expect_equal(obj$to_list(), ex)
+test_that("OntologySource  json read/write", {
+	ontology_sourcess <- c(
+		BII_S_3_jsonlite$ontologySourceReferences,
+		json_example$ontologySourceReferences
+	)
+	for (ex in ontology_sourcess) {
+		obj <- OntologySource$new()
+		# ex <- json_example$ontologySourceReferences[[1]]
+		obj$from_list(ex)
+		expect_equal(
+			unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex)
+		)
+	}
 })
 
 ## OntologySourceReferences ----
-test_that("OntologySourceReferences", {
-	obj <- OntologySourceReferences$new()
-	ex <- json_example$ontologySourceReferences
-	obj$from_list(ex)
-	expect_equal(obj$to_list(), ex)
+test_that("OntologySourceReferences json read/write", {
+	ontology_source_references <- list(
+		BII_S_3_jsonlite$ontologySourceReferences,
+		json_example$ontologySourceReferences
+	)
+	for (ex in ontology_source_references) {
+		obj <- OntologySourceReferences$new()
+		# ex <- json_example$ontologySourceReferences
+		obj$from_list(ex)
+		expect_equal(
+			unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex)
+		)
+	}
 })
 
 ## Sources ----
-test_that("Sources", {
-	obj <- Source$new()
-	ex <- json_example$studies[[1]]$materials$sources[[1]]
-	warns <- capture_warnings(obj$from_list(ex))
+test_that("Sources json read/write", {
+	sources <- c(
+		json_example$studies[[1]]$materials$sources,
+		json_example$studies[[2]]$materials$sources,
+		BII_S_3_jsonlite$studies[[1]]$materials$sources
+	)
+	for (ex in sources) {
+		obj <- Source$new()
+		# ex <- json_example$studies[[1]]$materials$sources[[1]]
+		warns <- capture_warnings(obj$from_list(ex))
 
-	# expect_equal(obj$to_list(), ex)
-	# note nulls dropped so comments not checked in unlist comparison
-	expect_equal(unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex))
+		# expect_equal(obj$to_list(), ex)
+		# note nulls dropped so comments not checked in unlist comparison
+		expect_equal(
+			unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex)
+		)
+	}
 })
 
 ## Samples ----
@@ -85,7 +110,7 @@ test_that("Samples json read/write", {
 })
 
 ## Materials ----
-test_that("Materials", {
+test_that("Materials json read/write", {
 	get_materials <- function(invs) {
 		invs %>% purrr::map(~{
 			.x$studies %>% purrr::map(~{
@@ -104,18 +129,29 @@ test_that("Materials", {
 
 		# flatten and sort output rather than reorder based on example
 		# !! might miss something lost when flattening!
-		expect_equal(unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex))
+		expect_equal(
+			unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex)
+		)
 	}
 })
 
 ## StudyFactor ----
-test_that("StudyFactor", {
-	obj <- StudyFactor$new()
-	ex <- json_example$studies[[1]]$factors[[1]]
-	warns <- capture_warnings(obj$from_list(ex))
+test_that("StudyFactor json read/write", {
+	factors <- c(
+		json_example$studies[[1]]$factors,
+		json_example$studies[[2]]$factors,
+		BII_S_3_jsonlite$studies[[1]]$factors
+	)
+	for (ex in factors) {
+		obj <- StudyFactor$new()
+		# ex <- json_example$studies[[1]]$factors[[1]]
+		warns <- capture_warnings(obj$from_list(ex))
 
-	## retain order in source when reading? !!
-	expect_equal(unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex))
+		## retain order in source when reading? !!
+		expect_equal(
+			unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex)
+		)
+	}
 
 	# sf_order <- names(ex)
 	# tsf_to_list <- tsf_to_list[sf_order]
@@ -126,12 +162,21 @@ test_that("StudyFactor", {
 })
 
 ## StudyFactorReferences ----
-test_that("StudyFactorReferences", {
-	obj <- StudyFactorReferences$new()
-	ex <- json_example$studies[[1]]$factors
-	warns <- capture_warnings(obj$from_list(ex))
+test_that("StudyFactorReferences json read/write", {
+	factor_references <- list(
+		json_example$studies[[1]]$factors,
+		json_example$studies[[2]]$factors,
+		BII_S_3_jsonlite$studies[[1]]$factors
+	)
+	for (ex in factor_references) {
+		obj <- StudyFactorReferences$new()
+		# ex <- json_example$studies[[1]]$factors
+		warns <- capture_warnings(obj$from_list(ex))
 
-	expect_equal(unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex))
+		expect_equal(
+			unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex)
+		)
+	}
 
 	# handinling the possibility of arbitrary name order in json by re-ordering
 	# the to_list output to match that of the json as read
@@ -150,15 +195,40 @@ test_that("StudyFactorReferences", {
 })
 
 ## Characteristic Categories References----
-test_that("CharacteristicCategoriesReferences", {
-	obj <- CharacteristicCategoryReferences$new()
-	ex <- json_example$studies[[1]]$characteristicCategories
-	warns <- capture_warnings(obj$from_list(ex))
-	expect_equal(unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex))
+test_that("CharacteristicCategoriesReferences json read/write", {
+	characteristic_categories_references <- list(
+		json_example$studies[[1]]$characteristicCategories,
+		json_example$studies[[2]]$characteristicCategories,
+		BII_S_3_jsonlite$studies[[1]]$characteristicCategories
+	)
+	for (ex in characteristic_categories_references) {
+		obj <- CharacteristicCategoryReferences$new()
+		# ex <- json_example$studies[[1]]$characteristicCategories
+		warns <- capture_warnings(obj$from_list(ex))
+		expect_equal(
+			unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex)
+		)
+	}
 })
 
 ## Unit Categories ----
-test_that("Unit References work", {
+test_that("UnitReferences json read/write", {
+	unit_references <- list(
+		json_example$studies[[1]]$unitCategories,
+		# json_example$studies[[2]]$unitCategories, empty
+		BII_S_3_jsonlite$studies[[1]]$unitCategories
+	)
+	for (ex in unit_references) {
+		obj <- UnitReferences$new()
+		# ex <- json_example[["studies"]][[1]]$unitCategories
+		warns <- capture_warnings(obj$from_list(ex))
+		expect_equal(
+			unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex)
+		)
+	}
+})
+
+test_that("UnitReferences json read example", {
 	obj <- UnitReferences$new()
 	ex <- json_example[["studies"]][[1]]$unitCategories
 	warns <- capture_warnings(obj$from_list(ex))
@@ -168,34 +238,61 @@ test_that("Unit References work", {
 })
 
 ## Protocol ----
-test_that("Protocol", {
+test_that("Protocol json read/write", {
+	protocols  <- c(
+		json_example$studies[[1]]$protocols,
+		json_example$studies[[2]]$protocols,
+		BII_S_3_jsonlite$studies[[1]]$protocols
+	)
 	# protocolType has some unusual behaviour, only annotation value is
 	# explicitly listed in the json example, with source and accession left out
-	obj <- Protocol$new()
-	ex <- json_example[["studies"]][[1]][["protocols"]][[1]]
-	warns <- capture_warnings(obj$from_list(ex))
-	ex$protocolType[["termAccession"]] <- ""
-	ex$protocolType[["termSource"]] <- ""
-	expect_equal(unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex))
+	# in some cases - this is now handled to reflect what is present in the input
+	for (ex in protocols) {
+		obj <- Protocol$new()
+		# ex <- json_example[["studies"]][[1]][["protocols"]][[1]]
+		warns <- capture_warnings(obj$from_list(ex))
+		# ex$protocolType[["termAccession"]] <- ""
+		# ex$protocolType[["termSource"]] <- ""
+		expect_equal(
+			unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex)
+		)
+	}
 })
 
 ## Process ----
-test_that("Process Sequence",{
-	obj <- Process$new()
-	ex <- json_example[["studies"]][[1]][["processSequence"]][[1]]
-	warns <- capture_warnings(obj$from_list(ex))
-	expect_equal(unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex))
+test_that("Process Sequence json read/write",{
+	process_sequences <- c(
+		json_example$studies[[1]]$processSequence,
+		json_example$studies[[2]]$processSequence,
+		BII_S_3_jsonlite$studies[[1]]$processSequence
+	)
+	for (ex in process_sequences) {
+		obj <- Process$new()
+		# ex <- json_example[["studies"]][[1]][["processSequence"]][[1]]
+		warns <- capture_warnings(obj$from_list(ex))
+		expect_equal(
+			unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex)
+		)
+	}
 })
 
 ## Publication ----
-test_that("Publication", {
-	obj <- Publication$new()
-	ex <- json_example$publications[[1]]
-	warns <- capture_warnings(obj$from_list(ex))
-	ont_anno_order <- names(ex$status)
-	obj_to_list <- obj$to_list()
-	obj_to_list$status <- obj_to_list$status[ont_anno_order]
-	expect_equal(obj_to_list, ex)
+test_that("Publication json read/write", {
+	publications <- c(
+		json_example$publications,
+		json_example$publications,
+		BII_S_3_jsonlite$publications
+	)
+	for (ex in publications) {
+		obj <- Publication$new()
+		# ex <- json_example$publications[[1]]
+		warns <- capture_warnings(obj$from_list(ex))
+		#ont_anno_order <- names(ex$status)
+		obj_to_list <- obj$to_list()
+		#obj_to_list$status <- obj_to_list$status[ont_anno_order]
+		#expect_equal(obj_to_list, ex)
+		expect_equal(unlist_sort_by_name(obj_to_list), unlist_sort_by_name(ex))
+	}
 })
 
 ## Person ----
@@ -213,6 +310,7 @@ test_that("Person json read/write", {
 })
 
 test_that("Person json read example", {
+	obj <- Person$new()
 	ex <- json_example$people[[1]]
 	warns <- capture_warnings(obj$from_list(ex))
 	expect_match(warns, "Empty email", all = FALSE)
@@ -223,12 +321,21 @@ test_that("Person json read example", {
 })
 
 ## Assay ----
-test_that("Assay", {
-	obj <- Assay$new()
-	#ex <- BII_S_3_jsonlite$studies[[1]]$assays[[1]]
-	ex <- json_example$studies[[1]]$assays[[1]]
-	warns <- capture_warnings(obj$from_list(ex))
-	expect_equal(unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex))
+test_that("Assay json read/write", {
+	assays <- c(
+		json_example$studies[[1]]$assays,
+		json_example$studies[[2]]$assays,
+		BII_S_3_jsonlite$studies[[1]]$assays
+	)
+	for (ex in assays) {
+		obj <- Assay$new()
+		#ex <- BII_S_3_jsonlite$studies[[1]]$assays[[1]]
+		# ex <- json_example$studies[[1]]$assays[[1]]
+		warns <- capture_warnings(obj$from_list(ex))
+		expect_equal(
+			unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex)
+		)
+	}
 
 	# expect_equal(ts$submission_date, "2008-08-15")
 	# expect_equal(ts$public_release_date, "2008-08-15")
@@ -237,7 +344,7 @@ test_that("Assay", {
 })
 
 ## Study ----
-test_that("Study", {
+test_that("Study json read/write", {
 	studies <- c(BII_S_3_jsonlite$studies[1], json_example$studies)
 	for (ex in studies) {
 		obj <- Study$new()
@@ -306,7 +413,7 @@ test_that("Study", {
 
 ## Investigation ----
 
-test_that("Investigation Works", {
+test_that("Investigation json read/write", {
 	obj <- Investigation$new()
 	ex <- json_example
 	warns <- capture_warnings(obj$from_list(ex, recursive = TRUE, json = TRUE))
