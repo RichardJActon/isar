@@ -165,7 +165,20 @@ FactorValue <- R6::R6Class(
 				)
 			}
 		},
-
+		set_valid_unit = function(lst) {
+			unit_id <- lst[["@id"]]
+			if (unit_id %in% self$unit_references$get_unit_ids()) {
+				self$unit <- self$unit_references$units[[unit_id]]
+			} else {
+				self$unit <- Unit$new(
+					ontology_source_references =
+						self$ontology_source_references
+				)
+				self$unit$from_list(lst)
+				self$unit %>% list() %>% purrr::set_names(unit_id) %>%
+					self$unit_references$add_unit_references()
+			}
+		},
 		#' @details
 		#' generate an R list representation translatable to JSON
 		#' @param ld logical json-ld
@@ -226,12 +239,13 @@ FactorValue <- R6::R6Class(
 					self$value <- lst[["value"]]
 				}
 				if(!is.null(lst[["unit"]])) {
-					self$unit <- Unit$new(
-						ontology_source_references =
-							self$ontology_source_references
-					)
-					#self$unit <-
-					self$unit$from_list(lst[["unit"]])
+					self$set_valid_unit(lst[["unit"]])
+					# self$unit <- Unit$new(
+					# 	ontology_source_references =
+					# 		self$ontology_source_references
+					# )
+					# #self$unit <-
+					# self$unit$from_list(lst[["unit"]])
 				}
 				self$set_comments(lst[["comments"]])
 			} else {

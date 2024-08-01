@@ -495,6 +495,7 @@ Study <- R6::R6Class(
 					purrr::set_names(purrr::map_chr(., ~.x[["@id"]])) %>%
 					purrr::map(~{
 						smpl <- Sample$new(
+							study_factor_references = self$factors,
 							ontology_source_references =
 								self$ontology_source_references,
 							category_references =

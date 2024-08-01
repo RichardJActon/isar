@@ -27,6 +27,7 @@ Sample <- R6::R6Class(
 	public = list(
 		name = character(),
 		factor_values = NULL,
+		study_factor_references = NULL,
 		characteristics = NULL,
 		derives_from = NULL,
 		comments = NULL,
@@ -52,6 +53,7 @@ Sample <- R6::R6Class(
 		initialize = function(
 			name = character(),
 			factor_values = NULL,
+			study_factor_references = NULL,
 			characteristics = NULL,
 			derives_from = NULL,
 			comments = NULL,
@@ -72,6 +74,7 @@ Sample <- R6::R6Class(
 			} else {
 				self$set_factor_values(factor_values)
 			}
+			self$study_factor_references <- study_factor_references
 			self$characteristics <- characteristics # list
 			self$derives_from <- derives_from # list
 
@@ -127,6 +130,10 @@ Sample <- R6::R6Class(
 			}
 		},
 
+		# set_valid_factor_value = function(factor_values) {
+		# 	factor_values %in% names(self$study_factor_references)
+		# },
+
 		#' @details
 		#' generate an R list representation translatable to JSON
 		#' @param ld logical json-ld
@@ -137,15 +144,19 @@ Sample <- R6::R6Class(
 			# "id" = private$id
 			lst[["@id"]] <- self$`@id`
 			lst[["name"]] <- self$name
-			lst[["factorValues"]] <- purrr::map(
-				self$factor_values, ~.x$to_list()
-			)
+			lst[["factorValues"]] <- self$factor_values %>%
+				purrr::map(~.x$to_list()) %>%
+				purrr::set_names(NULL)
 			lst[["characteristics"]] <- purrr::map(
 				self$characteristics, ~.x$to_list()
 			)
 			lst[["derivesFrom"]][[1]][["@id"]] <- self$derives_from$`@id` ## !!! potential multiple sources
 			lst[["comments"]] <- self$comments
 			return(lst)
+		},
+
+		to_table = function() {
+			purrr::map_dfc(self$factor_values, ~.x$to_table())
 		},
 
 		#' @details
@@ -190,16 +201,19 @@ Sample <- R6::R6Class(
 
 			# self$derives_from <- lst[["derivesFrom"]]
 
-			self$factor_values <- purrr::map(
-				lst[["factorValues"]], ~{
+			self$factor_values <-
+				lst[["factorValues"]] %>%
+				purrr::map(~{
 					fv <- FactorValue$new(
 						ontology_source_references =
-							self$ontology_source_references
+							self$ontology_source_references,
+						study_factor_references = self$study_factor_references,
+						unit_references = self$unit_references
 					)
 					fv$from_list(.x, recursive = recursive, json = json)
 					fv
-				}
-			)
+				}) %>%
+				purrr::set_names(purrr::map_chr(., ~.x$`@id`))
 
 
 			if (is.null(self$category_references)) {
