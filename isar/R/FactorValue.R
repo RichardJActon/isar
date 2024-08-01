@@ -197,7 +197,35 @@ FactorValue <- R6::R6Class(
 			lst[["category"]][["@id"]] <- self$`@id`
 			return(lst)
 		},
-
+		to_table = function() {
+			tbl <- NULL
+			if(checkmate::test_r6(self$value, "OntologyAnnotation")){
+				tbl <- tibble::tibble_row(
+					self$value$term, self$value$term_source$name,
+					self$value$term_accession
+				) %>%
+					purrr::set_names(
+						paste0("Factor Value[", self$factor$factor_name , "]"),
+						paste0(
+							"Term Source REF[", self$factor$factor_name, "]"
+						),
+						paste0(
+							"Term Accession Number[", self$factor$factor_name,
+							"]"
+						)
+					)
+			} else if(checkmate::test_r6(self$unit, "Unit")) {
+				tbl <- tibble::tibble_row(self$value) %>%
+					purrr::set_names(
+						"Factor Value"
+						#paste0("Factor Value[", self$`@id`, "]")
+					) %>% dplyr::bind_cols(self$unit$to_table())
+				colnames(tbl) <- paste0(
+					colnames(tbl), "[", self$factor$factor_name ,"]"
+				)
+			}
+			return(tbl)
+		},
 		#' @details
 		#'
 		#' Make [OntologyAnnotation] from list
