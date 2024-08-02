@@ -436,7 +436,12 @@ Assay <- R6::R6Class(
 			self$process_sequence <- lst[["processSequence"]] %>%
 				purrr::set_names(purrr::map_chr(., ~.x$`@id`)) %>%
 				purrr::map(~{
-						ps <- Process$new(protocols = self$protocols)
+						ps <- Process$new(
+							protocols = self$protocols,
+							sources = self$sources,
+							samples = self$samples,
+							materials = self$other_materials
+						)
 						ps$from_list(.x, recursive = recursive, json = json) # recursive!
 						ps
 					}
