@@ -37,6 +37,7 @@ Process <- R6::R6Class(
 		samples = NULL,
 		next_process = NULL,
 		previous_process = NULL,
+		materials = NULL,
 		#' @details
 		#' Create a new [Process]
 		#' @param name If relevant, a unique name for the process to disambiguate it from other processes.
@@ -65,7 +66,8 @@ Process <- R6::R6Class(
 			sources = NULL,
 			samples = NULL,
 			next_process = NULL,
-			previous_process = NULL
+			previous_process = NULL,
+			materials = NULL
 		) {
 			self$name <- name
 			self$executes_protocol <- executes_protocol
@@ -81,6 +83,7 @@ Process <- R6::R6Class(
 			self$samples <- samples
 			self$next_process <- next_process
 			self$previous_process <- previous_process
+			self$materials <- materials
 		},
 		#' @details
 		#' Check the the name has a non-zero length
@@ -268,17 +271,21 @@ Process <- R6::R6Class(
 					]]
 				}
 				self$parameter_values <- lst[["parameterValues"]]
-				if(is.null(self$samples)) {
+
+				samples_and_materials <- c(self$samples, self$materials)
+
+				if(is.null(self$samples)) { # better checks
 					self$outputs <- purrr::map_chr(lst[["outputs"]], ~.x$`@id`)
 				} else {
-					self$outputs <- self$samples[
+					self$outputs <- samples_and_materials[
 						purrr::map_chr(lst[["outputs"]], ~.x$`@id`)
 					]
 				}
-				if (is.null(self$sources)) {
+				# if (is.null(self$sources)) {
+				if (is.null(self$materials)) { # better checks
 					self$inputs <- purrr::map_chr(lst[["inputs"]], ~.x$`@id`)
 				} else {
-					self$inputs <- self$sources[
+					self$inputs <- samples_and_materials[
 						purrr::map_chr(lst[["inputs"]], ~.x$`@id`)
 					]
 				}
