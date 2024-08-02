@@ -390,10 +390,12 @@ test_that("Study json read/write", {
 		purrr::walk2(obj_lst$materials$samples, ex$materials$samples,
 			~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
 		)
-		purrr::walk2(obj_lst$materials$otherMaterials, ex$materials$otherMaterials,
+		purrr::walk2(
+			obj_lst$materials$otherMaterials, ex$materials$otherMaterials,
 			~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
 		)
-		purrr::walk2(obj_lst$characteristicCategories, ex$characteristicCategories,
+		purrr::walk2(
+			obj_lst$characteristicCategories, ex$characteristicCategories,
 			~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
 		)
 		purrr::walk2(obj_lst$processSequence, ex$processSequence,
