@@ -272,20 +272,22 @@ Process <- R6::R6Class(
 				}
 				self$parameter_values <- lst[["parameterValues"]]
 
-				samples_and_materials <- c(self$samples, self$materials)
+				inputs_and_outputs <- c(
+					self$samples, self$materials, self$data_files # self$sources,
+				)
 
-				if(is.null(self$samples)) { # better checks
+				if(is.null(self$samples)) { # better checks?
 					self$outputs <- purrr::map_chr(lst[["outputs"]], ~.x$`@id`)
 				} else {
-					self$outputs <- samples_and_materials[
+					self$outputs <- inputs_and_outputs[
 						purrr::map_chr(lst[["outputs"]], ~.x$`@id`)
 					]
 				}
 				# if (is.null(self$sources)) {
-				if (is.null(self$materials)) { # better checks
+				if (is.null(self$materials)) { # better checks?
 					self$inputs <- purrr::map_chr(lst[["inputs"]], ~.x$`@id`)
 				} else {
-					self$inputs <- samples_and_materials[
+					self$inputs <- inputs_and_outputs[
 						purrr::map_chr(lst[["inputs"]], ~.x$`@id`)
 					]
 				}

@@ -440,7 +440,8 @@ Assay <- R6::R6Class(
 							protocols = self$protocols,
 							sources = self$sources,
 							samples = self$samples,
-							materials = self$other_materials
+							materials = self$other_materials,
+							data_files = self$data_files
 						)
 						ps$from_list(.x, recursive = recursive, json = json) # recursive!
 						ps
