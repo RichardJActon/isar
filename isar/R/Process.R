@@ -355,10 +355,18 @@ Process <- R6::R6Class(
 				green_bold_name_plain_content("Performer", self$performer)
 			}
 			cli::cli_h2("Inputs")
-			cli::cli_ul(names(self$inputs))
+			if (is.character(self$inputs)) {
+				cli::cli_ul(self$inputs)
+			} else {
+				cli::cli_ul(names(self$inputs))
+			}
 
 			cli::cli_h2("Outputs")
-			cli::cli_ul(names(self$outputs))
+			if (is.character(self$outputs)) {
+				cli::cli_ul(self$outputs)
+			} else {
+				cli::cli_ul(names(self$outputs))
+			}
 
 			cli::cli_h2("Previous Process")
 			cli::cli_ul(self$previous_process)
