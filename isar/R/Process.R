@@ -400,3 +400,41 @@ Process <- R6::R6Class(
 	)
 )
 
+# first has no preceding step
+get_fist_processes <- function(x) {
+	x %>%
+		purrr::map(~{ if(is.null(.x$previous_process)) { .x } }) %>%
+		purrr::discard(is.null)
+}
+# first_processes <- get_fist_processes(processes)
+
+get_next_processes <- function(previous_processes, processes) {
+	processes[previous_processes %>% purrr::map_chr(~.x$next_process)]
+}
+# get_next_processes(first_processes, processes) %>% length()
+
+# last has no next step
+get_last_processes <- function(processes) {
+	processes %>%
+		purrr::map(~{if(is.null(.x$next_process)){.x}}) %>%
+		purrr::discard(is.null)
+}
+
+#' get_process_order
+#'
+#' @param processes list of [Process] objects as in the process_sequence
+#' sequence field of an [Assay] object
+get_process_order <- function(processes) {
+	process_order <- list()
+	i <- 1
+	first_processes_ids <- processes %>% get_fist_processes() %>% names()
+	last_processes_ids <- processes %>% get_last_processes() %>% names()
+	process_order[[i]] <- first_processes_ids
+	while (all(!process_order[[i]] %in% last_processes_ids)) {
+		i <- i + 1
+		process_order[[i]] <- get_next_processes(
+			processes[process_order[[i - 1]]], processes
+		) %>% names()
+	}
+	process_order
+}
