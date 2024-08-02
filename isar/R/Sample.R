@@ -143,7 +143,8 @@ Sample <- R6::R6Class(
 			lst <- list()
 			# "id" = private$id
 			lst[["@id"]] <- self$`@id`
-			lst[["name"]] <- self$name
+			# lst[["name"]] <- self$name
+			lst[["name"]] <- sub("#.*?/(.*)", "\\1", self$`@id`)
 			lst[["factorValues"]] <- self$factor_values %>%
 				purrr::map(~.x$to_list()) %>%
 				purrr::set_names(NULL)
@@ -187,7 +188,8 @@ Sample <- R6::R6Class(
 		#' @param recursive call to_list methods of any objects within this object (default TRUE)
 		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			self$`@id` <- lst[["@id"]]
-			self$name <- lst[["name"]]
+			# self$name <- lst[["name"]]
+			self$name <- sub(".*?-(.*)", "\\1", lst[["name"]])
 
 			self$set_source(lst[["derivesFrom"]][[1]][["@id"]]) # multiple inputs? # are all always sources?
 			# self$derives_from <- purrr::map(lst[["derivesFrom"]], ~{
