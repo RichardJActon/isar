@@ -334,7 +334,8 @@ Study <- R6::R6Class(
 			lst[["publicReleaseDate"]] <- self$public_release_date
 			lst[["characteristicCategories"]] <-
 				self$characteristic_categories$to_list(source = self$`@id`)
-			lst[["assays"]] <- purrr::map(self$assays, ~.x$to_list())
+			lst[["assays"]] <- self$assays %>% purrr::map(~.x$to_list()) %>%
+				purrr::set_names(NULL)
 			lst[["filename"]] <- self$filename
 			lst[["factors"]] <- self$factors$to_list()
 			lst[["publications"]] <- purrr::map(
@@ -535,19 +536,21 @@ Study <- R6::R6Class(
 				# 	u$from_list(.x, recursive = recursive, json = json)
 				# 	u
 				# })
-				self$assays <- purrr::map(lst[["assays"]], ~{
-					a <- Assay$new(
-						samples = self$samples,
-						ontology_source_references =
-							self$ontology_source_references,
-						characteristic_categories =
-							self$characteristic_categories,
-						protocols = self$protocols,
-						unit_references = self$unit_references
-					)
-					a$from_list(.x, recursive = recursive, json = json)
-					a
-				})
+				self$assays <- lst[["assays"]] %>%
+					purrr::map(~{
+						a <- Assay$new(
+							samples = self$samples,
+							ontology_source_references =
+								self$ontology_source_references,
+							characteristic_categories =
+								self$characteristic_categories,
+							protocols = self$protocols,
+							unit_references = self$unit_references
+						)
+						a$from_list(.x, recursive = recursive, json = json)
+						a
+					}) %>%
+					purrr::set_names(purrr::map_chr(., ~.x$`@id`))
 
 				self$comments <- lst[["comments"]]
 			} else {
