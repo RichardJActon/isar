@@ -54,9 +54,9 @@ StudyFactor <- R6::R6Class(
 				self$factor_type <- factor_type
 			} else if (checkmate::check_r6(factor_type ,"OntologyAnnotation")) {
 				self$factor_type <- factor_type
-			} else {
-				stop("factor_type is not and ontology_annotation object or NULL!")
-			}
+			} else {stop(
+				"factor_type is not and ontology_annotation object or NULL!"
+			)}
 			self$comments <- comments
 			# id format checking?
 			self$`@id` <- paste0(
@@ -76,7 +76,9 @@ StudyFactor <- R6::R6Class(
 		#' set the name of the material if valid
 		#' @param factor_name The name of the material
 		set_name = function(factor_name) {
-			if (self$check_name(factor_name)) { self$factor_name <- factor_name }
+			if (self$check_name(factor_name)) {
+				self$factor_name <- factor_name
+			}
 		},
 		#' @details
 		#' checks if comments are a named list of character vectors
