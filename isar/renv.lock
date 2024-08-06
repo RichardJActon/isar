@@ -474,6 +474,16 @@
       ],
       "Hash": "f70d3fe2d9e7654213a946963d1591eb"
     },
+    "getopt": {
+      "Package": "getopt",
+      "Version": "1.20.4",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Requirements": [
+        "stats"
+      ],
+      "Hash": "ed33b16c6d24f7ced1d68877ac2509ee"
+    },
     "gh": {
       "Package": "gh",
       "Version": "1.4.0",
@@ -686,6 +696,21 @@
       ],
       "Hash": "b8552d117e1b808b09a832f589b79035"
     },
+    "lobstr": {
+      "Package": "lobstr",
+      "Version": "1.1.2",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Requirements": [
+        "R",
+        "cpp11",
+        "crayon",
+        "methods",
+        "prettyunits",
+        "rlang"
+      ],
+      "Hash": "f2a94f8fc9db382a642e965339635ad6"
+    },
     "magrittr": {
       "Package": "magrittr",
       "Version": "2.0.3",
@@ -738,6 +763,18 @@
         "askpass"
       ],
       "Hash": "2a0dc8c6adfb6f032e4d4af82d258ab5"
+    },
+    "optparse": {
+      "Package": "optparse",
+      "Version": "1.7.4",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Requirements": [
+        "R",
+        "getopt",
+        "methods"
+      ],
+      "Hash": "523cc4a72afdf6748b7aaf2cad607435"
     },
     "pillar": {
       "Package": "pillar",
@@ -1067,7 +1104,12 @@
     "renv": {
       "Package": "renv",
       "Version": "0.17.3",
-      "Source": "Repository"
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Requirements": [
+        "utils"
+      ],
+      "Hash": "4543b8cd233ae25c6aba8548be9e747e"
     },
     "rjson": {
       "Package": "rjson",
