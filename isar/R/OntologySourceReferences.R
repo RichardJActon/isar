@@ -87,6 +87,38 @@ OntologySourceReferences <- R6::R6Class(
 			purrr::map_chr(self$ontology_source_references, ~.x$source)
 		},
 
+		to_table = function() {
+			tbl <- self$ontology_source_references %>%
+				purrr::map_dfr(~{tibble::tibble(
+					"Term Source Name" = .x$name,
+					"Term Source File" = .x$file,
+					"Term Source Version" = .x$version,
+					"Term Source Description" = .x$description
+				)}) %>%
+				t() %>%
+				as.data.frame() %>%
+				tibble::rownames_to_column() %>%
+				tibble::as_tibble()
+
+			colnames(tbl)[-1] <- tbl %>%
+				dplyr::slice(1) %>% unlist() %>% `[`(-1)
+
+			tbl
+		},
+
+		cat_table = function(path = stdout()) {
+			cat(file = path, "ONTOLOGY SOURCE REFERENCE\n", append = TRUE)
+			self$to_table() %>%
+				dplyr::mutate(dplyr::across(
+					-rowname, ~paste0('"', .x, '"')
+				)) %>%
+				readr::write_tsv(
+					file = path, quote = "none",  #quote = "needed",
+					append = TRUE, na = "", escape = "none",
+					col_names = FALSE, progress = FALSE
+				)
+		},
+
 		#' @details
 		#' Serialize object to a list
 		#' @param source ontology sources of which origin to include
