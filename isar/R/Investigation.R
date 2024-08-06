@@ -303,6 +303,42 @@ Investigation <- R6::R6Class(
 				purrr::map(~.x$sources) %>% unlist(recursive = FALSE)
 		},
 
+		to_table = function() {
+			tbl <- tibble::tibble(
+				section = c(
+					"ONTOLOGY SOURCE REFERENCES", "INVESTIGATION"
+				),
+				index = c(1L, 1L),
+				data = list(
+					self$ontology_source_references$to_table(),
+					dplyr::bind_rows(
+						tibble::tribble(
+							~name, ~value,
+							"Investigation Identifier", self$identifier,
+							"Investigation Title", self$title,
+							"Investigation Description", self$description,
+							"Investigation Submission Date", self$submission_date,
+							"Investigation Public Release Date",
+								self$public_release_date
+						),
+						comment_to_table(self$comments)
+					)
+				)
+			)
+
+			tbl <- dplyr::bind_rows(
+				tbl,
+				purrr::imap(self$publications, ~{
+					tibble::tibble_row(
+						section = "INVESTIGATION PUBLICATIONS",
+						index = .y, data = list(.x$to_table())
+					)
+				}) %>% purrr::list_rbind()
+			)
+
+			return(tbl)
+		},
+
 		#' @details
 		#' generate an R list representation translatable to JSON
 		#' @param ld logical json-ld
