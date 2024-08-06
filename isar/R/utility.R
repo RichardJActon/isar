@@ -295,3 +295,16 @@ recursive_sort_list_by_name <- function(x) {
 	}
 	srt
 }
+
+#' comment_to_table
+#'
+#' @param comments list of comments
+comment_to_table <- function(comments) {
+	comments %>%
+		purrr::map_dfr(
+			~tibble::tribble(
+				~name, ~value,
+				paste0("Comment[", .x$name, "]"), .x$value
+			)
+		)
+}
