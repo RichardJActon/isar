@@ -38,6 +38,7 @@ Process <- R6::R6Class(
 		next_process = NULL,
 		previous_process = NULL,
 		materials = NULL,
+		data_files = NULL,
 		#' @details
 		#' Create a new [Process]
 		#' @param name If relevant, a unique name for the process to disambiguate it from other processes.
@@ -67,7 +68,8 @@ Process <- R6::R6Class(
 			samples = NULL,
 			next_process = NULL,
 			previous_process = NULL,
-			materials = NULL
+			materials = NULL,
+			data_files = NULL
 		) {
 			self$name <- name
 			self$executes_protocol <- executes_protocol
@@ -84,6 +86,7 @@ Process <- R6::R6Class(
 			self$next_process <- next_process
 			self$previous_process <- previous_process
 			self$materials <- materials
+			self$data_files <- data_files
 		},
 		#' @details
 		#' Check the the name has a non-zero length
