@@ -24,7 +24,7 @@ StudyFactor <- R6::R6Class(
 		factor_type = NULL,
 		comments = NULL,
 		`@id` = character(),
-		explicitly_provided = logical(),
+		origin = character(),
 		ontology_source_references = NULL,
 		#' @details
 		#'
@@ -34,7 +34,8 @@ StudyFactor <- R6::R6Class(
 		#' @param factor_type An [OntologyAnnotation] reference of the study factor_type
 		#' @param comments Comments associated with instances of this class.
 		#' @param @id identifier
-		#' @param explicitly_provided Explicitly listed in the study as a factor (logical)
+		#' @param origin @id of the object of origin for the factor in case it
+		#' is not explicitly listed in the study as a factor (logical)
 		#' @param ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor.
 		#'
 		initialize = function(
@@ -42,7 +43,7 @@ StudyFactor <- R6::R6Class(
 			factor_type = NULL,
 			comments = NULL,
 			`@id` = character(),
-			explicitly_provided = logical(),
+			origin = character(),
 			ontology_source_references = NULL
 		) {
 			if (checkmate::qtest(factor_name, "S[0]")) {
@@ -62,7 +63,7 @@ StudyFactor <- R6::R6Class(
 			self$`@id` <- paste0(
 				"#factor/", sub("[^A-Za-z0-9]+", "_", self$factor_name)
 			)
-			self$explicitly_provided <- explicitly_provided
+			self$origin <- origin
 			self$ontology_source_references <- ontology_source_references
 		},
 		#' @details
