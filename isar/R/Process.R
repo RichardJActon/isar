@@ -187,7 +187,11 @@ Process <- R6::R6Class(
 			# 	lst[["inputs"]] <- self$inputs %>%
 			# 		purrr::map(~.x$to_list()) %>% purrr::set_names(NULL)
 			# }
-			if (is.character(self$outputs)) {
+			if (checkmate::test_list(self$outputs, len = 0)) {
+				lst[["outputs"]] <- list()
+			} else if (
+				checkmate::test_list(self$outputs, types = "character")
+			) {
 				lst[["outputs"]] <- self$outputs %>%
 					purrr::map(~list("@id" = .x)) %>% purrr::set_names(NULL)
 			} else {
@@ -196,7 +200,11 @@ Process <- R6::R6Class(
 					purrr::set_names(NULL)
 			}
 
-			if (is.character(self$inputs)) {
+			if (checkmate::test_list(self$inputs, len = 0)) {
+				lst[["inputs"]] <- list()
+			} else if (
+				checkmate::test_list(self$inputs, types = "character")
+			) {
 				lst[["inputs"]] <- self$inputs %>%
 					purrr::map(~list("@id" = .x)) %>% purrr::set_names(NULL)
 			} else {
@@ -273,10 +281,12 @@ Process <- R6::R6Class(
 				self$parameter_values <- lst[["parameterValues"]]
 
 				inputs_and_outputs <- c(
-					self$samples, self$materials, self$data_files # self$sources,
+					self$samples, self$materials, self$data_files, self$sources
 				)
 
-				if(is.null(self$samples)) { # better checks?
+				if(checkmate::test_list(lst[["outputs"]], len = 0)) {
+					self$outputs <- list()
+				} else if(is.null(inputs_and_outputs[lst[["outputs"]][[1]][["@id"]]])) { # better checks?
 					self$outputs <- purrr::map_chr(lst[["outputs"]], ~.x$`@id`)
 				} else {
 					self$outputs <- inputs_and_outputs[
@@ -284,7 +294,15 @@ Process <- R6::R6Class(
 					]
 				}
 				# if (is.null(self$sources)) {
-				if (is.null(self$materials)) { # better checks?
+
+				## !!! NULL values appearing in some but not all process sequence input IDs
+				# happend after changing this to look up more types of input
+				# for(i in 1:25){if(!identical(unlist_sort_by_name(obj$to_list()$processSequence[[i]]), unlist_sort_by_name(ex$processSequence[[i]]))){print(i)}}
+				if(checkmate::test_list(lst[["inputs"]], len = 0)) {
+					self$inputs <- list()
+				} else if (
+					is.null(inputs_and_outputs[lst[["inputs"]][[1]][["@id"]]])
+				) { # better checks?
 					self$inputs <- purrr::map_chr(lst[["inputs"]], ~.x$`@id`)
 				} else {
 					self$inputs <- inputs_and_outputs[

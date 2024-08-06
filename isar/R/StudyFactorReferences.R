@@ -1,7 +1,7 @@
 #' R6 Class for StudyFactorReferences
 #'
 #'
-#' @field study_factor_references an [StudyFactorReferences] object
+#' @field study_factor_references a list [StudyFactor] objects
 #' @field ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor
 #' @field unit_references A list of units used as a [UnitReferences] object
 #'
@@ -17,7 +17,7 @@ StudyFactorReferences <- R6::R6Class(
 		study_factor_references = NULL,
 		ontology_source_references = NULL,
 		unit_references = NULL,
-		#' @param study_factor_references an [StudyFactorReferences] object
+		#' @param study_factor_references a list [StudyFactor] objects
 		#' @param ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor
 		#' @param unit_references A list of units used as a [UnitReferences] object
 		initialize = function(
@@ -56,7 +56,11 @@ StudyFactorReferences <- R6::R6Class(
 		#' Add new study factors to the study factor reference
 		#' @param study_factors a list of [StudyFactor] objects
 		add_study_factors = function(study_factors) {
-			if(self$check_study_factors(study_factors)) {
+			if(
+				self$check_study_factors(
+					c(self$study_factor_references, study_factors)
+				)
+			) {
 				self$study_factor_references <- c(
 					self$study_factor_references, study_factors
 				)
@@ -76,13 +80,10 @@ StudyFactorReferences <- R6::R6Class(
 		#' @param explicitly_provided (logical) used to indicate if the study
 		#' factor was explicitly listed in the input as opposed to being
 		#' inferred to exist.
-		from_list = function(lst, explicitly_provided = logical()) {
-			check <- checkmate::check_logical(explicitly_provided)
-			error_with_check_message_on_failure(check)
-
+		from_list = function(lst, origin = NA) {
 			study_factors <- purrr::map(lst, ~{
 				sf <- StudyFactor$new(
-					explicitly_provided = explicitly_provided,
+					origin = origin,
 					ontology_source_references =
 						self$ontology_source_references#,
 					#unit_references = self$unit_references

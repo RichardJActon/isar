@@ -147,6 +147,14 @@ FactorValue <- R6::R6Class(
 		#' @param factor an experimental factor
 		set_valid_factor_category = function(factor) {
 			#browser()
+			if(is.null(self$study_factor_references)) {
+				self$study_factor_references <- StudyFactorReferences$new(
+					ontology_source_references =
+						self$ontology_source_references,
+					unit_references = self$unit_references
+
+				)
+			}
 			if(
 				factor$`@id` %in%
 				self$study_factor_references$get_study_factor_ids()
@@ -158,7 +166,8 @@ FactorValue <- R6::R6Class(
 			} else {
 				warning("Factor category not listed!")
 				sf <- StudyFactor$new(
-					factor_type = self$factor, explicitly_provided = FALSE
+					factor_type = self$factor,# explicitly_provided = FALSE
+					origin = self$`@id`
 				)
 				self$study_factor_references$add_study_factors(
 					list("UndefinedFactor" = sf)
@@ -167,6 +176,16 @@ FactorValue <- R6::R6Class(
 		},
 		set_valid_unit = function(lst) {
 			unit_id <- lst[["@id"]]
+			if(is.null(self$unit_references)) {
+				warning(
+					"No unit references supplied!",
+					"Creating and empty reference..."
+				)
+				self$unit_references <- UnitReferences$new(
+					ontology_source_references =
+						self$ontology_source_references
+				)
+			}
 			if (unit_id %in% self$unit_references$get_unit_ids()) {
 				self$unit <- self$unit_references$units[[unit_id]]
 			} else {
@@ -234,7 +253,7 @@ FactorValue <- R6::R6Class(
 		#' @param recursive call to_list methods of any objects within this object (default TRUE)
 		#' @param json json  (default TRUE)
 		from_list = function(lst, recursive = TRUE, json = TRUE) {
-			if(json){
+			if(json) {
 				#self$set_id()
 				# self$factor_name <- StudyFactor$new()
 				# self$factor_name$from_list(
@@ -245,11 +264,14 @@ FactorValue <- R6::R6Class(
 				# "StudyFactor", lst[["category"]][["@id"]],
 				# value = lst[["factor_name"]]
 				# )
-				self$factor <-
-					self$set_valid_factor_category(
-						lst[["category"]]#[["@id"]],
-						#lst[["factor_name"]]
-					)
+				if (!is.null(lst[["unit"]])) {
+					self$set_valid_unit(lst[["unit"]])
+				}
+				# self$factor <-
+				self$set_valid_factor_category(
+					lst[["category"]]#[["@id"]],
+					#lst[["factor_name"]]
+				)
 				# if reference exists reference it - else make one
 				# self$factor_name$name <- sub(
 				# 	"#factor/", "", self$`@id`, fixed = TRUE
@@ -265,15 +287,6 @@ FactorValue <- R6::R6Class(
 					)
 				} else {
 					self$value <- lst[["value"]]
-				}
-				if(!is.null(lst[["unit"]])) {
-					self$set_valid_unit(lst[["unit"]])
-					# self$unit <- Unit$new(
-					# 	ontology_source_references =
-					# 		self$ontology_source_references
-					# )
-					# #self$unit <-
-					# self$unit$from_list(lst[["unit"]])
 				}
 				self$set_comments(lst[["comments"]])
 			} else {

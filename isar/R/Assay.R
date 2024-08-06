@@ -262,6 +262,7 @@ Assay <- R6::R6Class(
 					"Recording IDs in place referencing appropriate sample objects!"
 				)
 				self$samples <- sample_ids
+				names(self$samples) <- sample_ids
 			}
 		},
 		# # Getters
@@ -317,7 +318,8 @@ Assay <- R6::R6Class(
 				purrr::set_names(NULL)
 			if(is.character(self$samples)) {
 				lst[["materials"]][["samples"]] <- self$samples %>%
-					purrr::map(~list(`@id` = .x))
+					purrr::map(~list(`@id` = .x)) %>%
+					purrr::set_names(NULL)
 			} else {
 				lst[["materials"]][["samples"]] <- self$samples %>%
 					#purrr::map(~.x$to_list()) %>%

@@ -426,7 +426,7 @@ Study <- R6::R6Class(
 					unit_references = self$unit_references
 				)
 				self$factors$from_list(
-					lst[["factors"]], explicitly_provided = TRUE
+					lst[["factors"]], origin = self$`@id`# explicitly_provided = TRUE
 				)
 
 				# self$factors <- lst[["factors"]] %>%
