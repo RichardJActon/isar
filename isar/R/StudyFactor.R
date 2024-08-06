@@ -132,14 +132,14 @@ StudyFactor <- R6::R6Class(
 				self$factor_type$from_list(lst[["factorType"]])
 				# self$comments = lst[["comments"]]
 			} else {
-				self$factor_name = lst[["name"]]
+				self$factor_name <- lst[["name"]]
 				private$id <- lst[["id"]]
 				self$factor_type <- OntologyAnnotation$new(
 					ontology_source_references =
 						self$ontology_source_references
 				)
 				self$factor_type$from_list(lst[["factor_type"]])
-				self$comments = lst[["comments"]]
+				self$comments <- lst[["comments"]]
 			}
 		},
 
