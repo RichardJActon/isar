@@ -317,7 +317,8 @@ Investigation <- R6::R6Class(
 							"Investigation Identifier", self$identifier,
 							"Investigation Title", self$title,
 							"Investigation Description", self$description,
-							"Investigation Submission Date", self$submission_date,
+							"Investigation Submission Date",
+								self$submission_date,
 							"Investigation Public Release Date",
 								self$public_release_date
 						),
