@@ -219,10 +219,7 @@ FactorValue <- R6::R6Class(
 		to_table = function() {
 			tbl <- NULL
 			if(checkmate::test_r6(self$value, "OntologyAnnotation")){
-				tbl <- tibble::tibble_row(
-					self$value$term, self$value$term_source$name,
-					self$value$term_accession
-				) %>%
+				tbl <- self$value$to_table() %>%
 					purrr::set_names(
 						paste0("Factor Value[", self$factor$factor_name , "]"),
 						paste0(
