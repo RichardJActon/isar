@@ -312,6 +312,101 @@ Study <- R6::R6Class(
 		get_process_names = function() {
 			self$process_sequence %>% purrr::map_chr(~.x$name)
 		},
+
+		#' get_processes_by_inputs
+		#'
+		#' vectors of the processes associated with unique inputs
+		#'
+		#' @return named list of character vectors where the names are input
+		#'  ids and the values are vectors of process names
+		get_processes_by_inputs = function() {
+			inputs <- list()
+			for (i in seq_along(self$process_sequence)) {
+				input_names <- names(self$process_sequence[[i]]$inputs)
+				for(j in seq_along(input_names)) {
+					inputs[[input_names[[j]]]] <- c(
+						inputs[[input_names[[j]]]],
+						self$process_sequence[[i]]$`@id`
+					)
+				}
+			}
+			inputs
+		},
+
+		header_table = function() {
+			#list(
+			dplyr::bind_rows(
+				tibble::tibble(
+					section = "STUDY", index = 1,
+					data = list(tibble::tribble(
+						~name, ~value,
+						"Study Identifier", self$identifier,
+						"Study Title", self$title,
+						"Study Description", self$description,
+						# comments?
+						"Study Submission Date", self$submission_date,
+						"Study Public Release Date", self$public_release_date,
+						"Study File Name", self$file
+
+					))
+				),
+
+				tibble::tibble(
+					section = "STUDY DESIGN DESCRIPTORS",
+					index = 1, data = list(
+						self$design_descriptors %>%
+							purrr::map(~{
+								.x$to_table() %>%
+									t() %>%
+									as.data.frame() %>%
+									tibble::rownames_to_column() %>%
+									tibble::as_tibble()
+							}) %>%
+							purrr::list_cbind() %>%
+							dplyr::mutate(rowname = c(
+								"Study Design Type",
+								"Study Design Type Accession Number",
+								"Study Design Type Term Source"
+							))
+					)
+				),
+
+				purrr::imap(self$publications, ~{
+					tibble::tibble_row(
+						section = "STUDY PUBLICATIONS",
+						index = .y, data = list(.x$to_table())
+					)
+				}) %>% purrr::list_rbind()
+
+				# factors
+				# assays
+				# protocols
+				# contacts
+				#
+			)
+		},
+
+		to_table = function() {
+			processes_by_input <- self$get_processes_by_inputs()
+			self$sources %>%
+				purrr::map_dfr(~{
+					dplyr::bind_cols(
+						.x$to_table(),
+						self$process_sequence[
+							processes_by_input[[.x$`@id`]]
+						] %>% purrr::map(~.x$to_table())#,
+						#.name_repair = "minimal"
+					)
+				})
+		},
+
+		cat_table = function(path = stdout()) {
+			self$to_table() %>% readr::write_tsv(
+				file = path, na = "", append = TRUE, progress = FALSE,
+				quote = "all"
+			)
+		},
+
 		#' @details
 		#' An R list representation of a [Study] object
 		#' @param ld linked data (default FALSE)
