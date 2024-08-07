@@ -379,6 +379,22 @@ OntologyAnnotation <- R6::R6Class(
 			}
 		},
 
+		to_table = function() {
+			tibble::tibble_row(
+				term = ifelse(
+					self$term == "", NA_character_, self$term
+				),
+				source = ifelse(
+					self$term_source$name == "" ||
+						self$term_source$name == "UnknownSource",
+					NA_character_, self$term_source$name
+				),
+				accession = ifelse(
+					self$term_accession == "",
+					NA_character_ , self$term_accession
+				),
+			)
+		},
 		#' @details
 		#' generate an R list representation translatable to JSON
 		#' @param ld logical json-ld
