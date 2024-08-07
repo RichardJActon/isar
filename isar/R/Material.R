@@ -129,6 +129,10 @@ Material <- R6::R6Class(
 				self$comments <- c(comments, comment)
 			}
 		},
+		to_table = function() {
+			# comments!
+			tibble::tibble_row(self$name) %>% purrr::set_names(self$type)
+		},
 		#' @details
 		#' An R list representation of a [Material] object
 		#' @param ld linked data (default FALSE)
