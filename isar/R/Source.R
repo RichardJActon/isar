@@ -57,20 +57,28 @@ Source <- R6::R6Class(
 			}
 		},
 
+		to_table = function() {
+			c(
+				list(tibble::tibble_row("Source Name" = self$name)),
+				purrr::map(self$characteristics, ~.x$to_table()) %>%
+					purrr::set_names(NULL)
+			) %>% purrr::list_cbind(name_repair = "minimal")
+		},
+
 		#' @details
 		#'
 		#' make an R list convertible to json
 		#'
 		#' @param ld linked data (default FALSE)
 		to_list = function(ld = FALSE) {
-			list(
-				# "id" = private$id,
-				"@id" = self$`@id`,
-				"name" = self$name,
-				"characteristics" = self$characteristics %>%
-					purrr::map(~.x$to_list())#,
-				#"comments" = self$comments
-			)
+			lst <- list()
+			lst[["@id"]] <- self$`@id`
+			lst[["name"]] <- sub("#.*?/(.*)", "\\1", self$`@id`)
+			lst[["characteristics"]] <- self$characteristics %>%
+				purrr::map(~.x$to_list()) %>%
+				purrr::set_names(NULL)
+			# lst[["comments"]] <- self$comments
+			return(lst)
 		},
 
 		#' #' @details
@@ -85,16 +93,19 @@ Source <- R6::R6Class(
 				private$id <- lst[["id"]]
 			}
 			self$`@id` <- lst[["@id"]]
-			self$name <- lst[["name"]]
-			self$characteristics <- purrr::map(lst[["characteristics"]], ~{
-				ch <- Characteristic$new(
-					category_references =
-						self$category_references,
-					unit_references = self$unit_references
-				)
-				ch$from_list(.x, recursive = recursive, json = json)
-				ch
-			})
+			self$name <- sub(".*?-(.*)", "\\1", lst[["name"]])
+			self$characteristics <-
+				lst[["characteristics"]] %>%
+				purrr::map(~{
+					ch <- Characteristic$new(
+						category_references =
+							self$category_references,
+						unit_references = self$unit_references
+					)
+					ch$from_list(.x, recursive = recursive, json = json)
+					ch
+				}) %>%
+				purrr::set_names(purrr::map_chr(., ~.x$`@id`))
 			self$comments <- lst[["comments"]]
 		},
 
