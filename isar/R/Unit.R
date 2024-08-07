@@ -98,10 +98,7 @@ Unit <- R6::R6Class(
 			return(lst)
 		},
 		to_table = function() {
-			tibble::tibble_row(
-				self$unit$term, self$unit$term_accession,
-				self$unit$term_source$name
-			) %>% purrr::set_names(
+			self$unit$to_table() %>% purrr::set_names(
 				"Unit", "Term Source REF", "Term Accession Number"
 				# paste0("Unit[",self$unit$term,"]"),
 				# paste0("Term Source REF[",self$unit$term,"]"),
