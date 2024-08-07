@@ -169,6 +169,76 @@ Process <- R6::R6Class(
 				self$comments <- c(comments, comment)
 			}
 		},
+		to_table = function() {
+			inputs <- NULL
+			outputs <- NULL
+			protocols <- NULL
+
+			# conditional on in/out type ?
+			# ioclass <- x %>% class() %>% `[`(1)
+			# switch(ioclass,"DataFile" = {})
+			# ?
+			# split comments row bind
+			# col_bind files / rest
+			# col_bind comments and files/ rest?
+
+			#
+			getR6class <- function(x) { class(x)[1] }
+			combine_io_tables <- function(x){
+				switch(
+					getR6class(x[[1]]),
+					"DataFile" = {
+						tabs <- purrr::map(x, ~.x$to_table())
+						all_colnames <- tabs %>%
+							purrr::map(colnames) %>% unlist()
+						dupe_cols <- all_colnames[duplicated(all_colnames)]
+						names(dupe_cols) <- NULL
+						dupe_cols <- unique(dupe_cols)
+						tabs %>%
+							purrr::reduce(\(x, y){
+								dplyr::full_join(x, y, by = dupe_cols)
+							})
+					},
+					"Sample" = {
+						purrr::map_dfr(x, ~.x$to_table())
+					},
+					"Material" = {
+						purrr::map_dfr(x, ~.x$to_table())
+					}
+				)
+			}
+
+			if (!any(purrr::map_lgl(self$inputs, is.null))) {
+				inputs <- self$inputs %>% combine_io_tables()
+				#inputs <- self$inputs %>% purrr::map(~.x$to_table())
+				# inputs <- self$inputs %>% purrr::map(~.x$to_table()) %>%
+				# 	purrr::reduce(function(x, y){dplyr::inner_join(x, y)})
+			}
+			if (!any(purrr::map_lgl(self$outputs, is.null))) {
+				#outputs <- self$outputs %>% purrr::map_dfr(~.x$to_table())
+				# outputs <- self$outputs %>% purrr::map(~.x$to_table())
+				outputs <- self$outputs %>% combine_io_tables()
+			}
+
+
+			if (!is.null(self$executes_protocol)) {
+				protocols <- tibble::tibble(self$executes_protocol$name) %>%
+					purrr::set_names(paste0(
+						"Protocol REF[", self$executes_protocol$name, "]"
+					))
+			}
+			tab <- dplyr::bind_cols(
+				inputs, outputs, protocols, .name_repair = "minimal"
+			)
+
+			tab %>% select(unique(colnames(.)))
+			#list(inputs, outputs, protocols)
+
+			# %>%
+			# 	dplyr::relocate(
+			# 		`Sample Name`, .before = tidyr::matches("Protocol")
+			# 	)
+		},
 		#' @details
 		#' An R list representation of a [Process] object
 		#' @param ld linked data (default FALSE)
