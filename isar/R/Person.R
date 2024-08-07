@@ -183,6 +183,39 @@ Person <- R6::R6Class(
 				self$comments <- c(comments, comment)
 			}
 		},
+		to_table = function() {
+
+			tibble::tibble(
+				"Person Last Name" = self$last_name,
+				"Person First Name" = self$first_name,
+				"Person Mid Initials" = self$mid_initials,
+				"Person Email" = self$email,
+				"Person Phone" = self$phone,
+				"Person Fax"= self$fax# ,
+			)
+
+
+			# dplyr::bind_rows(
+			# 	tibble::tribble(
+			# 		~name, ~value,
+			# 		"Person Last Name", self$last_name,
+			# 		"Person First Name", self$first_name,
+			# 		"Person Mid Initials", self$mid_initials,
+			# 		"Person Email", self$email,
+			# 		"Person Phone", self$phone,
+			# 		"Person Fax", self$fax# ,
+			#
+			# 		##!!! requires index
+			# 		# "Person Roles", self$roles$term,
+			# 		# "Person Roles Term Accession Number",
+			# 		# 	self$roles$term_accession,
+			# 		# "Person Roles Term Source REF",
+			# 		# 	self$roles$term_source$name,
+			# 	),
+			# 	# multiple comment handling!!
+			# 	comment_to_table(self$comments)
+			# )
+		},
 		#' @details
 		#' generate an R list representation translatable to JSON
 		#' @param ld logical json-ld
