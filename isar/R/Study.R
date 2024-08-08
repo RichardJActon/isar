@@ -716,7 +716,9 @@ Study <- R6::R6Class(
 				self$process_sequence <- lst[["process_sequence"]]
 				self$other_materials <- lst[["other_materials"]]
 
-				self$characteristic_categories <- lst[["characteristic_categories"]]
+				self$characteristic_categories <- lst[[
+					"characteristic_categories"
+				]]
 
 				self$comments <- lst[["comments"]]
 				# self$units <- lst[["units"]]
@@ -742,8 +744,12 @@ Study <- R6::R6Class(
 			cli::cli_h1(cli::col_blue("Study 🔎"))
 			green_bold_name_plain_content("Title", self$title)
 			# green_bold_name_plain_content("ID", private$id)
-			green_bold_name_plain_content("Submission Date", self$submission_date)
-			green_bold_name_plain_content("Public Release Date", self$public_release_date)
+			green_bold_name_plain_content(
+				"Submission Date", self$submission_date
+			)
+			green_bold_name_plain_content(
+				"Public Release Date", self$public_release_date
+			)
 
 			cli::cli_h2(cli::col_green("Description"))
 			cli::cli_text(self$description)
