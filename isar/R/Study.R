@@ -788,7 +788,10 @@ Study <- R6::R6Class(
 			cli::cli_h2(cli::col_green(
 				"Protocols (", length(self$protocols), ") 📋"
 			))
-			cli::cli_ul(purrr::map_chr(self$protocols, ~.x$name))
+			cli::cli_ul(paste0(
+				purrr::map_chr(self$protocols, ~.x$name),
+				cli::col_grey(" (", names(self$protocols), ")")
+			))
 
 			cli::cli_h2(cli::col_green(
 				"Processes (", length(self$process_sequence) ,") ⚙️"
