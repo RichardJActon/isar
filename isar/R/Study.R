@@ -333,56 +333,96 @@ Study <- R6::R6Class(
 			inputs
 		},
 
-		header_table = function() {
+		header_table = function(index = 1) {
 			#list(
 			dplyr::bind_rows(
 				tibble::tibble(
-					section = "STUDY", index = 1,
-					data = list(tibble::tribble(
-						~name, ~value,
-						"Study Identifier", self$identifier,
-						"Study Title", self$title,
-						"Study Description", self$description,
-						# comments?
-						"Study Submission Date", self$submission_date,
-						"Study Public Release Date", self$public_release_date,
-						"Study File Name", self$file
-
+					section = "STUDY", index = index,
+					data = list(dplyr::bind_rows(
+						tibble::tribble(
+							~rowname, ~value,
+							"Study Identifier", self$identifier,
+							"Study Title", self$title,
+							"Study Description", self$description
+						),
+						comment_to_table(self$comments),
+						tibble::tribble(
+							~rowname, ~value,
+							"Study Submission Date",
+								as.character(self$submission_date),
+							"Study Public Release Date",
+								as.character(self$public_release_date),
+							"Study File Name",
+							ifelse(is.null(self$file), NA_character_, self$file)
+						)
 					))
 				),
 
 				tibble::tibble(
-					section = "STUDY DESIGN DESCRIPTORS",
-					index = 1, data = list(
-						self$design_descriptors %>%
-							purrr::map(~{
-								.x$to_table() %>%
-									t() %>%
-									as.data.frame() %>%
-									tibble::rownames_to_column() %>%
-									tibble::as_tibble()
-							}) %>%
-							purrr::list_cbind() %>%
+					section = "STUDY DESIGN DESCRIPTORS", index = index,
+					data = self$design_descriptors %>%
+							purrr::map(~.x$to_table()) %>%
+							purrr::list_rbind() %>%
+							t() %>%
+							as.data.frame() %>%
+							tibble::rownames_to_column() %>%
+							tibble::as_tibble() %>%
 							dplyr::mutate(rowname = c(
 								"Study Design Type",
 								"Study Design Type Accession Number",
 								"Study Design Type Term Source"
-							))
-					)
+							)) %>%
+							list()
 				),
 
-				purrr::imap(self$publications, ~{
+				purrr::map(self$publications, ~{
 					tibble::tibble_row(
 						section = "STUDY PUBLICATIONS",
-						index = .y, data = list(.x$to_table())
+						index = index, data = list(.x$to_table())
 					)
-				}) %>% purrr::list_rbind()
+				}) %>% purrr::list_rbind(),
 
 				# factors
+				tibble::tibble_row(
+					section = "STUDY FACTORS", index = index,
+					data = list(self$factors$header_table())
+				),
 				# assays
+				tibble::tibble_row(
+					section = "STUDY ASSAYS", index = index,
+					data = self$assays %>%
+						purrr::map(~.x$header_table()) %>%
+						purrr::list_rbind() %>%
+						t() %>%
+						as.data.frame() %>%
+						tibble::rownames_to_column() %>%
+						tibble::as_tibble() %>%
+						list()
+				),
 				# protocols
+				tibble::tibble_row(
+					section = "STUDY PROTOCOLS", index = index,
+					data = self$protocols %>%
+						purrr::map(~.x$header_table()) %>%
+						purrr::list_rbind() %>%
+						t() %>%
+						as.data.frame() %>%
+						tibble::rownames_to_column() %>%
+						tibble::as_tibble() %>%
+						list()
+				),
 				# contacts
-				#
+				tibble::tibble_row(
+					section = "STUDY CONTACTS", index = index,
+					data = self$contacts %>%
+						purrr::map(~.x$header_table()) %>%
+						purrr::list_rbind() %>%
+						t() %>%
+						as.data.frame() %>%
+						tibble::rownames_to_column() %>%
+						tibble::as_tibble() %>%
+						list()
+				)
 			)
 		},
 
@@ -417,7 +457,9 @@ Study <- R6::R6Class(
 			lst[["processSequence"]] <- self$process_sequence %>%
 				purrr::map(~.x$to_list()) %>%
 				purrr::set_names(NULL)
-			lst[["people"]] <- purrr::map(self$contacts, ~.x$to_list())
+			lst[["people"]] <- self$contacts %>%
+				purrr::map(~.x$to_list()) %>%
+				purrr::set_names(NULL)
 			lst[["comments"]] <- self$comments
 			lst[["description"]] <- self$description
 			lst[["unitCategories"]] <- self$unit_references$to_list(
@@ -472,14 +514,16 @@ Study <- R6::R6Class(
 				self$description <- lst[["description"]]
 				self$submission_date <- lst[["submissionDate"]]
 				self$public_release_date <- lst[["publicReleaseDate"]]
-				self$contacts <- purrr::map(lst[["people"]], ~{
-					p <- Person$new(
-						ontology_source_references =
-							self$ontology_source_references
-					)
-					p$from_list(.x, json = json)
-					p
-				})
+				self$contacts <- lst[["people"]] %>%
+					purrr::map(~{
+						p <- Person$new(
+							ontology_source_references =
+								self$ontology_source_references
+						)
+						p$from_list(.x, json = json)
+						p
+					}) %>%
+					purrr::set_names(purrr::map_chr(., ~.x$`@id`))
 				self$design_descriptors <- purrr::map(
 					lst[["studyDesignDescriptors"]], ~{
 						sdd <- OntologyAnnotation$new(

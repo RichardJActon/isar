@@ -99,12 +99,17 @@ StudyFactor <- R6::R6Class(
 				self$comments <- c(comments, comment)
 			}
 		},
+
+		to_table = function() {
+			self$factor_type$to_table() %>%
+				dplyr::mutate(rowname = self$factor_name) %>%
+				dplyr::relocate(rowname)
+		},
+
 		#' @details
 		#' generate an R list representation translatable to JSON
-		#' @param ld logical json-ld
-		#' @examples
-		#' StudyFactor$new()
-		to_list = function(ld = FALSE) {
+		#' @return a list
+		to_list = function() {
 			lst = list(
 				"factorType" = self$factor_type$to_list(),
 				"@id" = self$`@id`,
@@ -114,6 +119,10 @@ StudyFactor <- R6::R6Class(
 			)
 			return(lst)
 		},
+
+		# to_table = function() {
+		#
+		# },
 
 		#' @details
 		#'

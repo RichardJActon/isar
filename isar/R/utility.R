@@ -300,10 +300,11 @@ recursive_sort_list_by_name <- function(x) {
 #'
 #' @param comments list of comments
 comment_to_table <- function(comments) {
+	if (is.null(comments)) { return(NULL) }
 	comments %>%
 		purrr::map_dfr(
 			~tibble::tribble(
-				~name, ~value,
+				~rowname, ~value,
 				paste0("Comment[", .x$name, "]"), .x$value
 			)
 		)

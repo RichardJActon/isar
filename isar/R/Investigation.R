@@ -304,7 +304,7 @@ Investigation <- R6::R6Class(
 		},
 
 		to_table = function() {
-			tbl <- tibble::tibble(
+			general <- tibble::tibble(
 				section = c(
 					"ONTOLOGY SOURCE REFERENCES", "INVESTIGATION"
 				),
@@ -313,7 +313,7 @@ Investigation <- R6::R6Class(
 					self$ontology_source_references$to_table(),
 					dplyr::bind_rows(
 						tibble::tribble(
-							~name, ~value,
+							~rowname, ~value,
 							"Investigation Identifier", self$identifier,
 							"Investigation Title", self$title,
 							"Investigation Description", self$description,
@@ -327,17 +327,45 @@ Investigation <- R6::R6Class(
 				)
 			)
 
-			tbl <- dplyr::bind_rows(
-				tbl,
-				purrr::imap(self$publications, ~{
-					tibble::tibble_row(
-						section = "INVESTIGATION PUBLICATIONS",
-						index = .y, data = list(.x$to_table())
-					)
-				}) %>% purrr::list_rbind()
-			)
+			publications <- self$publications %>%
+				purrr::imap(~{tibble::tibble_row(
+					section = "INVESTIGATION PUBLICATIONS",
+					index = .y, data = list(.x$to_table())
+				)}) %>%
+				purrr::list_rbind()
 
-			return(tbl)
+			studies <- self$studies %>%
+				purrr::set_names(NULL) %>%
+				purrr::imap(~.x$header_table(index = .y)) %>%
+				purrr::list_rbind()
+
+			dplyr::bind_rows(general, publications, studies)
+		},
+
+		cat_table = function(path = stdout(), overwrite = FALSE) {
+			if (is.character(path)) {
+				if(fs::file_exists(path)) {
+					if (overwrite) { fs::file_delete(path) } else {
+						stop(
+							path,
+							" already exists!",
+							" set `overwrite = TRUE` to replace it."
+						)
+					}
+
+				}
+			}
+			self$to_table() %>%
+				purrr::pwalk(function(section, index, data) {
+					cat(section, file = path, sep = "\n", append = TRUE)
+					readr::write_tsv(
+						data %>% dplyr::mutate(dplyr::across(!rowname, ~paste0(
+							'"', ifelse(is.na(.x), "", .x) ,'"'
+						))),
+						file = path, na = "", append = TRUE, escape = "none",
+						quote = "none", progress = FALSE, col_names = FALSE
+					)
+				})
 		},
 
 		#' @details

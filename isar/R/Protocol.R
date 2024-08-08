@@ -215,6 +215,67 @@ Protocol <- R6::R6Class(
 				self$comments <- c(comments, comment)
 			}
 		},
+
+		header_table = function() {
+			general <- tibble::tibble(
+				"Study Protocol Name" = self$name,
+				"Study Protocol Description" = self$description,
+				"Study Protocol URI" = self$uri,
+				"Study Protocol Version" = self$version
+			)
+			type <- self$protocol_type$to_table() %>% purrr::set_names(
+				"Study Protocol Type",
+				"Study Protocol Type Term Source REF",
+				"Study Protocol Type Term Accession Number"
+			)
+
+			if (
+				checkmate::test_list(self$parameters, len = 0, null.ok = TRUE)
+			) {
+				params <- tibble::tibble_row(
+					term = NA_character_, source = NA_character_,
+					accession = NA_character_
+				)
+			} else {
+				params <- self$parameters %>%
+					purrr::map_dfr(~.x$parameter_name$to_table()) %>%
+					purrr::map_dfc(
+						~paste(ifelse(is.na(.x), "", .x), collapse = ";")
+					)
+			}
+
+			params <- params %>%
+				purrr::set_names(
+					"Study Protocol Parameters Name",
+					"Study Protocol Parameters Name Term Source REF",
+					"Study Protocol Parameters Name Term Accession Number"
+				)
+
+			if (
+				checkmate::test_list(self$components, len = 0, null.ok = TRUE)
+			) {
+				components <- tibble::tibble_row(
+					name = NA_character_, term = NA_character_,
+					source = NA_character_, accession = NA_character_
+				)
+			} else {
+				## !!! component object creation is unhandled !!
+				components <- self$components %>%
+					purrr::map_dfr(~.x$component_name$to_table()) %>%
+					purrr::map_dfc(
+						~paste(ifelse(is.na(.x), "", .x), collapse = ";")
+					)
+			}
+			components <- components %>%
+				purrr::set_names(
+					"Study Protocol Components Name",
+					"Study Protocol Components Type",
+					"Study Protocol Components Type Term Accession Number",
+					"Study Protocol Components Type Term Source REF"
+				)
+			dplyr::bind_cols(general, type, params, components)
+		},
+
 		#' @details
 		#' An R list representation of a [Protocol] object
 		#' @param ld linked data (default FALSE)

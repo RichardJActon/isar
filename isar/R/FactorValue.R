@@ -216,9 +216,10 @@ FactorValue <- R6::R6Class(
 			lst[["category"]][["@id"]] <- self$`@id`
 			return(lst)
 		},
+
 		to_table = function() {
 			tbl <- NULL
-			if(checkmate::test_r6(self$value, "OntologyAnnotation")){
+			if(checkmate::test_r6(self$value, "OntologyAnnotation")) {
 				tbl <- self$value$to_table() %>%
 					purrr::set_names(
 						paste0("Factor Value[", self$factor$factor_name , "]"),
@@ -237,7 +238,7 @@ FactorValue <- R6::R6Class(
 						#paste0("Factor Value[", self$`@id`, "]")
 					) %>% dplyr::bind_cols(self$unit$to_table())
 				colnames(tbl) <- paste0(
-					colnames(tbl), "[", self$factor$factor_name ,"]"
+					colnames(tbl), "[", self$factor$factor_name, "]"
 				)
 			}
 			return(tbl)

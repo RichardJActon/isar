@@ -183,6 +183,32 @@ Person <- R6::R6Class(
 				self$comments <- c(comments, comment)
 			}
 		},
+
+		header_table = function() {
+			dplyr::bind_cols(
+				tibble::tibble(
+					"Study Person Last Name" = self$last_name,
+					"Study Person First Name" = self$first_name,
+					"Study Person Mid Initials" = self$mid_initials,
+					"Study Person Email" = self$email,
+					"Study Person Phone" = self$phone,
+					"Study Person Fax"= self$fax,
+					"Study Person Address"= self$address
+				),
+				self$roles %>%
+					purrr::map_dfr(~.x$to_table()) %>%
+					purrr::map_dfc(
+						~paste(ifelse(is.na(.x), "", .x), collapse = ";")
+					) %>%
+					purrr::set_names(
+						"Study Person Roles",
+						"Study Person Roles Term Accession Number",
+						"Study Person Roles Term Source REF"
+					),
+				comment_to_table(self$comments)
+			)
+		},
+
 		to_table = function() {
 
 			tibble::tibble(

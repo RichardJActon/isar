@@ -174,7 +174,7 @@ Publication <- R6::R6Class(
 
 		to_table = function() {
 			tibble::tribble(
-				~name, ~value,
+				~rowname, ~value,
 				"PubMed ID", as.character(self$pubmed_id),
 				"Publication DOI", self$doi,
 				"Publication Author List", self$author_list,

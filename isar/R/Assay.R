@@ -345,6 +345,45 @@ Assay <- R6::R6Class(
 			# lst[["graph"]] <- self$graph
 			return(lst)
 		},
+
+		header_table = function() {
+			dplyr::bind_cols(
+				self$measurement_type$to_table() %>% purrr::set_names(
+					"Study Assay Measurement Type",
+					"Study Assay Measurement Type Term Accession Number",
+					"Study Assay Measurement Type Term Source REF"
+				),
+				self$technology_type$to_table() %>% purrr::set_names(
+					"Study Assay Technology Type",
+					"Study Assay Technology Type Term Accession Number",
+					"Study Assay Technology Type Term Source REF"
+				),
+				tibble::tibble_row(
+					"Study Assay Technology Platform" =
+						self$technology_platform, # isn't in spec but should be ontology
+					"Study Assay File Name" = self$filename
+				)
+			)
+		},
+
+		to_table = function() {
+			# self$samples %>%
+			# 	purrr::set_names(NULL) %>%
+			# 	purrr::map_chr(~.x$name) %>%
+			# 	tibble::tibble("Sample Name" = .)
+
+			process_sequence_tables <- self$process_sequence %>%
+				purrr::map(~.x$to_table())
+			process_order <- get_process_order(self$process_sequence)
+
+			# iterate the other way? by row if process_order is a matrix
+			process_order %>%
+				purrr::map(~{
+					process_sequence_tables[.x] %>% dplyr::bind_rows()
+				})# %>%
+				#purrr::reduce(function(x, y)(dplyr::inner_join(x, y)))
+			#self$data_files %>% purrr::map(~.x$to_table()) %>% purrr::reduce(function(x,y)(dplyr::left_join(x,y)))
+		},
 		#' @details
 		#'
 		#' Make [Assay] from list

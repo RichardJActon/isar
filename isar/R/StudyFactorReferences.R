@@ -66,6 +66,24 @@ StudyFactorReferences <- R6::R6Class(
 				)
 			}
 		},
+		header_table = function() {
+			self$study_factor_references %>%
+				purrr::set_names(NULL) %>%
+				purrr::map(~{
+					.x$to_table() %>%
+						dplyr::rename(
+							"Study Factor Name" = rowname,
+							"Study Factor Type" = term,
+							"Study Factor Type Term Source REF" = accession,
+							"Study Factor Type Term Accession Number" = source
+						)
+				}) %>%
+				purrr::list_rbind() %>%
+				t() %>%
+				as.data.frame() %>%
+				tibble::rownames_to_column() %>%
+				tibble::as_tibble()
+		},
 		#' @details
 		#' Generate an R list representation of a [StudyFactorReferences] object
 		#' @param name The name of the material
