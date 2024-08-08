@@ -34,7 +34,8 @@ RUN apt-get -y update && \
     librsvg2-2 \
     librsvg2-bin \
     librsvg2-dev \
-    librsvg2-common
+    librsvg2-common \
+    diffutils
 
 # note jq and curl are used in renv_install.sh
 # librsvg2 libs are common dependencies of some R plotting libraries
