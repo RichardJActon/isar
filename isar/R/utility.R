@@ -307,5 +307,15 @@ comment_to_table <- function(comments) {
 				~rowname, ~value,
 				paste0("Comment[", .x$name, "]"), .x$value
 			)
-		)
+		) %>%
+		dplyr::arrange(rowname)
+		# dplyr::arrange(dplyr::desc(rowname))
+}
+
+comment_to_table_wide <- function(comments) {
+	comments %>%
+		purrr::map_dfc(~{
+			tibble::tibble(.x$value) %>%
+				purrr::set_names(paste0("Comment[", .x$name, "]"))
+		})
 }
