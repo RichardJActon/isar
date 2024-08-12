@@ -228,7 +228,7 @@ Process <- R6::R6Class(
 					))
 			}
 			tab <- dplyr::bind_cols(
-				inputs, outputs, protocols, .name_repair = "minimal"
+				protocols, inputs, outputs, .name_repair = "minimal"
 			)
 
 			tab %>% select(unique(colnames(.)))
@@ -263,7 +263,8 @@ Process <- R6::R6Class(
 			if (checkmate::test_list(self$outputs, len = 0)) {
 				lst[["outputs"]] <- list()
 			} else if (
-				checkmate::test_list(self$outputs, types = "character")
+				checkmate::test_character(self$outputs)
+				# checkmate::test_list(types = "character")
 			) {
 				lst[["outputs"]] <- self$outputs %>%
 					purrr::map(~list("@id" = .x)) %>% purrr::set_names(NULL)
@@ -276,7 +277,8 @@ Process <- R6::R6Class(
 			if (checkmate::test_list(self$inputs, len = 0)) {
 				lst[["inputs"]] <- list()
 			} else if (
-				checkmate::test_list(self$inputs, types = "character")
+				checkmate::test_character(self$inputs)
+				# checkmate::test_list(types = "character")
 			) {
 				lst[["inputs"]] <- self$inputs %>%
 					purrr::map(~list("@id" = .x)) %>% purrr::set_names(NULL)
@@ -296,7 +298,10 @@ Process <- R6::R6Class(
 			# lst[["executesProtocol"]] <- purrr::map(
 			# 	self$executes_protocol, ~.x$to_list()
 			# )
-			if(is.null(self$executes_protocol)) {
+			# if(is.null(self$executes_protocol)) {
+			if(checkmate::test_list( # handle NULL and empty list cases
+				self$executes_protocol, len = 0, null.ok = TRUE)
+			) {
 				# When no protocol is listed
 				lst[["executesProtocol"]] <- list()
 			} else if (is.character(self$executes_protocol)) {
@@ -381,6 +386,12 @@ Process <- R6::R6Class(
 					self$inputs <- inputs_and_outputs[
 						purrr::map_chr(lst[["inputs"]], ~.x$`@id`)
 					]
+					# handle when a name is returned from a lookup instead of an object
+					# occurs with 'stand alone' assay objects with no input sample objects
+					# alternative approach - generate dummy sample objects?
+					if(checkmate::test_list(self$inputs, types = "character")) {
+						self$inputs <- unlist(self$inputs)
+					}
 				}
 			} else {
 				# self$executes_protocol <- lst[["executes_protocol"]] # protocol object

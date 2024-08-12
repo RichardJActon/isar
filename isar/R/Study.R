@@ -352,8 +352,10 @@ Study <- R6::R6Class(
 								as.character(self$submission_date),
 							"Study Public Release Date",
 								as.character(self$public_release_date),
-							"Study File Name",
-							ifelse(is.null(self$file), NA_character_, self$file)
+							"Study File Name", ifelse(
+								is.null(self$filename), NA_character_,
+								self$filename
+							)
 						)
 					))
 				),
@@ -369,8 +371,8 @@ Study <- R6::R6Class(
 							tibble::as_tibble() %>%
 							dplyr::mutate(rowname = c(
 								"Study Design Type",
-								"Study Design Type Accession Number",
-								"Study Design Type Term Source"
+								"Study Design Type Term Accession Number",
+								"Study Design Type Term Source REF"
 							)) %>%
 							list()
 				),
@@ -378,7 +380,9 @@ Study <- R6::R6Class(
 				purrr::map(self$publications, ~{
 					tibble::tibble_row(
 						section = "STUDY PUBLICATIONS",
-						index = index, data = list(.x$to_table())
+						index = index, data = list(.x$to_table(
+							prefix = "Study"
+						))
 					)
 				}) %>% purrr::list_rbind(),
 
@@ -403,6 +407,10 @@ Study <- R6::R6Class(
 				tibble::tibble_row(
 					section = "STUDY PROTOCOLS", index = index,
 					data = self$protocols %>%
+						#purrr::discard(~.x$name == "unknown") %>%
+						purrr::discard(
+							~.x$protocol_type$term == "Unspecified Term"
+						) %>%
 						purrr::map(~.x$header_table()) %>%
 						purrr::list_rbind() %>%
 						t() %>%
@@ -415,7 +423,7 @@ Study <- R6::R6Class(
 				tibble::tibble_row(
 					section = "STUDY CONTACTS", index = index,
 					data = self$contacts %>%
-						purrr::map(~.x$header_table()) %>%
+						purrr::map(~.x$header_table(prefix = "Study")) %>%
 						purrr::list_rbind() %>%
 						t() %>%
 						as.data.frame() %>%
@@ -440,10 +448,29 @@ Study <- R6::R6Class(
 				})
 		},
 
-		cat_table = function(path = stdout()) {
-			self$to_table() %>% readr::write_tsv(
+		cat_table = function(path = stdout(), overwrite = FALSE) {
+			if (is.character(path)) {
+				if(fs::file_exists(path)) {
+					if (overwrite) { fs::file_delete(path) } else {
+						stop(
+							path,
+							" already exists!",
+							" set `overwrite = TRUE` to replace it."
+						)
+					}
+
+				}
+			}
+			tbl <- self$to_table()
+
+			colnames(tbl) <- colnames(tbl) %>% sub(
+				"((?:Term Source REF)|(?:Term Accession Number)|(?:Unit)|(?:Protocol REF))\\[.*\\]",
+				"\\1",.
+			)
+
+			tbl %>% readr::write_tsv(
 				file = path, na = "", append = TRUE, progress = FALSE,
-				quote = "all"
+				quote = "all", col_names = TRUE
 			)
 		},
 
@@ -591,7 +618,7 @@ Study <- R6::R6Class(
 					lst[["protocols"]] %>%
 					purrr::set_names(purrr::map_chr(., ~.x[["@id"]])) %>%
 					purrr::map(~{
-						pc <- Protocol$new()
+						pc <- Protocol$new(origin = self$`@id`)
 						pc$from_list(.x, recursive = recursive, json = json)
 						pc
 					})

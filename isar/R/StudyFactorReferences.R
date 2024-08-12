@@ -74,8 +74,9 @@ StudyFactorReferences <- R6::R6Class(
 						dplyr::rename(
 							"Study Factor Name" = rowname,
 							"Study Factor Type" = term,
-							"Study Factor Type Term Source REF" = accession,
-							"Study Factor Type Term Accession Number" = source
+							"Study Factor Type Term Accession Number" =
+								accession,
+							"Study Factor Type Term Source REF" = source
 						)
 				}) %>%
 				purrr::list_rbind() %>%

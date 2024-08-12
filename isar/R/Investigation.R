@@ -306,7 +306,7 @@ Investigation <- R6::R6Class(
 		to_table = function() {
 			general <- tibble::tibble(
 				section = c(
-					"ONTOLOGY SOURCE REFERENCES", "INVESTIGATION"
+					"ONTOLOGY SOURCE REFERENCE", "INVESTIGATION"
 				),
 				index = c(1L, 1L),
 				data = list(
@@ -327,10 +327,25 @@ Investigation <- R6::R6Class(
 				)
 			)
 
+			# contacts
+			contacts <- tibble::tibble_row(
+				section = "INVESTIGATION CONTACTS", index = 1,
+				data = self$contacts %>%
+					purrr::map(~.x$header_table(prefix = "Investigation")) %>%
+					purrr::list_rbind() %>%
+					t() %>%
+					as.data.frame() %>%
+					tibble::rownames_to_column() %>%
+					tibble::as_tibble() %>%
+					list()
+			)
+
 			publications <- self$publications %>%
 				purrr::imap(~{tibble::tibble_row(
 					section = "INVESTIGATION PUBLICATIONS",
-					index = .y, data = list(.x$to_table())
+					index = .y, data = list(.x$to_table(
+						prefix = "Investigation"
+					))
 				)}) %>%
 				purrr::list_rbind()
 
@@ -339,7 +354,7 @@ Investigation <- R6::R6Class(
 				purrr::imap(~.x$header_table(index = .y)) %>%
 				purrr::list_rbind()
 
-			dplyr::bind_rows(general, publications, studies)
+			dplyr::bind_rows(general, publications, contacts, studies)
 		},
 
 		cat_table = function(path = stdout(), overwrite = FALSE) {

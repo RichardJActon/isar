@@ -172,19 +172,19 @@ Publication <- R6::R6Class(
 			}
 		},
 
-		to_table = function() {
+		to_table = function(prefix = "") {
 			tibble::tribble(
 				~rowname, ~value,
-				"PubMed ID", as.character(self$pubmed_id),
-				"Publication DOI", self$doi,
-				"Publication Author List", self$author_list,
-				"Publication Title", self$title,
-				"Publication Status", self$status$term,
-				"Publication Status Term Accession Number", ifelse(
+				paste(prefix, "PubMed ID"), as.character(self$pubmed_id),
+				paste(prefix, "Publication DOI"), self$doi,
+				paste(prefix, "Publication Author List"), self$author_list,
+				paste(prefix, "Publication Title"), self$title,
+				paste(prefix, "Publication Status"), self$status$term,
+				paste(prefix, "Publication Status Term Accession Number"), ifelse(
 					is.null(self$term_accession), NA,
 					self$term_accession
 				),
-				"Publication Status Term Source REF", ifelse(
+				paste(prefix, "Publication Status Term Source REF"), ifelse(
 					is.null(self$term_source$name), NA,
 					self$term_source$name
 				)

@@ -30,7 +30,7 @@ Protocol <- R6::R6Class(
 		components = NULL,
 		comments = NULL,
 		`@id` = character(),
-
+		origin = character(),
 		#' @details
 		#' Create a new Protocol object
 		#' @param name The name of the protocol used
@@ -51,7 +51,8 @@ Protocol <- R6::R6Class(
 			parameters = NULL,
 			components = NULL,
 			comments = NULL,
-			`@id` = NULL
+			`@id` = NULL,
+			origin = character()
 		) {
 			if (checkmate::qtest(name, "S[0]")) { self$name <- name } else {
 				self$set_name(name)
@@ -82,6 +83,7 @@ Protocol <- R6::R6Class(
 			}
 			self$check_comments(comments)
 			self$`@id` <- paste0("#protocol/", self$name)
+			self$origin <- origin
 		},
 		#' @details
 		#' Check that name is a single string
@@ -218,15 +220,18 @@ Protocol <- R6::R6Class(
 
 		header_table = function() {
 			general <- tibble::tibble(
-				"Study Protocol Name" = self$name,
-				"Study Protocol Description" = self$description,
-				"Study Protocol URI" = self$uri,
-				"Study Protocol Version" = self$version
+				"Study Protocol Name" = self$name
 			)
 			type <- self$protocol_type$to_table() %>% purrr::set_names(
 				"Study Protocol Type",
-				"Study Protocol Type Term Source REF",
-				"Study Protocol Type Term Accession Number"
+				"Study Protocol Type Term Accession Number",
+				"Study Protocol Type Term Source REF"
+			)
+
+			general2 <- tibble::tibble(
+				"Study Protocol Description" = self$description,
+				"Study Protocol URI" = self$uri,
+				"Study Protocol Version" = self$version
 			)
 
 			if (
@@ -247,8 +252,8 @@ Protocol <- R6::R6Class(
 			params <- params %>%
 				purrr::set_names(
 					"Study Protocol Parameters Name",
-					"Study Protocol Parameters Name Term Source REF",
-					"Study Protocol Parameters Name Term Accession Number"
+					"Study Protocol Parameters Name Term Accession Number",
+					"Study Protocol Parameters Name Term Source REF"
 				)
 
 			if (
@@ -273,7 +278,7 @@ Protocol <- R6::R6Class(
 					"Study Protocol Components Type Term Accession Number",
 					"Study Protocol Components Type Term Source REF"
 				)
-			dplyr::bind_cols(general, type, params, components)
+			dplyr::bind_cols(general, type, general2, params, components)
 		},
 
 		#' @details

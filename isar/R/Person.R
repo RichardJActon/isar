@@ -184,16 +184,26 @@ Person <- R6::R6Class(
 			}
 		},
 
-		header_table = function() {
+		header_table = function(prefix = "") {
 			dplyr::bind_cols(
 				tibble::tibble(
-					"Study Person Last Name" = self$last_name,
-					"Study Person First Name" = self$first_name,
-					"Study Person Mid Initials" = self$mid_initials,
-					"Study Person Email" = self$email,
-					"Study Person Phone" = self$phone,
-					"Study Person Fax"= self$fax,
-					"Study Person Address"= self$address
+					self$last_name,
+					self$first_name,
+					self$mid_initials,
+					self$email,
+					self$phone,
+					self$fax,
+					self$address,
+					self$affiliation
+				) %>% set_names(
+					paste(prefix, "Person Last Name"),
+					paste(prefix, "Person First Name"),
+					paste(prefix, "Person Mid Initials"),
+					paste(prefix, "Person Email"),
+					paste(prefix, "Person Phone"),
+					paste(prefix, "Person Fax"),
+					paste(prefix, "Person Address"),
+					paste(prefix, "Person Affiliation")
 				),
 				self$roles %>%
 					purrr::map_dfr(~.x$to_table()) %>%
@@ -201,11 +211,11 @@ Person <- R6::R6Class(
 						~paste(ifelse(is.na(.x), "", .x), collapse = ";")
 					) %>%
 					purrr::set_names(
-						"Study Person Roles",
-						"Study Person Roles Term Accession Number",
-						"Study Person Roles Term Source REF"
+						paste(prefix, "Person Roles"),
+						paste(prefix, "Person Roles Term Accession Number"),
+						paste(prefix, "Person Roles Term Source REF")
 					),
-				comment_to_table(self$comments)
+				comment_to_table_wide(self$comments)
 			)
 		},
 

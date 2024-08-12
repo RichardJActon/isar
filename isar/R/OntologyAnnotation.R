@@ -384,15 +384,15 @@ OntologyAnnotation <- R6::R6Class(
 				term = ifelse(
 					self$term == "", NA_character_, self$term
 				),
-				source = ifelse(
-					self$term_source$name == "" ||
-						self$term_source$name == "UnknownSource",
-					NA_character_, self$term_source$name
-				),
 				accession = ifelse(
 					self$term_accession == "",
 					NA_character_ , self$term_accession
 				),
+				source = ifelse(
+					self$term_source$name == "" ||
+						self$term_source$name == "UnknownSource",
+					NA_character_, self$term_source$name
+				)
 			)
 		},
 		#' @details
