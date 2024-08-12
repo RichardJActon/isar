@@ -4,7 +4,7 @@
 #' check_empty
 #'
 #' @param x object to check
-#' @param mode vector mode
+#' @param mode vector mode, defaults to the type of the vector
 #' @param null.ok allow NULL to be valid
 #'
 #' @return TRUE or string containing an error message
@@ -19,7 +19,7 @@
 #' check_empty("", mode)
 #' check_empty("", mode, null.ok = TRUE)
 #'
-check_empty <- function(x, mode, null.ok = FALSE) {
+check_empty <- function(x, mode = typeof(x), null.ok = FALSE) {
 	res <- identical(x, vector(mode = mode))
 	if(res) {
 		return(TRUE)
