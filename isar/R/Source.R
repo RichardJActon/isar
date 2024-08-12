@@ -73,7 +73,7 @@ Source <- R6::R6Class(
 		to_list = function(ld = FALSE) {
 			lst <- list()
 			lst[["@id"]] <- self$`@id`
-			lst[["name"]] <- sub("#.*?/(.*)", "\\1", self$`@id`)
+			lst[["name"]] <- private$raw_name
 			lst[["characteristics"]] <- self$characteristics %>%
 				purrr::map(~.x$to_list()) %>%
 				purrr::set_names(NULL)
@@ -93,7 +93,8 @@ Source <- R6::R6Class(
 				private$id <- lst[["id"]]
 			}
 			self$`@id` <- lst[["@id"]]
-			self$name <- sub(".*?-(.*)", "\\1", lst[["name"]])
+			private$raw_name <- lst[["name"]]
+			self$name <- sub(".*?-(.*)", "\\1", private$raw_name)
 			self$characteristics <-
 				lst[["characteristics"]] %>%
 				purrr::map(~{
@@ -122,8 +123,9 @@ Source <- R6::R6Class(
 			))
 			pretty_print_comments(self$comments)
 		}
-	)# ,
-	# private = list(
-	# 	id = generate_id()
-	# )
+	),
+	private = list(
+		# id = generate_id()
+		raw_name = character()
+	)
 )

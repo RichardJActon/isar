@@ -137,16 +137,14 @@ Material <- R6::R6Class(
 		#' An R list representation of a [Material] object
 		#' @param ld linked data (default FALSE)
 		to_list = function(ld = FALSE) {
-			list(
-				#"id" = private$id,
-				"@id" = self$`@id`,
-				"name" = sub("#.*?/(.*)", "\\1", self$`@id`),
-				# "name" = self$name,
-				"type" = self$type,
-				"characteristics" = self$characteristics %>%
-					purrr::map(~.x$to_list())
+			lst <- list()
+			lst[["@id"]] <- self$`@id`
+			lst[["name"]] <- private$raw_name
+			lst[["type"]] <- self$type
+			lst[["characteristics"]] <- self$characteristics %>%
+				purrr::map(~.x$to_list())
 				#"comments" = self$comments
-			)
+			return(lst)
 		},
 		#' @details
 		#' Make [Material] object from list
@@ -155,7 +153,9 @@ Material <- R6::R6Class(
 		#' @param recursive call to_list methods of any objects within this object (default TRUE)
 		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			# self$name <- lst[["name"]]
-			self$name <- sub(".*?-(.*)", "\\1", lst[["name"]])
+			private$raw_name <- lst[["name"]]
+			self$name <- sub(".*?-(.*)", "\\1", private$raw_name)
+
 			#private$id <- lst[["id"]]
 			self$`@id` <- lst[["@id"]]
 			self$type <- lst[["type"]]
@@ -207,8 +207,9 @@ Material <- R6::R6Class(
 			#green_bold_name_plain_content("unit", self$unit)
 			pretty_print_comments(self$comments)
 		}
-	)# ,
-	# private = list(
-	# 	id = generate_id()
-	# )
+	),
+	private = list(
+		# id = generate_id()
+		raw_name = character()
+	)
 )
