@@ -226,11 +226,15 @@ DataFile <- R6::R6Class(
 		#' serialise DataFile object to a tabular format (tibble)
 		#' @return a tibble
 		to_table = function() {
-			dplyr::bind_cols(
-				self$comments %>% purrr::map_dfc(~{
+			comments <- NULL
+			if(!checkmate::test_list(self$comments, len = 0, null.ok = TRUE)) {
+				comments <- self$comments %>% purrr::map_dfc(~{
 					tibble::tibble_row(.x$value) %>%
 						purrr::set_names(paste0("Comment[", .x$name, "]"))
-				}),
+				})
+			}
+			dplyr::bind_cols(
+				comments,
 				tibble::tibble_row(self$filename) %>%
 					purrr::set_names(self$type)
 			)

@@ -158,16 +158,22 @@ Sample <- R6::R6Class(
 
 		to_table = function() {
 			comments <- NULL
-			if (!is.null(self$comments)) {
+			if(!checkmate::test_list(self$comments, len = 0, null.ok = TRUE)) {
 				comments <- self$comments %>% purrr::map_dfc(~{
 					tibble::tibble_row(.x$value) %>%
 						purrr::set_names(paste0("Comment[", .x$name, "]"))
 				})
 			}
+			factors <- purrr::map(self$factor_values, ~.x$to_table())
+			if(checkmate::test_list(factors, len = 0)) {
+				factors <- NULL
+			} else {
+				factors <- factors %>% purrr::list_cbind()
+			}
 			dplyr::bind_cols(
 				comments,
 				tibble::tibble("Sample Name" = self$name),
-				purrr::map_dfc(self$factor_values, ~.x$to_table())
+				factors
 			)
 		},
 
