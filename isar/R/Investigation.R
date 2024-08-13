@@ -36,6 +36,7 @@ Investigation <- R6::R6Class(
 		contacts = NULL,
 		studies = NULL,
 		comments = NULL,
+		characteristic_categories = NULL,
 
 		#' @details
 		#' Create a new investigation object
@@ -62,7 +63,8 @@ Investigation <- R6::R6Class(
 			publications = NULL,
 			contacts = NULL,
 			studies = NULL,
-			comments = NULL
+			comments = NULL,
+			characteristic_categories = NULL
 		) {
 			self$filename <- filename
 			# self$identifier <- identifier
@@ -102,6 +104,7 @@ Investigation <- R6::R6Class(
 				self$set_studies(studies)
 			}
 			self$comments <- comments
+			self$characteristic_categories <- characteristic_categories
 		},
 		#' @details
 		#' Check if the title of the investigation is a string
@@ -438,6 +441,11 @@ Investigation <- R6::R6Class(
 					lst[["ontologySourceReferences"]],
 					explicitly_provided = TRUE, source = self$identifier
 				)
+				self$characteristic_categories <-
+					CharacteristicCategoryReferences$new(
+						ontology_source_references =
+							self$ontology_source_references
+					)
 				# super$from_list(
 				# 	lst[["ontologySourceReferences"]],
 				# 	explicitly_provided = TRUE
@@ -463,7 +471,9 @@ Investigation <- R6::R6Class(
 					purrr::map(~{
 						s <- Study$new(
 							ontology_source_references =
-								self$ontology_source_references
+								self$ontology_source_references,
+							characteristic_categories =
+								self$characteristic_categories
 						)
 						#s$from_list(.x, recursive, json)
 						s$from_list(.x, recursive = recursive, json = json)

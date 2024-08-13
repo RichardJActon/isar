@@ -602,16 +602,18 @@ Study <- R6::R6Class(
 				# 		sf$from_list(.x, recursive = recursive, json = json)
 				# 		sf
 				# 	})
-
-				self$characteristic_categories <-
-					CharacteristicCategoryReferences$new(
-						ontology_source_references =
-							self$ontology_source_references#,
-						#unit_references = self$unit_references
-					)
+				if(is.null(self$characteristic_categories)) {
+					self$characteristic_categories <-
+						CharacteristicCategoryReferences$new(
+							ontology_source_references =
+								self$ontology_source_references#,
+							#unit_references = self$unit_references
+						)
+				}
 				self$characteristic_categories$from_list(
 					lst[["characteristicCategories"]],
 					explicitly_provided = TRUE, source = self$`@id`,
+					add = TRUE
 				)
 
 				self$protocols <-
