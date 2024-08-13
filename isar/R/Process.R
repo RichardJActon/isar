@@ -223,12 +223,12 @@ Process <- R6::R6Class(
 				#inputs <- self$inputs %>% purrr::map(~.x$to_table())
 				# inputs <- self$inputs %>% purrr::map(~.x$to_table()) %>%
 				# 	purrr::reduce(function(x, y){dplyr::inner_join(x, y)})
-			}
+			} else { warning("process ", self$`@id` ," has NULL outputs!") }
 			if (!any(purrr::map_lgl(self$outputs, is.null))) {
 				#outputs <- self$outputs %>% purrr::map_dfr(~.x$to_table())
 				# outputs <- self$outputs %>% purrr::map(~.x$to_table())
 				outputs <- self$outputs %>% combine_io_tables()
-			}
+			} else { warning("process ", self$`@id` ," has NULL outputs!") }
 
 
 			if (!is.null(self$executes_protocol)) {
@@ -236,6 +236,8 @@ Process <- R6::R6Class(
 					purrr::set_names(paste0(
 						"Protocol REF[", self$executes_protocol$name, "]"
 					))
+			} else {
+				warning("process ", self$`@id` ," executes a NULL protocol!")
 			}
 			tab <- dplyr::bind_cols(
 				protocols, inputs, outputs, .name_repair = "minimal"
