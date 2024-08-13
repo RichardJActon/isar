@@ -202,6 +202,16 @@ Process <- R6::R6Class(
 					"Sample" = {
 						purrr::map_dfr(x, ~.x$to_table())
 					},
+					"Source" = {
+						# source is always already printed in Study$to_table()
+						# so if the inputs are sources return NULL to avoid
+						# duplication
+						# Are there situations where outputs are a source?
+						# if so would need handling
+
+						# purrr::map_dfr(x, ~.x$to_table())
+						NULL
+					},
 					"Material" = {
 						purrr::map_dfr(x, ~.x$to_table())
 					}
