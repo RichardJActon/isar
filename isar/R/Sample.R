@@ -200,6 +200,12 @@ Sample <- R6::R6Class(
 			}
 		},
 
+		update_characteristics = function() {
+			self$characteristics %>% purrr::walk(~{
+				.x$set_category(self$category_references$categories[[.x$`@id`]])
+			})
+		},
+
 		#' @details
 		#' Make [sample] from list
 		#' @param lst a list serialization of a [Sample] factor object

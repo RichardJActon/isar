@@ -248,6 +248,16 @@ Assay <- R6::R6Class(
 			lgl <- sample_ids %in% names(self$samples)
 			if(all(lgl)) {
 				self$samples <- self$samples[sample_ids]
+				# update samples with new characteristics
+				# samples objects are created before the
+				# characteristics from assays have been registered in
+				# the shared characteristic category reference object
+				# so to correctly reference the characteristic categories
+				# within samples they must be prompted to update
+				#
+				# if all categories of child objects were present in the
+				# parents this should not be necessary
+				purrr::walk(self$samples, ~.x$update_characteristics())
 			} else {
 				if (any(lgl)) {
 					stop(
