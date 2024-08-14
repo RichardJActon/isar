@@ -481,9 +481,15 @@ Study <- R6::R6Class(
 			lst <- list()
 			# lst[["id"]] <- private$id
 			lst[["submissionDate"]] <- self$submission_date
-			lst[["processSequence"]] <- self$process_sequence %>%
-				purrr::map(~.x$to_list()) %>%
-				purrr::set_names(NULL)
+			if(checkmate::test_list(
+				self$process_sequence, len = 0, null.ok = TRUE
+			)) {
+				lst[["processSequence"]] <- self$process_sequence
+			} else {
+				lst[["processSequence"]] <- self$process_sequence %>%
+					purrr::map(~.x$to_list()) %>%
+					purrr::set_names(NULL)
+			}
 			lst[["people"]] <- self$contacts %>%
 				purrr::map(~.x$to_list()) %>%
 				purrr::set_names(NULL)
@@ -687,7 +693,9 @@ Study <- R6::R6Class(
 						ps <- Process$new(
 							protocols = self$protocols,
 							sources = self$sources,
-							samples = self$samples
+							samples = self$samples,
+							ontology_source_references = self$recursive,
+							unit_references = self$unit_references
 						)
 						ps$from_list(.x, recursive = recursive, json = json) # recursive!
 						ps
@@ -722,7 +730,7 @@ Study <- R6::R6Class(
 
 				self$comments <- lst[["comments"]]
 			} else {
-				private$id <- lst[["id"]]
+				# private$id <- lst[["id"]]
 				self$filename <- lst[["filename"]]
 				self$title <- lst[["title"]]
 				self$description <- lst[["description"]]

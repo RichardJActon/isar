@@ -164,7 +164,9 @@ Sample <- R6::R6Class(
 						purrr::set_names(paste0("Comment[", .x$name, "]"))
 				})
 			}
-			factors <- purrr::map(self$factor_values, ~.x$to_table())
+			factors <- self$factor_values %>%
+				purrr::map(~.x$to_table()) %>%
+				purrr::set_names(NULL)
 			if(checkmate::test_list(factors, len = 0)) {
 				factors <- NULL
 			} else {

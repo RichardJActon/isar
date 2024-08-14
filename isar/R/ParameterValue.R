@@ -15,8 +15,11 @@ ParameterValue <- R6::R6Class(
 		category = NULL,
 		value = NULL,
 		unit = NULL,
+		ontology_source_references = NULL,
+		unit_references = NULL,
+		protocol_parameters = NULL,
 		comments = NULL,
-		`@id` = character(),
+		#`@id` = character(),
 		#' @details
 		#' New [ParameterValue] object
 		#' @param category A link to the relevant [ProtocolParameter] that the value is set for.
@@ -28,16 +31,42 @@ ParameterValue <- R6::R6Class(
 			category = NULL,
 			value = NULL,
 			unit = NULL,
-			comments = NULL,
-			`@id` = character()
+			ontology_source_references = NULL,
+			unit_references = NULL,
+			protocol_parameters = NULL,
+			comments = NULL#,
+			# `@id` = character()
 		){
 			self$category <- category
 			self$value <- value
 			if(is.null(unit)) { self$unit <- unit } else {
 				self$set_unit(unit)
 			}
+			if(is.null(ontology_source_references)) {
+				self$ontology_source_references <-
+					OntologySourceReferences$new()
+			} else if (checkmate::test_r6(
+				ontology_source_references, "OntologySourceReferences"
+			)) {
+				self$ontology_source_references <- ontology_source_references
+			} else {stop(
+				"ontology_source_references must be",
+				" an OntologySourceReferences object"
+			)}
+
+			if(is.null(unit_references)) {
+				self$unit_references <- UnitReferences$new(
+					ontology_source_references =
+						self$ontology_source_references
+				)
+			} else if (checkmate::test_r6(unit_references, "UnitReferences")) {
+				self$unit_references <- unit_references
+			} else {stop(
+				"unit_references must be an UnitReferences object"
+			)}
+			self$protocol_parameters <- protocol_parameters
 			self$comments <- comments
-			self$`@id` <- paste0("#parameter/", gsub(" ", "_", self$value))
+			# self$`@id` <- `@id`# paste0("#parameter/", gsub(" ", "_", self$value))
 		},
 		#' @details
 		#' check if unit is a [Unit] object
@@ -71,16 +100,56 @@ ParameterValue <- R6::R6Class(
 			}
 		},
 		#' @details
+		#' Set the unit as a valid ontology term
+		#' @param term the term of the unit
+		#' @param term_accession the accession of the ontology term of the unit
+		#' @param term_source the name of the source of the ontology term
+		#set_valid_unit = function(unit_id, term, term_accession, term_source) {
+		set_valid_unit = function(lst) {
+			unit_id <- lst[["@id"]]
+			if (unit_id %in% self$unit_references$get_unit_ids()) {
+				self$unit <- self$unit_references$units[[unit_id]]
+			} else {
+				self$unit <- Unit$new(
+					ontology_source_references =
+						self$ontology_source_references
+				)
+				self$unit$from_list(lst)
+				self$unit %>% list() %>% purrr::set_names(unit_id) %>%
+					self$unit_references$add_unit_references()
+			}
+		},
+		set_valid_category = function(category) {
+			self$category <- self$protocol_parameters[[category$`@id`]]
+		},
+
+		to_table = function(){
+			comments <- NULL
+			if (!test_list(self$comments, len = 0, null.ok = TRUE)) {
+				comments <- self$comments %>% comment_to_table_wide()
+			}
+
+			dplyr::bind_cols(
+				tibble::tibble("Parameter Value" = self$value) %>%
+				purrr::set_names(paste0(
+					"Parameter Value[", self$category$parameter_name$term, "]"
+				)),
+				self$unit$to_table() %>% purrr::set_names(paste0(
+					colnames(.), "[", self$category$parameter_name$term, "]"
+				)),
+				comments
+			)
+		},
+		#' @details
 		#' generate an R list representation translatable to JSON
 		#' @param ld logical json-ld
 		to_list = function(ld = FALSE) {
-			lst <- list(
-				"id" = private$id,
-				"category" = self$category,
-				"value" = self$value,
-				"unit" = self$unit,
-				"comments" = self$comments
-			)
+			lst <- list()
+			#lst[["@id"]] <- self$`@id`
+			lst[["category"]] <- self$category$to_list()
+			lst[["value"]] <- self$value
+			lst[["unit"]] <- self$unit$to_list()
+			lst[["comments"]] <- self$comments
 			return(lst)
 		},
 
@@ -91,11 +160,20 @@ ParameterValue <- R6::R6Class(
 		#' @param lst an [Person] object serialized to a list
 		#' @param json json  (default TRUE)
 		#' @param recursive call to_list methods of any objects within this object (default TRUE)
-		from_list = function(lst, recursive = TRUE, json = FALSE) {
+		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			if(json) {
-				self$category <- lst[["category"]]
+				#self$`@id` <- lst[["@id"]]
+				if(is.null(lst[["category"]])) {
+					self$category <- NULL
+				} else {
+					self$set_valid_category(lst[["category"]])
+				}
 				self$value <- lst[["value"]]
-				self$unit <- lst[["unit"]]
+				if(is.null(lst[["unit"]])) {
+					self$unit <- NULL
+				} else {
+					self$set_valid_unit(lst[["unit"]])
+				}
 				self$comments <- lst[["comments"]]
 			} else {
 				# private$id <- lst[["id"]]
@@ -119,12 +197,23 @@ ParameterValue <- R6::R6Class(
 		get_value_in_units = function() {
 			paste(self$value, self$units)
 		},
+		#' #' @details
+		#' #' set the uuid of this object
+		#' #' @param id a uuid
+		#' #' @param suffix a human readable suffix
+		#' set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
+		#' 	private$id <- generate_id(id, suffix)
+		#' }
+
 		#' @details
-		#' set the uuid of this object
-		#' @param id a uuid
-		#' @param suffix a human readable suffix
-		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
-			private$id <- generate_id(id, suffix)
+		#' Pretty prints [ParameterValue] objects
+		print = function() {
+			cli::cli_h1(cli::col_blue("Parameter Value"))
+			green_bold_name_plain_content(
+				"Category", self$category$parameter_name$term
+			)
+			cli::cli_text(self$value, " ", self$unit$unit$term)
+			pretty_print_comments(self$comments)
 		}
 	)#,
 	# private = list(

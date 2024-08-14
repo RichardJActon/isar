@@ -39,6 +39,9 @@ Process <- R6::R6Class(
 		previous_process = NULL,
 		materials = NULL,
 		data_files = NULL,
+		ontology_source_references = NULL,
+		unit_references = NULL,
+		protocol_parameters = NULL,
 		#' @details
 		#' Create a new [Process]
 		#' @param name If relevant, a unique name for the process to disambiguate it from other processes.
@@ -69,7 +72,10 @@ Process <- R6::R6Class(
 			next_process = NULL,
 			previous_process = NULL,
 			materials = NULL,
-			data_files = NULL
+			data_files = NULL,
+			ontology_source_references = NULL,
+			unit_references = NULL,
+			protocol_parameters = NULL
 		) {
 			self$name <- name
 			self$executes_protocol <- executes_protocol
@@ -87,6 +93,8 @@ Process <- R6::R6Class(
 			self$previous_process <- previous_process
 			self$materials <- materials
 			self$data_files <- data_files
+			self$ontology_source_references <- ontology_source_references
+			self$unit_references <- unit_references
 		},
 		#' @details
 		#' Check the the name has a non-zero length
@@ -239,8 +247,19 @@ Process <- R6::R6Class(
 			} else {
 				warning("process ", self$`@id` ," executes a NULL protocol!")
 			}
+
+			parameter_values <- NULL
+			if (!checkmate::test_list(
+				self$parameter_values, len = 0, null.ok = TRUE
+			)) {
+				parameter_values <- self$parameter_values %>%
+					purrr::map(~.x$to_table()) %>%
+					purrr::list_cbind()
+			}
+
 			tab <- dplyr::bind_cols(
-				protocols, inputs, outputs, .name_repair = "minimal"
+				protocols, parameter_values, inputs, outputs,
+				.name_repair = "minimal"
 			)
 
 			tab %>% select(unique(colnames(.)))
@@ -300,7 +319,15 @@ Process <- R6::R6Class(
 					purrr::set_names(NULL)
 			}
 
-			lst[["parameterValues"]] <- self$parameter_values
+			if (checkmate::test_list(
+				self$parameter_values, len = 0, null.ok = TRUE
+			)) {
+				lst[["parameterValues"]] <- list()
+			} else{
+				lst[["parameterValues"]] <- self$parameter_values %>%
+					purrr::map(~.x$to_list()) %>% purrr::set_names(NULL)
+			}
+
 			lst[["@id"]] <- self$`@id`
 
 			lst[["date"]] <- self$date
@@ -368,7 +395,25 @@ Process <- R6::R6Class(
 						lst[["executesProtocol"]][["@id"]]
 					]]
 				}
-				self$parameter_values <- lst[["parameterValues"]]
+				if(checkmate::test_list(
+					lst[["parameterValues"]], len = 0, null.ok = TRUE
+				)) {
+					self$parameter_values <- list()
+				} else {
+					self$parameter_values <- lst[["parameterValues"]] %>%
+						purrr::map(~{
+							pv <- ParameterValue$new(
+								ontology_source_references =
+									self$ontology_source_references,
+								unit_references = self$unit_references,
+								protocol_parameters =
+									self$executes_protocol$parameters
+							)
+							pv$from_list(.x, recursive = recursive, json = json)
+							pv
+						})# %>%
+						#purrr::set_names(purrr::map_chr(., ~.x$`@id`))
+				}
 
 				inputs_and_outputs <- c(
 					self$samples, self$materials, self$data_files, self$sources

@@ -380,7 +380,8 @@ Assay <- R6::R6Class(
 			process_order %>%
 				purrr::map(~{
 					process_sequence_tables[.x] %>% dplyr::bind_rows()
-				})# %>%
+				}) %>%
+				purrr::list_cbind()
 				#purrr::reduce(function(x, y)(dplyr::inner_join(x, y)))
 			#self$data_files %>% purrr::map(~.x$to_table()) %>% purrr::reduce(function(x,y)(dplyr::left_join(x,y)))
 		},
@@ -482,7 +483,9 @@ Assay <- R6::R6Class(
 							sources = self$sources,
 							samples = self$samples,
 							materials = self$other_materials,
-							data_files = self$data_files
+							data_files = self$data_files,
+							ontology_source_references = self$recursive,
+							unit_references = self$unit_references
 						)
 						ps$from_list(.x, recursive = recursive, json = json) # recursive!
 						ps
