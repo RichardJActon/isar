@@ -319,3 +319,16 @@ comment_to_table_wide <- function(comments) {
 				purrr::set_names(paste0("Comment[", .x$name, "]"))
 		})
 }
+
+#' get_r6_class
+#'
+#' Checks if an object is an R6 object and if it is returns the class.
+#' An error is thrown if the object is not and R6 object.
+#'
+#' @param x an R6 object for which to get the class
+get_r6_class <- function(x) {
+	if(checkmate::test_r6(x, "R6")) {
+		class(x)[1]
+	} else {
+		stop("x is not and R6 object!")
+	}
