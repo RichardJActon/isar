@@ -21,6 +21,19 @@ test_that("check_comments works", {
 	expect_true(error_with_check_message_on_failure(TRUE))
 })
 
+# date string conversion ---
+test_that("date_string_conversion works",{
+	# Simple working
+	expect_equal(date_string_conversion("1990-06-26"), as.Date("1990-06-26"))
+	expect_equal(as.character(date_string_conversion("1990-06-26")), "1990-06-26")
+	# not a leap year but feb 29
+	expect_error(
+		warns <- capture_warnings(date_string_conversion("3034-02-29")),
+		regexp = "No Valid Date format found"
+	)
+	warns <- capture_warnings(date_string_conversion("10/12/1928"))
+
+})
 
 # S3? ----
 
