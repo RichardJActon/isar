@@ -160,29 +160,14 @@ date_string_conversion <- function(date_string) {
 				#emo::ji("rage"),
 				"😡",
 				cli::col_red(cli::style_bold(" Date is not formated correctly!\n")),
-				# crayon::red(crayon::bold(" Date is not formated correctly!\n")),
 				#emo::ji("halo"),
 				"😇",
 				cli::col_green(" Please use ISO8601 compliant date strings: YYYY-mm-dd\n"),
-				# crayon::green(
-				# 	" Please use ISO8601 compliant date strings: YYYY-mm-dd\n"
-				# ),
-
 				#emo::ji("worried"),
 				"😟",
 				cli::col_yellow(" Attempting other date formats...\n"),
-				# crayon::yellow(
-				# 	" Attempting other date formats...\n"
-				#
-				# ),
 				cli::col_yellow(cli::style_bold("This may result in errors!\n")),
-				# crayon::yellow(crayon::bold(
-				# "This may result in errors!\n"
-				# )),
 				cli::col_yellow("There may be ambiguity in other date formats please use the correct one!")
-				# crayon::yellow(
-				# 	"There may be ambiguity in other date formats please use the correct one!"
-				# )
 			))
 		}
 	)
@@ -201,9 +186,13 @@ date_string_conversion <- function(date_string) {
 					#emo::ji("disappointed"),
 					"😞",
 					cli::col_red(" No Valid Date format found!")
-					#crayon::red(" No Valid Date format found!")
 				))
 			}
+		)
+		warning(
+			"\nDid you mean ", cli::col_yellow(cli::style_bold(
+				format(date, "%A %d %B %Y (%Y-%m-%d)")
+			)), "?\n"
 		)
 	}
 	return(date)
@@ -332,3 +321,4 @@ get_r6_class <- function(x) {
 	} else {
 		stop("x is not and R6 object!")
 	}
+}
