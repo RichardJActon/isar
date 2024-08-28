@@ -20,16 +20,21 @@
 #' check_empty("", mode, null.ok = TRUE)
 #'
 check_empty <- function(x, mode = typeof(x), null.ok = FALSE) {
-	res <- identical(x, vector(mode = mode))
+	if(null.ok && mode == "NULL") {
+		v <- NULL
+	} else {
+		v <- vector(mode = mode)
+	}
+	res <- identical(x, v)
 	if(res) {
 		return(TRUE)
 	}
 	text <- paste0("Must be empty ", mode, " vector")
 	if (null.ok) {
 		text <- paste0(text, " or NULL")
-		if (is.null(x) || res) {
-			return(TRUE)
-		}
+		# if (is.null(x) || res) {
+		# 	return(TRUE)
+		# }
 	}
 	return(text)
 }
