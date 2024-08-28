@@ -573,5 +573,19 @@ Assay <- R6::R6Class(
 		# 		num_units						=	length(self$num_units)
 		# 	)
 		# }
+		get_process_order = function() { private$process_order() },
+		get_process_paths = function() { private$process_paths() },
+		get_process_io_paths = function() { private$process_io_paths() }
+	),
+	private = list(
+		process_order = function() {
+			process_order(self$process_sequence)
+		},
+		process_paths = function() {
+			process_paths(self$process_sequence)
+		},
+		process_io_paths = function() {
+			process_io_paths(self$process_sequence)
+		}
 	)
 )

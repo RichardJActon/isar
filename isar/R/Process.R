@@ -562,40 +562,158 @@ Process <- R6::R6Class(
 )
 
 # first has no preceding step
-get_fist_processes <- function(x) {
+first_processes <- function(x) {
 	x %>%
 		purrr::map(~{ if(is.null(.x$previous_process)) { .x } }) %>%
 		purrr::discard(is.null)
 }
 # first_processes <- get_fist_processes(processes)
 
-get_next_processes <- function(previous_processes, processes) {
+next_processes <- function(previous_processes, processes) {
 	processes[previous_processes %>% purrr::map_chr(~.x$next_process)]
 }
-# get_next_processes(first_processes, processes) %>% length()
+# next_processes(first_processes, processes) %>% length()
 
 # last has no next step
-get_last_processes <- function(processes) {
+last_processes <- function(processes) {
 	processes %>%
 		purrr::map(~{if(is.null(.x$next_process)){.x}}) %>%
 		purrr::discard(is.null)
 }
 
-#' get_process_order
+#' process_order
 #'
 #' @param processes list of [Process] objects as in the process_sequence
 #' sequence field of an [Assay] object
-get_process_order <- function(processes) {
+process_order <- function(processes) {
 	process_order <- list()
 	i <- 1
-	first_processes_ids <- processes %>% get_fist_processes() %>% names()
-	last_processes_ids <- processes %>% get_last_processes() %>% names()
+	first_processes_ids <- processes %>% first_processes() %>% names()
+	last_processes_ids <- processes %>% last_processes() %>% names()
 	process_order[[i]] <- first_processes_ids
 	while (all(!process_order[[i]] %in% last_processes_ids)) {
 		i <- i + 1
-		process_order[[i]] <- get_next_processes(
+		process_order[[i]] <- next_processes(
 			processes[process_order[[i - 1]]], processes
 		) %>% names()
 	}
 	process_order
+}
+
+# process_graph <- function(processes) {
+# 	process_order_mat <- process_order(processes) %>% do.call("cbind", .)
+# 	n_proc_cols <- ncol(process_order_mat)
+# 	edges <- character()
+# 	for (i in 1:nrow(process_order_mat)) {
+# 		j <- 1
+# 		while (j < n_proc_cols) {
+# 			j <- j + 1
+# 			proc1 <- processes[[process_order_mat[i, j - 1]]]
+# 			proc2 <- processes[[process_order_mat[i, j]]]
+# 			edges <- c(edges, c(rbind(
+# 				names(proc1$inputs),
+# 				names(proc1$outputs)[
+# 					names(proc1$outputs) %in% names(proc2$inputs)
+# 				]
+# 			)))
+# 			if(j == n_proc_cols) {
+# 				edges <- c(
+# 					edges, c(rbind(names(proc2$inputs), names(proc2$outputs)))
+# 				)
+# 			}
+# 			# print(paste(i,j))
+# 		}
+# 	}
+# 	igraph::make_directed_graph(edges = edges)
+# }
+
+process_io_paths <- function(processes) {
+	process_order_mat <- process_order(processes) %>% do.call("cbind", .)
+	n_proc_cols <- ncol(process_order_mat)
+	n_proc_rows <- nrow(process_order_mat)
+	paths <- list()
+	for (i in 1:nrow(process_order_mat)) {
+		j <- 1
+		paths[[i]] <- list()
+		while (j < n_proc_cols) {
+			j <- j + 1
+			proc1 <- processes[[process_order_mat[i, j - 1]]]
+			proc2 <- processes[[process_order_mat[i, j]]]
+			# include only outputs which are inputs to subsequent processes
+			paths[[i]][[j - 1]] <- names(proc1$outputs)[
+				names(proc1$outputs) %in% names(proc2$inputs)
+			]
+			# print(
+			# 	names(proc1$outputs)[
+			# 		names(proc1$outputs) %in% names(proc2$inputs)
+			# 	]
+			# )
+			if((j - 1) == 1) {
+				paths[[i]][[j - 1]] <- names(proc1$inputs)
+				# print(names(proc1$inputs))
+			}
+			if(j == n_proc_cols) {
+				paths[[i]][[j]] <- names(proc2$outputs)
+				# print(names(proc2$outputs))
+			}
+			# print(paste(i,j))
+		}
+		# print("---break----")
+	}
+	paths # %>%
+		# purrr::map(
+		# 	~.x %>%
+		# 		purrr::set_names(paste0("X", seq_along(.))) %>%
+		# 		expand.grid()
+		# ) %>%
+		# do.call("rbind", .)
+}
+
+
+process_paths <- function(processes) {
+	process_order_mat <- process_order(processes) %>% do.call("cbind", .)
+	n_proc_cols <- ncol(process_order_mat)
+	n_proc_rows <- nrow(process_order_mat)
+	n <- n_proc_cols * 2
+	paths <- list()
+	for (i in 1:n_proc_rows) {
+		j <- 1
+		q <- 1
+		paths[[i]] <- list()
+		while (q < (n - 1)) {
+			j <- j + 1
+			proc1 <- processes[[process_order_mat[i, j - 1]]]
+			proc2 <- processes[[process_order_mat[i, j]]]
+			# include only outputs which are inputs to subsequent processes
+			q <- q + 1
+			paths[[i]][[q]] <- process_order_mat[i, j - 1]
+			q <- q + 1
+			paths[[i]][[q]] <- names(proc1$outputs)[
+				names(proc1$outputs) %in% names(proc2$inputs)
+			]
+			# print(
+			# 	names(proc1$outputs)[
+			# 		names(proc1$outputs) %in% names(proc2$inputs)
+			# 	]
+			# )
+			if((j - 1) == 1) {
+				paths[[i]][[q - 2]] <- names(proc1$inputs)
+				# print(names(proc1$inputs))
+			}
+			if(j == n_proc_cols) {
+				paths[[i]][[q + 1]] <- process_order_mat[i, j]
+				paths[[i]][[q + 2]] <- names(proc2$outputs)
+				# print(names(proc2$outputs))
+			}
+			# print(paste(i,j))
+		}
+		# print("---break----")
+	}
+	paths # %>%
+	# purrr::map(
+	# 	~.x %>%
+	# 		purrr::set_names(paste0("X", seq_along(.))) %>%
+	# 		expand.grid()
+	# ) %>%
+	# do.call("rbind", .)
 }
