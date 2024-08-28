@@ -17,6 +17,7 @@ test_files <- c(
 	"a_metabolome.txt",
 	"a_microarray.txt",
 	"a_transcriptome.txt",
+	"a_proteome.txt",
 	"s_BII-S-1.txt",
 	"s_BII-S-2.txt"
 )
@@ -65,6 +66,10 @@ test_that("* s_BII-S-1.txt can be generated from BII-I-1.json", {
 
 	# stab <- readr::read_tsv(test_file_paths[["s_BII-S-1"]], name_repair = "minimal")
 	# ttab <- readr::read_tsv(test_output, name_repair = "minimal")
+
+	# extract name dupe - join?
+	# material type
+	# MS assay name
 
 	stab <- readr::read_tsv(
 		test_file_paths[["s_BII-S-1"]],
@@ -132,17 +137,17 @@ test_that("BII-S-2.txt can be generated from BII-I-1.json", {
 	fs::file_delete(test_output)
 })
 
-test_that("a_metabolome.txt can be generated from BII-I-1.json", {
+test_that("a_proteome.txt can be generated from BII-I-1.json", {
 	test_output <- tempfile()
 	obj$studies[["BII-S-1"]]$assays[["#assay/a_metabolome.txt"]]$cat_table(
 		test_output, overwrite = TRUE
 	)
 	#obj$studies[["BII-S-2"]]$to_table()
 
-	# stab <- readr::read_tsv(
-	# 	test_file_paths[["a_metabolome"]],
-	# 	name_repair = "unique_quiet", show_col_types = FALSE
-	# )
+	stab <- readr::read_tsv(
+		test_file_paths[["a_proteome"]],
+		name_repair = "unique_quiet", show_col_types = FALSE
+	)
 	# ttab <- readr::read_tsv(
 	# 	test_output,
 	# 	name_repair = "unique_quiet", show_col_types = FALSE
@@ -160,3 +165,23 @@ test_that("a_metabolome.txt can be generated from BII-I-1.json", {
 	fs::file_delete(test_output)
 })
 
+
+
+# These two lines in a_proteome.txt
+#
+# line 13
+# line 18
+#
+# labeled extract pool 3 (for P-0.2 and S-0.2) includes iTRAQ reagent 114
+# that is missing from the json version
+#
+# note that isa-api has the same issues with comment duplication:
+# https://github.com/ISA-tools/isa-api/blob/master/tests/convert/test_json2isatab.py
+#
+# Remedy? - alter the json to reflect this, would be good to test multiple
+# characteristics as that's a more complex case than the single characteristic
+# if I remove the extra lines from the table
+
+category <- BII_I_1_jsonlite$studies[[1]]$assays[[1]]$materials$otherMaterials[[17]]$characteristics[[1]]
+category$value$annotationValue <- "iTRAQ reagent 114"
+BII_I_1_jsonlite$studies[[1]]$assays[[1]]$materials$otherMaterials[[17]]$characteristics[[2]] <- category
