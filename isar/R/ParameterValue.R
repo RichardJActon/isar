@@ -129,16 +129,23 @@ ParameterValue <- R6::R6Class(
 				comments <- self$comments %>% comment_to_table_wide()
 			}
 
-			dplyr::bind_cols(
-				tibble::tibble("Parameter Value" = self$value) %>%
-				purrr::set_names(paste0(
-					"Parameter Value[", self$category$parameter_name$term, "]"
-				)),
-				self$unit$to_table() %>% purrr::set_names(paste0(
+			if(checkmate::test_r6(self$category, "ParameterValue")) {
+				parameter_value <-
+					tibble::tibble("Parameter Value" = self$value) %>%
+					purrr::set_names(paste0(
+						"Parameter Value[", self$category$parameter_name$term,
+						"]"
+					))
+			} else {parameter_value <- self$category}
+			if (checkmate::test_r6(self$unit, "Unit")) {
+				unit <- self$unit$to_table() %>% purrr::set_names(paste0(
 					colnames(.), "[", self$category$parameter_name$term, "]"
-				)),
-				comments
-			)
+				))
+			} else {
+				unit <- self$unit
+			}
+
+			dplyr::bind_cols(parameter_value, unit, comments)
 		},
 		#' @details
 		#' generate an R list representation translatable to JSON
@@ -146,9 +153,17 @@ ParameterValue <- R6::R6Class(
 		to_list = function(ld = FALSE) {
 			lst <- list()
 			#lst[["@id"]] <- self$`@id`
-			lst[["category"]] <- self$category$to_list()
+			if(checkmate::test_list(self$category, len = 0, null.ok = TRUE)){
+				lst[["category"]] <- self$category
+			} else {
+				lst[["category"]] <- self$category$to_list()
+			}
 			lst[["value"]] <- self$value
-			lst[["unit"]] <- self$unit$to_list()
+			if(checkmate::test_list(self$unit, len = 0, null.ok = TRUE)){
+				lst[["unit"]] <- self$unit
+			} else {
+				lst[["unit"]] <- self$unit$to_list()
+			}
 			lst[["comments"]] <- self$comments
 			return(lst)
 		},
