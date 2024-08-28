@@ -530,7 +530,7 @@ Assay <- R6::R6Class(
 			# green_bold_name_plain_content("", self$protocols)
 
 			pretty_print_comments(self$comments)
-		}
+		},
 		# #' @details
 		# #'
 		# #' stringify
