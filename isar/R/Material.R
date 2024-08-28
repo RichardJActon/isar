@@ -131,7 +131,18 @@ Material <- R6::R6Class(
 		},
 		to_table = function() {
 			# comments!
-			tibble::tibble_row(self$name) %>% purrr::set_names(self$type)
+			name_type <- tibble::tibble_row(
+				ifelse(test_empty(self$name, null.ok = TRUE), "", self$name)
+			) %>%
+				purrr::set_names(self$type)
+			characteristics <- NULL
+			if (!test_list(self$characteristics, len = 0, null.ok = TRUE)) {
+				characteristics <- self$characteristics %>%
+					purrr::map(~.x$to_table()) %>%
+					# purrr::list_cbind(name_repair = "minimal")
+					purrr::list_rbind()
+			}
+			dplyr::bind_cols(name_type, characteristics)
 		},
 		#' @details
 		#' An R list representation of a [Material] object
