@@ -300,6 +300,33 @@ Study <- R6::R6Class(
 		get_sample_names = function() {
 			self$samples %>% purrr::map_chr(~.x$name)
 		},
+		get_unused_samples = function() {
+			all_provided_sample_names <- self$samples %>% names()
+			all_assay_sample_names <- self$assays %>%
+				purrr::map(~.x$samples %>% names()) %>%
+				unlist(use.names = FALSE)
+			names_of_unused_samples <- all_provided_sample_names[
+				!all_provided_sample_names %in% all_assay_sample_names
+			]
+			self$samples[names_of_unused_samples]
+		},
+
+		check_for_unused_samples = function() {
+			unused_samples <- self$get_unused_samples() %>% names()
+			if(length(unused_samples) > 0) {
+				warning(
+					"There are ", length(unused_samples),
+					" samples in this Study not used in",
+					" any of the assays associated with it!\n",
+					"You can use the `get_unused_samples` method on this",
+					" object to get a list of the unused samples."
+				)
+				return(TRUE)
+			} else {
+				message("No unused samples found")
+				return(FALSE)
+			}
+		},
 		#' @details
 		#' get the names of [Source]s
 		#' @return character vector of sources names
@@ -852,6 +879,7 @@ Study <- R6::R6Class(
 
 			cli::cli_h2(cli::col_green("Samples (", length(self$samples), ")"))
 			cli::cli_ol(paste0(
+				# show unused samples in red?
 				self$get_sample_names(),
 				cli::col_grey(" (", self$get_sample_ids(), ")")
 			))
