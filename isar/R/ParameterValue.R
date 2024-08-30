@@ -129,14 +129,23 @@ ParameterValue <- R6::R6Class(
 				comments <- self$comments %>% comment_to_table_wide()
 			}
 
-			if(checkmate::test_r6(self$category, "ParameterValue")) {
+			if(checkmate::test_r6(self$category, "ProtocolParameter")) {
 				parameter_value <-
 					tibble::tibble("Parameter Value" = self$value) %>%
 					purrr::set_names(paste0(
 						"Parameter Value[", self$category$parameter_name$term,
 						"]"
 					))
-			} else {parameter_value <- self$category}
+			} else if (is.character(self$category)) {
+				parameter_value <-
+					tibble::tibble("Parameter Value" = self$value) %>%
+					purrr::set_names(paste0(
+						"Parameter Value[", self$category, "]"
+					))
+			} else {
+				parameter_value <-
+					tibble::tibble("Parameter Value" = self$value)
+			}
 			if (checkmate::test_r6(self$unit, "Unit")) {
 				unit <- self$unit$to_table() %>% purrr::set_names(paste0(
 					colnames(.), "[", self$category$parameter_name$term, "]"
