@@ -153,20 +153,33 @@ DataFile <- R6::R6Class(
 		},
 
 		#' @details
-		#' Check that generated_from is an [Sample] object
-		#' @param generated_from an [Sample] object
+		#' Check that generated_from is a list of [Sample] objects
+		#' @param generated_from a list of [Sample] objects
 		check_generated_from = function(generated_from) {
-			check <- checkmate::check_r6(generated_from, "Sample")
-			error_with_check_message_on_failure(
-				check, nextline = "Class: Sample"
-			)
+			# check <- checkmate::check_r6(generated_from, "Sample")
+			# error_with_check_message_on_failure(
+			# 	check, nextline = "Class: Sample"
+			# )
+			if(all(purrr::map_lgl(generated_from, ~checkmate::check_r6(
+				.x, "Sample"
+			)))) { return(TRUE) } else {
+				stop("All categories must be Sample objects!")
+			}
 		},
 		#' @details
 		#' Set generated_from if input is valid
-		#' @param generated_from an [Sample] object
+		#' @param generated_from a list of [Sample] objects
 		set_generated_from = function(generated_from) {
 			if(self$check_generated_from(generated_from)) {
 				self$generated_from <- generated_from
+			}
+		},
+		#' @details
+		#' Add generated_from if input is valid
+		#' @param generated_from a list of [Sample] objects
+		add_generated_from = function(generated_from) {
+			if(self$check_generated_from(generated_from)) {
+				self$generated_from <- c(self$generated_from, generated_from)
 			}
 		},
 		#' @details
@@ -275,7 +288,12 @@ DataFile <- R6::R6Class(
 			green_bold_name_plain_content("File path", self$file_path)
 			green_bold_name_plain_content("Type", self$type)
 			# green_bold_name_plain_content("Label", self$label)
-			green_bold_name_plain_content("Generated From", self$generated_from)
+			cli::cli_h2(cli::col_green("Generated From (",
+				length(self$generated_from), ")"
+			))
+			cli::cli_ul(purrr::map_chr(self$generated_from, ~{
+				paste0(.x$name, cli::col_grey(" (", .x$`@id`, ")"))
+			}))
 			pretty_print_comments(self$comments)
 		},
 		#' @details
