@@ -608,13 +608,18 @@ process_order <- function(processes) {
 	first_processes_ids <- processes %>% first_processes() %>% names()
 	last_processes_ids <- processes %>% last_processes() %>% names()
 	process_order[[i]] <- first_processes_ids
+	if(length(first_processes_ids) == length(last_processes_ids)) {
+		if(all(first_processes_ids == last_processes_ids)) {
+			return(process_order)
+		}
+	}
 	while (all(!process_order[[i]] %in% last_processes_ids)) {
 		i <- i + 1
 		process_order[[i]] <- next_processes(
 			processes[process_order[[i - 1]]], processes
 		) %>% names()
 	}
-	process_order
+	return(process_order)
 }
 
 # process_graph <- function(processes) {
@@ -652,14 +657,19 @@ process_io_paths <- function(processes) {
 	for (i in 1:nrow(process_order_mat)) {
 		j <- 1
 		paths[[i]] <- list()
-		while (j < n_proc_cols) {
+		while (j <= n_proc_cols) {
 			j <- j + 1
 			proc1 <- processes[[process_order_mat[i, j - 1]]]
-			proc2 <- processes[[process_order_mat[i, j]]]
-			# include only outputs which are inputs to subsequent processes
-			paths[[i]][[j - 1]] <- names(proc1$outputs)[
-				names(proc1$outputs) %in% names(proc2$inputs)
-			]
+			if(n_proc_cols > 1) {
+				proc2 <- processes[[process_order_mat[i, j]]]
+				# include only outputs which are inputs to subsequent processes
+				paths[[i]][[j - 1]] <- names(proc1$outputs)[
+					names(proc1$outputs) %in% names(proc2$inputs)
+				]
+			} else {
+				proc2 <- proc1
+				paths[[i]][[j]] <- names(proc2$outputs)
+			}
 			# print(
 			# 	names(proc1$outputs)[
 			# 		names(proc1$outputs) %in% names(proc2$inputs)
@@ -697,17 +707,24 @@ process_paths <- function(processes) {
 		j <- 1
 		q <- 1
 		paths[[i]] <- list()
-		while (q < (n - 1)) {
+		while (q <= (n - 1)) {
 			j <- j + 1
 			proc1 <- processes[[process_order_mat[i, j - 1]]]
-			proc2 <- processes[[process_order_mat[i, j]]]
-			# include only outputs which are inputs to subsequent processes
-			q <- q + 1
-			paths[[i]][[q]] <- process_order_mat[i, j - 1]
-			q <- q + 1
-			paths[[i]][[q]] <- names(proc1$outputs)[
-				names(proc1$outputs) %in% names(proc2$inputs)
-			]
+			if(n_proc_cols > 1) {
+				proc2 <- processes[[process_order_mat[i, j]]]
+				# include only outputs which are inputs to subsequent processes
+				q <- q + 1
+				paths[[i]][[q]] <- process_order_mat[i, j - 1]
+				q <- q + 1
+				paths[[i]][[q]] <- names(proc1$outputs)[
+					names(proc1$outputs) %in% names(proc2$inputs)
+				]
+			} else {
+				proc2 <- proc1
+				paths[[i]][[q + 1]] <- process_order_mat[i, j - 1]
+				paths[[i]][[q + 2]] <- names(proc2$outputs)
+				q <- q + 2
+			}
 			# print(
 			# 	names(proc1$outputs)[
 			# 		names(proc1$outputs) %in% names(proc2$inputs)
