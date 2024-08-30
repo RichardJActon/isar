@@ -247,9 +247,9 @@ DataFile <- R6::R6Class(
 				})
 			}
 			dplyr::bind_cols(
-				comments,
 				tibble::tibble_row(self$filename) %>%
-					purrr::set_names(self$type)
+					purrr::set_names(self$type),
+				comments
 			)
 		},
 		#' @details
