@@ -687,6 +687,7 @@ Assay <- R6::R6Class(
 			# samples files from process order
 			# !!! dynamic update handling ?
 			datafile_lgl <- private$process_io_path_types() == "DataFile"
+			sample_lgl <- private$process_io_path_types() == "Sample"
 			private$process_paths() %>%
 				purrr::walk(~{
 					x <- .x %>% unlist()
