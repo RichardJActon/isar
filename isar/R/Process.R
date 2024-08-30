@@ -235,6 +235,9 @@ Process <- R6::R6Class(
 				# io,
 				# outputs %>% dplyr::select(-`Extract Name`),
 				## outputs,
+				# self$samples %>%
+				# 	purrr::map(~.x$to_table()) %>%
+				# 	purrr::list_rbind(),
 				.name_repair = "minimal"
 			) #%>%
 			# dplyr::select(-`Extract Name`)
@@ -624,9 +627,10 @@ process_io_paths <- function(processes) {
 			if(n_proc_cols > 1) {
 				proc2 <- processes[[process_order_mat[i, j]]]
 				# include only outputs which are inputs to subsequent processes
-				paths[[i]][[j - 1]] <- names(proc1$outputs)[
-					names(proc1$outputs) %in% names(proc2$inputs)
-				]
+				# paths[[i]][[j - 1]] <- names(proc1$outputs)[
+				# 	names(proc1$outputs) %in% names(proc2$inputs)
+				# ]
+				paths[[i]][[j - 1]] <- names(proc1$outputs)
 			} else {
 				proc2 <- proc1
 				paths[[i]][[j]] <- names(proc2$outputs)
@@ -673,13 +677,14 @@ process_paths <- function(processes) {
 			proc1 <- processes[[process_order_mat[i, j - 1]]]
 			if(n_proc_cols > 1) {
 				proc2 <- processes[[process_order_mat[i, j]]]
-				# include only outputs which are inputs to subsequent processes
 				q <- q + 1
 				paths[[i]][[q]] <- process_order_mat[i, j - 1]
 				q <- q + 1
-				paths[[i]][[q]] <- names(proc1$outputs)[
-					names(proc1$outputs) %in% names(proc2$inputs)
-				]
+				# include only outputs which are inputs to subsequent processes
+				# paths[[i]][[q]] <- names(proc1$outputs)[
+				# 	names(proc1$outputs) %in% names(proc2$inputs)
+				# ]
+				paths[[i]][[q]] <- names(proc1$outputs)
 			} else {
 				proc2 <- proc1
 				paths[[i]][[q + 1]] <- process_order_mat[i, j - 1]
