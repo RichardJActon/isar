@@ -646,6 +646,7 @@ process_io_paths <- function(processes) {
 			}
 			if(j == n_proc_cols) {
 				paths[[i]][[j]] <- names(proc2$outputs)
+				j <- j + 1
 				# print(names(proc2$outputs))
 			}
 			# print(paste(i,j))
@@ -703,6 +704,7 @@ process_paths <- function(processes) {
 			if(j == n_proc_cols) {
 				paths[[i]][[q + 1]] <- process_order_mat[i, j]
 				paths[[i]][[q + 2]] <- names(proc2$outputs)
+				q <- q + 1
 				# print(names(proc2$outputs))
 			}
 			# print(paste(i,j))
