@@ -482,10 +482,7 @@ Assay <- R6::R6Class(
 			}
 
 			process_paths <- private$process_paths()
-			combined_proc_io <- c(
-				self$process_sequence,
-				self$samples, self$other_materials, self$data_files
-			)
+			combined_proc_io <- private$combined_process_io()
 			# process_paths[[1]] %>% purrr::discard(\(x){length(x) > 1}) %>% purrr::map(~.x %>% purrr::map(~combine_io_tables(combined_proc_io[[.x]])))
 
 			# proteome testing
@@ -677,14 +674,27 @@ Assay <- R6::R6Class(
 							ontology_source_references = self$recursive,
 							unit_references = self$unit_references
 						)
-						ps$from_list(.x, recursive = recursive, json = json) # recursive!
+						ps$from_list(.x, recursive = recursive, json = json)
 						ps
 					}
-				)#[order(process_sequence_order)]
+				)
 
 			purrr::walk2(lst[["processSequence"]], self$process_sequence, ~{
 				.y$add_process_order(.x, names(self$process_sequence))
 			})
+
+			# automatically populate data file generated_from by inferring the
+			# samples files from process order
+			# !!! dynamic update handling ?
+			datafile_lgl <- private$process_io_path_types() == "DataFile"
+			private$process_paths() %>%
+				purrr::walk(~{
+					x <- .x %>% unlist()
+					# print(.x)
+					self$data_files[x[datafile_lgl]] %>% purrr::walk(~{
+						.x$add_generated_from(self$samples[x[sample_lgl]])
+					})
+				})
 
 			self$comments <- lst[["comments"]]
 			# self$graph <- lst[["graph"]]
@@ -766,6 +776,17 @@ Assay <- R6::R6Class(
 		},
 		process_io_paths = function() {
 			process_io_paths(self$process_sequence)
+		},
+		combined_process_io = function() {
+			c(
+				self$process_sequence, self$samples, self$other_materials,
+				self$data_files
+			)
+		},
+		process_io_path_types = function() {
+			private$process_paths()[[1]] %>%
+			unlist() %>%
+			purrr::map_chr(~get_r6_class(private$combined_process_io()[[.x]]))
 		}
 	)
 )
