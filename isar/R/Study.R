@@ -340,25 +340,25 @@ Study <- R6::R6Class(
 			self$process_sequence %>% purrr::map_chr(~.x$name)
 		},
 
-		#' get_processes_by_inputs
-		#'
-		#' vectors of the processes associated with unique inputs
-		#'
-		#' @return named list of character vectors where the names are input
-		#'  ids and the values are vectors of process names
-		get_processes_by_inputs = function() {
-			inputs <- list()
-			for (i in seq_along(self$process_sequence)) {
-				input_names <- names(self$process_sequence[[i]]$inputs)
-				for(j in seq_along(input_names)) {
-					inputs[[input_names[[j]]]] <- c(
-						inputs[[input_names[[j]]]],
-						self$process_sequence[[i]]$`@id`
-					)
-				}
-			}
-			inputs
-		},
+		# #' get_processes_by_inputs
+		# #'
+		# #' vectors of the processes associated with unique inputs
+		# #'
+		# #' @return named list of character vectors where the names are input
+		# #'  ids and the values are vectors of process names
+		# get_processes_by_inputs = function() {
+		# 	inputs <- list()
+		# 	for (i in seq_along(self$process_sequence)) {
+		# 		input_names <- names(self$process_sequence[[i]]$inputs)
+		# 		for(j in seq_along(input_names)) {
+		# 			inputs[[input_names[[j]]]] <- c(
+		# 				inputs[[input_names[[j]]]],
+		# 				self$process_sequence[[i]]$`@id`
+		# 			)
+		# 		}
+		# 	}
+		# 	inputs
+		# },
 
 		header_table = function(index = 1) {
 			#list(
@@ -462,17 +462,28 @@ Study <- R6::R6Class(
 		},
 
 		to_table = function() {
-			processes_by_input <- self$get_processes_by_inputs()
-			self$sources %>%
-				purrr::map_dfr(~{
-					dplyr::bind_cols(
-						.x$to_table(),
-						self$process_sequence[
-							processes_by_input[[.x$`@id`]]
-						] %>% purrr::map(~.x$to_table())#,
-						#.name_repair = "minimal"
-					)
-				})
+			# processes_by_input <- self$get_processes_by_inputs()
+			# self$sources %>%
+			# 	purrr::map_dfr(~{
+			# 		dplyr::bind_cols(
+			# 			.x$to_table(),
+			# 			self$process_sequence[
+			# 				processes_by_input[[.x$`@id`]]
+			# 			] %>% purrr::map(~.x$to_table())#,
+			# 			#.name_repair = "minimal"
+			# 		)
+			# 	})
+
+			private$process_paths() %>%
+				purrr::map(
+					~.x %>%
+						purrr::map(
+							~to_table_by_process_io_type(
+								private$combined_process_io()[.x]
+							)
+						) %>%
+						 purrr::list_cbind(name_repair = "minimal")
+				) %>% do.call("rbind", .)
 		},
 
 		cat_table = function(path = stdout(), overwrite = FALSE) {
@@ -885,10 +896,32 @@ Study <- R6::R6Class(
 			))
 
 			pretty_print_comments(self$comments)
+		},
+		get_process_order = function() { private$process_order() },
+		get_process_paths = function() { private$process_paths() },
+		get_process_io_paths = function() { private$process_io_paths() }
+	),
+	private = list(
+		process_order = function() {
+			process_order(self$process_sequence)
+		},
+		process_paths = function() {
+			process_paths(self$process_sequence)
+		},
+		process_io_paths = function() {
+			process_io_paths(self$process_sequence)
+		},
+		combined_process_io = function() {
+			c(
+				self$process_sequence, self$samples, self$other_materials,
+				self$sources
+			)
+		},
+		process_io_path_types = function() {
+			private$process_paths()[[1]] %>%
+				unlist() %>%
+				purrr::map_chr(~get_r6_class(private$combined_process_io()[[.x]]))
 		}
-	)# ,
-	# private = list(
-	# 	id = generate_id()
-	# )
+	)
 )
 
