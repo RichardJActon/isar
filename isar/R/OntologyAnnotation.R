@@ -382,7 +382,8 @@ OntologyAnnotation <- R6::R6Class(
 		to_table = function() {
 			tibble::tibble_row(
 				term = ifelse(
-					self$term == "", NA_character_, self$term
+					self$term == "" || self$term == "Unspecified Term",
+					NA_character_, self$term
 				),
 				accession = ifelse(
 					self$term_accession == "",
