@@ -183,49 +183,10 @@ Process <- R6::R6Class(
 			protocols <- NULL
 
 			# conditional on in/out type ?
-			# ioclass <- x %>% class() %>% `[`(1)
-			# switch(ioclass,"DataFile" = {})
-			# ?
+
 			# split comments row bind
 			# col_bind files / rest
 			# col_bind comments and files/ rest?
-
-			#
-			# getR6class <- function(x) { class(x)[1] }
-			# combine_io_tables <- function(x){
-			# 	switch(
-			# 		getR6class(x[[1]]),
-			# 		"DataFile" = {
-			# 			purrr::map_dfr(x, ~.x$to_table())
-			# 			# tabs <- purrr::map(x, ~.x$to_table())
-			# 			# all_colnames <- tabs %>%
-			# 			# 	purrr::map(colnames) %>% unlist()
-			# 			# dupe_cols <- all_colnames[duplicated(all_colnames)]
-			# 			# names(dupe_cols) <- NULL
-			# 			# dupe_cols <- unique(dupe_cols)
-			# 			# tabs %>%
-			# 			# 	purrr::reduce(\(x, y){
-			# 			# 		dplyr::full_join(x, y, by = dupe_cols)
-			# 			# 	})
-			# 		},
-			# 		"Sample" = {
-			# 			purrr::map_dfr(x, ~.x$to_table())
-			# 		},
-			# 		"Source" = {
-			# 			# source is always already printed in Study$to_table()
-			# 			# so if the inputs are sources return NULL to avoid
-			# 			# duplication
-			# 			# Are there situations where outputs are a source?
-			# 			# if so would need handling
-#
-			# 			# purrr::map_dfr(x, ~.x$to_table())
-			# 			NULL
-			# 		},
-			# 		"Material" = {
-			# 			purrr::map_dfr(x, ~.x$to_table())
-			# 		}
-			# 	)
-			# }
 
 			# if (!any(purrr::map_lgl(self$inputs, is.null))) {
 			# 	inputs <- self$inputs %>% combine_io_tables()
@@ -752,3 +713,75 @@ process_paths <- function(processes) {
 	# do.call("rbind", .)
 }
 
+to_table_by_process_io_type <- function(x) {
+	switch(
+		get_r6_class(x[[1]]),
+		"DataFile" = {
+			# print("DataFile")
+			# purrr::map_dfc(x, ~.x$to_table())
+
+			tabs <- x %>% purrr::set_names(NULL) %>%
+				purrr::map(~.x$to_table())
+
+			# handling duplicate comments
+			comment_tab <- tabs %>%
+				purrr::map(~dplyr::select(
+					.x, dplyr::starts_with("Comment["))
+				) %>%
+				purrr::list_cbind(name_repair = "minimal")
+
+			unique_comments <- comment_tab %>%
+				colnames() %>% unique()
+
+			comment_tab <- comment_tab %>%
+				dplyr::select(dplyr::all_of(unique_comments))
+
+			not_comment_tab <- tabs %>%
+				purrr::map(~dplyr::select(
+					.x, -dplyr::starts_with("Comment[")
+				)) %>%
+				purrr::list_cbind()
+
+			dplyr::bind_cols(
+				not_comment_tab, comment_tab,
+				.name_repair = "minimal"
+			)
+		},
+		"Sample" = {
+			# print("Sample")
+			# x$to_table()
+			x %>%
+				purrr::set_names(NULL) %>%
+				purrr::map(~.x$to_table()) %>%
+				purrr::list_rbind()
+				#purrr::list_cbind(name_repair = "minimal")
+		},
+		"Process" = {
+			# print("Process")
+			# x$to_table()
+			x %>%
+				purrr::set_names(NULL) %>%
+				purrr::map(~.x$to_table()) %>%
+				purrr::list_cbind(name_repair = "minimal")
+		},
+		"Source" = {
+			# source is always already printed in Study$to_table()
+			# ~~ so if the inputs are sources return NULL to avoid
+			# duplication ~~ handle elsewhere
+			# Are there situations where outputs are a source?
+			# if so would need handling
+			# NULL
+
+			x %>%
+				purrr::set_names(NULL) %>%
+				purrr::map(~.x$to_table()) %>%
+				purrr::list_cbind()
+		},
+		"Material" = {
+			# print("Material")
+			x %>%
+				purrr::set_names(NULL) %>%
+				purrr::map(~.x$to_table()) %>%
+				purrr::list_rbind()
+		}
+	)
