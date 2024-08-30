@@ -388,101 +388,24 @@ Assay <- R6::R6Class(
 		# %>% igraph::all_simple_paths(from = "a") %>% purrr::keep(\(x)(all(length(x) > 2)))
 
 		to_table = function() {
+
+		# node types:
+		# sample / assay name
+		# ontology annotation
+		#	- X[type], term source ref, term accession number
+		#	- characteristic, factor value
+		# 	- (optionally) unit special case Unit col is the term, Param Value[type]
+		# process (protocol ref)
+		# factor value
+
+		# source, protocol, sample
+
+		# sample, protocols, extracts, assay/process, data, process/transforms, derived data
+
 		# not add generated from to data files based on process paths
 		# out side of this function
 			# browser()
-			combine_io_tables <- function(x){
-				switch(
-					get_r6_class(x[[1]]),
-					"DataFile" = {
-						# print("DataFile")
-						# purrr::map_dfc(x, ~.x$to_table())
 
-						# comments <- NULL
-						# other <- NULL
-						# tabs <- purrr::map(x, ~{
-						# 	tab <- .x$to_table()
-						# 	other <- c(other, tab %>%
-						# 		dplyr::select(-dplyr::starts_with("Comment[")))
-						# 	comments <- c(other, tab %>%
-						# 		dplyr::select(dplyr::starts_with("Comment[")))
-						# })
-						# #dplyr::bind_cols(other)
-						# purrr::map2(comments, others, ~dplyr::bind_cols(.x)) %>%
-						# 	purrr::list_cbind(name_repair = "minimal")
-
-						# x$to_table()# %>%
-						# 	tidyr::fill(
-						# 		!dplyr::starts_with("Comment["),
-						# 		.direction = "downup"
-						# 	)
-
-						tabs <- x %>% purrr::set_names(NULL) %>% purrr::map(~.x$to_table())
-						comment_tab <- tabs %>% purrr::map(~dplyr::select(.x, dplyr::starts_with("Comment["))) %>% purrr::list_cbind(name_repair = "minimal")
-						unique_comments <- comment_tab %>% colnames() %>% unique()
-						comment_tab <- comment_tab %>% dplyr::select(dplyr::all_of(unique_comments))
-						not_comment_tab <- tabs %>% purrr::map(~dplyr::select(.x, -dplyr::starts_with("Comment["))) %>% purrr::list_cbind()
-						dplyr::bind_cols(comment_tab, not_comment_tab, .name_repair = "minimal")
-
-						# all_colnames <- tabs %>%
-						# 	purrr::map(colnames) %>% unlist()
-						# dupe_cols <- all_colnames[duplicated(all_colnames)]
-						# unique_cols <- all_colnames %>% unique()
-						#names(dupe_cols) <- NULL
-						#dupe_cols <- unique(dupe_cols)
-						# tabs %>%
-						# 	purrr::map(
-						# 		~.x %>%
-						# 			dplyr::select(dplyr::any_of(unique_cols))
-						# 	) %>%
-						# 	purrr::list_cbind()
-						# tabs %>%
-						# 	purrr::reduce(\(x, y){
-						# 		dplyr::left_join(x, y, by = dupe_cols)
-						# 	})
-					},
-					"Sample" = {
-						# print("Sample")
-						# x$to_table()
-						x %>%
-							purrr::set_names(NULL) %>%
-							purrr::map(~.x$to_table()) %>%
-							purrr::list_cbind(name_repair = "minimal")
-					},
-					"Process" = {
-						# print("Process")
-						# x$to_table()
-						x %>%
-							purrr::set_names(NULL) %>%
-							purrr::map(~.x$to_table()) %>%
-							purrr::list_cbind(name_repair = "minimal")
-					},
-					"Source" = {
-						# source is always already printed in Study$to_table()
-						# so if the inputs are sources return NULL to avoid
-						# duplication
-						# Are there situations where outputs are a source?
-						# if so would need handling
-
-						# purrr::map_dfr(x, ~.x$to_table())
-						NULL
-					},
-					"Material" = {
-						# print("Material")
-						x %>%
-							purrr::set_names(NULL) %>%
-							purrr::map(~.x$to_table()) %>%
-							purrr::list_rbind()
-						# 	tidyr::fill(
-						# 		!dplyr::starts_with("Comment["),
-						# 		.direction = "downup"
-						# 	)
-					}
-				)
-			}
-
-			process_paths <- private$process_paths()
-			combined_proc_io <- private$combined_process_io()
 			# process_paths[[1]] %>% purrr::discard(\(x){length(x) > 1}) %>% purrr::map(~.x %>% purrr::map(~combine_io_tables(combined_proc_io[[.x]])))
 
 			# proteome testing
@@ -494,11 +417,15 @@ Assay <- R6::R6Class(
 
 			# factor value rate and non-pooled samples are together.
 
-
-			process_paths %>%
+			private$process_paths() %>%
 				purrr::map(
 					~.x %>%
-						purrr::map(~combine_io_tables(combined_proc_io[.x])) %>%
+						purrr::discard(~all(is.null(.x))) %>%
+						purrr::map(
+							~to_table_by_process_io_type(
+								private$combined_process_io()[.x]
+							)
+						) %>%
 						purrr::list_cbind(name_repair = "minimal")
 				) %>% do.call("rbind", .)
 				# %>% purrr::list_rbind()
@@ -509,36 +436,6 @@ Assay <- R6::R6Class(
 			# 	purrr::set_names() %>%
 			# 	purrr::map(~combine_io_tables(combined_proc_io[[.x]]))
 			# 	# purrr::map(~combined_proc_io[[.x]]$to_table())
-#
-			# process_path_grids <- process_paths %>%
-			# 	purrr::map(
-			# 		~.x %>%
-			# 			purrr::set_names(paste0("X", seq_along(.))) %>%
-			# 			expand.grid()
-			# 	) #%>%
-			# 	#do.call("rbind", .)
-#
-			# tab_grid <- process_path_grids %>%
-			# 	purrr::imap(
-			# 		~.x %>% purrr::map(~{
-			# 			# name repair cannot be unset in dplyr::bind_rows
-			# 			rbind(unique_proc_io_tables[as.character(.x)])
-			# 		}) %>%
-			# 		purrr::set_names(.y) %>%
-			# 		do.call("cbind", .)
-			# 	) # %>%
-			# 	# purrr::list_cbind(name_repair = "minimal")
-#
-			# process_paths %>%
-			# 	purrr::map(~{
-			# 		.x %>%
-			# 			purrr::map(~{
-			# 				# combined_proc_io[.x] %>% purrr::map(~.x$to_table())
-			# 				combined_proc_io[.x] %>% combine_io_tables()
-			# 			}) %>%
-			# 			purrr::list_cbind(name_repair = "minimal")
-			# 	}) %>%
-			# 	purrr::list_rbind()
 
 			# self$samples %>%
 			# 	purrr::set_names(NULL) %>%
@@ -552,26 +449,6 @@ Assay <- R6::R6Class(
 			# 			purrr::list_cbind()
 			# 	}) %>%
 			# 	purrr::list_rbind()
-#
-			# process_sequence_tables <- self$process_sequence %>%
-			# 	purrr::map(~.x$to_table())
-			# process_order <- process_order(self$process_sequence)
-#
-			# # iterate the other way? by row if process_order is a matrix
-			# processess <- process_order %>%
-			# 	purrr::map(~{
-			# 		process_sequence_tables[.x] %>% dplyr::bind_rows()
-			# 	}) %>%
-			# 	purrr::list_cbind()
-			# 	# purrr::reduce(\(x, y) dplyr::left_join(x, y, by = "Assay Name"))
-#
-			# # processess <- process_order %>%
-			# # 	purrr::map(~{
-			# # 		process_sequence_tables[.x] %>% dplyr::bind_rows() %>%
-			# # 			dplyr::bind_cols(samples, .)
-			# # 	}) %>%
-			# # 	purrr::reduce(\(x, y) dplyr::left_join(x, y, by = "Sample Name"))
-			# 	# purrr::list_cbind()
 #
 			# dplyr::bind_cols(characteristics, processess)
 			# # dplyr::left_join(characteristics, processess, by = "Sample Name")
