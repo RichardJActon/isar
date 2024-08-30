@@ -602,7 +602,6 @@ Assay <- R6::R6Class(
 			}
 
 			if (!checkmate::test_list(lst[["unitCategories"]], len = 0)) {
-				#browser()
 				self$unit_references$from_list(
 					lst[["unitCategories"]], source = self$`@id`,
 					add = TRUE#,
@@ -632,7 +631,8 @@ Assay <- R6::R6Class(
 			self$technology_type$from_list(
 				lst[["technologyType"]], recursive = recursive, json = json
 			)
-			#self$data_files <- lst[["dataFiles"]]
+			# see below for assignment generated_from values for data files
+			# must occur after processes have been processed
 			self$data_files <-
 				lst[["dataFiles"]] %>%
 				purrr::set_names(purrr::map_chr(., ~.x$`@id`)) %>%
@@ -664,10 +664,6 @@ Assay <- R6::R6Class(
 			lst[["materials"]][["samples"]] %>%
 				purrr::map_chr(~.x$`@id`) %>%
 				self$set_samples_by_id()
-
-			# process_sequence_order <- process_sequence_order_from_json(
-			# 	lst[["processSequence"]]
-			# )
 
 			self$process_sequence <- lst[["processSequence"]] %>%
 				purrr::set_names(purrr::map_chr(., ~.x$`@id`)) %>%
