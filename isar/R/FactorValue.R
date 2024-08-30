@@ -284,7 +284,7 @@ FactorValue <- R6::R6Class(
 						lst[["value"]], recursive = recursive, json = json
 					)
 				} else {
-					self$value <- lst[["value"]]
+					self$value <- lst[["value"]] %>% as.numeric()
 				}
 				self$set_comments(lst[["comments"]])
 			} else {
