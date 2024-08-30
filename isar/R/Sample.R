@@ -146,8 +146,8 @@ Sample <- R6::R6Class(
 			# lst[["name"]] <- self$name
 			lst[["name"]] <- private$raw_name
 			lst[["factorValues"]] <- self$factor_values %>%
-				purrr::map(~.x$to_list()) %>%
-				purrr::set_names(NULL)
+				purrr::map(~.x$to_list()) # %>%
+				# purrr::set_names(NULL)
 			lst[["characteristics"]] <- purrr::map(
 				self$characteristics, ~.x$to_list()
 			)
@@ -164,13 +164,25 @@ Sample <- R6::R6Class(
 						purrr::set_names(paste0("Comment[", .x$name, "]"))
 				})
 			}
-			factors <- self$factor_values %>%
-				purrr::map(~.x$to_table()) %>%
-				purrr::set_names(NULL)
-			if(checkmate::test_list(factors, len = 0)) {
+
+			# factors <- self$factor_values %>%
+			# 	purrr::map(~.x$to_table())
+
+			if(checkmate::test_list(
+				self$factor_values, len = 0, null.ok = TRUE
+			)) {
 				factors <- NULL
 			} else {
-				factors <- factors %>% purrr::list_cbind()
+				# factors <- factors %>% purrr::list_cbind()
+				factor_categories <- self$factor_values %>%
+					purrr::map_chr(~.x$`@id`)
+				unique_factor_categories <- unique(factor_categories)
+				factors <- unique_factor_categories %>% purrr::map(~{
+					# factor_categories[factor_categories == .x]
+					self$factor_values[which(factor_categories == .x)] %>%
+						purrr::map(~.x$to_table()) %>%
+						purrr::list_rbind()
+				}) %>% purrr::list_cbind()
 			}
 			dplyr::bind_cols(
 				comments,
@@ -240,8 +252,8 @@ Sample <- R6::R6Class(
 					)
 					fv$from_list(.x, recursive = recursive, json = json)
 					fv
-				}) %>%
-				purrr::set_names(purrr::map_chr(., ~.x$`@id`))
+				}) # %>%
+				# purrr::set_names(purrr::map_chr(., ~.x$`@id`))
 
 
 			if (is.null(self$category_references)) {
