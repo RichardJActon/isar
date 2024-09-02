@@ -217,10 +217,8 @@ Characteristic <- R6::R6Class(
 			self$value$to_table() %>% purrr::set_names(
 				paste0("Characteristics[", self$category$type$term, "]"),
 				# not conformant with usual output for unique colnames!
-				paste0("Term Accession Number[", self$category$type$term, "]"),
-				paste0("Term Source REF[", self$category$type$term, "]")
-				# "Term Source REF",
-				# "Term Accession Number"
+				paste0("Term Source REF[", self$category$type$term, "]"),
+				paste0("Term Accession Number[", self$category$type$term, "]")
 			)
 		},
 
