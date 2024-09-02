@@ -46,6 +46,7 @@ OntologySource <- R6::R6Class(
 		comments = NULL,
 		explicitly_provided = logical(),
 		source = character(),
+		isa_process_type = NULL,
 		#' @details
 		#'
 		#' Create a new [OntologySource] object to act as source for ontology terms
@@ -75,7 +76,8 @@ OntologySource <- R6::R6Class(
 			terms_list = NULL,
 			comments = NULL,
 			explicitly_provided = logical(),
-			source = character()
+			source = character(),
+			isa_process_type = NULL
 		) {
 			if (checkmate::qtest(name, "S[0]")) { self$name <- name } else {
 				self$set_name(name)
@@ -144,6 +146,7 @@ OntologySource <- R6::R6Class(
 
 			self$explicitly_provided <- explicitly_provided
 			self$source <- source
+			self$set_isa_process_type(isa_process_type)
 		},
 		#' @details
 		#' Check if the name of the [OntologySource] is a string
@@ -310,6 +313,9 @@ OntologySource <- R6::R6Class(
 			return(ontology_source_ref)
 		},
 
+		set_isa_process_type = function(x) {
+			self$isa_process_type <- assert_enum(x, valid_isa_process_types)
+		},
 		#' @details
 		#'
 		#' Make [OntologySource] from list
@@ -325,6 +331,7 @@ OntologySource <- R6::R6Class(
 				self$version = lst[["version"]]
 				self$description = lst[["description"]]
 				self$comments = lst[["comments"]]
+				self$set_isa_process_type(lst[["isaProcessType"]])
 			} else {
 				self$name = lst[["name"]]
 				self$file = lst[["file"]]

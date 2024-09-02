@@ -148,6 +148,10 @@ test_that("a_proteome.txt can be generated from BII-I-1.json", {
 		test_file_paths[["a_proteome"]],
 		name_repair = "unique_quiet", show_col_types = FALSE
 	)
+	stab <- readr::read_tsv(
+		test_file_paths[["a_transcriptome"]],
+		name_repair = "unique_quiet", show_col_types = FALSE
+	)
 	# ttab <- readr::read_tsv(
 	# 	test_output,
 	# 	name_repair = "unique_quiet", show_col_types = FALSE
@@ -181,7 +185,121 @@ test_that("a_proteome.txt can be generated from BII-I-1.json", {
 # Remedy? - alter the json to reflect this, would be good to test multiple
 # characteristics as that's a more complex case than the single characteristic
 # if I remove the extra lines from the table
+#
+# Sample Factor values even if they contain an explicit null value
+# are missing a connection to material characteristics which map to these
+# factor value levels so that they can be correctly connected.
+# not all combinations of material characteristics and study factors
+# necessarily exist a relationship must be specified to generate a correct table
 
 category <- BII_I_1_jsonlite$studies[[1]]$assays[[1]]$materials$otherMaterials[[17]]$characteristics[[1]]
 category$value$annotationValue <- "iTRAQ reagent 114"
 BII_I_1_jsonlite$studies[[1]]$assays[[1]]$materials$otherMaterials[[17]]$characteristics[[2]] <- category
+
+# Explicitly empty factor Values?
+# handling of multiple values for the same factor ...
+BII_I_1_jsonlite$studies[[1]]$materials$samples[[1]]$factorValues[[3]] <-
+list(
+	category = list(`@id` = "#factor/limiting_nutrient"),
+	value = list(
+		annotationValue = "",
+		termAccession = "",
+		termSource = ""
+	)
+)
+BII_I_1_jsonlite$studies[[1]]$materials$samples[[1]]$factorValues[[4]] <-
+	list(
+		category = list(`@id` = "#factor/rate"),
+		value = "",
+		unit = list(`@id` = "#Unit/l/hour")
+	)
+
+# undefined mechanism for determining Assay, Data Transformation and Normalisation
+# it would make sense that these be defined based on the protocol type
+# there are 3 processes with undefined protocols in the proteomics example
+# You also need somewhere to define which protocol types count as each of these categories
+# a more challenging thing to fit into the existing spec
+# a reasonable seeming place to do this is in ontology source references
+# add a flag to ontology sources indicating if they are considered a transform,normalisation,or assay
+# and this can be used to check if a protocol is of a type that gets special column headings
+BII_I_1_jsonlite$studies[[1]]$protocols <- c(
+	BII_I_1_jsonlite$studies[[1]]$protocols, list(
+	list(
+		parameters = list(),
+		components = list(),
+		uri = "",
+		description = "",
+		version = "",
+		`@id` = "#protocol/assay",
+		name = "assay",
+		protocolType = list(
+			annotationValue = "Mass Spec",
+			termSource = "OAT"
+		)
+	),
+	list(
+		parameters = list(),
+		components = list(),
+		uri = "",
+		description = "",
+		version = "",
+		`@id` = "#protocol/transformation",
+		name = "transformation",
+		protocolType = list(
+			annotationValue = "transform",
+			termSource = "ODT"
+		)
+	),
+	list(
+		parameters = list(),
+		components = list(),
+		uri = "",
+		description = "",
+		version = "",
+		`@id` = "#protocol/normalization",
+		name = "normalization",
+		protocolType = list(
+			annotationValue = "normalize",
+			termSource = "ONM"
+		)
+	))
+)
+BII_I_1_jsonlite$ontologySourceReferences <- c(
+	BII_I_1_jsonlite$ontologySourceReferences,
+	list(
+		list(
+			file = "",
+			name = "OAT",
+			description = "Ontology of Assay Types",
+			version = "0.0.0-9000",
+			isaProcessType = "Normalization"
+		),
+		list(
+			file = "",
+			name = "ODT",
+			description = "Ontology of Data Transformations",
+			version = "0.0.0-9000",
+			isaProcessType = "Data Transformation"
+		),
+		list(
+			file = "",
+			name = "ONM",
+			description = "Ontology of Normalisation Methods",
+			version = "0.0.0-9000",
+			isaProcessType = "Normalization"
+		)
+	)
+)
+# list(transformations = list(), normalisations = list(), assays = list())
+
+# Technology type special cases
+# these are a problem they do not generalise
+# a spec is needed to provide a generalised way of describing constraints
+# also tech type should clearly be an ontology annotation
+
+# data file types:
+# Image File, Raw Data File, Derived Data File
+# appear to have a specific meaning but this is a free text field.
+
+# extract and labeled extract - appear to just specific cases of characteristics
+# unclear justification for special treatment.

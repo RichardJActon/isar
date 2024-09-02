@@ -347,3 +347,134 @@ get_r6_class <- function(x) {
 		stop("x is not and R6 object!")
 	}
 }
+
+#
+# enum <- function(...) {
+#
+# 	values <- sapply(match.call(expand.dots = TRUE)[-1L], deparse)
+#
+# 	stopifnot(identical(unique(values), values))
+#
+# 	res <- setNames(seq_along(values), values)
+# 	res <- as.environment(as.list(res))
+# 	lockEnvironment(res, bindings = TRUE)
+# 	res
+# }
+#
+# test_enum <- function(value, enum) {if(!value %in% names(enum)){
+# 	stop(
+# 		value, " is not in the list of permitted values: ",
+# 		paste0(names(enum), collapse = ", ")
+# 	)
+# }}
+
+# no name requirement - not an enum per se but can be use to
+# define a set of arbitrary permitted values
+# unnamed_enum <- function(lst) {
+# 	lst <- list(...)
+# 	nameless <- lst
+# 	setNames(nameless, NULL)
+# 	stopifnot(
+# 		identical(unique(lst), nameless) &&
+# 			identical(unique(names(lst)), names(lst))
+# 	)
+# 	res <- rlang::env(values = lst)
+# 	lockEnvironment(res, bindings = TRUE)
+# 	res
+# }
+#
+# check_unnamed_enum <- function(value, unnamed_enum) {
+# 	flag <- new.env()
+# 	for(i in enum$values) { if(identical(value, i)){ flag <- value } }
+# 	if(identical(flag, value)) {
+# 		return(TRUE)
+# 	} else {
+# 		paste0(value, " is not in the list of permitted values!")
+# 	}
+# }
+#
+# assert_unnamed_enum <- checkmate::makeAssertionFunction(unnamed_enum)
+# expect_unnamed_enum <- checkmate::makeExpectationFunction(unnamed_enum)
+# test_unnamed_enum <- checkmate::makeTestFunction(unnamed_enum)
+
+# ev <- new.env()
+# x <- enum(list(x=NA,NULL,"","name","nom","nam",list("x"),ev))
+# test_enum("",x)
+# test_enum("x",x)
+# test_enum(list("x"),x)
+# check_enum("",x)
+# check_enum("x",x)
+# check_enum(list(list(x="y")),x)
+# assert_enum(list(list(x="y")),x)
+# assert_enum(list("x"),x)
+# # expect_enum(list(list(x="y")),x)
+# expect_enum(list("x"),x)
+# check_enum(new.env(),x)
+# check_enum(ev,x)
+
+enum <- function(...) {
+	lst <- list(...)
+	nameless <- lst
+	names(nameless) <- NULL
+	stopifnot(
+		identical(unique(lst), nameless) &&
+		identical(unique(names(lst)), names(lst))
+	)
+	res <- as.environment(lst)
+	lockEnvironment(res, bindings = TRUE)
+	res
+}
+
+check_enum <- function(value, enum) {
+	flag <- new.env()
+	for(i in names(enum)) { if(identical(value, enum[[i]])){ flag <- value } }
+	if(identical(flag, value)) {
+		return(TRUE)
+	} else {
+		paste0(value, " is not in the list of permitted values!")
+	}
+}
+
+assert_enum <- checkmate::makeAssertionFunction(check_enum)
+expect_enum <- checkmate::makeExpectationFunction(check_enum)
+test_enum <- checkmate::makeTestFunction(check_enum)
+
+# ev <- new.env()
+# #x <- enum(x=NA,null=NULL,emptystr="")
+# x <- enum(x=NA,null=NULL,emptystr="",q="name",j="nom",n="nam",lst=list("x"),ev=ev)
+# test_enum("",x)
+# test_enum("x",x)
+# test_enum(list("x"),x)
+# check_enum("",x)
+# check_enum("x",x)
+# check_enum(list(list(x="y")),x)
+# assert_enum(list(list(x="y")),x)
+# assert_enum(list("x"),x)
+# # expect_enum(list(list(x="y")),x)
+# expect_enum(list("x"),x)
+# check_enum(new.env(),x)
+# check_enum(ev,x)
+
+assert_enum_reference <- function(value, enum) {
+	flag <- new.env()
+	flag_i <- NULL
+	for(i in names(enum)) {
+		if(identical(value, enum[[i]])) {
+			flag <- value
+			flag_i <- i
+		}
+	}
+	if(identical(flag, value)) {
+		return(flag_i)
+	} else {
+		paste0(value, " is not in the list of permitted values!")
+	}
+}
+
+# assert_enum_reference("",x)
+
+valid_isa_process_types <- enum(
+	`Unspecified` = NULL,
+	`Data Transformation` = "Data Transformation",
+	Normalization = "Normalization"
+)
