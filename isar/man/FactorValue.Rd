@@ -56,7 +56,9 @@ FactorValue$new(
 \item \href{#method-FactorValue-set_comments}{\code{FactorValue$set_comments()}}
 \item \href{#method-FactorValue-add_comment}{\code{FactorValue$add_comment()}}
 \item \href{#method-FactorValue-set_valid_factor_category}{\code{FactorValue$set_valid_factor_category()}}
+\item \href{#method-FactorValue-set_valid_unit}{\code{FactorValue$set_valid_unit()}}
 \item \href{#method-FactorValue-to_list}{\code{FactorValue$to_list()}}
+\item \href{#method-FactorValue-to_table}{\code{FactorValue$to_table()}}
 \item \href{#method-FactorValue-from_list}{\code{FactorValue$from_list()}}
 \item \href{#method-FactorValue-print}{\code{FactorValue$print()}}
 \item \href{#method-FactorValue-clone}{\code{FactorValue$clone()}}
@@ -240,6 +242,15 @@ set an experimental factor of a valid category
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-FactorValue-set_valid_unit"></a>}}
+\if{latex}{\out{\hypertarget{method-FactorValue-set_valid_unit}{}}}
+\subsection{Method \code{set_valid_unit()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{FactorValue$set_valid_unit(lst)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-FactorValue-to_list"></a>}}
 \if{latex}{\out{\hypertarget{method-FactorValue-to_list}{}}}
 \subsection{Method \code{to_list()}}{
@@ -256,6 +267,15 @@ set an experimental factor of a valid category
 }
 \subsection{Details}{
 generate an R list representation translatable to JSON
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-FactorValue-to_table"></a>}}
+\if{latex}{\out{\hypertarget{method-FactorValue-to_table}{}}}
+\subsection{Method \code{to_table()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{FactorValue$to_table()}\if{html}{\out{</div>}}
 }
 
 }

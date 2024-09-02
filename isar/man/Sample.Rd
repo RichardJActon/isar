@@ -46,8 +46,10 @@ Sample$new()
 \item \href{#method-Sample-check_factor_values}{\code{Sample$check_factor_values()}}
 \item \href{#method-Sample-set_factor_values}{\code{Sample$set_factor_values()}}
 \item \href{#method-Sample-to_list}{\code{Sample$to_list()}}
+\item \href{#method-Sample-to_table}{\code{Sample$to_table()}}
 \item \href{#method-Sample-check_source}{\code{Sample$check_source()}}
 \item \href{#method-Sample-set_source}{\code{Sample$set_source()}}
+\item \href{#method-Sample-update_characteristics}{\code{Sample$update_characteristics()}}
 \item \href{#method-Sample-from_list}{\code{Sample$from_list()}}
 \item \href{#method-Sample-print}{\code{Sample$print()}}
 \item \href{#method-Sample-clone}{\code{Sample$clone()}}
@@ -61,6 +63,7 @@ Sample$new()
 \if{html}{\out{<div class="r">}}\preformatted{Sample$new(
   name = character(),
   factor_values = NULL,
+  study_factor_references = NULL,
   characteristics = NULL,
   derives_from = NULL,
   comments = NULL,
@@ -173,6 +176,15 @@ generate an R list representation translatable to JSON
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Sample-to_table"></a>}}
+\if{latex}{\out{\hypertarget{method-Sample-to_table}{}}}
+\subsection{Method \code{to_table()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Sample$to_table()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Sample-check_source"></a>}}
 \if{latex}{\out{\hypertarget{method-Sample-check_source}{}}}
 \subsection{Method \code{check_source()}}{
@@ -209,6 +221,15 @@ Checks that source is listed in the provided list of sources
 }
 \subsection{Details}{
 Sets a source if that source is listed in the provided list of sources
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Sample-update_characteristics"></a>}}
+\if{latex}{\out{\hypertarget{method-Sample-update_characteristics}{}}}
+\subsection{Method \code{update_characteristics()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Sample$update_characteristics()}\if{html}{\out{</div>}}
 }
 
 }

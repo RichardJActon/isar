@@ -4,7 +4,13 @@
 \alias{expect_empty}
 \title{expect_empty}
 \usage{
-expect_empty(x, mode, null.ok = FALSE, info = NULL, label = vname(x))
+expect_empty(
+  x,
+  mode = typeof(x),
+  null.ok = FALSE,
+  info = NULL,
+  label = vname(x)
+)
 }
 \arguments{
 \item{x}{object to check}

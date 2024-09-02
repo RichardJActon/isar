@@ -66,8 +66,13 @@ experimental workflow described by a particular protocol.
 \item \href{#method-Assay-set_samples}{\code{Assay$set_samples()}}
 \item \href{#method-Assay-set_samples_by_id}{\code{Assay$set_samples_by_id()}}
 \item \href{#method-Assay-to_list}{\code{Assay$to_list()}}
+\item \href{#method-Assay-header_table}{\code{Assay$header_table()}}
+\item \href{#method-Assay-to_table}{\code{Assay$to_table()}}
 \item \href{#method-Assay-from_list}{\code{Assay$from_list()}}
 \item \href{#method-Assay-print}{\code{Assay$print()}}
+\item \href{#method-Assay-get_process_order}{\code{Assay$get_process_order()}}
+\item \href{#method-Assay-get_process_paths}{\code{Assay$get_process_paths()}}
+\item \href{#method-Assay-get_process_io_paths}{\code{Assay$get_process_io_paths()}}
 \item \href{#method-Assay-clone}{\code{Assay$clone()}}
 }
 }
@@ -394,7 +399,7 @@ Check that all samples are \link{Sample} objects
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Check that all sample ids reference on of the supplied sample objects
+Check that all sample ids reference one of the supplied sample objects
 }
 
 }
@@ -448,6 +453,24 @@ make an R list convertible to json
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Assay-header_table"></a>}}
+\if{latex}{\out{\hypertarget{method-Assay-header_table}{}}}
+\subsection{Method \code{header_table()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Assay$header_table()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Assay-to_table"></a>}}
+\if{latex}{\out{\hypertarget{method-Assay-to_table}{}}}
+\subsection{Method \code{to_table()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Assay$to_table()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Assay-from_list"></a>}}
 \if{latex}{\out{\hypertarget{method-Assay-from_list}{}}}
 \subsection{Method \code{from_list()}}{
@@ -481,6 +504,33 @@ Make \link{Assay} from list
 
 \subsection{Details}{
 Pretty prints \link{Assay} objects
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Assay-get_process_order"></a>}}
+\if{latex}{\out{\hypertarget{method-Assay-get_process_order}{}}}
+\subsection{Method \code{get_process_order()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Assay$get_process_order()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Assay-get_process_paths"></a>}}
+\if{latex}{\out{\hypertarget{method-Assay-get_process_paths}{}}}
+\subsection{Method \code{get_process_paths()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Assay$get_process_paths()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Assay-get_process_io_paths"></a>}}
+\if{latex}{\out{\hypertarget{method-Assay-get_process_io_paths}{}}}
+\subsection{Method \code{get_process_io_paths()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Assay$get_process_io_paths()}\if{html}{\out{</div>}}
 }
 
 }

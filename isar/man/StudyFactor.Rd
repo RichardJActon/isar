@@ -8,14 +8,6 @@ A \link{StudyFactor} corresponds to an independent variable manipulated by the
 experimentalist with the intention to affect biological systems in a way
 that can be measured by an assay.
 }
-\examples{
-
-## ------------------------------------------------
-## Method `StudyFactor$to_list`
-## ------------------------------------------------
-
-StudyFactor$new()
-}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -33,6 +25,13 @@ StudyFactor$new()
 }
 \if{html}{\out{</div>}}
 }
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
+\describe{
+\item{\code{explicitly_provided}}{Explicitly listed in the study as a factor (logical)}
+}
+\if{html}{\out{</div>}}
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
@@ -42,6 +41,7 @@ StudyFactor$new()
 \item \href{#method-StudyFactor-check_comments}{\code{StudyFactor$check_comments()}}
 \item \href{#method-StudyFactor-set_comments}{\code{StudyFactor$set_comments()}}
 \item \href{#method-StudyFactor-add_comment}{\code{StudyFactor$add_comment()}}
+\item \href{#method-StudyFactor-to_table}{\code{StudyFactor$to_table()}}
 \item \href{#method-StudyFactor-to_list}{\code{StudyFactor$to_list()}}
 \item \href{#method-StudyFactor-from_list}{\code{StudyFactor$from_list()}}
 \item \href{#method-StudyFactor-print}{\code{StudyFactor$print()}}
@@ -58,7 +58,7 @@ StudyFactor$new()
   factor_type = NULL,
   comments = NULL,
   `@id` = character(),
-  explicitly_provided = logical(),
+  origin = character(),
   ontology_source_references = NULL
 )}\if{html}{\out{</div>}}
 }
@@ -74,7 +74,8 @@ StudyFactor$new()
 
 \item{\code{@id}}{identifier}
 
-\item{\code{explicitly_provided}}{Explicitly listed in the study as a factor (logical)}
+\item{\code{origin}}{@id of the object of origin for the factor in case it
+is not explicitly listed in the study as a factor (logical)}
 
 \item{\code{ontology_source_references}}{\link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor.}
 }
@@ -186,32 +187,29 @@ Add comment if it is in a valid format
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-StudyFactor-to_table"></a>}}
+\if{latex}{\out{\hypertarget{method-StudyFactor-to_table}{}}}
+\subsection{Method \code{to_table()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{StudyFactor$to_table()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-StudyFactor-to_list"></a>}}
 \if{latex}{\out{\hypertarget{method-StudyFactor-to_list}{}}}
 \subsection{Method \code{to_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{StudyFactor$to_list(ld = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{StudyFactor$to_list()}\if{html}{\out{</div>}}
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{ld}}{logical json-ld}
-}
-\if{html}{\out{</div>}}
-}
 \subsection{Details}{
 generate an R list representation translatable to JSON
 }
 
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{StudyFactor$new()
+\subsection{Returns}{
+a list
 }
-\if{html}{\out{</div>}}
-
-}
-
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-StudyFactor-from_list"></a>}}

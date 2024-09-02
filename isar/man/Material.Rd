@@ -42,6 +42,7 @@ R6 object to represent Materials
 \item \href{#method-Material-check_comments}{\code{Material$check_comments()}}
 \item \href{#method-Material-set_comments}{\code{Material$set_comments()}}
 \item \href{#method-Material-add_comment}{\code{Material$add_comment()}}
+\item \href{#method-Material-to_table}{\code{Material$to_table()}}
 \item \href{#method-Material-to_list}{\code{Material$to_list()}}
 \item \href{#method-Material-from_list}{\code{Material$from_list()}}
 \item \href{#method-Material-set_id}{\code{Material$set_id()}}
@@ -269,6 +270,15 @@ Sets comments if they are in a valid format
 }
 \subsection{Details}{
 Add comment if it is in a valid format
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Material-to_table"></a>}}
+\if{latex}{\out{\hypertarget{method-Material-to_table}{}}}
+\subsection{Method \code{to_table()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Material$to_table()}\if{html}{\out{</div>}}
 }
 
 }

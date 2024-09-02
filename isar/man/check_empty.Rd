@@ -4,12 +4,12 @@
 \alias{check_empty}
 \title{check_empty}
 \usage{
-check_empty(x, mode, null.ok = FALSE)
+check_empty(x, mode = typeof(x), null.ok = FALSE)
 }
 \arguments{
 \item{x}{object to check}
 
-\item{mode}{vector mode}
+\item{mode}{vector mode, defaults to the type of the vector}
 
 \item{null.ok}{allow NULL to be valid}
 }

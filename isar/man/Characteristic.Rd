@@ -42,6 +42,7 @@ A Characteristic acts as a qualifying property to a material object.
 \item \href{#method-Characteristic-add_comment}{\code{Characteristic$add_comment()}}
 \item \href{#method-Characteristic-set_valid_category}{\code{Characteristic$set_valid_category()}}
 \item \href{#method-Characteristic-set_valid_unit}{\code{Characteristic$set_valid_unit()}}
+\item \href{#method-Characteristic-to_table}{\code{Characteristic$to_table()}}
 \item \href{#method-Characteristic-to_list}{\code{Characteristic$to_list()}}
 \item \href{#method-Characteristic-from_list}{\code{Characteristic$from_list()}}
 \item \href{#method-Characteristic-print}{\code{Characteristic$print()}}
@@ -312,6 +313,15 @@ Set a category and check that it is valid
 }
 \subsection{Details}{
 Set the unit as a valid ontology term
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Characteristic-to_table"></a>}}
+\if{latex}{\out{\hypertarget{method-Characteristic-to_table}{}}}
+\subsection{Method \code{to_table()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$to_table()}\if{html}{\out{</div>}}
 }
 
 }

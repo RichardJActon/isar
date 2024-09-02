@@ -57,6 +57,8 @@ Roles reported here need not correspond to roles held withing their affiliated o
 \item \href{#method-Person-check_comments}{\code{Person$check_comments()}}
 \item \href{#method-Person-set_comments}{\code{Person$set_comments()}}
 \item \href{#method-Person-add_comment}{\code{Person$add_comment()}}
+\item \href{#method-Person-header_table}{\code{Person$header_table()}}
+\item \href{#method-Person-to_table}{\code{Person$to_table()}}
 \item \href{#method-Person-to_list}{\code{Person$to_list()}}
 \item \href{#method-Person-from_list}{\code{Person$from_list()}}
 \item \href{#method-Person-get_full_name}{\code{Person$get_full_name()}}
@@ -263,6 +265,24 @@ Sets comments if they are in a valid format
 }
 \subsection{Details}{
 Add comment if it is in a valid format
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Person-header_table"></a>}}
+\if{latex}{\out{\hypertarget{method-Person-header_table}{}}}
+\subsection{Method \code{header_table()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Person$header_table(prefix = "")}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Person-to_table"></a>}}
+\if{latex}{\out{\hypertarget{method-Person-to_table}{}}}
+\subsection{Method \code{to_table()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Person$to_table()}\if{html}{\out{</div>}}
 }
 
 }

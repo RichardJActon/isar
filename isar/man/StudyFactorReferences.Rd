@@ -11,7 +11,7 @@ R6 Class for StudyFactorReferences
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{study_factor_references}}{an \link{StudyFactorReferences} object}
+\item{\code{study_factor_references}}{a list \link{StudyFactor} objects}
 
 \item{\code{ontology_source_references}}{\link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor}
 
@@ -25,6 +25,7 @@ R6 Class for StudyFactorReferences
 \item \href{#method-StudyFactorReferences-new}{\code{StudyFactorReferences$new()}}
 \item \href{#method-StudyFactorReferences-check_study_factors}{\code{StudyFactorReferences$check_study_factors()}}
 \item \href{#method-StudyFactorReferences-add_study_factors}{\code{StudyFactorReferences$add_study_factors()}}
+\item \href{#method-StudyFactorReferences-header_table}{\code{StudyFactorReferences$header_table()}}
 \item \href{#method-StudyFactorReferences-to_list}{\code{StudyFactorReferences$to_list()}}
 \item \href{#method-StudyFactorReferences-from_list}{\code{StudyFactorReferences$from_list()}}
 \item \href{#method-StudyFactorReferences-get_study_factor_names}{\code{StudyFactorReferences$get_study_factor_names()}}
@@ -48,7 +49,7 @@ R6 Class for StudyFactorReferences
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{study_factor_references}}{an \link{StudyFactorReferences} object}
+\item{\code{study_factor_references}}{a list \link{StudyFactor} objects}
 
 \item{\code{ontology_source_references}}{\link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor}
 
@@ -98,6 +99,15 @@ Add new study factors to the study factor reference
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-StudyFactorReferences-header_table"></a>}}
+\if{latex}{\out{\hypertarget{method-StudyFactorReferences-header_table}{}}}
+\subsection{Method \code{header_table()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{StudyFactorReferences$header_table()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-StudyFactorReferences-to_list"></a>}}
 \if{latex}{\out{\hypertarget{method-StudyFactorReferences-to_list}{}}}
 \subsection{Method \code{to_list()}}{
@@ -122,7 +132,7 @@ Generate an R list representation of a \link{StudyFactorReferences} object
 \if{latex}{\out{\hypertarget{method-StudyFactorReferences-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{StudyFactorReferences$from_list(lst, explicitly_provided = logical())}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{StudyFactorReferences$from_list(lst, origin = NA)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

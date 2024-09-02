@@ -64,9 +64,7 @@ study is the central unit, containing information on the subject under study, it
 \item \href{#method-Study-set_title}{\code{Study$set_title()}}
 \item \href{#method-Study-check_description}{\code{Study$check_description()}}
 \item \href{#method-Study-set_description}{\code{Study$set_description()}}
-\item \href{#method-Study-check_public_release_date}{\code{Study$check_public_release_date()}}
 \item \href{#method-Study-set_public_release_date}{\code{Study$set_public_release_date()}}
-\item \href{#method-Study-check_submission_date}{\code{Study$check_submission_date()}}
 \item \href{#method-Study-set_submission_date}{\code{Study$set_submission_date()}}
 \item \href{#method-Study-check_contacts}{\code{Study$check_contacts()}}
 \item \href{#method-Study-check_publications}{\code{Study$check_publications()}}
@@ -75,9 +73,23 @@ study is the central unit, containing information on the subject under study, it
 \item \href{#method-Study-check_comments}{\code{Study$check_comments()}}
 \item \href{#method-Study-set_comments}{\code{Study$set_comments()}}
 \item \href{#method-Study-add_comment}{\code{Study$add_comment()}}
+\item \href{#method-Study-get_sample_ids}{\code{Study$get_sample_ids()}}
+\item \href{#method-Study-get_source_ids}{\code{Study$get_source_ids()}}
+\item \href{#method-Study-get_process_ids}{\code{Study$get_process_ids()}}
+\item \href{#method-Study-get_sample_names}{\code{Study$get_sample_names()}}
+\item \href{#method-Study-get_unused_samples}{\code{Study$get_unused_samples()}}
+\item \href{#method-Study-check_for_unused_samples}{\code{Study$check_for_unused_samples()}}
+\item \href{#method-Study-get_source_names}{\code{Study$get_source_names()}}
+\item \href{#method-Study-get_process_names}{\code{Study$get_process_names()}}
+\item \href{#method-Study-header_table}{\code{Study$header_table()}}
+\item \href{#method-Study-to_table}{\code{Study$to_table()}}
+\item \href{#method-Study-cat_table}{\code{Study$cat_table()}}
 \item \href{#method-Study-to_list}{\code{Study$to_list()}}
 \item \href{#method-Study-from_list}{\code{Study$from_list()}}
 \item \href{#method-Study-print}{\code{Study$print()}}
+\item \href{#method-Study-get_process_order}{\code{Study$get_process_order()}}
+\item \href{#method-Study-get_process_paths}{\code{Study$get_process_paths()}}
+\item \href{#method-Study-get_process_io_paths}{\code{Study$get_process_io_paths()}}
 \item \href{#method-Study-clone}{\code{Study$clone()}}
 }
 }
@@ -94,8 +106,8 @@ study is the central unit, containing information on the subject under study, it
   description = character(),
   submission_date = NULL,
   public_release_date = NULL,
-  contacts = NULL,
   design_descriptors = NULL,
+  contacts = NULL,
   publications = NULL,
   factors = NULL,
   protocols = NULL,
@@ -128,9 +140,9 @@ study is the central unit, containing information on the subject under study, it
 
 \item{\code{public_release_date}}{The date on which the study should be released publicly. This should be ISO8601 formatted.}
 
-\item{\code{contacts}}{A list of People/contacts associated with the Study.}
-
 \item{\code{design_descriptors}}{Classifications of the study based on the overall experimental design.}
+
+\item{\code{contacts}}{A list of People/contacts associated with the Study.}
 
 \item{\code{publications}}{A list of Publications associated with the Study.}
 
@@ -244,31 +256,11 @@ set the description of the study if valid
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Study-check_public_release_date"></a>}}
-\if{latex}{\out{\hypertarget{method-Study-check_public_release_date}{}}}
-\subsection{Method \code{check_public_release_date()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Study$check_public_release_date(public_release_date)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{public_release_date}}{a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-Check public_release_date is a Date object
-}
-
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Study-set_public_release_date"></a>}}
 \if{latex}{\out{\hypertarget{method-Study-set_public_release_date}{}}}
 \subsection{Method \code{set_public_release_date()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Study$set_public_release_date(public_release_date)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Study$set_public_release_date(public_release_date, null.ok = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -284,31 +276,11 @@ Set public_release_date to a Date object
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Study-check_submission_date"></a>}}
-\if{latex}{\out{\hypertarget{method-Study-check_submission_date}{}}}
-\subsection{Method \code{check_submission_date()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Study$check_submission_date(submission_date)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{submission_date}}{a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-Check submission_date is a Date object
-}
-
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Study-set_submission_date"></a>}}
 \if{latex}{\out{\hypertarget{method-Study-set_submission_date}{}}}
 \subsection{Method \code{set_submission_date()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Study$set_submission_date(submission_date)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Study$set_submission_date(submission_date, null.ok = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -464,6 +436,147 @@ Add comment if it is in a valid format
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Study-get_sample_ids"></a>}}
+\if{latex}{\out{\hypertarget{method-Study-get_sample_ids}{}}}
+\subsection{Method \code{get_sample_ids()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Study$get_sample_ids()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+get the ids of \link{Sample}s
+}
+
+\subsection{Returns}{
+character vector of sample IDs
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Study-get_source_ids"></a>}}
+\if{latex}{\out{\hypertarget{method-Study-get_source_ids}{}}}
+\subsection{Method \code{get_source_ids()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Study$get_source_ids()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+get the ids of \link{Source}s
+}
+
+\subsection{Returns}{
+character vector of sources IDs
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Study-get_process_ids"></a>}}
+\if{latex}{\out{\hypertarget{method-Study-get_process_ids}{}}}
+\subsection{Method \code{get_process_ids()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Study$get_process_ids()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+get the ids of \link{Process}es
+}
+
+\subsection{Returns}{
+character vector of sources IDs
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Study-get_sample_names"></a>}}
+\if{latex}{\out{\hypertarget{method-Study-get_sample_names}{}}}
+\subsection{Method \code{get_sample_names()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Study$get_sample_names()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+get the names of \link{Sample}s
+}
+
+\subsection{Returns}{
+character vector of sample names
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Study-get_unused_samples"></a>}}
+\if{latex}{\out{\hypertarget{method-Study-get_unused_samples}{}}}
+\subsection{Method \code{get_unused_samples()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Study$get_unused_samples()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Study-check_for_unused_samples"></a>}}
+\if{latex}{\out{\hypertarget{method-Study-check_for_unused_samples}{}}}
+\subsection{Method \code{check_for_unused_samples()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Study$check_for_unused_samples()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Study-get_source_names"></a>}}
+\if{latex}{\out{\hypertarget{method-Study-get_source_names}{}}}
+\subsection{Method \code{get_source_names()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Study$get_source_names()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+get the names of \link{Source}s
+}
+
+\subsection{Returns}{
+character vector of sources names
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Study-get_process_names"></a>}}
+\if{latex}{\out{\hypertarget{method-Study-get_process_names}{}}}
+\subsection{Method \code{get_process_names()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Study$get_process_names()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+get the names of \link{Process}es
+}
+
+\subsection{Returns}{
+character vector of sources names
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Study-header_table"></a>}}
+\if{latex}{\out{\hypertarget{method-Study-header_table}{}}}
+\subsection{Method \code{header_table()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Study$header_table(index = 1)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Study-to_table"></a>}}
+\if{latex}{\out{\hypertarget{method-Study-to_table}{}}}
+\subsection{Method \code{to_table()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Study$to_table()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Study-cat_table"></a>}}
+\if{latex}{\out{\hypertarget{method-Study-cat_table}{}}}
+\subsection{Method \code{cat_table()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Study$cat_table(path = stdout(), overwrite = FALSE)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Study-to_list"></a>}}
 \if{latex}{\out{\hypertarget{method-Study-to_list}{}}}
 \subsection{Method \code{to_list()}}{
@@ -517,6 +630,33 @@ Make \link{Material} object from list
 
 \subsection{Details}{
 Pretty prints \link{Study} objects
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Study-get_process_order"></a>}}
+\if{latex}{\out{\hypertarget{method-Study-get_process_order}{}}}
+\subsection{Method \code{get_process_order()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Study$get_process_order()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Study-get_process_paths"></a>}}
+\if{latex}{\out{\hypertarget{method-Study-get_process_paths}{}}}
+\subsection{Method \code{get_process_paths()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Study$get_process_paths()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Study-get_process_io_paths"></a>}}
+\if{latex}{\out{\hypertarget{method-Study-get_process_io_paths}{}}}
+\subsection{Method \code{get_process_io_paths()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Study$get_process_io_paths()}\if{html}{\out{</div>}}
 }
 
 }

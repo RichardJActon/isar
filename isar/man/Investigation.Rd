@@ -61,15 +61,18 @@ An investigation maintains metadata about the project context and links to one o
 \item \href{#method-Investigation-set_contacts}{\code{Investigation$set_contacts()}}
 \item \href{#method-Investigation-check_publications}{\code{Investigation$check_publications()}}
 \item \href{#method-Investigation-set_publications}{\code{Investigation$set_publications()}}
-\item \href{#method-Investigation-check_public_release_date}{\code{Investigation$check_public_release_date()}}
 \item \href{#method-Investigation-set_public_release_date}{\code{Investigation$set_public_release_date()}}
+\item \href{#method-Investigation-set_submission_date}{\code{Investigation$set_submission_date()}}
 \item \href{#method-Investigation-check_ontology_source_references}{\code{Investigation$check_ontology_source_references()}}
 \item \href{#method-Investigation-set_ontology_source_references}{\code{Investigation$set_ontology_source_references()}}
-\item \href{#method-Investigation-check_submission_date}{\code{Investigation$check_submission_date()}}
-\item \href{#method-Investigation-set_submission_date}{\code{Investigation$set_submission_date()}}
 \item \href{#method-Investigation-check_comments}{\code{Investigation$check_comments()}}
 \item \href{#method-Investigation-set_comments}{\code{Investigation$set_comments()}}
 \item \href{#method-Investigation-add_comment}{\code{Investigation$add_comment()}}
+\item \href{#method-Investigation-get_materials}{\code{Investigation$get_materials()}}
+\item \href{#method-Investigation-get_samples}{\code{Investigation$get_samples()}}
+\item \href{#method-Investigation-get_sources}{\code{Investigation$get_sources()}}
+\item \href{#method-Investigation-to_table}{\code{Investigation$to_table()}}
+\item \href{#method-Investigation-cat_table}{\code{Investigation$cat_table()}}
 \item \href{#method-Investigation-to_list}{\code{Investigation$to_list()}}
 \item \href{#method-Investigation-from_list}{\code{Investigation$from_list()}}
 \item \href{#method-Investigation-set_id}{\code{Investigation$set_id()}}
@@ -93,7 +96,8 @@ An investigation maintains metadata about the project context and links to one o
   publications = NULL,
   contacts = NULL,
   studies = NULL,
-  comments = NULL
+  comments = NULL,
+  characteristic_categories = NULL
 )}\if{html}{\out{</div>}}
 }
 
@@ -330,31 +334,11 @@ Check publications is a list of \link{Publication} objects
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Investigation-check_public_release_date"></a>}}
-\if{latex}{\out{\hypertarget{method-Investigation-check_public_release_date}{}}}
-\subsection{Method \code{check_public_release_date()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Investigation$check_public_release_date(public_release_date)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{public_release_date}}{a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-Check public_release_date is a Date object
-}
-
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Investigation-set_public_release_date"></a>}}
 \if{latex}{\out{\hypertarget{method-Investigation-set_public_release_date}{}}}
 \subsection{Method \code{set_public_release_date()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Investigation$set_public_release_date(public_release_date)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$set_public_release_date(public_release_date, null.ok = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -366,6 +350,26 @@ Check public_release_date is a Date object
 }
 \subsection{Details}{
 Set public_release_date to a Date object
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Investigation-set_submission_date"></a>}}
+\if{latex}{\out{\hypertarget{method-Investigation-set_submission_date}{}}}
+\subsection{Method \code{set_submission_date()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$set_submission_date(submission_date, null.ok = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{submission_date}}{a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Set submission_date to a Date object
 }
 
 }
@@ -406,46 +410,6 @@ Check that input is an \link{OntologySourceReferences} object
 }
 \subsection{Details}{
 Set ontology_source_references to be an \link{OntologySourceReferences} object
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Investigation-check_submission_date"></a>}}
-\if{latex}{\out{\hypertarget{method-Investigation-check_submission_date}{}}}
-\subsection{Method \code{check_submission_date()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Investigation$check_submission_date(submission_date)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{submission_date}}{a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-Check submission_date is a Date object
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Investigation-set_submission_date"></a>}}
-\if{latex}{\out{\hypertarget{method-Investigation-set_submission_date}{}}}
-\subsection{Method \code{set_submission_date()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Investigation$set_submission_date(submission_date)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{submission_date}}{a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-Set submission_date to a Date object
 }
 
 }
@@ -506,6 +470,72 @@ Sets comments if they are in a valid format
 }
 \subsection{Details}{
 Add comment if it is in a valid format
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Investigation-get_materials"></a>}}
+\if{latex}{\out{\hypertarget{method-Investigation-get_materials}{}}}
+\subsection{Method \code{get_materials()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$get_materials()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+get a list of all of the \link{Material} objects used in studies in this investigation
+}
+
+\subsection{Returns}{
+list of \link{Material}s
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Investigation-get_samples"></a>}}
+\if{latex}{\out{\hypertarget{method-Investigation-get_samples}{}}}
+\subsection{Method \code{get_samples()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$get_samples()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+get a list of all of the \link{Sample} objects used in studies in this investigation
+}
+
+\subsection{Returns}{
+list of \link{Sample}s
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Investigation-get_sources"></a>}}
+\if{latex}{\out{\hypertarget{method-Investigation-get_sources}{}}}
+\subsection{Method \code{get_sources()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$get_sources()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+get a list of all of the \link{Source} objects used in studies in this investigation
+}
+
+\subsection{Returns}{
+list of \link{Source}s
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Investigation-to_table"></a>}}
+\if{latex}{\out{\hypertarget{method-Investigation-to_table}{}}}
+\subsection{Method \code{to_table()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$to_table()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Investigation-cat_table"></a>}}
+\if{latex}{\out{\hypertarget{method-Investigation-cat_table}{}}}
+\subsection{Method \code{cat_table()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$cat_table(path = stdout(), overwrite = FALSE)}\if{html}{\out{</div>}}
 }
 
 }

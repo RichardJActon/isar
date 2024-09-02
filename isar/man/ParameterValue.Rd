@@ -26,6 +26,13 @@ A ParameterValue represents the instance value of a \link{ProtocolParameter}, us
 }
 \if{html}{\out{</div>}}
 }
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
+\describe{
+\item{\code{@id}}{identifier}
+}
+\if{html}{\out{</div>}}
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
@@ -35,10 +42,13 @@ A ParameterValue represents the instance value of a \link{ProtocolParameter}, us
 \item \href{#method-ParameterValue-check_comments}{\code{ParameterValue$check_comments()}}
 \item \href{#method-ParameterValue-set_comments}{\code{ParameterValue$set_comments()}}
 \item \href{#method-ParameterValue-add_comment}{\code{ParameterValue$add_comment()}}
+\item \href{#method-ParameterValue-set_valid_unit}{\code{ParameterValue$set_valid_unit()}}
+\item \href{#method-ParameterValue-set_valid_category}{\code{ParameterValue$set_valid_category()}}
+\item \href{#method-ParameterValue-to_table}{\code{ParameterValue$to_table()}}
 \item \href{#method-ParameterValue-to_list}{\code{ParameterValue$to_list()}}
 \item \href{#method-ParameterValue-from_list}{\code{ParameterValue$from_list()}}
 \item \href{#method-ParameterValue-get_value_in_units}{\code{ParameterValue$get_value_in_units()}}
-\item \href{#method-ParameterValue-set_id}{\code{ParameterValue$set_id()}}
+\item \href{#method-ParameterValue-print}{\code{ParameterValue$print()}}
 \item \href{#method-ParameterValue-clone}{\code{ParameterValue$clone()}}
 }
 }
@@ -51,8 +61,10 @@ A ParameterValue represents the instance value of a \link{ProtocolParameter}, us
   category = NULL,
   value = NULL,
   unit = NULL,
-  comments = NULL,
-  `@id` = character()
+  ontology_source_references = NULL,
+  unit_references = NULL,
+  protocol_parameters = NULL,
+  comments = NULL
 )}\if{html}{\out{</div>}}
 }
 
@@ -177,6 +189,48 @@ Add comment if it is in a valid format
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ParameterValue-set_valid_unit"></a>}}
+\if{latex}{\out{\hypertarget{method-ParameterValue-set_valid_unit}{}}}
+\subsection{Method \code{set_valid_unit()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ParameterValue$set_valid_unit(lst)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{term}}{the term of the unit}
+
+\item{\code{term_accession}}{the accession of the ontology term of the unit}
+
+\item{\code{term_source}}{the name of the source of the ontology term}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Set the unit as a valid ontology term
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ParameterValue-set_valid_category"></a>}}
+\if{latex}{\out{\hypertarget{method-ParameterValue-set_valid_category}{}}}
+\subsection{Method \code{set_valid_category()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ParameterValue$set_valid_category(category)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ParameterValue-to_table"></a>}}
+\if{latex}{\out{\hypertarget{method-ParameterValue-to_table}{}}}
+\subsection{Method \code{to_table()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ParameterValue$to_table()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ParameterValue-to_list"></a>}}
 \if{latex}{\out{\hypertarget{method-ParameterValue-to_list}{}}}
 \subsection{Method \code{to_list()}}{
@@ -201,7 +255,7 @@ generate an R list representation translatable to JSON
 \if{latex}{\out{\hypertarget{method-ParameterValue-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ParameterValue$from_list(lst, recursive = TRUE, json = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ParameterValue$from_list(lst, recursive = TRUE, json = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -234,27 +288,25 @@ Get the value and unit of this parameter value as a combined string
 
 \subsection{Returns}{
 a string
+#' @details
+#' set the uuid of this object
+#' @param id a uuid
+#' @param suffix a human readable suffix
+set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
+private$id <- generate_id(id, suffix)
+}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-ParameterValue-set_id"></a>}}
-\if{latex}{\out{\hypertarget{method-ParameterValue-set_id}{}}}
-\subsection{Method \code{set_id()}}{
+\if{html}{\out{<a id="method-ParameterValue-print"></a>}}
+\if{latex}{\out{\hypertarget{method-ParameterValue-print}{}}}
+\subsection{Method \code{print()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ParameterValue$set_id(id = uuid::UUIDgenerate(), suffix = character())}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ParameterValue$print()}\if{html}{\out{</div>}}
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{id}}{a uuid}
-
-\item{\code{suffix}}{a human readable suffix}
-}
-\if{html}{\out{</div>}}
-}
 \subsection{Details}{
-set the uuid of this object
+Pretty prints \link{ParameterValue} objects
 }
 
 }

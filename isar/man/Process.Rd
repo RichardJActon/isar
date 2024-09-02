@@ -48,12 +48,12 @@ Process nodes represent the application of a protocol to some input material
 \item \href{#method-Process-check_name}{\code{Process$check_name()}}
 \item \href{#method-Process-set_name}{\code{Process$set_name()}}
 \item \href{#method-Process-check_performer}{\code{Process$check_performer()}}
-\item \href{#method-Process-check_date}{\code{Process$check_date()}}
 \item \href{#method-Process-set_date}{\code{Process$set_date()}}
 \item \href{#method-Process-set_performer}{\code{Process$set_performer()}}
 \item \href{#method-Process-check_comments}{\code{Process$check_comments()}}
 \item \href{#method-Process-set_comments}{\code{Process$set_comments()}}
 \item \href{#method-Process-add_comment}{\code{Process$add_comment()}}
+\item \href{#method-Process-to_table}{\code{Process$to_table()}}
 \item \href{#method-Process-to_list}{\code{Process$to_list()}}
 \item \href{#method-Process-from_list}{\code{Process$from_list()}}
 \item \href{#method-Process-add_process_order}{\code{Process$add_process_order()}}
@@ -80,7 +80,12 @@ Process nodes represent the application of a protocol to some input material
   sources = NULL,
   samples = NULL,
   next_process = NULL,
-  previous_process = NULL
+  previous_process = NULL,
+  materials = NULL,
+  data_files = NULL,
+  ontology_source_references = NULL,
+  unit_references = NULL,
+  protocol_parameters = NULL
 )}\if{html}{\out{</div>}}
 }
 
@@ -179,37 +184,17 @@ check performer is a list of \link{Person} objects
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Process-check_date"></a>}}
-\if{latex}{\out{\hypertarget{method-Process-check_date}{}}}
-\subsection{Method \code{check_date()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Process$check_date(date)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{date}}{a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-Check date is a Date object
-}
-
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Process-set_date"></a>}}
 \if{latex}{\out{\hypertarget{method-Process-set_date}{}}}
 \subsection{Method \code{set_date()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Process$set_date(date)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Process$set_date(date, null.ok = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{date}}{a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd}
+\item{\code{public_release_date}}{a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd}
 }
 \if{html}{\out{</div>}}
 }
@@ -295,6 +280,15 @@ Sets comments if they are in a valid format
 }
 \subsection{Details}{
 Add comment if it is in a valid format
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Process-to_table"></a>}}
+\if{latex}{\out{\hypertarget{method-Process-to_table}{}}}
+\subsection{Method \code{to_table()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Process$to_table()}\if{html}{\out{</div>}}
 }
 
 }

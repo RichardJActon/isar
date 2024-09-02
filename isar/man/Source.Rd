@@ -29,6 +29,7 @@ R6 class for a Source
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Source-new}{\code{Source$new()}}
+\item \href{#method-Source-to_table}{\code{Source$to_table()}}
 \item \href{#method-Source-to_list}{\code{Source$to_list()}}
 \item \href{#method-Source-from_list}{\code{Source$from_list()}}
 \item \href{#method-Source-print}{\code{Source$print()}}
@@ -67,6 +68,15 @@ R6 class for a Source
 }
 \if{html}{\out{</div>}}
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Source-to_table"></a>}}
+\if{latex}{\out{\hypertarget{method-Source-to_table}{}}}
+\subsection{Method \code{to_table()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Source$to_table()}\if{html}{\out{</div>}}
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Source-to_list"></a>}}

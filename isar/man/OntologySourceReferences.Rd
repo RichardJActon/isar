@@ -25,6 +25,8 @@ R6 class for OntologySourceReferences
 \item \href{#method-OntologySourceReferences-get_ontology_source_provision}{\code{OntologySourceReferences$get_ontology_source_provision()}}
 \item \href{#method-OntologySourceReferences-get_ontology_sources}{\code{OntologySourceReferences$get_ontology_sources()}}
 \item \href{#method-OntologySourceReferences-get_ontology_source_origins}{\code{OntologySourceReferences$get_ontology_source_origins()}}
+\item \href{#method-OntologySourceReferences-to_table}{\code{OntologySourceReferences$to_table()}}
+\item \href{#method-OntologySourceReferences-cat_table}{\code{OntologySourceReferences$cat_table()}}
 \item \href{#method-OntologySourceReferences-to_list}{\code{OntologySourceReferences$to_list()}}
 \item \href{#method-OntologySourceReferences-from_list}{\code{OntologySourceReferences$from_list()}}
 \item \href{#method-OntologySourceReferences-print}{\code{OntologySourceReferences$print()}}
@@ -171,6 +173,24 @@ source references
 character vector of the origins of the \link{OntologySource}
 objects in the reference
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OntologySourceReferences-to_table"></a>}}
+\if{latex}{\out{\hypertarget{method-OntologySourceReferences-to_table}{}}}
+\subsection{Method \code{to_table()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OntologySourceReferences$to_table()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OntologySourceReferences-cat_table"></a>}}
+\if{latex}{\out{\hypertarget{method-OntologySourceReferences-cat_table}{}}}
+\subsection{Method \code{cat_table()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OntologySourceReferences$cat_table(path = stdout())}\if{html}{\out{</div>}}
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OntologySourceReferences-to_list"></a>}}

@@ -75,6 +75,7 @@ Pretty prints \link{Publication} objects
 \item \href{#method-Publication-check_comments}{\code{Publication$check_comments()}}
 \item \href{#method-Publication-set_comments}{\code{Publication$set_comments()}}
 \item \href{#method-Publication-add_comment}{\code{Publication$add_comment()}}
+\item \href{#method-Publication-to_table}{\code{Publication$to_table()}}
 \item \href{#method-Publication-to_list}{\code{Publication$to_list()}}
 \item \href{#method-Publication-from_list}{\code{Publication$from_list()}}
 \item \href{#method-Publication-print}{\code{Publication$print()}}
@@ -294,19 +295,24 @@ Pretty prints \link{Publication} objects
 }
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Publication-to_table"></a>}}
+\if{latex}{\out{\hypertarget{method-Publication-to_table}{}}}
+\subsection{Method \code{to_table()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Publication$to_table(prefix = "")}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Publication-to_list"></a>}}
 \if{latex}{\out{\hypertarget{method-Publication-to_list}{}}}
 \subsection{Method \code{to_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Publication$to_list(ld = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Publication$to_list()}\if{html}{\out{</div>}}
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{ld}}{linked data}
-}
-\if{html}{\out{</div>}}
+\subsection{Returns}{
+list
 }
 }
 \if{html}{\out{<hr>}}

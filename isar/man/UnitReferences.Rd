@@ -32,6 +32,8 @@ R6 class for UnitReferences
 \item \href{#method-UnitReferences-set_unit_references}{\code{UnitReferences$set_unit_references()}}
 \item \href{#method-UnitReferences-add_unit_references}{\code{UnitReferences$add_unit_references()}}
 \item \href{#method-UnitReferences-get_unit_ids}{\code{UnitReferences$get_unit_ids()}}
+\item \href{#method-UnitReferences-get_unit_types}{\code{UnitReferences$get_unit_types()}}
+\item \href{#method-UnitReferences-get_unit_origins}{\code{UnitReferences$get_unit_origins()}}
 \item \href{#method-UnitReferences-to_list}{\code{UnitReferences$to_list()}}
 \item \href{#method-UnitReferences-from_list}{\code{UnitReferences$from_list()}}
 \item \href{#method-UnitReferences-print}{\code{UnitReferences$print()}}
@@ -121,9 +123,16 @@ Add new units to the unit reference
 \if{latex}{\out{\hypertarget{method-UnitReferences-get_unit_ids}{}}}
 \subsection{Method \code{get_unit_ids()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{UnitReferences$get_unit_ids()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{UnitReferences$get_unit_ids(source = "any")}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{source}}{the ids of the source of the units for which you would like to get ids}
+}
+\if{html}{\out{</div>}}
+}
 \subsection{Details}{
 Get the @ids of the unit references
 }
@@ -133,11 +142,46 @@ character vector of unit reference @ids
 }
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-UnitReferences-get_unit_types"></a>}}
+\if{latex}{\out{\hypertarget{method-UnitReferences-get_unit_types}{}}}
+\subsection{Method \code{get_unit_types()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{UnitReferences$get_unit_types(source = "any")}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{source}}{the ids of the source of the units for which you would like to get types}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Get the types of the unit references
+}
+
+\subsection{Returns}{
+character vector of unit types
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-UnitReferences-get_unit_origins"></a>}}
+\if{latex}{\out{\hypertarget{method-UnitReferences-get_unit_origins}{}}}
+\subsection{Method \code{get_unit_origins()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{UnitReferences$get_unit_origins()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+character vector of characteristic category sources
+}
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-UnitReferences-to_list"></a>}}
 \if{latex}{\out{\hypertarget{method-UnitReferences-to_list}{}}}
 \subsection{Method \code{to_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{UnitReferences$to_list()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{UnitReferences$to_list(source = "any")}\if{html}{\out{</div>}}
 }
 
 \subsection{Details}{

@@ -50,6 +50,7 @@ OA <- OntologyAnnotation$new()
 \item \href{#method-OntologyAnnotation-check_comments}{\code{OntologyAnnotation$check_comments()}}
 \item \href{#method-OntologyAnnotation-set_comments}{\code{OntologyAnnotation$set_comments()}}
 \item \href{#method-OntologyAnnotation-add_comment}{\code{OntologyAnnotation$add_comment()}}
+\item \href{#method-OntologyAnnotation-to_table}{\code{OntologyAnnotation$to_table()}}
 \item \href{#method-OntologyAnnotation-to_list}{\code{OntologyAnnotation$to_list()}}
 \item \href{#method-OntologyAnnotation-from_list}{\code{OntologyAnnotation$from_list()}}
 \item \href{#method-OntologyAnnotation-print}{\code{OntologyAnnotation$print()}}
@@ -234,7 +235,7 @@ Sets the term accession and the term corresponding to that accession if the acce
 \describe{
 \item{\code{term}}{the ontology term}
 
-\item{\code{term_accession}}{the accesion of the ontology term}
+\item{\code{term_accession}}{the accession of the ontology term}
 
 \item{\code{term_source_name}}{the name of the source of the ontology term}
 }
@@ -304,6 +305,15 @@ Sets comments if they are in a valid format
 }
 \subsection{Details}{
 Add comment if it is in a valid format
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OntologyAnnotation-to_table"></a>}}
+\if{latex}{\out{\hypertarget{method-OntologyAnnotation-to_table}{}}}
+\subsection{Method \code{to_table()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OntologyAnnotation$to_table()}\if{html}{\out{</div>}}
 }
 
 }

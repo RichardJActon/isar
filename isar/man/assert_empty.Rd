@@ -6,7 +6,7 @@
 \usage{
 assert_empty(
   x,
-  mode,
+  mode = typeof(x),
   null.ok = FALSE,
   .var.name = checkmate::vname(x),
   add = NULL

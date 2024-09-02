@@ -55,6 +55,7 @@ An experimental Protocol used in the study.
 \item \href{#method-Protocol-check_comments}{\code{Protocol$check_comments()}}
 \item \href{#method-Protocol-set_comments}{\code{Protocol$set_comments()}}
 \item \href{#method-Protocol-add_comment}{\code{Protocol$add_comment()}}
+\item \href{#method-Protocol-header_table}{\code{Protocol$header_table()}}
 \item \href{#method-Protocol-to_list}{\code{Protocol$to_list()}}
 \item \href{#method-Protocol-from_list}{\code{Protocol$from_list()}}
 \item \href{#method-Protocol-print}{\code{Protocol$print()}}
@@ -75,7 +76,8 @@ An experimental Protocol used in the study.
   parameters = NULL,
   components = NULL,
   comments = NULL,
-  `@id` = NULL
+  `@id` = NULL,
+  origin = character()
 )}\if{html}{\out{</div>}}
 }
 
@@ -444,6 +446,15 @@ Sets comments if they are in a valid format
 }
 \subsection{Details}{
 Add comment if it is in a valid format
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Protocol-header_table"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-header_table}{}}}
+\subsection{Method \code{header_table()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Protocol$header_table()}\if{html}{\out{</div>}}
 }
 
 }

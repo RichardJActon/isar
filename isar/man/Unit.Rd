@@ -27,6 +27,7 @@ R6 object for specifying a unit of measurement
 \item \href{#method-Unit-new}{\code{Unit$new()}}
 \item \href{#method-Unit-get_unit_string}{\code{Unit$get_unit_string()}}
 \item \href{#method-Unit-to_list}{\code{Unit$to_list()}}
+\item \href{#method-Unit-to_table}{\code{Unit$to_table()}}
 \item \href{#method-Unit-from_list}{\code{Unit$from_list()}}
 \item \href{#method-Unit-print}{\code{Unit$print()}}
 \item \href{#method-Unit-clone}{\code{Unit$clone()}}
@@ -98,6 +99,15 @@ a character vector of length one with the term of the unit
 }
 \subsection{Details}{
 An R list representation of a \link{Unit} object
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Unit-to_table"></a>}}
+\if{latex}{\out{\hypertarget{method-Unit-to_table}{}}}
+\subsection{Method \code{to_table()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Unit$to_table()}\if{html}{\out{</div>}}
 }
 
 }

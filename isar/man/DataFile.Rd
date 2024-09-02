@@ -44,14 +44,17 @@ Represents a data file in an experimental graph.
 \item \href{#method-DataFile-check_hash_algo}{\code{DataFile$check_hash_algo()}}
 \item \href{#method-DataFile-check_generated_from}{\code{DataFile$check_generated_from()}}
 \item \href{#method-DataFile-set_generated_from}{\code{DataFile$set_generated_from()}}
+\item \href{#method-DataFile-add_generated_from}{\code{DataFile$add_generated_from()}}
 \item \href{#method-DataFile-check_comments}{\code{DataFile$check_comments()}}
 \item \href{#method-DataFile-set_comments}{\code{DataFile$set_comments()}}
 \item \href{#method-DataFile-add_comment}{\code{DataFile$add_comment()}}
 \item \href{#method-DataFile-validate_file}{\code{DataFile$validate_file()}}
 \item \href{#method-DataFile-to_list}{\code{DataFile$to_list()}}
+\item \href{#method-DataFile-to_table}{\code{DataFile$to_table()}}
 \item \href{#method-DataFile-from_list}{\code{DataFile$from_list()}}
 \item \href{#method-DataFile-print}{\code{DataFile$print()}}
 \item \href{#method-DataFile-get_hash}{\code{DataFile$get_hash()}}
+\item \href{#method-DataFile-get_id}{\code{DataFile$get_id()}}
 \item \href{#method-DataFile-clone}{\code{DataFile$clone()}}
 }
 }
@@ -211,12 +214,12 @@ logical
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{generated_from}}{an \link{Sample} object}
+\item{\code{generated_from}}{a list of \link{Sample} objects}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Check that generated_from is an \link{Sample} object
+Check that generated_from is a list of \link{Sample} objects
 }
 
 }
@@ -231,12 +234,32 @@ Check that generated_from is an \link{Sample} object
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{generated_from}}{an \link{Sample} object}
+\item{\code{generated_from}}{a list of \link{Sample} objects}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
 Set generated_from if input is valid
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DataFile-add_generated_from"></a>}}
+\if{latex}{\out{\hypertarget{method-DataFile-add_generated_from}{}}}
+\subsection{Method \code{add_generated_from()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DataFile$add_generated_from(generated_from)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{generated_from}}{a list of \link{Sample} objects}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Add generated_from if input is valid
 }
 
 }
@@ -340,6 +363,22 @@ An R list representation of a \link{DataFile} object
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DataFile-to_table"></a>}}
+\if{latex}{\out{\hypertarget{method-DataFile-to_table}{}}}
+\subsection{Method \code{to_table()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DataFile$to_table()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+serialise DataFile object to a tabular format (tibble)
+}
+
+\subsection{Returns}{
+a tibble
+}
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DataFile-from_list"></a>}}
 \if{latex}{\out{\hypertarget{method-DataFile-from_list}{}}}
 \subsection{Method \code{from_list()}}{
@@ -389,6 +428,15 @@ Get the hash of the file
 \subsection{Returns}{
 a hash
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DataFile-get_id"></a>}}
+\if{latex}{\out{\hypertarget{method-DataFile-get_id}{}}}
+\subsection{Method \code{get_id()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DataFile$get_id()}\if{html}{\out{</div>}}
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DataFile-clone"></a>}}
