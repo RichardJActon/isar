@@ -133,26 +133,17 @@ Process <- R6::R6Class(
 					purrr::map_lgl(performer, ~checkmate::test_r6(.x, "Person"))
 				)
 			) { return(TRUE) } else {
-				stop("All performer must be Person objects")
+				stop("All performers must be Person objects")
 			}
 		},
-		#' @details
-		#' Check date is a Date object
-		#' @param date a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd
-		check_date = function(date) {
-			if (is.character(date)) {
-				date <- as.Date.character(date, tryFormats = c("%Y-%m-%d"))
-			} else {
-				check <- checkmate::check_date(date)
-				error_with_check_message_on_failure(check)
-			}
-		},
+
 		#' @details
 		#' Set date to a Date object
-		#' @param date a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd
-		set_date = function(date) {
-			if(self$check_submission_date(date)) { self$date <- date }
+		#' @param public_release_date a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd
+		set_date = function(date, null.ok = FALSE) {
+			self$date <- date_input_handling(date, null.ok = null.ok)
 		},
+
 		#' @details
 		#' set performer if performer is a list of [Person] objects
 		#' @param performer a list of [Person] objects
@@ -227,10 +218,20 @@ Process <- R6::R6Class(
 
 			# tab <- dplyr::full_join(inputs, outputs)
 
+			performer <- NULL
+			if(!is.null(self$performer)) {
+				performer <- self$performer$get_full_name()
+			}
+			date <- NULL
+			if(!is.null(self$date)) {
+				date <- self$date
+			}
+
 			tab <- dplyr::bind_cols(
-				tibble::tibble(`Process Name` = self$name),
+				# tibble::tibble(`Process Name` = self$name),
 				protocols, parameter_values,
 				# inputs %>% dplyr::select(-`Extract Name`),
+				performer, date,
 				## inputs,
 				# io,
 				# outputs %>% dplyr::select(-`Extract Name`),
@@ -439,7 +440,7 @@ Process <- R6::R6Class(
 			}
 			self$`@id` <- lst[["@id"]]
 			self$set_name(lst[["name"]])
-			self$date <- lst[["date"]]
+			self$set_date(lst[["date"]], null.ok = TRUE)
 			if(recursive && !json) {
 				self$performer <- purrr::map(lst[["performer"]], ~{
 					p <- Person$new()

@@ -197,25 +197,23 @@ Investigation <- R6::R6Class(
 		},
 
 		#' @details
-		#' Check public_release_date is a Date object
-		#' @param public_release_date  a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd
-		check_public_release_date = function(public_release_date) {
-			if (is.character(public_release_date)) {
-				public_release_date <- as.Date.character(
-					public_release_date, tryFormats = c("%Y-%m-%d")
-				)
-			} else {
-				check <- checkmate::check_date(public_release_date)
-				error_with_check_message_on_failure(check)
-			}
-		},
-		#' @details
 		#' Set public_release_date to a Date object
 		#' @param public_release_date a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd
-		set_public_release_date = function(public_release_date) {
-			if(self$check_public_release_date(public_release_date)) {
-				self$public_release_date <- public_release_date
-			}
+		set_public_release_date = function(
+			public_release_date, null.ok = FALSE
+		) {
+			self$public_release_date <- date_input_handling(
+				public_release_date, null.ok = null.ok
+			)
+		},
+
+		#' @details
+		#' Set submission_date to a Date object
+		#' @param submission_date a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd
+		set_submission_date = function(submission_date, null.ok = FALSE) {
+			self$submission_date <- date_input_handling(
+				submission_date , null.ok = null.ok
+			)
 		},
 
 		#' @details
@@ -240,27 +238,6 @@ Investigation <- R6::R6Class(
 			}
 		},
 
-		#' @details
-		#' Check submission_date is a Date object
-		#' @param submission_date a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd
-		check_submission_date = function(submission_date) {
-			if (is.character(submission_date)) {
-				submission_date <- as.Date.character(
-					submission_date, tryFormats = c("%Y-%m-%d")
-				)
-			} else {
-				check <- checkmate::check_date(submission_date)
-				error_with_check_message_on_failure(check)
-			}
-		},
-		#' @details
-		#' Set submission_date to a Date object
-		#' @param submission_date a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd
-		set_submission_date = function(submission_date) {
-			if(self$check_submission_date(submission_date)) {
-				self$submission_date <- submission_date
-			}
-		},
 		#' @details
 		#' checks if comments are a named list of character vectors
 		#' @param comments comments
@@ -425,8 +402,14 @@ Investigation <- R6::R6Class(
 				#private$id <- lst[["id"]]
 				self$title <- lst[["title"]]
 				self$description <- lst[["description"]]
-				self$submission_date <- lst[["submissionDate"]]
-				self$public_release_date <- lst[["publicReleaseDate"]]
+				# self$submission_date <- lst[["submissionDate"]]
+				self$set_submission_date(
+					lst[["submissionDate"]], null.ok = TRUE
+				)
+				#self$public_release_date <- lst[["publicReleaseDate"]]
+				self$set_public_release_date(
+					lst[["publicReleaseDate"]], null.ok = TRUE
+				)
 				#self$ontology_source_references <- lst[["ontologySourceReferences"]]
 				#if (recursive) {
 				# self$ontology_source_references <- purrr::map(
