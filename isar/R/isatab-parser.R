@@ -345,8 +345,8 @@ tbl_to_investigation <- function(data) {
 		title = data$Title,
 		description = data$Description,
 		# ! check if date before attempting string conversion !
-		submission_date = date_string_conversion(data$`Submission Date`),
-		public_release_date = date_string_conversion(data$`Public Release Date`),
+		submission_date = date_input_handling(data$`Submission Date`),
+		public_release_date = date_input_handling(data$`Public Release Date`),
 		# ontology_source_references = ,
 		# publications = ,
 		# contacts = ,
