@@ -220,11 +220,13 @@ Process <- R6::R6Class(
 
 			performer <- NULL
 			if(!is.null(self$performer)) {
-				performer <- self$performer$get_full_name()
+				performer <- tibble::tibble_row(
+					Performer = self$performer$get_full_name()
+				)
 			}
 			date <- NULL
 			if(!is.null(self$date)) {
-				date <- self$date
+				date <- tibble:tibble_row(self$date)
 			}
 
 			tab <- dplyr::bind_cols(
