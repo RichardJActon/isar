@@ -298,9 +298,11 @@ Investigation <- R6::R6Class(
 							"Investigation Title", self$title,
 							"Investigation Description", self$description,
 							"Investigation Submission Date",
-								self$submission_date,
+								self$submission_date %>%
+									format.Date("%Y-%m-%d"),
 							"Investigation Public Release Date",
-								self$public_release_date
+								self$public_release_date %>%
+									format.Date("%Y-%m-%d")
 						),
 						comment_to_table(self$comments)
 					)
