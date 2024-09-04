@@ -368,7 +368,10 @@ Study <- R6::R6Class(
 				tibble::tibble(
 					section = "STUDY DESIGN DESCRIPTORS", index = index,
 					data = self$design_descriptors %>%
-							purrr::map(~.x$to_table()) %>%
+							purrr::map(
+								~.x$to_table() %>%
+									dplyr::relocate(term, accession, source)
+							) %>%
 							purrr::list_rbind() %>%
 							t() %>%
 							as.data.frame() %>%

@@ -71,6 +71,7 @@ StudyFactorReferences <- R6::R6Class(
 				purrr::set_names(NULL) %>%
 				purrr::map(~{
 					.x$to_table() %>%
+						dplyr::relocate(rowname, term, accession, source) %>%
 						dplyr::rename(
 							"Study Factor Name" = rowname,
 							"Study Factor Type" = term,

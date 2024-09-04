@@ -358,16 +358,20 @@ Assay <- R6::R6Class(
 
 		header_table = function() {
 			dplyr::bind_cols(
-				self$measurement_type$to_table() %>% purrr::set_names(
-					"Study Assay Measurement Type",
-					"Study Assay Measurement Type Term Accession Number",
-					"Study Assay Measurement Type Term Source REF"
-				),
-				self$technology_type$to_table() %>% purrr::set_names(
-					"Study Assay Technology Type",
-					"Study Assay Technology Type Term Accession Number",
-					"Study Assay Technology Type Term Source REF"
-				),
+				self$measurement_type$to_table() %>%
+					dplyr::relocate(term, accession, source) %>%
+					purrr::set_names(
+						"Study Assay Measurement Type",
+						"Study Assay Measurement Type Term Accession Number",
+						"Study Assay Measurement Type Term Source REF"
+					),
+				self$technology_type$to_table() %>%
+					dplyr::relocate(term, accession, source) %>%
+					purrr::set_names(
+						"Study Assay Technology Type",
+						"Study Assay Technology Type Term Accession Number",
+						"Study Assay Technology Type Term Source REF"
+					),
 				tibble::tibble_row(
 					"Study Assay Technology Platform" =
 						self$technology_platform, # isn't in spec but should be ontology
