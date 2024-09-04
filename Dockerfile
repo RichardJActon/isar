@@ -69,8 +69,16 @@ ENV RSTUDIO_CONFIG_HOME=/home/rstudio/work/isar/.rstudio_config_dir
 RUN rm /home/rstudio/.Rprofile; rm /home/rstudio/renv.lock
 
 # install the python dependencies
-COPY requirements.txt /tmp/
-RUN pip3 install -r /tmp/requirements.txt
+# COPY requirements.txt /tmp/
+# RUN pip3 install -r /tmp/requirements.txt
+
+# install the python dependencies
+RUN /opt/conda/bin/python3 -m pip install --upgrade pip
+COPY requirements.txt environment.yml /tmp/
+RUN conda env update -q -f /tmp/environment.yml && \
+    /opt/conda/bin/pip install -r /tmp/requirements.txt && \
+    conda clean -y --all && \
+    conda env export -n "root"
 
 # RENKU_VERSION determines the version of the renku CLI
 # that will be used in this image. To find the latest version,
