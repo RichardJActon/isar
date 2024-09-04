@@ -753,7 +753,8 @@ to_table_by_process_io_type <- function(x) {
 				purrr::list_cbind()
 
 			dplyr::bind_cols(
-				not_comment_tab, comment_tab,
+				# not_comment_tab, comment_tab,
+				comment_tab, not_comment_tab,
 				.name_repair = "minimal"
 			)
 		},
