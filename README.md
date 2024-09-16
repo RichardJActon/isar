@@ -1,3 +1,25 @@
-# isar
+# shinyisar
 
-A re-implementation of [ISA-tools](https://github.com/ISA-tools/) in R with some customisations and additions.
+<!-- badges: start -->
+
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+<!-- badges: end -->
+
+The goal of shinyisar is to ...
+
+## Installation
+
+You can install the development version of shinyisar like so:
+
+``` r
+# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+``` r
+library(shinyisar)
+## basic example code
+```

@@ -1,8 +1,10 @@
 ^renv$
 ^renv\.lock$
-^requirements\.txt$
-^environment\.yml$
-^isar\.Rproj$
+^.*\.Rproj$
 ^\.Rproj\.user$
-^LICENSE\.md$
 ^data-raw$
+dev_history.R
+^dev$
+$run_dev.*
+^LICENSE\.md$
+^CODE_OF_CONDUCT\.md$
