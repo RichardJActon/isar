@@ -427,7 +427,12 @@ enum <- function(...) {
 
 check_enum <- function(value, enum) {
 	flag <- new.env()
-	for(i in names(enum)) { if(identical(value, enum[[i]])){ flag <- value } }
+	for(i in names(enum)) {
+		if(identical(value, enum[[i]])){
+			flag <- value
+			break
+		}
+	}
 	if(identical(flag, value)) {
 		return(TRUE)
 	} else {
