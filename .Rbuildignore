@@ -1,8 +1,4 @@
 ^renv$
 ^renv\.lock$
-^requirements\.txt$
-^environment\.yml$
-^isar\.Rproj$
+^.*\.Rproj$
 ^\.Rproj\.user$
-^LICENSE\.md$
-^data-raw$

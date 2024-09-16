@@ -1,3 +1,6 @@
-[submodule "data/ISAdatasets"]
-	path = isar/tests/testthat/test-data/ISAdatasets
+[submodule "ISAdatasets"]
+	path = tests/testthat/test-data/ISAdatasets
+	url = https://github.com/ISA-tools/ISAdatasets
+[submodule "tests/testthat/test-data/ISAdatasets"]
+	path = tests/testthat/test-data/ISAdatasets
 	url = https://github.com/ISA-tools/ISAdatasets

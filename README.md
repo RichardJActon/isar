@@ -1,3 +1,6 @@
-# isar
+# ISAR
 
-A re-implementation of [ISA-tools](https://github.com/ISA-tools/) in R with some customisations and additions.
+
+add to DESCRIPTION for parallel test running
+
+Config/testthat/parallel: true
