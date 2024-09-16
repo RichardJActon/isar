@@ -17,8 +17,9 @@
 #' @export
 Material <- R6::R6Class(
 	"Material",
-	#inherit = MaterialReferences,
 	public = list(
+		# material type as distinct from type?
+		# desription?
 		name = character(),
 		type = character(),
 		characteristics = NULL,
