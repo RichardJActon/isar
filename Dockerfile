@@ -63,7 +63,7 @@ COPY install.R /tmp/
 RUN R -f /tmp/install.R
 
 # To apply a custom RStudio config uncomment the line below
-ENV RSTUDIO_CONFIG_HOME=/home/rstudio/work/isar/.rstudio_config_dir
+ENV RSTUDIO_CONFIG_HOME=/home/rstudio/work/shinyisar/.rstudio_config_dir
 
 ## Clean up the /home/rstudio directory to avoid confusion in nested R projects
 RUN rm /home/rstudio/.Rprofile; rm /home/rstudio/renv.lock
