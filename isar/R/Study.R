@@ -464,7 +464,9 @@ Study <- R6::R6Class(
 							)
 						) %>%
 						 purrr::list_cbind(name_repair = "minimal")
-				) %>% do.call("rbind", .)
+				) %>%
+				do.call("rbind", .) %>%
+				dplyr::select(-`Process Name`)
 		},
 
 		cat_table = function(path = stdout(), overwrite = FALSE) {
