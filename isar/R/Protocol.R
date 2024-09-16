@@ -31,6 +31,7 @@ Protocol <- R6::R6Class(
 		comments = NULL,
 		`@id` = character(),
 		origin = character(),
+		ontology_source_references = NULL,
 		#' @details
 		#' Create a new Protocol object
 		#' @param name The name of the protocol used
@@ -52,7 +53,8 @@ Protocol <- R6::R6Class(
 			components = NULL,
 			comments = NULL,
 			`@id` = NULL,
-			origin = character()
+			origin = character(),
+			ontology_source_references = NULL
 		) {
 			if (checkmate::qtest(name, "S[0]")) { self$name <- name } else {
 				self$set_name(name)
@@ -84,6 +86,7 @@ Protocol <- R6::R6Class(
 			self$check_comments(comments)
 			self$`@id` <- paste0("#protocol/", self$name)
 			self$origin <- origin
+			self$ontology_source_references <- ontology_source_references
 		},
 		#' @details
 		#' Check that name is a single string

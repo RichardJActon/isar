@@ -653,7 +653,11 @@ Study <- R6::R6Class(
 					lst[["protocols"]] %>%
 					purrr::set_names(purrr::map_chr(., ~.x[["@id"]])) %>%
 					purrr::map(~{
-						pc <- Protocol$new(origin = self$`@id`)
+						pc <- Protocol$new(
+							origin = self$`@id`,
+							ontology_source_references =
+								self$ontology_source_references
+						)
 						pc$from_list(.x, recursive = recursive, json = json)
 						pc
 					})
