@@ -204,6 +204,9 @@ Process <- R6::R6Class(
 			} else {
 				warning("process ", self$`@id` ," executes a NULL protocol!")
 			}
+			if(self$executes_protocol$name == "unknown") {
+				protocols <- NULL
+			}
 
 			parameter_values <- NULL
 			if (!checkmate::test_list(
