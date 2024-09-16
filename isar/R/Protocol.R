@@ -225,11 +225,13 @@ Protocol <- R6::R6Class(
 			general <- tibble::tibble(
 				"Study Protocol Name" = self$name
 			)
-			type <- self$protocol_type$to_table() %>% purrr::set_names(
-				"Study Protocol Type",
-				"Study Protocol Type Term Accession Number",
-				"Study Protocol Type Term Source REF"
-			)
+			type <- self$protocol_type$to_table() %>%
+				dplyr::relocate(term, accession, source) %>%
+				purrr::set_names(
+					"Study Protocol Type",
+					"Study Protocol Type Term Accession Number",
+					"Study Protocol Type Term Source REF"
+				)
 
 			general2 <- tibble::tibble(
 				"Study Protocol Description" = self$description,
