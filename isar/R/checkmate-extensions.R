@@ -19,11 +19,16 @@
 #' check_empty("", mode)
 #' check_empty("", mode, null.ok = TRUE)
 #'
-check_empty <- function(x, mode = typeof(x), null.ok = FALSE) {
+check_empty <- function(
+	x, mode = typeof(x), null.ok = FALSE, zero.len.string.ok = FALSE
+) {
 	if(null.ok && mode == "NULL") {
 		v <- NULL
 	} else {
 		v <- vector(mode = mode)
+	}
+	if(zero.len.string.ok && mode == "character") {
+		x <- strsplit(x, split = "")[[1]]
 	}
 	res <- identical(x, v)
 	if(res) {
