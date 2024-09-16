@@ -222,18 +222,41 @@ Process <- R6::R6Class(
 			# tab <- dplyr::full_join(inputs, outputs)
 
 			performer <- NULL
-			if(!is.null(self$performer)) {
+			if(!test_empty(
+				self$performer, null.ok = TRUE, zero.len.string.ok = TRUE)
+			) {
 				performer <- tibble::tibble_row(
 					Performer = self$performer$get_full_name()
 				)
 			}
 			date <- NULL
-			if(!is.null(self$date)) {
+			if(!test_empty(
+				self$date, null.ok = TRUE, zero.len.string.ok = TRUE)
+			) {
 				date <- tibble:tibble_row(self$date)
 			}
 
+
+			if (is.null(
+				self$executes_protocol$protocol_type$term_source$isa_process_type
+			)) {
+				process_colname_prefix <- "Process"
+			} else {
+				process_colname_prefix <- self$executes_protocol$protocol_type$term_source$isa_process_type
+			}
+
+			# In specific cases the below are indented to replace Process Name
+			# the criteria for when to do this working from isa-json are unclear.
+			# - Assay Name ()
+			# - Data Transformation Name
+			# - Normalization Name
+			# one approach could be based off of executed protocol
+			# if the protocol executed is of a type that is classified as a
+			# transformation or normalisation (somewhere, perhaps user specified?)
+			# then the custom column name could be used.
 			tab <- dplyr::bind_cols(
-				# tibble::tibble(`Process Name` = self$name),
+				tibble::tibble(self$name) %>%
+					purrr::set_names(paste(process_colname_prefix, "Name")),
 				protocols, parameter_values,
 				# inputs %>% dplyr::select(-`Extract Name`),
 				performer, date,
@@ -246,7 +269,8 @@ Process <- R6::R6Class(
 				# 	purrr::list_rbind(),
 				.name_repair = "minimal"
 			) #%>%
-			# dplyr::select(-`Extract Name`)
+			# ensures nrow is 1 not 0 if protocol is unknown
+			# dplyr::select(-`Process Name`) #`Extract Name`)
 
 			# tab %>% select(unique(colnames(.)))
 			#list(inputs, outputs, protocols)
