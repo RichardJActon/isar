@@ -13,8 +13,14 @@ BII_S_3_assay_Gx_tab <- readr::read_tsv(
 	fs::path_abs(fs::path_join(c(
 		testthat::test_path(), "test-data/ISAdatasets/tab/BII-S-3/a_gilbert-assay-Gx.txt"
 	)))
-
 )
+
+BII_I_1_a_proteome <- readr::read_tsv(
+	fs::path_abs(fs::path_join(c(
+		testthat::test_path(), "test-data/ISAdatasets/tab/BII-I-1/a_proteome.txt"
+	)))
+)
+
 # ISA-tab directory validation works ----
 test_that("ISA-tab directory validation works", {
 	## Directory exists ----

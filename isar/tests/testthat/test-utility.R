@@ -24,14 +24,14 @@ test_that("check_comments works", {
 # date string conversion ---
 test_that("date_string_conversion works",{
 	# Simple working
-	expect_equal(date_string_conversion("1990-06-26"), as.Date("1990-06-26"))
-	expect_equal(as.character(date_string_conversion("1990-06-26")), "1990-06-26")
+	expect_equal(date_input_handling("1990-06-26"), as.Date("1990-06-26"))
+	expect_equal(as.character(date_input_handling("1990-06-26")), "1990-06-26")
 	# not a leap year but feb 29
 	expect_error(
-		warns <- capture_warnings(date_string_conversion("3034-02-29")),
+		warns <- capture_warnings(date_input_handling("3034-02-29")),
 		regexp = "No Valid Date format found"
 	)
-	warns <- capture_warnings(date_string_conversion("10/12/1928"))
+	warns <- capture_warnings(date_input_handling("10/12/1928"))
 
 })
 

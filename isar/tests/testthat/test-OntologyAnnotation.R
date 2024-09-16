@@ -1,6 +1,12 @@
 # OntologyAnnotation ----
 test_that("OntologyAnnotation works", {
-	test_ontology_annotation <- OntologyAnnotation$new()
+	osr <- OntologySourceReferences$new()
+	OM$explicitly_provided <- TRUE
+	osr$add_ontology_sources(list("Ontology of units of Measure (OM)" = OM))
+
+	test_ontology_annotation <- OntologyAnnotation$new(
+		ontology_source_references = osr
+	)
 	checkmate::expect_r6(test_ontology_annotation, "OntologyAnnotation")
 
 	## set_term_source ----
