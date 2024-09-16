@@ -457,6 +457,32 @@ Assay <- R6::R6Class(
 			# dplyr::bind_cols(characteristics, processess)
 			# # dplyr::left_join(characteristics, processess, by = "Sample Name")
 		},
+		cat_table = function(path = stdout(), overwrite = FALSE) {
+			if (is.character(path)) {
+				if(fs::file_exists(path)) {
+					if (overwrite) { fs::file_delete(path) } else {
+						stop(
+							path,
+							" already exists!",
+							" set `overwrite = TRUE` to replace it."
+						)
+					}
+
+				}
+			}
+			tbl <- self$to_table()
+
+			colnames(tbl) <- colnames(tbl) %>% sub(
+				"((?:Term Source REF)|(?:Term Accession Number)|(?:Unit)|(?:Protocol REF))\\[.*\\]",
+				"\\1",.
+			)
+
+			tbl %>% readr::write_tsv(
+				file = path, na = "", append = TRUE, progress = FALSE,
+				quote = "all", col_names = TRUE
+			)
+		},
+
 		#' @details
 		#'
 		#' Make [Assay] from list
