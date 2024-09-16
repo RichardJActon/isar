@@ -146,8 +146,8 @@ Sample <- R6::R6Class(
 			# lst[["name"]] <- self$name
 			lst[["name"]] <- private$raw_name
 			lst[["factorValues"]] <- self$factor_values %>%
-				purrr::map(~.x$to_list()) # %>%
-				# purrr::set_names(NULL)
+				purrr::map(~.x$to_list()) %>%
+				purrr::set_names(NULL)
 			lst[["characteristics"]] <- purrr::map(
 				self$characteristics, ~.x$to_list()
 			)
@@ -252,8 +252,8 @@ Sample <- R6::R6Class(
 					)
 					fv$from_list(.x, recursive = recursive, json = json)
 					fv
-				}) # %>%
-				# purrr::set_names(purrr::map_chr(., ~.x$`@id`))
+				}) %>%
+				purrr::set_names(purrr::map_chr(., ~.x$`@id`))
 
 
 			if (is.null(self$category_references)) {

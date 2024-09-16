@@ -26,6 +26,7 @@ StudyFactor <- R6::R6Class(
 		`@id` = character(),
 		origin = character(),
 		ontology_source_references = NULL,
+		factor_values_reference = NULL,
 		#' @details
 		#'
 		#' create a new study factor
@@ -44,7 +45,8 @@ StudyFactor <- R6::R6Class(
 			comments = NULL,
 			`@id` = character(),
 			origin = character(),
-			ontology_source_references = NULL
+			ontology_source_references = NULL,
+			factor_values_reference = NULL
 		) {
 			if (checkmate::qtest(factor_name, "S[0]")) {
 				self$factor_name <- factor_name
@@ -123,7 +125,14 @@ StudyFactor <- R6::R6Class(
 		# to_table = function() {
 		#
 		# },
+		add_factor_value = function(factor_value) {
+			if(is.null(factor_value$`@id` %in% names(self$factor_values_reference))) {
 
+			}
+			self$factor_values_reference <- c(
+				self$factor_values_reference, factor_value
+			)
+		},
 		#' @details
 		#'
 		#' Make [StudyFactor] from list

@@ -283,8 +283,12 @@ FactorValue <- R6::R6Class(
 					self$value$from_list(
 						lst[["value"]], recursive = recursive, json = json
 					)
+					self$`@id` <- paste0(
+						self$`@id`, "/", self$value$term
+					)
 				} else {
 					self$value <- lst[["value"]] %>% as.numeric()
+					self$`@id` <- paste0(self$`@id`, "/", self$value)
 				}
 				self$set_comments(lst[["comments"]])
 			} else {
