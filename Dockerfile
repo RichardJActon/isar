@@ -59,8 +59,8 @@ RUN bash .renv_install.sh
 ## ensure renv lock is in the project directory
 COPY renv.lock /home/rstudio/renv.lock
 RUN true
-COPY install.R /tmp/
-RUN R -f /tmp/install.R
+COPY install_r_pkgs.R /tmp/
+RUN R -f /tmp/install_r_pkgs.R
 
 # To apply a custom RStudio config uncomment the line below
 ENV RSTUDIO_CONFIG_HOME=/home/rstudio/work/isar/.rstudio_config_dir
