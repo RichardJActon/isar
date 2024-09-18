@@ -304,6 +304,9 @@ DataFile <- R6::R6Class(
 		# #' @details
 		# #' Get the uuid of this object
 		# #' @return a uuid
+		#' @details
+		#' get the id of the [DataFile] object
+		#' @return a string
 		get_id = function() { self$`@id` }
 		# #' @details
 		# #' set the uuid of this object

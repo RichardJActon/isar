@@ -378,7 +378,10 @@ OntologyAnnotation <- R6::R6Class(
 				self$comments <- c(comments, comment)
 			}
 		},
-
+		
+		#' @details
+		#' generate a tabular representation of an ontology annotation object
+		#' @return a Tibble 
 		to_table = function() {
 			tibble::tibble_row(
 				term = ifelse(

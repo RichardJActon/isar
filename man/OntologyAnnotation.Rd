@@ -316,6 +316,13 @@ Add comment if it is in a valid format
 \if{html}{\out{<div class="r">}}\preformatted{OntologyAnnotation$to_table()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+generate a tabular representation of an ontology annotation object
+}
+
+\subsection{Returns}{
+a Tibble
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OntologyAnnotation-to_list"></a>}}

@@ -1,6 +1,6 @@
 #' R6 class for UnitReferences
 #'
-#' @field unit_references A list of units used as a [UnitReferences] object
+#' @field units A list of units used as a [UnitReferences] object
 #' @field ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor
 #'
 #' @importFrom R6 R6Class
@@ -13,7 +13,7 @@ UnitReferences <- R6::R6Class(
 	public = list(
 		units = NULL,
 		ontology_source_references = NULL,
-		#' @param unit_references A list of units used as a [Unit] object
+		#' @param units A list of units used as a [Unit] object
 		#' @param ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor
 		initialize = function(
 			units = NULL,
@@ -88,13 +88,18 @@ UnitReferences <- R6::R6Class(
 			}
 		},
 		#' @details
-		#'
-		#' @return character vector of characteristic category sources
+		#' get the source of the unit e.g. from which study's list of unit
+		#' categories did this reference originate
+		#' @return character vector of unit sources
 		get_unit_origins = function() {
 			purrr::map_chr(self$units, ~.x$source)
 		},
 		#' @details
 		#' Generate an R list representation of a [UnitReferences] object
+		#' @param source ids of sources of unit references for which
+		#' to generate a list represenation of unit references. 
+		#' "any" lists categories from all sources. 
+		#' default = "any"
 		#' @return An R list representation of a [UnitReferences] object
 		to_list = function(source = "any") {
 			if(source == "any") {

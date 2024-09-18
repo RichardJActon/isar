@@ -22,6 +22,8 @@
 #' it dynamically generated (FALSE)?
 #' @field source the source of the [OntologySource] object, was it listed in
 #' an investigation ontolgoy source reference list, elsewhere or auto generated
+#' @field isa_process_type the type of process from the list of predefined
+#' types see: `names(valid_isa_process_types)`
 #'
 #' @importFrom R6 R6Class
 #' @importFrom checkmate qtest check_string check_list
@@ -65,6 +67,8 @@ OntologySource <- R6::R6Class(
 		#' it dynamically generated (FALSE)?
 		#' @param source the source of the [OntologySource] object, was it listed in
 		#' an investigation ontolgoy source reference list, elsewhere or auto generated
+		#' an investigation ontolgoy source reference list, elsewhere or auto generated
+		#' @param isa_process_type the type of process from the list of predefined
 		initialize = function(
 			name = character(),
 			file = character(),
@@ -312,7 +316,13 @@ OntologySource <- R6::R6Class(
 			}
 			return(ontology_source_ref)
 		},
-
+		
+		#' @details
+		#' set the type of the process from the list of valid pre-defined
+		#' types. This is used to given certain types of process custom 
+		#' names in the isa-tab serialisation.
+		#' see `names(valid_isa_process_types)` for valid types
+		#' @param x the type name 
 		set_isa_process_type = function(x) {
 			self$isa_process_type <- assert_enum(x, valid_isa_process_types)
 		},

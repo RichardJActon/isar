@@ -267,6 +267,8 @@ set the description of the study if valid
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{public_release_date}}{a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd}
+
+\item{\code{null.ok}}{accept NULL dates (boolean) default = FALSE}
 }
 \if{html}{\out{</div>}}
 }
@@ -287,6 +289,8 @@ Set public_release_date to a Date object
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{submission_date}}{a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd}
+
+\item{\code{null.ok}}{accept NULL dates (boolean) default = FALSE}
 }
 \if{html}{\out{</div>}}
 }
@@ -507,15 +511,39 @@ character vector of sample names
 \if{html}{\out{<div class="r">}}\preformatted{Study$get_unused_samples()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+get the ids of samples listed in the study not used in any assays
+associated with the study.
+}
+
+\subsection{Returns}{
+a character vector if sample ids
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Study-check_for_unused_samples"></a>}}
 \if{latex}{\out{\hypertarget{method-Study-check_for_unused_samples}{}}}
 \subsection{Method \code{check_for_unused_samples()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Study$check_for_unused_samples()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Study$check_for_unused_samples(quiet = FALSE)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{quiet}}{if TRUE suppress the warning message. default = FALSE}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Checks if there are any samples in the study which are not used in
+any assays. Returns a logical and throws a warning if unused samples
+are found
+}
+
+\subsection{Returns}{
+boolean
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Study-get_source_names"></a>}}
@@ -557,6 +585,19 @@ character vector of sources names
 \if{html}{\out{<div class="r">}}\preformatted{Study$header_table(index = 1)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{index}}{an integer to indicate which study this is when there
+is more than one study in the investigation, default = 1}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+generate a tabular summary of the study object for inclusion in the
+ISA investigation file.
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Study-to_table"></a>}}
@@ -566,6 +607,13 @@ character vector of sources names
 \if{html}{\out{<div class="r">}}\preformatted{Study$to_table()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+generate a tabular representation of the Study object
+}
+
+\subsection{Returns}{
+a Tibble
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Study-cat_table"></a>}}
@@ -573,6 +621,21 @@ character vector of sources names
 \subsection{Method \code{cat_table()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Study$cat_table(path = stdout(), overwrite = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{path}}{the path/filename to which to write the output}
+
+\item{\code{overwrite}}{should any existing files at path be overwritten?
+(boolean) Default: FALSE}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+serialise the tabular representation of the study to an isa-tab
+study file
 }
 
 }
@@ -641,6 +704,13 @@ Pretty prints \link{Study} objects
 \if{html}{\out{<div class="r">}}\preformatted{Study$get_process_order()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+get the order of the processes in process sequence
+}
+
+\subsection{Returns}{
+list of vectors of process ids
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Study-get_process_paths"></a>}}
@@ -650,6 +720,15 @@ Pretty prints \link{Study} objects
 \if{html}{\out{<div class="r">}}\preformatted{Study$get_process_paths()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+get the order of the processes in process sequence and their inputs
+and outputs
+}
+
+\subsection{Returns}{
+list of vectors of ids of processes and and their inputs /
+outputs
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Study-get_process_io_paths"></a>}}
@@ -659,6 +738,14 @@ Pretty prints \link{Study} objects
 \if{html}{\out{<div class="r">}}\preformatted{Study$get_process_io_paths()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+get the inputs and outputs of the processes in process sequence in
+order
+}
+
+\subsection{Returns}{
+list of vectors of process input / output ids
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Study-clone"></a>}}

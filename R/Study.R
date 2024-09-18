@@ -180,6 +180,7 @@ Study <- R6::R6Class(
 		#' @details
 		#' Set public_release_date to a Date object
 		#' @param public_release_date a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd
+		#' @param null.ok accept NULL dates (boolean) default = FALSE
 		set_public_release_date = function(
 			public_release_date, null.ok = FALSE
 		) {
@@ -191,6 +192,7 @@ Study <- R6::R6Class(
 		#' @details
 		#' Set submission_date to a Date object
 		#' @param submission_date a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd
+		#' @param null.ok accept NULL dates (boolean) default = FALSE
 		set_submission_date = function(submission_date, null.ok = FALSE) {
 			self$submission_date <- date_input_handling(
 				submission_date , null.ok = null.ok
@@ -278,6 +280,10 @@ Study <- R6::R6Class(
 		get_sample_names = function() {
 			self$samples %>% purrr::map_chr(~.x$name)
 		},
+		#' @details
+		#' get the ids of samples listed in the study not used in any assays
+		#' associated with the study.
+		#' @return a character vector if sample ids
 		get_unused_samples = function() {
 			all_provided_sample_names <- self$samples %>% names()
 			all_assay_sample_names <- self$assays %>%
@@ -289,16 +295,24 @@ Study <- R6::R6Class(
 			self$samples[names_of_unused_samples]
 		},
 
-		check_for_unused_samples = function() {
+		#' @details
+		#' Checks if there are any samples in the study which are not used in 
+		#' any assays. Returns a logical and throws a warning if unused samples
+		#' are found
+		#' @param quiet if TRUE suppress the warning message. default = FALSE
+		#' @return boolean
+		check_for_unused_samples = function(quiet = FALSE) {
 			unused_samples <- self$get_unused_samples() %>% names()
 			if(length(unused_samples) > 0) {
-				warning(
-					"There are ", length(unused_samples),
-					" samples in this Study not used in",
-					" any of the assays associated with it!\n",
-					"You can use the `get_unused_samples` method on this",
-					" object to get a list of the unused samples."
-				)
+				if (!quiet) {
+					warning(
+						"There are ", length(unused_samples),
+						" samples in this Study not used in",
+						" any of the assays associated with it!\n",
+						"You can use the `get_unused_samples` method on this",
+						" object to get a list of the unused samples."
+					)
+				}
 				return(TRUE)
 			} else {
 				message("No unused samples found")
@@ -338,6 +352,11 @@ Study <- R6::R6Class(
 		# 	inputs
 		# },
 
+		#' @details
+		#' generate a tabular summary of the study object for inclusion in the 
+		#' ISA investigation file.
+		#' @param index an integer to indicate which study this is when there
+		#' is more than one study in the investigation, default = 1
 		header_table = function(index = 1) {
 			#list(
 			dplyr::bind_rows(
@@ -442,6 +461,9 @@ Study <- R6::R6Class(
 			)
 		},
 
+		#' @details
+		#' generate a tabular representation of the Study object
+		#' @return a Tibble 
 		to_table = function() {
 			# processes_by_input <- self$get_processes_by_inputs()
 			# self$sources %>%
@@ -469,6 +491,12 @@ Study <- R6::R6Class(
 				dplyr::select(-`Process Name`)
 		},
 
+		#' @details
+		#' serialise the tabular representation of the study to an isa-tab 
+		#' study file
+		#' @param path the path/filename to which to write the output
+		#' @param overwrite should any existing files at path be overwritten? 
+		#' (boolean) Default: FALSE 
 		cat_table = function(path = stdout(), overwrite = FALSE) {
 			if (is.character(path)) {
 				if(fs::file_exists(path)) {
@@ -892,8 +920,23 @@ Study <- R6::R6Class(
 
 			pretty_print_comments(self$comments)
 		},
+
+		#' @details
+		#' get the order of the processes in process sequence 
+		#' @return list of vectors of process ids
 		get_process_order = function() { private$process_order() },
+
+		#' @details
+		#' get the order of the processes in process sequence and their inputs
+		#' and outputs 
+		#' @return list of vectors of ids of processes and and their inputs / 
+		#' outputs
 		get_process_paths = function() { private$process_paths() },
+
+		#' @details
+		#' get the inputs and outputs of the processes in process sequence in 
+		#' order
+		#' @return list of vectors of process input / output ids
 		get_process_io_paths = function() { private$process_io_paths() }
 	),
 	private = list(

@@ -130,6 +130,9 @@ Material <- R6::R6Class(
 				self$comments <- c(comments, comment)
 			}
 		},
+		#' @details
+		#' generate a tabular representation of a material object
+		#' @return a Tibble
 		to_table = function() {
 			# comments!
 			name_type <- tibble::tibble_row(

@@ -14,6 +14,13 @@
 #' @field protocols list of available [Protocol]s
 #' @field sources list of available [Source]s
 #' @field samples list of available [Sample]s
+#' @field next_process id of the next process in the sequence
+#' @field previous_process id of the previous process in the sequence 
+#' @field materials a list of [Material] objects 
+#' @field data_files as list of [DataFile] objects 
+#' @field ontology_source_references ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor.
+#' @field unit_references A list of units used as a [UnitReferences] objects
+#' @field protocol_parameters A list of [ProtocolParameter] objects
 #'
 #' @importFrom checkmate check_string test_list test_r6 check_date
 #' @importFrom purrr map map_lgl
@@ -56,6 +63,13 @@ Process <- R6::R6Class(
 		#' @param protocols list of available [Protocol]s
 		#' @param sources list of available [Source]s
 		#' @param samples list of available [Sample]s
+		#' @param next_process id of the next process in the sequence
+		#' @param previous_process id of the previous process in the sequence 
+		#' @param materials a list of [Material] objects 
+		#' @param data_files as list of [DataFile] objects 
+		#' @param ontology_source_references ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor.
+		#' @param unit_references A list of units used as a [UnitReferences] objects
+		#' @param protocol_parameters A list of [ProtocolParameter] objects
 		initialize = function(
 			name = character(),
 			executes_protocol = NULL,
@@ -139,7 +153,8 @@ Process <- R6::R6Class(
 
 		#' @details
 		#' Set date to a Date object
-		#' @param public_release_date a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd
+		#' @param date a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd
+		#' @param null.ok accept NULL dates (boolean) default = FALSE
 		set_date = function(date, null.ok = FALSE) {
 			self$date <- date_input_handling(date, null.ok = null.ok)
 		},
@@ -168,6 +183,9 @@ Process <- R6::R6Class(
 				self$comments <- c(comments, comment)
 			}
 		},
+		#' @details
+		#' generate a tabular representation of a process object
+		#' @return a Tibble
 		to_table = function() {
 			# inputs <- NULL
 			# outputs <- NULL
@@ -496,6 +514,14 @@ Process <- R6::R6Class(
 		# 	private$id <- generate_id(id, suffix)
 		# },
 
+		#' @details
+		#' infer the order of processes in process sequence from the next and 
+		#' previous process values. 
+		#' @param lst list of processes with identifiers if next and previous 
+		#' process ids
+		#' @param available_processes list of available [Process] objects from 
+		#' process sqeuence 
+		# ?make this a private method?
 		add_process_order = function(lst, available_processes) {
 			next_id <- lst[["nextProcess"]][["@id"]]
 			if(!is.null(next_id)) {

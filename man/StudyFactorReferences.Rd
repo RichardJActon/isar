@@ -106,6 +106,14 @@ Add new study factors to the study factor reference
 \if{html}{\out{<div class="r">}}\preformatted{StudyFactorReferences$header_table()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+generate a tabular summary of the study factors for use in the
+isa-tab investigation file.
+}
+
+\subsection{Returns}{
+a Tibble
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-StudyFactorReferences-to_list"></a>}}
@@ -140,9 +148,7 @@ Generate an R list representation of a \link{StudyFactorReferences} object
 \describe{
 \item{\code{lst}}{a list}
 
-\item{\code{explicitly_provided}}{(logical) used to indicate if the study
-factor was explicitly listed in the input as opposed to being
-inferred to exist.}
+\item{\code{origin}}{id of the source which supplied the study factors}
 }
 \if{html}{\out{</div>}}
 }

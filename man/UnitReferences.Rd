@@ -11,16 +11,9 @@ R6 class for UnitReferences
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{unit_references}}{A list of units used as a \link{UnitReferences} object}
+\item{\code{units}}{A list of units used as a \link{UnitReferences} object}
 
 \item{\code{ontology_source_references}}{\link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor}
-}
-\if{html}{\out{</div>}}
-}
-\section{Active bindings}{
-\if{html}{\out{<div class="r6-active-bindings">}}
-\describe{
-\item{\code{unit_references}}{A list of units used as a \link{UnitReferences} object}
 }
 \if{html}{\out{</div>}}
 }
@@ -51,9 +44,9 @@ R6 class for UnitReferences
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{ontology_source_references}}{\link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor}
+\item{\code{units}}{A list of units used as a \link{Unit} object}
 
-\item{\code{unit_references}}{A list of units used as a \link{Unit} object}
+\item{\code{ontology_source_references}}{\link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor}
 }
 \if{html}{\out{</div>}}
 }
@@ -172,8 +165,13 @@ character vector of unit types
 \if{html}{\out{<div class="r">}}\preformatted{UnitReferences$get_unit_origins()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+get the source of the unit e.g. from which study's list of unit
+categories did this reference originate
+}
+
 \subsection{Returns}{
-character vector of characteristic category sources
+character vector of unit sources
 }
 }
 \if{html}{\out{<hr>}}
@@ -184,6 +182,16 @@ character vector of characteristic category sources
 \if{html}{\out{<div class="r">}}\preformatted{UnitReferences$to_list(source = "any")}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{source}}{ids of sources of unit references for which
+to generate a list represenation of unit references.
+"any" lists categories from all sources.
+default = "any"}
+}
+\if{html}{\out{</div>}}
+}
 \subsection{Details}{
 Generate an R list representation of a \link{UnitReferences} object
 }

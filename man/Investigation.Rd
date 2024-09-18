@@ -44,6 +44,8 @@ An investigation maintains metadata about the project context and links to one o
 \item{\code{studies}}{\link{Study} is the central unit, containing information on the subject under study.}
 
 \item{\code{comments}}{comments associated with instances of this class.}
+
+\item{\code{characteristic_categories}}{a \link{CharacteristicCategoryReferences} object which enumerates the possible characteristic categories}
 }
 \if{html}{\out{</div>}}
 }
@@ -125,6 +127,8 @@ An investigation maintains metadata about the project context and links to one o
 \item{\code{studies}}{studies \link{Study} is the central unit, containing information on the subject under study.}
 
 \item{\code{comments}}{comments comments associated with instances of this class.}
+
+\item{\code{characteristic_categories}}{a \link{CharacteristicCategoryReferences} object which enumerates the possible characteristic categories}
 }
 \if{html}{\out{</div>}}
 }
@@ -345,6 +349,8 @@ Check publications is a list of \link{Publication} objects
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{public_release_date}}{a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd}
+
+\item{\code{null.ok}}{accept NULL dates (boolean) default = FALSE}
 }
 \if{html}{\out{</div>}}
 }
@@ -365,6 +371,8 @@ Set public_release_date to a Date object
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{submission_date}}{a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd}
+
+\item{\code{null.ok}}{accept NULL dates (boolean) default = FALSE}
 }
 \if{html}{\out{</div>}}
 }
@@ -529,6 +537,14 @@ list of \link{Source}s
 \if{html}{\out{<div class="r">}}\preformatted{Investigation$to_table()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+Generate a tabular representation of the investigation that can be
+serialised to an ISA investigation file.
+}
+
+\subsection{Returns}{
+a Tibble
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Investigation-cat_table"></a>}}
@@ -536,6 +552,20 @@ list of \link{Source}s
 \subsection{Method \code{cat_table()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Investigation$cat_table(path = stdout(), overwrite = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{path}}{the path/filename to which to write the output}
+
+\item{\code{overwrite}}{should any existing files at path be overwritten?
+(boolean) Default: FALSE}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+writes the tabular representation of the investigtion to a file
 }
 
 }

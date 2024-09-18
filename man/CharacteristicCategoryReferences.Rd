@@ -226,6 +226,11 @@ character vector
 \if{html}{\out{<div class="r">}}\preformatted{CharacteristicCategoryReferences$get_characteristic_category_origins()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+get the source of the characteristic category, such as from which
+study does it originate
+}
+
 \subsection{Returns}{
 character vector of characteristic category sources
 }
@@ -238,6 +243,16 @@ character vector of characteristic category sources
 \if{html}{\out{<div class="r">}}\preformatted{CharacteristicCategoryReferences$to_list(source = "any")}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{source}}{ids of sources of characteristic categories for which
+to generate a list of category references.
+"any" lists categories from all sources.
+default = "any"}
+}
+\if{html}{\out{</div>}}
+}
 \subsection{Details}{
 Serialize \link{CharaceristicCategoryReferences} object to an R list
 }

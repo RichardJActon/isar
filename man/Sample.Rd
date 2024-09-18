@@ -21,6 +21,8 @@ Sample$new()
 
 \item{\code{factor_values}}{A list of \link{FactorValue}s used to qualify the material in terms of study factors/design.}
 
+\item{\code{study_factor_references}}{a \link{StudyFactorReferences} object}
+
 \item{\code{characteristics}}{A list of Characteristics used to qualify the material properties.}
 
 \item{\code{derives_from}}{A link to the source material that the sample is derived from.}
@@ -81,6 +83,8 @@ Sample$new()
 \item{\code{name}}{A name/reference for the sample material.}
 
 \item{\code{factor_values}}{A list of \link{FactorValue} objects used to qualify the material in terms of study factors/design.}
+
+\item{\code{study_factor_references}}{a \link{StudyFactorReferences} object}
 
 \item{\code{characteristics}}{A list of Characteristics used to qualify the material properties.}
 
@@ -183,6 +187,13 @@ generate an R list representation translatable to JSON
 \if{html}{\out{<div class="r">}}\preformatted{Sample$to_table()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+generate a tabular representation of a sample object
+}
+
+\subsection{Returns}{
+a Tibble
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Sample-check_source"></a>}}
@@ -230,6 +241,11 @@ Sets a source if that source is listed in the provided list of sources
 \subsection{Method \code{update_characteristics()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Sample$update_characteristics()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+update characteristic categories with any new categories added to
+the reference.
 }
 
 }

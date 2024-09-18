@@ -87,6 +87,9 @@ OntologySourceReferences <- R6::R6Class(
 			purrr::map_chr(self$ontology_source_references, ~.x$source)
 		},
 
+		#' @details
+		#' Generate tabular representation of reference ontology sources
+		#' @return a Tibble
 		to_table = function() {
 			tbl <- self$ontology_source_references %>%
 				purrr::map_dfr(~{tibble::tibble(
@@ -106,6 +109,11 @@ OntologySourceReferences <- R6::R6Class(
 			tbl
 		},
 
+		#' @details
+		#' Serialise a tabular representation of reference ontology sources
+		#' 
+		#' @param path path/name of the file to which to write the table
+		# # overwrite ?
 		cat_table = function(path = stdout()) {
 			cat(file = path, "ONTOLOGY SOURCE REFERENCE\n", append = TRUE)
 			self$to_table() %>%

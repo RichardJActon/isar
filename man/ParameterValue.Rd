@@ -20,16 +20,13 @@ A ParameterValue represents the instance value of a \link{ProtocolParameter}, us
 
 \item{\code{unit}}{The qualifying unit classifier, if the value is numeric.}
 
-\item{\code{comments}}{Comments associated with instances of this class.}
+\item{\code{ontology_source_references}}{ontology_source_references \link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor.}
 
-\item{\code{@id}}{identifier}
-}
-\if{html}{\out{</div>}}
-}
-\section{Active bindings}{
-\if{html}{\out{<div class="r6-active-bindings">}}
-\describe{
-\item{\code{@id}}{identifier}
+\item{\code{unit_references}}{A list of units used as a \link{UnitReferences} object}
+
+\item{\code{protocol_parameters}}{a named list of available \link{ProtocolParameter} objects}
+
+\item{\code{comments}}{Comments associated with instances of this class.}
 }
 \if{html}{\out{</div>}}
 }
@@ -76,6 +73,12 @@ A ParameterValue represents the instance value of a \link{ProtocolParameter}, us
 \item{\code{value}}{The value of the parameter.}
 
 \item{\code{unit}}{The qualifying unit classifier, if the value is numeric.}
+
+\item{\code{ontology_source_references}}{ontology_source_references \link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor.}
+
+\item{\code{unit_references}}{A list of units used as a \link{UnitReferences} object}
+
+\item{\code{protocol_parameters}}{a named list of available \link{ProtocolParameter} objects}
 
 \item{\code{comments}}{Comments associated with instances of this class.}
 
@@ -199,11 +202,7 @@ Add comment if it is in a valid format
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{term}}{the term of the unit}
-
-\item{\code{term_accession}}{the accession of the ontology term of the unit}
-
-\item{\code{term_source}}{the name of the source of the ontology term}
+\item{\code{lst}}{a list to be processed into a \link{Unit} object}
 }
 \if{html}{\out{</div>}}
 }
@@ -220,6 +219,19 @@ Set the unit as a valid ontology term
 \if{html}{\out{<div class="r">}}\preformatted{ParameterValue$set_valid_category(category)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{category}}{the id of a protocol parameter which represents the
+category of this parameter}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+select the protocol parameter that represents the category of this
+parameter value
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ParameterValue-to_table"></a>}}
@@ -229,6 +241,13 @@ Set the unit as a valid ontology term
 \if{html}{\out{<div class="r">}}\preformatted{ParameterValue$to_table()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+generate a tabular representation of the parameter value
+}
+
+\subsection{Returns}{
+a Tibble
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ParameterValue-to_list"></a>}}

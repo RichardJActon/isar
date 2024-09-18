@@ -31,6 +31,10 @@ An experimental Protocol used in the study.
 \item{\code{comments}}{Comments associated with instances of this class.}
 
 \item{\code{@id}}{identifier}
+
+\item{\code{origin}}{the id of source assay from which the protocol was generated}
+
+\item{\code{ontology_source_references}}{\link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor.}
 }
 \if{html}{\out{</div>}}
 }
@@ -77,7 +81,8 @@ An experimental Protocol used in the study.
   components = NULL,
   comments = NULL,
   `@id` = NULL,
-  origin = character()
+  origin = character(),
+  ontology_source_references = NULL
 )}\if{html}{\out{</div>}}
 }
 
@@ -101,6 +106,10 @@ An experimental Protocol used in the study.
 \item{\code{comments}}{Comments associated with instances of this class.}
 
 \item{\code{@id}}{identifier}
+
+\item{\code{origin}}{the id of source assay from which the protocol was generated}
+
+\item{\code{ontology_source_references}}{\link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor.}
 }
 \if{html}{\out{</div>}}
 }
@@ -457,6 +466,14 @@ Add comment if it is in a valid format
 \if{html}{\out{<div class="r">}}\preformatted{Protocol$header_table()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+generate a tabular summary of the protocol for inclusion in
+the investigation file
+}
+
+\subsection{Returns}{
+a Tibble
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Protocol-to_list"></a>}}

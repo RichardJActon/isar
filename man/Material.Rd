@@ -281,6 +281,13 @@ Add comment if it is in a valid format
 \if{html}{\out{<div class="r">}}\preformatted{Material$to_table()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+generate a tabular representation of a material object
+}
+
+\subsection{Returns}{
+a Tibble
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Material-to_list"></a>}}

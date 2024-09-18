@@ -9,8 +9,9 @@
 #' @field factor_type An [OntologyAnnotation] reference of the study factor type
 #' @field comments Comments associated with instances of this class.
 #' @field @id identifier
-#' @field explicitly_provided Explicitly listed in the study as a factor (logical)
+#' @field origin the id of source [Study] from which the [StudyFactor] was generated 
 #' @field ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor.
+#' @field factor_values_reference a list of [FactorValue] objects? 
 #'
 #' @importFrom checkmate qtest check_string
 #' @importFrom R6 R6Class
@@ -38,6 +39,7 @@ StudyFactor <- R6::R6Class(
 		#' @param origin @id of the object of origin for the factor in case it
 		#' is not explicitly listed in the study as a factor (logical)
 		#' @param ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor.
+		#' @param factor_values_reference a list of [FactorValue] objects? 
 		#'
 		initialize = function(
 		factor_name = character(),
@@ -102,6 +104,9 @@ StudyFactor <- R6::R6Class(
 			}
 		},
 
+		#' @details
+		#' generate a tabular representation of the study factor
+		#' @return a Tibble 
 		to_table = function() {
 			self$factor_type$to_table() %>%
 				dplyr::mutate(rowname = self$factor_name) %>%
@@ -125,6 +130,9 @@ StudyFactor <- R6::R6Class(
 		# to_table = function() {
 		#
 		# },
+		#' @details
+		#' add a factor value object to the study factor references. 
+		#' @param factor_value a [FactorValue] object
 		add_factor_value = function(factor_value) {
 			if(is.null(factor_value$`@id` %in% names(self$factor_values_reference))) {
 

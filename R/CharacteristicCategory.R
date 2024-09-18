@@ -2,7 +2,7 @@
 #'
 #' @field @id identifier
 #' @field type The type of characteristic as an [OntologyAnnotation]
-#' @field explicitly_provided
+#' @field explicitly_provided boolean was this characteristic explicitly as a characteristic category of this study (deprecating in favour of source)
 #' @field ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor
 #' @field source an id of the object from which characteristic category originated
 #'
@@ -20,7 +20,7 @@ CharacteristicCategory <- R6::R6Class(
 		#' Create a new [CharacteristicCategory] object
 		#' @param @id identifier
 		#' @param type The type of characteristic as an [OntologyAnnotation]
-		#' @param explicitly_provided
+		#' @param explicitly_provided boolean was this characteristic explicitly as a characteristic category of this study (deprecating in favour of source)
 		#' @param ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor
 		#' @param source an id of the object from which characteristic category originated
 		initialize = function(

@@ -68,6 +68,7 @@ experimental workflow described by a particular protocol.
 \item \href{#method-Assay-to_list}{\code{Assay$to_list()}}
 \item \href{#method-Assay-header_table}{\code{Assay$header_table()}}
 \item \href{#method-Assay-to_table}{\code{Assay$to_table()}}
+\item \href{#method-Assay-cat_table}{\code{Assay$cat_table()}}
 \item \href{#method-Assay-from_list}{\code{Assay$from_list()}}
 \item \href{#method-Assay-print}{\code{Assay$print()}}
 \item \href{#method-Assay-get_process_order}{\code{Assay$get_process_order()}}
@@ -431,6 +432,17 @@ Set samples if samples is a list of \link{Sample} objects
 \if{html}{\out{<div class="r">}}\preformatted{Assay$set_samples_by_id(sample_ids)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{sample_ids}}{a list of ids of \link{Sample} objects}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Set samples if samples is a list of ids of \link{Sample} objects
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Assay-to_list"></a>}}
@@ -460,6 +472,14 @@ make an R list convertible to json
 \if{html}{\out{<div class="r">}}\preformatted{Assay$header_table()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+generate a table of details of this assay to appear within an
+Investigation file
+}
+
+\subsection{Returns}{
+a Tibble
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Assay-to_table"></a>}}
@@ -467,6 +487,37 @@ make an R list convertible to json
 \subsection{Method \code{to_table()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Assay$to_table()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Generate a taular representation of the assay, basis for serialising
+to a study file
+}
+
+\subsection{Returns}{
+a Tibble
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Assay-cat_table"></a>}}
+\if{latex}{\out{\hypertarget{method-Assay-cat_table}{}}}
+\subsection{Method \code{cat_table()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Assay$cat_table(path = stdout(), overwrite = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{path}}{the path/filename to which to write the output}
+
+\item{\code{overwrite}}{should any existing files at path be overwritten?
+(boolean) Default: FALSE}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+writes the tabular representation of the assay to a file
 }
 
 }
@@ -515,6 +566,13 @@ Pretty prints \link{Assay} objects
 \if{html}{\out{<div class="r">}}\preformatted{Assay$get_process_order()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+get the order of the processes in process sequence
+}
+
+\subsection{Returns}{
+list of vectors of process ids
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Assay-get_process_paths"></a>}}
@@ -524,6 +582,15 @@ Pretty prints \link{Assay} objects
 \if{html}{\out{<div class="r">}}\preformatted{Assay$get_process_paths()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+get the order of the processes in process sequence and their inputs
+and outputs
+}
+
+\subsection{Returns}{
+list of vectors of ids of processes and and their inputs /
+outputs
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Assay-get_process_io_paths"></a>}}
@@ -533,6 +600,14 @@ Pretty prints \link{Assay} objects
 \if{html}{\out{<div class="r">}}\preformatted{Assay$get_process_io_paths()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+get the inputs and outputs of the processes in process sequence in
+order
+}
+
+\subsection{Returns}{
+list of vectors of process input / output ids
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Assay-clone"></a>}}

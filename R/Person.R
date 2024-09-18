@@ -184,6 +184,13 @@ Person <- R6::R6Class(
 			}
 		},
 
+		#' @details
+		#' generate a tabular representation of a person object for the
+		#' investigation file.
+		#' person is used in several places and therefore needs to have
+		#' different prefixes in different blocks which can be supplied via
+		#' the prefix argument
+		#' @param prefix string to prepend to person information default = ""
 		header_table = function(prefix = "") {
 			dplyr::bind_cols(
 				tibble::tibble(
@@ -219,6 +226,9 @@ Person <- R6::R6Class(
 			)
 		},
 
+		#' @details
+		#' generate a tabular representation of a person object
+		#' @return a Tibble
 		to_table = function() {
 
 			tibble::tibble(

@@ -4,7 +4,7 @@
 \alias{check_empty}
 \title{check_empty}
 \usage{
-check_empty(x, mode = typeof(x), null.ok = FALSE)
+check_empty(x, mode = typeof(x), null.ok = FALSE, zero.len.string.ok = FALSE)
 }
 \arguments{
 \item{x}{object to check}

@@ -33,6 +33,9 @@ it dynamically generated (FALSE)?}
 
 \item{\code{source}}{the source of the \link{OntologySource} object, was it listed in
 an investigation ontolgoy source reference list, elsewhere or auto generated}
+
+\item{\code{isa_process_type}}{the type of process from the list of predefined
+types see: \code{names(valid_isa_process_types)}}
 }
 \if{html}{\out{</div>}}
 }
@@ -57,6 +60,7 @@ an investigation ontolgoy source reference list, elsewhere or auto generated}
 \item \href{#method-OntologySource-add_comment}{\code{OntologySource$add_comment()}}
 \item \href{#method-OntologySource-add_terms}{\code{OntologySource$add_terms()}}
 \item \href{#method-OntologySource-to_list}{\code{OntologySource$to_list()}}
+\item \href{#method-OntologySource-set_isa_process_type}{\code{OntologySource$set_isa_process_type()}}
 \item \href{#method-OntologySource-from_list}{\code{OntologySource$from_list()}}
 \item \href{#method-OntologySource-is_same_ontology_as}{\code{OntologySource$is_same_ontology_as()}}
 \item \href{#method-OntologySource-print}{\code{OntologySource$print()}}
@@ -79,7 +83,8 @@ an investigation ontolgoy source reference list, elsewhere or auto generated}
   terms_list = NULL,
   comments = NULL,
   explicitly_provided = logical(),
-  source = character()
+  source = character(),
+  isa_process_type = NULL
 )}\if{html}{\out{</div>}}
 }
 
@@ -109,7 +114,10 @@ list of \link{OntologySourceReferences} for the \link{Investigation} (TRUE) or w
 it dynamically generated (FALSE)?}
 
 \item{\code{source}}{the source of the \link{OntologySource} object, was it listed in
+an investigation ontolgoy source reference list, elsewhere or auto generated
 an investigation ontolgoy source reference list, elsewhere or auto generated}
+
+\item{\code{isa_process_type}}{the type of process from the list of predefined}
 }
 \if{html}{\out{</div>}}
 }
@@ -455,6 +463,29 @@ Add terms to the \link{OntologySource}
 }
 \subsection{Details}{
 make an R list convertible to json
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OntologySource-set_isa_process_type"></a>}}
+\if{latex}{\out{\hypertarget{method-OntologySource-set_isa_process_type}{}}}
+\subsection{Method \code{set_isa_process_type()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OntologySource$set_isa_process_type(x)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{x}}{the type name}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+set the type of the process from the list of valid pre-defined
+types. This is used to given certain types of process custom
+names in the isa-tab serialisation.
+see \code{names(valid_isa_process_types)} for valid types
 }
 
 }

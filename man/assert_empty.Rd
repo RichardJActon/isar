@@ -8,6 +8,7 @@ assert_empty(
   x,
   mode = typeof(x),
   null.ok = FALSE,
+  zero.len.string.ok = FALSE,
   .var.name = checkmate::vname(x),
   add = NULL
 )

@@ -176,10 +176,10 @@ Characteristic <- R6::R6Class(
 		},
 
 		#' @details
-		#' Set the unit as a valid ontology term
-		#' @param term the term of the unit
-		#' @param term_accession the accession of the ontology term of the unit
-		#' @param term_source the name of the source of the ontology term
+		#' Set the unit as a valid ontology term, validity is currently
+		#' determined the presence of a unit in a the reference or the ability 
+		#' to create a new unit object from the list.
+		#' @param lst a list to processed into a valid unit object 
 		#set_valid_unit = function(unit_id, term, term_accession, term_source) {
 		set_valid_unit = function(lst) {
 			# browser()
@@ -212,7 +212,10 @@ Characteristic <- R6::R6Class(
 					self$unit_references$add_unit_references()
 			}
 		},
-
+		
+		#' @details
+		#' generate a tabular representation of the characteristic
+		#' @return a Tibble 
 		to_table = function() {
 			self$value$to_table() %>% purrr::set_names(
 				paste0("Characteristics[", self$category$type$term, "]"),

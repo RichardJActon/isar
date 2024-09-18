@@ -77,6 +77,13 @@ R6 class for a Source
 \if{html}{\out{<div class="r">}}\preformatted{Source$to_table()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+generate a tabular representation of the \link{Source} object
+}
+
+\subsection{Returns}{
+a Tibble
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Source-to_list"></a>}}

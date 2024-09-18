@@ -437,6 +437,13 @@ a hash
 \if{html}{\out{<div class="r">}}\preformatted{DataFile$get_id()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+get the id of the \link{DataFile} object
+}
+
+\subsection{Returns}{
+a string
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DataFile-clone"></a>}}

@@ -96,7 +96,8 @@ CharacteristicCategoryReferences <- R6::R6Class(
 		},
 
 		#' @details
-		#'
+		#' get the source of the characteristic category, such as from which
+		#' study does it originate
 		#' @return character vector of characteristic category sources
 		get_characteristic_category_origins = function() {
 			purrr::map_chr(self$categories, ~.x$source)
@@ -104,6 +105,10 @@ CharacteristicCategoryReferences <- R6::R6Class(
 
 		#' @details
 		#' Serialize [CharaceristicCategoryReferences] object to an R list
+		#' @param source ids of sources of characteristic categories for which
+		#' to generate a list of category references. 
+		#' "any" lists categories from all sources. 
+		#' default = "any"
 		#' @return an R list
 		to_list = function(source = "any") {
 			if(source == "any") {

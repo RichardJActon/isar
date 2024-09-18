@@ -17,6 +17,7 @@
 #' @field contacts A list of People/contacts associated with an Investigation.
 #' @field studies [Study] is the central unit, containing information on the subject under study.
 #' @field comments comments associated with instances of this class.
+#' @field characteristic_categories a [CharacteristicCategoryReferences] object which enumerates the possible characteristic categories
 #'
 #' @importFrom R6 R6Class
 #' @importFrom checkmate check_date
@@ -51,6 +52,7 @@ Investigation <- R6::R6Class(
 		#' @param contacts contacts A list of People/contacts associated with an Investigation.
 		#' @param studies studies [Study] is the central unit, containing information on the subject under study.
 		#' @param comments comments comments associated with instances of this class.
+		#' @param characteristic_categories a [CharacteristicCategoryReferences] object which enumerates the possible characteristic categories
 		#'
 		initialize = function(
 			filename = '',
@@ -199,6 +201,7 @@ Investigation <- R6::R6Class(
 		#' @details
 		#' Set public_release_date to a Date object
 		#' @param public_release_date a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd
+		#' @param null.ok accept NULL dates (boolean) default = FALSE
 		set_public_release_date = function(
 			public_release_date, null.ok = FALSE
 		) {
@@ -210,6 +213,7 @@ Investigation <- R6::R6Class(
 		#' @details
 		#' Set submission_date to a Date object
 		#' @param submission_date a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd
+		#' @param null.ok accept NULL dates (boolean) default = FALSE
 		set_submission_date = function(submission_date, null.ok = FALSE) {
 			self$submission_date <- date_input_handling(
 				submission_date , null.ok = null.ok
@@ -283,6 +287,10 @@ Investigation <- R6::R6Class(
 				purrr::map(~.x$sources) %>% unlist(recursive = FALSE)
 		},
 
+		#' @details
+		#' Generate a tabular representation of the investigation that can be 
+		#' serialised to an ISA investigation file.
+		#' @return a Tibble
 		to_table = function() {
 			general <- tibble::tibble(
 				section = c(
@@ -338,7 +346,12 @@ Investigation <- R6::R6Class(
 
 			dplyr::bind_rows(general, publications, contacts, studies)
 		},
-
+		
+		#' @details
+		#' writes the tabular representation of the investigtion to a file
+		#' @param path the path/filename to which to write the output
+		#' @param overwrite should any existing files at path be overwritten? 
+		#' (boolean) Default: FALSE 
 		cat_table = function(path = stdout(), overwrite = FALSE) {
 			if (is.character(path)) {
 				if(fs::file_exists(path)) {

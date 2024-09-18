@@ -19,16 +19,11 @@ that can be measured by an assay.
 
 \item{\code{@id}}{identifier}
 
-\item{\code{explicitly_provided}}{Explicitly listed in the study as a factor (logical)}
+\item{\code{origin}}{the id of source \link{Study} from which the \link{StudyFactor} was generated}
 
 \item{\code{ontology_source_references}}{\link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor.}
-}
-\if{html}{\out{</div>}}
-}
-\section{Active bindings}{
-\if{html}{\out{<div class="r6-active-bindings">}}
-\describe{
-\item{\code{explicitly_provided}}{Explicitly listed in the study as a factor (logical)}
+
+\item{\code{factor_values_reference}}{a list of \link{FactorValue} objects?}
 }
 \if{html}{\out{</div>}}
 }
@@ -43,6 +38,7 @@ that can be measured by an assay.
 \item \href{#method-StudyFactor-add_comment}{\code{StudyFactor$add_comment()}}
 \item \href{#method-StudyFactor-to_table}{\code{StudyFactor$to_table()}}
 \item \href{#method-StudyFactor-to_list}{\code{StudyFactor$to_list()}}
+\item \href{#method-StudyFactor-add_factor_value}{\code{StudyFactor$add_factor_value()}}
 \item \href{#method-StudyFactor-from_list}{\code{StudyFactor$from_list()}}
 \item \href{#method-StudyFactor-print}{\code{StudyFactor$print()}}
 \item \href{#method-StudyFactor-clone}{\code{StudyFactor$clone()}}
@@ -59,7 +55,8 @@ that can be measured by an assay.
   comments = NULL,
   `@id` = character(),
   origin = character(),
-  ontology_source_references = NULL
+  ontology_source_references = NULL,
+  factor_values_reference = NULL
 )}\if{html}{\out{</div>}}
 }
 
@@ -78,6 +75,8 @@ that can be measured by an assay.
 is not explicitly listed in the study as a factor (logical)}
 
 \item{\code{ontology_source_references}}{\link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor.}
+
+\item{\code{factor_values_reference}}{a list of \link{FactorValue} objects?}
 }
 \if{html}{\out{</div>}}
 }
@@ -194,6 +193,13 @@ Add comment if it is in a valid format
 \if{html}{\out{<div class="r">}}\preformatted{StudyFactor$to_table()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+generate a tabular representation of the study factor
+}
+
+\subsection{Returns}{
+a Tibble
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-StudyFactor-to_list"></a>}}
@@ -210,6 +216,26 @@ generate an R list representation translatable to JSON
 \subsection{Returns}{
 a list
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-StudyFactor-add_factor_value"></a>}}
+\if{latex}{\out{\hypertarget{method-StudyFactor-add_factor_value}{}}}
+\subsection{Method \code{add_factor_value()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{StudyFactor$add_factor_value(factor_value)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{factor_value}}{a \link{FactorValue} object}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+add a factor value object to the study factor references.
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-StudyFactor-from_list"></a>}}

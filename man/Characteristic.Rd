@@ -303,16 +303,14 @@ Set a category and check that it is valid
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{term}}{the term of the unit}
-
-\item{\code{term_accession}}{the accession of the ontology term of the unit}
-
-\item{\code{term_source}}{the name of the source of the ontology term}
+\item{\code{lst}}{a list to processed into a valid unit object}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Set the unit as a valid ontology term
+Set the unit as a valid ontology term, validity is currently
+determined the presence of a unit in a the reference or the ability
+to create a new unit object from the list.
 }
 
 }
@@ -324,6 +322,13 @@ Set the unit as a valid ontology term
 \if{html}{\out{<div class="r">}}\preformatted{Characteristic$to_table()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+generate a tabular representation of the characteristic
+}
+
+\subsection{Returns}{
+a Tibble
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Characteristic-to_list"></a>}}

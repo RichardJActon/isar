@@ -38,6 +38,20 @@ Process nodes represent the application of a protocol to some input material
 \item{\code{sources}}{list of available \link{Source}s}
 
 \item{\code{samples}}{list of available \link{Sample}s}
+
+\item{\code{next_process}}{id of the next process in the sequence}
+
+\item{\code{previous_process}}{id of the previous process in the sequence}
+
+\item{\code{materials}}{a list of \link{Material} objects}
+
+\item{\code{data_files}}{as list of \link{DataFile} objects}
+
+\item{\code{ontology_source_references}}{ontology_source_references \link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor.}
+
+\item{\code{unit_references}}{A list of units used as a \link{UnitReferences} objects}
+
+\item{\code{protocol_parameters}}{A list of \link{ProtocolParameter} objects}
 }
 \if{html}{\out{</div>}}
 }
@@ -115,6 +129,20 @@ Process nodes represent the application of a protocol to some input material
 \item{\code{sources}}{list of available \link{Source}s}
 
 \item{\code{samples}}{list of available \link{Sample}s}
+
+\item{\code{next_process}}{id of the next process in the sequence}
+
+\item{\code{previous_process}}{id of the previous process in the sequence}
+
+\item{\code{materials}}{a list of \link{Material} objects}
+
+\item{\code{data_files}}{as list of \link{DataFile} objects}
+
+\item{\code{ontology_source_references}}{ontology_source_references \link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor.}
+
+\item{\code{unit_references}}{A list of units used as a \link{UnitReferences} objects}
+
+\item{\code{protocol_parameters}}{A list of \link{ProtocolParameter} objects}
 }
 \if{html}{\out{</div>}}
 }
@@ -194,7 +222,9 @@ check performer is a list of \link{Person} objects
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{public_release_date}}{a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd}
+\item{\code{date}}{a Date Object or ISO8601 formatted data string i.e. YYYY-mm-dd}
+
+\item{\code{null.ok}}{accept NULL dates (boolean) default = FALSE}
 }
 \if{html}{\out{</div>}}
 }
@@ -291,6 +321,13 @@ Add comment if it is in a valid format
 \if{html}{\out{<div class="r">}}\preformatted{Process$to_table()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+generate a tabular representation of a process object
+}
+
+\subsection{Returns}{
+a Tibble
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Process-to_list"></a>}}
@@ -342,6 +379,22 @@ Make \link{Process} object from list
 \subsection{Method \code{add_process_order()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Process$add_process_order(lst, available_processes)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{lst}}{list of processes with identifiers if next and previous
+process ids}
+
+\item{\code{available_processes}}{list of available \link{Process} objects from
+process sqeuence}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+infer the order of processes in process sequence from the next and
+previous process values.
 }
 
 }

@@ -57,6 +57,9 @@ Source <- R6::R6Class(
 			}
 		},
 
+		#' @details
+		#' generate a tabular representation of the [Source] object
+		#' @return a Tibble
 		to_table = function() {
 			c(
 				list(tibble::tibble_row("Source Name" = self$name)),

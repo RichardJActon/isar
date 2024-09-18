@@ -97,6 +97,10 @@ Unit <- R6::R6Class(
 			}
 			return(lst)
 		},
+		
+		#' @details
+		#' generate tabular representation of [Unit] object 
+		#' @return a Tibble
 		to_table = function() {
 			self$unit$to_table() %>% purrr::set_names(
 				"Unit", "Term Source REF", "Term Accession Number"
@@ -108,8 +112,9 @@ Unit <- R6::R6Class(
 		#' @details
 		#' Make [Unit] object from list
 		#' @param lst an Unit object serialized to a list
-		#' @param json json  (default TRUE)
-		#' @param recursive call to_list methods of any objects within this object (default TRUE)
+		#' @param source id of the source of the [Unit] object
+		#' @param add should the list of units be added to existing unit
+		#' references if not overwrite them (bolean) default = FALSE
 		from_list = function(lst, source = NA, add = FALSE) {
 			self$`@id` <- lst[["@id"]]
 			self$unit <- OntologyAnnotation$new(

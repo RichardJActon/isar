@@ -35,6 +35,12 @@ Sets comments if they are in a valid format
 
 Add comment if it is in a valid format
 
+generate a tabular representation of a publication object for the
+investigation file.
+publication is used in several places and therefore needs to have
+different prefixes in different blocks which can be supplied via
+the prefix argument
+
 convert the Publication object to a list
 
 Generate a [Publication object from a list
@@ -302,6 +308,13 @@ Pretty prints \link{Publication} objects
 \if{html}{\out{<div class="r">}}\preformatted{Publication$to_table(prefix = "")}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{prefix}}{string to prepend to publication information default = ""}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Publication-to_list"></a>}}

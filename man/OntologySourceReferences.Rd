@@ -182,6 +182,13 @@ objects in the reference
 \if{html}{\out{<div class="r">}}\preformatted{OntologySourceReferences$to_table()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+Generate tabular representation of reference ontology sources
+}
+
+\subsection{Returns}{
+a Tibble
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OntologySourceReferences-cat_table"></a>}}
@@ -189,6 +196,17 @@ objects in the reference
 \subsection{Method \code{cat_table()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{OntologySourceReferences$cat_table(path = stdout())}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{path}}{path/name of the file to which to write the table}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Serialise a tabular representation of reference ontology sources
 }
 
 }

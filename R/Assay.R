@@ -244,6 +244,9 @@ Assay <- R6::R6Class(
 				self$samples <- samples
 			}
 		},
+		#' @details
+		#' Set samples if samples is a list of ids of [Sample] objects
+		#' @param sample_ids a list of ids of [Sample] objects
 		set_samples_by_id = function(sample_ids) {
 			lgl <- sample_ids %in% names(self$samples)
 			if(all(lgl)) {
@@ -355,7 +358,10 @@ Assay <- R6::R6Class(
 			# lst[["graph"]] <- self$graph
 			return(lst)
 		},
-
+		#' @details
+		#' generate a table of details of this assay to appear within an 
+		#' Investigation file
+		#' @return a Tibble
 		header_table = function() {
 			dplyr::bind_cols(
 				self$measurement_type$to_table() %>%
@@ -390,7 +396,11 @@ Assay <- R6::R6Class(
 
 		# expand.grid(list("a","b"),list("c","d","e")) %>% t() %>% unlist() %>% igraph::make_directed_graph()
 		# %>% igraph::all_simple_paths(from = "a") %>% purrr::keep(\(x)(all(length(x) > 2)))
-
+		
+		#' @details
+		#' Generate a taular representation of the assay, basis for serialising 
+		#' to a study file
+		#' @return a Tibble  
 		to_table = function() {
 
 		# node types:
@@ -457,6 +467,11 @@ Assay <- R6::R6Class(
 			# dplyr::bind_cols(characteristics, processess)
 			# # dplyr::left_join(characteristics, processess, by = "Sample Name")
 		},
+		#' @details
+		#' writes the tabular representation of the assay to a file
+		#' @param path the path/filename to which to write the output
+		#' @param overwrite should any existing files at path be overwritten? 
+		#' (boolean) Default: FALSE 
 		cat_table = function(path = stdout(), overwrite = FALSE) {
 			if (is.character(path)) {
 				if(fs::file_exists(path)) {
@@ -671,8 +686,23 @@ Assay <- R6::R6Class(
 		# 		num_units						=	length(self$num_units)
 		# 	)
 		# }
+
+		#' @details
+		#' get the order of the processes in process sequence 
+		#' @return list of vectors of process ids
 		get_process_order = function() { private$process_order() },
+
+		#' @details
+		#' get the order of the processes in process sequence and their inputs
+		#' and outputs 
+		#' @return list of vectors of ids of processes and and their inputs / 
+		#' outputs
 		get_process_paths = function() { private$process_paths() },
+
+		#' @details
+		#' get the inputs and outputs of the processes in process sequence in 
+		#' order
+		#' @return list of vectors of process input / output ids
 		get_process_io_paths = function() { private$process_io_paths() }
 	),
 	private = list(

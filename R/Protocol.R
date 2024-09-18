@@ -11,6 +11,9 @@
 #' @field components A list of [OntologyAnnotation] describing a protocol's components; e.g. instrument names, software names, and reagents names.
 #' @field comments Comments associated with instances of this class.
 #' @field @id identifier
+#change origin to source
+#' @field origin the id of source assay from which the protocol was generated 
+#' @field ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor.
 #'
 #' @importFrom R6 R6Class
 #' @importFrom checkmate qtest check_string check_r6 test_list
@@ -43,6 +46,9 @@ Protocol <- R6::R6Class(
 		#' @param components A list of [OntologyAnnotation] describing a protocol's components; e.g. instrument names, software names, and reagents names.
 		#' @param comments Comments associated with instances of this class.
 		#' @param @id identifier
+		#change origin to source
+		#' @param origin the id of source assay from which the protocol was generated 
+		#' @param ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor.
 		initialize = function(
 			name = character(),
 			protocol_type = NULL,
@@ -221,6 +227,10 @@ Protocol <- R6::R6Class(
 			}
 		},
 
+		#' @details
+		#' generate a tabular summary of the protocol for inclusion in
+		#' the investigation file
+		#' @return a Tibble
 		header_table = function() {
 			general <- tibble::tibble(
 				"Study Protocol Name" = self$name

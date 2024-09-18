@@ -110,6 +110,13 @@ An R list representation of a \link{Unit} object
 \if{html}{\out{<div class="r">}}\preformatted{Unit$to_table()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+generate tabular representation of \link{Unit} object
+}
+
+\subsection{Returns}{
+a Tibble
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Unit-from_list"></a>}}
@@ -124,9 +131,10 @@ An R list representation of a \link{Unit} object
 \describe{
 \item{\code{lst}}{an Unit object serialized to a list}
 
-\item{\code{json}}{json  (default TRUE)}
+\item{\code{source}}{id of the source of the \link{Unit} object}
 
-\item{\code{recursive}}{call to_list methods of any objects within this object (default TRUE)}
+\item{\code{add}}{should the list of units be added to existing unit
+references if not overwrite them (bolean) default = FALSE}
 }
 \if{html}{\out{</div>}}
 }

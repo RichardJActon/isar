@@ -3,8 +3,11 @@
 #' @field category A link to the relevant [ProtocolParameter] that the value is set for.
 #' @field value The value of the parameter.
 #' @field unit The qualifying unit classifier, if the value is numeric.
+#' @field ontology_source_references ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor.
+#' @field unit_references A list of units used as a [UnitReferences] object
+#' @field protocol_parameters a named list of available [ProtocolParameter] objects
 #' @field comments Comments associated with instances of this class.
-#' @field @id identifier
+# #' @field @id identifier
 #'
 #' @importFrom R6 R6Class
 #' @importFrom checkmate check_r6
@@ -25,6 +28,9 @@ ParameterValue <- R6::R6Class(
 		#' @param category A link to the relevant [ProtocolParameter] that the value is set for.
 		#' @param value The value of the parameter.
 		#' @param unit The qualifying unit classifier, if the value is numeric.
+		#' @param ontology_source_references ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor.
+		#' @param unit_references A list of units used as a [UnitReferences] object
+		#' @param protocol_parameters a named list of available [ProtocolParameter] objects
 		#' @param comments Comments associated with instances of this class.
 		#' @param @id identifier
 		initialize = function(
@@ -101,10 +107,7 @@ ParameterValue <- R6::R6Class(
 		},
 		#' @details
 		#' Set the unit as a valid ontology term
-		#' @param term the term of the unit
-		#' @param term_accession the accession of the ontology term of the unit
-		#' @param term_source the name of the source of the ontology term
-		#set_valid_unit = function(unit_id, term, term_accession, term_source) {
+		#' @param lst a list to be processed into a [Unit] object
 		set_valid_unit = function(lst) {
 			unit_id <- lst[["@id"]]
 			if (unit_id %in% self$unit_references$get_unit_ids()) {
@@ -119,10 +122,18 @@ ParameterValue <- R6::R6Class(
 					self$unit_references$add_unit_references()
 			}
 		},
+		#' @details
+		#' select the protocol parameter that represents the category of this
+		#' parameter value
+		#' @param category the id of a protocol parameter which represents the 
+		#' category of this parameter
 		set_valid_category = function(category) {
 			self$category <- self$protocol_parameters[[category$`@id`]]
 		},
 
+		#' @details
+		#' generate a tabular representation of the parameter value
+		#' @return a Tibble
 		to_table = function(){
 			comments <- NULL
 			if (!test_list(self$comments, len = 0, null.ok = TRUE)) {

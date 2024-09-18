@@ -4,6 +4,7 @@
 #'
 #' @field name A name/reference for the sample material.
 #' @field factor_values A list of [FactorValue]s used to qualify the material in terms of study factors/design.
+#' @field study_factor_references a [StudyFactorReferences] object
 #' @field characteristics A list of Characteristics used to qualify the material properties.
 #' @field derives_from A link to the source material that the sample is derived from.
 #' @field comments Comments associated with instances of this class.
@@ -42,6 +43,7 @@ Sample <- R6::R6Class(
 		#'
 		#' @param name A name/reference for the sample material.
 		#' @param factor_values A list of [FactorValue] objects used to qualify the material in terms of study factors/design.
+		#' @param study_factor_references a [StudyFactorReferences] object
 		#' @param characteristics A list of Characteristics used to qualify the material properties.
 		#' @param derives_from A link to the source material that the sample is derived from.
 		#' @param comments Comments associated with instances of this class.
@@ -156,6 +158,9 @@ Sample <- R6::R6Class(
 			return(lst)
 		},
 
+		#' @details
+		#' generate a tabular representation of a sample object
+		#' @return a Tibble
 		to_table = function() {
 			comments <- NULL
 			if(!checkmate::test_list(self$comments, len = 0, null.ok = TRUE)) {
@@ -212,6 +217,9 @@ Sample <- R6::R6Class(
 			}
 		},
 
+		#' @details
+		#' update characteristic categories with any new categories added to
+		#' the reference.
 		update_characteristics = function() {
 			self$characteristics %>% purrr::walk(~{
 				.x$set_category(self$category_references$categories[[.x$`@id`]])

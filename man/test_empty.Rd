@@ -4,7 +4,7 @@
 \alias{test_empty}
 \title{test_empty}
 \usage{
-test_empty(x, mode = typeof(x), null.ok = FALSE)
+test_empty(x, mode = typeof(x), null.ok = FALSE, zero.len.string.ok = FALSE)
 }
 \arguments{
 \item{x}{object to check}

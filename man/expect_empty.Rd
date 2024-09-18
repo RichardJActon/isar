@@ -8,6 +8,7 @@ expect_empty(
   x,
   mode = typeof(x),
   null.ok = FALSE,
+  zero.len.string.ok = FALSE,
   info = NULL,
   label = vname(x)
 )

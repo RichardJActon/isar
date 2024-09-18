@@ -276,6 +276,21 @@ Add comment if it is in a valid format
 \if{html}{\out{<div class="r">}}\preformatted{Person$header_table(prefix = "")}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{prefix}}{string to prepend to person information default = ""}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+generate a tabular representation of a person object for the
+investigation file.
+person is used in several places and therefore needs to have
+different prefixes in different blocks which can be supplied via
+the prefix argument
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Person-to_table"></a>}}
@@ -285,6 +300,13 @@ Add comment if it is in a valid format
 \if{html}{\out{<div class="r">}}\preformatted{Person$to_table()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+generate a tabular representation of a person object
+}
+
+\subsection{Returns}{
+a Tibble
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Person-to_list"></a>}}

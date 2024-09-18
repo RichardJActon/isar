@@ -172,6 +172,13 @@ Publication <- R6::R6Class(
 			}
 		},
 
+		#' @details
+		#' generate a tabular representation of a publication object for the
+		#' investigation file.
+		#' publication is used in several places and therefore needs to have
+		#' different prefixes in different blocks which can be supplied via
+		#' the prefix argument
+		#' @param prefix string to prepend to publication information default = ""
 		to_table = function(prefix = "") {
 			tibble::tribble(
 				~rowname, ~value,

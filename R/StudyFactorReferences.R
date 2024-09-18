@@ -66,6 +66,10 @@ StudyFactorReferences <- R6::R6Class(
 				)
 			}
 		},
+		#' @details
+		#' generate a tabular summary of the study factors for use in the
+		#' isa-tab investigation file.
+		#' @return a Tibble
 		header_table = function() {
 			self$study_factor_references %>%
 				purrr::set_names(NULL) %>%
@@ -97,9 +101,7 @@ StudyFactorReferences <- R6::R6Class(
 		#' @details
 		#' Populate a [StudyFactorReferences] object from a list
 		#' @param lst a list
-		#' @param explicitly_provided (logical) used to indicate if the study
-		#' factor was explicitly listed in the input as opposed to being
-		#' inferred to exist.
+		#' @param origin id of the source which supplied the study factors
 		from_list = function(lst, origin = NA) {
 			study_factors <- purrr::map(lst, ~{
 				sf <- StudyFactor$new(

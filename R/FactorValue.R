@@ -174,6 +174,11 @@ FactorValue <- R6::R6Class(
 				)
 			}
 		},
+		#' @details
+		#' Set the unit as a valid ontology term, validity is currently
+		#' determined the presence of a unit in a the reference or the ability 
+		#' to create a new unit object from the list.
+		#' @param lst a list to processed into a valid unit object 
 		set_valid_unit = function(lst) {
 			unit_id <- lst[["@id"]]
 			if(is.null(self$unit_references)) {
@@ -217,6 +222,9 @@ FactorValue <- R6::R6Class(
 			return(lst)
 		},
 
+		#' @details
+		#' generate a tabular representation of the factor value
+		#' @return a Tibble
 		to_table = function() {
 			tbl <- NULL
 			if(checkmate::test_r6(self$value, "OntologyAnnotation")) {

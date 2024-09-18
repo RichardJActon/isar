@@ -249,6 +249,19 @@ set an experimental factor of a valid category
 \if{html}{\out{<div class="r">}}\preformatted{FactorValue$set_valid_unit(lst)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{lst}}{a list to processed into a valid unit object}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Set the unit as a valid ontology term, validity is currently
+determined the presence of a unit in a the reference or the ability
+to create a new unit object from the list.
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-FactorValue-to_list"></a>}}
@@ -278,6 +291,13 @@ generate an R list representation translatable to JSON
 \if{html}{\out{<div class="r">}}\preformatted{FactorValue$to_table()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+generate a tabular representation of the factor value
+}
+
+\subsection{Returns}{
+a Tibble
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-FactorValue-from_list"></a>}}
