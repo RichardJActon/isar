@@ -473,7 +473,7 @@ Protocol <- R6::R6Class(
 		#' @details
 		#' Pretty Prints [Protocol] objects
 		print = function() {
-			cli::cli_h1(cli::col_blue("Protocol 📋"))
+			cli::cli_h1(cli::col_blue("Protocol ", emo::ji("clipboard")))
 
 			green_bold_name_plain_content("name", self$name)
 			green_bold_name_plain_content("@id", self$`@id`)

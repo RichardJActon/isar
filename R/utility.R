@@ -158,13 +158,11 @@ date_input_handling <- function(date, strict = TRUE, null.ok = FALSE) {
 	}
 	message <- paste0(
 		"\n",
-		#emo::ji("rage"),
-		"😡",
+		emo::ji("rage"),
 		cli::col_red(cli::style_bold(
 			" Date is not formated correctly!\n"
 		)),
-		#emo::ji("halo"),
-		"😇",
+		emo::ji("halo"),
 		cli::col_green(
 			" Please use an ISO8601 compliant date string: YYYY-mm-dd\n"
 		),
@@ -187,7 +185,7 @@ date_input_handling <- function(date, strict = TRUE, null.ok = FALSE) {
 				stop(message)
 			} else {
 				warning(paste0(message,
-					"😟",
+					emo::ji("worried"),
 					cli::col_yellow(" Attempting other date formats...\n"),
 					cli::col_yellow(cli::style_bold(
 						" This is NOT ADVISED may result in errors due to ambiguity in the date format!\n"
@@ -207,8 +205,7 @@ date_input_handling <- function(date, strict = TRUE, null.ok = FALSE) {
 					),
 					error = function(res) {
 						stop(paste0(
-							#emo::ji("disappointed"),
-							"😞",
+							emo::ji("disappointed"),
 							cli::col_red(" No Valid Date format found!")
 						))
 					}

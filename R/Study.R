@@ -839,7 +839,7 @@ Study <- R6::R6Class(
 		#' @details
 		#' Pretty prints [Study] objects
 		print = function() {
-			cli::cli_h1(cli::col_blue("Study 🔎"))
+			cli::cli_h1(cli::col_blue("Study ", emo::ji("search")))
 			green_bold_name_plain_content("Title", self$title)
 			# green_bold_name_plain_content("ID", private$id)
 			green_bold_name_plain_content(
@@ -860,7 +860,8 @@ Study <- R6::R6Class(
 			}))
 
 			cli::cli_h2(cli::col_green(
-				"Publications (", length(self$publications), ") 📖"
+				"Publications (", length(self$publications), ") ",
+				emo::ji("book")
 			))
 			purrr::walk(
 				self$publications, ~cli::cli_text(
@@ -890,7 +891,8 @@ Study <- R6::R6Class(
 				)
 			))
 			cli::cli_h2(cli::col_green(
-				"Protocols (", length(self$protocols), ") 📋"
+				"Protocols (", length(self$protocols), ") ",
+				emo::ji("clipboard")
 			))
 			cli::cli_ul(paste0(
 				purrr::map_chr(self$protocols, ~.x$name),
@@ -898,7 +900,8 @@ Study <- R6::R6Class(
 			))
 
 			cli::cli_h2(cli::col_green(
-				"Processes (", length(self$process_sequence) ,") ⚙️"
+				"Processes (", length(self$process_sequence) ,") ",
+				emo::ji("gear")
 			))
 			cli::cli_ol(paste0(
 				self$get_process_names(),

@@ -525,18 +525,24 @@ Investigation <- R6::R6Class(
 		#' @details
 		#' Pretty prints [Investigation] objects
 		print = function() {
-			cli::cli_h1(cli::col_blue("Investigation 🕵️"))
+			cli::cli_h1(cli::col_blue("Investigation ", emo::ji("detective")))
 			green_bold_name_plain_content("Title", self$title)
 			#  green_bold_name_plain_content("ID", private$id)
-			green_bold_name_plain_content("Filename", self$filename) # 📄
-			green_bold_name_plain_content("📅 Submission date️", self$submission_date)
-			green_bold_name_plain_content("📅 Public release date️", self$public_release_dat)
+			green_bold_name_plain_content("Filename", self$filename) # emo::ji("page")
+			green_bold_name_plain_content(
+				emo::ji("calendar"), " Submission date️", self$submission_date
+			)
+			green_bold_name_plain_content(
+				emo::ji("calendar"), " Public release date️",
+				self$public_release_date
+			)
 
 			#green_bold("Description: ")
 			cli::cli_h2(cli::col_green("Description"))
 			cli::cli_text(self$description) # indentation?
 			cli::cli_h2(cli::col_green(
-				"Publications (", length(self$publications), ") 📖"
+				"Publications (", length(self$publications), ") ",
+				emo::ji("book")
 			))
 			purrr::walk(
 				self$publications, ~cli::cli_text(

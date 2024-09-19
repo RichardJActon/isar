@@ -273,7 +273,7 @@ Publication <- R6::R6Class(
 		#' Pretty prints [Publication] objects
 		#' @return none
 		print = function() {
-			cli::cli_h1(cli::col_blue("Publication 📖️️"))
+			cli::cli_h1(cli::col_blue("Publication ️", emo::ji("book")))
 			green_bold_name_plain_content("Title", self$title)
 			green_bold_name_plain_content("pubmed id", self$pubmed_id)
 			green_bold_name_plain_content("DOI", self$doi)

@@ -541,7 +541,7 @@ Process <- R6::R6Class(
 		#' @details
 		#' Pretty Prints [Process] objects
 		print = function() {
-			cli::cli_h1(cli::col_blue("Process ⚙️"))
+			cli::cli_h1(cli::col_blue("Process ", emo::ji("gear")))
 			green_bold_name_plain_content("Name", self$name)
 			green_bold_name_plain_content("Date", self$date)
 			green_bold_name_plain_content("@id", self$`@id`)

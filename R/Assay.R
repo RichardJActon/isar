@@ -624,8 +624,8 @@ Assay <- R6::R6Class(
 		},
 		#' @details
 		#' Pretty prints [Assay] objects
-		print = function() { # ⚖️
-			cli::cli_h1(cli::col_blue("Assay ⚖️️"))
+		print = function() {
+			cli::cli_h1(cli::col_blue("Assay ", emo::ji("balance_scale")))
 
 			green_bold_name_plain_content("@id", self$`@id`)
 			green_bold_name_plain_content("Measurement Type", self$measurement_type$term)
