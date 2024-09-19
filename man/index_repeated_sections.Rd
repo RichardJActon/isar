@@ -7,7 +7,7 @@
 index_repeated_sections(i_tab_with_section_type)
 }
 \arguments{
-\item{i_tab_with_section_type}{}
+\item{i_tab_with_section_type}{the type of the section}
 }
 \value{
 a tibble

@@ -24,7 +24,7 @@ Characteristic <- R6::R6Class(
 		ontology_source_references = NULL,
 		unit_references = NULL,
 		#' @details
-		#' Create a new [Characteristics] object
+		#' Create a new [Characteristic] object
 		#' @param category The classifier of the type of characteristic being described.
 		#' @param value The value of this instance of a characteristic as relevant to the attached material.
 		#' @param unit If applicable, a unit qualifier for the value (if the value is numeric).

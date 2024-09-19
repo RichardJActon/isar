@@ -127,7 +127,7 @@ set the object @id if it is a string
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Check if the type is an \link{OntologyAnnotion} object
+Check if the type is an \link{OntologyAnnotation} object
 }
 
 }

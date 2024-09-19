@@ -36,7 +36,7 @@ StudyFactorReferences <- R6::R6Class(
 			self$unit_references <- unit_references
 		},
 		#' @details
-		#' Check if this input is a list of [StudyFactors] objects
+		#' Check if this input is a list of [StudyFactor] objects
 		#' @param study_factors  a list of [StudyFactor] objects
 		check_study_factors = function(study_factors) {
 			if(

@@ -156,7 +156,7 @@ clear_all_na_cols <- function(tbl) {
 #' Transposes a tibble and then used the first row of the transposed tibble
 #' as the column names of the new tibble
 #'
-#' @param tbl
+#' @param tbl A Tibble
 #'
 #' @return a tibble
 #' @export
@@ -257,7 +257,7 @@ read_investigation_and_assign_lines_to_sections <- function(
 #' If there are multiple copies of a section headings assign them an index
 #' number to distinguish them, this should generally only apply to studies.
 #'
-#' @param i_tab_with_section_type
+#' @param i_tab_with_section_type the type of the section
 #'
 #' @return a tibble
 #' @export

@@ -104,7 +104,7 @@ CharacteristicCategoryReferences <- R6::R6Class(
 		},
 
 		#' @details
-		#' Serialize [CharaceristicCategoryReferences] object to an R list
+		#' Serialize [CharacteristicCategoryReferences] object to an R list
 		#' @param source ids of sources of characteristic categories for which
 		#' to generate a list of category references. 
 		#' "any" lists categories from all sources. 

@@ -329,7 +329,7 @@ Set protocol_type if input is valid
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{parameters}}{a \link{ProtcolParameter} object}
+\item{\code{parameters}}{a \link{ProtocolParameter} object}
 }
 \if{html}{\out{</div>}}
 }

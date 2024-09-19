@@ -15,7 +15,7 @@ R6 object to represent Materials
 
 \item{\code{type}}{the type of the material}
 
-\item{\code{characteristics}}{the characteristics of the material in the form of a \link{Characteristics} object}
+\item{\code{characteristics}}{the characteristics of the material in the form of a \link{Characteristic} object}
 
 \item{\code{characteristic_categories}}{an \link{CharacteristicCategoryReferences} object}
 
@@ -364,7 +364,7 @@ set the uuid of this object
 }
 
 \subsection{Details}{
-Pretty prints \link{Materials} objects
+Pretty prints \link{Material} objects
 }
 
 }

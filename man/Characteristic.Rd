@@ -88,7 +88,7 @@ A Characteristic acts as a qualifying property to a material object.
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Create a new \link{Characteristics} object
+Create a new \link{Characteristic} object
 }
 
 }

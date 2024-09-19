@@ -6,8 +6,9 @@
 #' isa_tab_section_headings
 #' @format named character vector
 #' @source https://github.com/ISA-tools/isa-specs/blob/master/source/isatab.rst
+"isa_tab_section_headings"
 
-#' CRediT taxonomy
+#' #' CRediT taxonomy
 #' @format [OntologySource] object
 #' @source <https://credit.niso.org/>
 "CRediT"

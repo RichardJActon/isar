@@ -40,7 +40,7 @@ experimental workflow described by a particular protocol.
 
 \item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object listing all the ontology sources used}
 
-\item{\code{protocols}}{\link{Protocols} objects}
+\item{\code{protocols}}{\link{Protocol} objects}
 
 \item{\code{@id}}{identifier}
 }

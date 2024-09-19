@@ -2,7 +2,7 @@
 #'
 #' @field name name of the material
 #' @field type the type of the material
-#' @field characteristics the characteristics of the material in the form of a [Characteristics] object
+#' @field characteristics the characteristics of the material in the form of a [Characteristic] object
 #' @field characteristic_categories an [CharacteristicCategoryReferences] object
 #' @field ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor.
 #' @field unit_references A list of units used as a [UnitReferences] object.
@@ -202,7 +202,7 @@ Material <- R6::R6Class(
 			private$id <- generate_id(id, suffix)
 		},
 		#' @details
-		#' Pretty prints [Materials] objects
+		#' Pretty prints [Material] objects
 		print = function() {
 			cli::cli_h1(cli::col_blue("Material"))
 			green_bold_name_plain_content("Name", self$name)

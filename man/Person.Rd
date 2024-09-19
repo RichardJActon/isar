@@ -163,7 +163,7 @@ NB the regex used to validate emails is ... difficult to represent in roxygen sy
 }
 \subsection{Details}{
 sets the email address field
-email addresses ar e first checked for validity by \link{check_email}
+email addresses ar e first checked for validity by check_email
 }
 
 }
@@ -204,7 +204,7 @@ check if the ORCID is valid i.e. 4 lots of 4 digits separated by hyphens
 }
 \subsection{Details}{
 sets the orcid field
-ORCID's are first checked for validity by \link{check_orcid}
+ORCID's are first checked for validity by check_orcid
 }
 
 }

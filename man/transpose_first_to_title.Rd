@@ -7,7 +7,7 @@
 transpose_first_to_title(tbl)
 }
 \arguments{
-\item{tbl}{}
+\item{tbl}{A Tibble}
 }
 \value{
 a tibble

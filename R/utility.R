@@ -137,6 +137,8 @@ check_id <- function(id) {
 #' date_input_handling
 #'
 #' @param date_string a string to be converted to a date
+#' @param strict do not attempt to read alternative date formats default = TRUE
+#' @param null.ok allow null date values default = FALSE
 #'
 #' @return a Date object
 #' @export

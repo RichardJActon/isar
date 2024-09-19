@@ -3,22 +3,17 @@
 \docType{data}
 \name{CRediT}
 \alias{CRediT}
-\title{isa_tab_section_headings}
+\title{#' CRediT taxonomy}
 \format{
-named character vector
-
 \link{OntologySource} object
 }
 \source{
-https://github.com/ISA-tools/isa-specs/blob/master/source/isatab.rst
-CRediT taxonomy
-
 \url{https://credit.niso.org/}
 }
 \usage{
 CRediT
 }
 \description{
-isa_tab_section_headings
+#' CRediT taxonomy
 }
 \keyword{datasets}

@@ -22,7 +22,7 @@
 #' @field comments Comments associated with instances of this class
 #' @field data_files [DataFile] objects
 #' @field ontology_source_references an [OntologySourceReferences] object listing all the ontology sources used
-#' @field protocols [Protocols] objects
+#' @field protocols [Protocol] objects
 #' @field @id identifier
 #'
 #' @importFrom R6 R6Class

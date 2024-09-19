@@ -234,7 +234,7 @@ Make a \link{UnitReferences} object from list
 }
 
 \subsection{Details}{
-Pretty prints \link{UnitReference} objects
+Pretty prints \link{UnitReferences} objects
 }
 
 }

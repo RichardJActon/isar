@@ -7,6 +7,10 @@
 date_input_handling(date, strict = TRUE, null.ok = FALSE)
 }
 \arguments{
+\item{strict}{do not attempt to read alternative date formats default = TRUE}
+
+\item{null.ok}{allow null date values default = FALSE}
+
 \item{date_string}{a string to be converted to a date}
 }
 \value{

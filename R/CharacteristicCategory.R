@@ -54,7 +54,7 @@ CharacteristicCategory <- R6::R6Class(
 			if(self$check_id(id)) { self$`@id` <- id }
 		},
 		#' @details
-		#' Check if the type is an [OntologyAnnotion] object
+		#' Check if the type is an [OntologyAnnotation] object
 		#' @param type the type of of the characteristic
 		check_type = function(type) {
 			check <- checkmate::check_r6(

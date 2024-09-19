@@ -134,7 +134,7 @@ Person <- R6::R6Class(
 
 		#' @details
 		#' sets the email address field
-		#' email addresses ar e first checked for validity by [check_email]
+		#' email addresses ar e first checked for validity by check_email
 		#'
 		#' @param email an email address
 		set_email = function(email) {
@@ -157,7 +157,7 @@ Person <- R6::R6Class(
 
 		#' @details
 		#' sets the orcid field
-		#' ORCID's are first checked for validity by [check_orcid]
+		#' ORCID's are first checked for validity by check_orcid
 		#'
 		#' @param orcid an ORCID
 		set_orcid = function(orcid) {

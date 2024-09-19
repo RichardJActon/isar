@@ -598,6 +598,8 @@ Process <- R6::R6Class(
 	)
 )
 
+# process order functions ----
+
 # first has no preceding step
 first_processes <- function(x) {
 	x %>%
@@ -669,6 +671,10 @@ process_order <- function(processes) {
 # 	igraph::make_directed_graph(edges = edges)
 # }
 
+#' process_io_paths 
+#'
+#' @param processes list of [Process] objects as in the process_sequence
+#' sequence field of an [Assay] object
 process_io_paths <- function(processes) {
 	process_order_mat <- process_order(processes) %>% do.call("cbind", .)
 	n_proc_cols <- ncol(process_order_mat)
@@ -719,6 +725,10 @@ process_io_paths <- function(processes) {
 }
 
 
+#' process_paths 
+#'
+#' @param processes list of [Process] objects as in the process_sequence
+#' sequence field of an [Assay] object
 process_paths <- function(processes) {
 	process_order_mat <- process_order(processes) %>% do.call("cbind", .)
 	n_proc_cols <- ncol(process_order_mat)
@@ -776,6 +786,12 @@ process_paths <- function(processes) {
 	# do.call("rbind", .)
 }
 
+#' to_table_by_process_io_type 
+#' 
+#' generate tabular outputs for objects of type: [DateFile], [Sample],
+#' [Process], [Source], or [Material]
+#' 
+#' @param x a list of objects which can be [Process]es or their inputs and outputs
 to_table_by_process_io_type <- function(x) {
 	switch(
 		get_r6_class(x[[1]]),

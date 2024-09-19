@@ -74,7 +74,7 @@ R6 Class for StudyFactorReferences
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Check if this input is a list of \link{StudyFactors} objects
+Check if this input is a list of \link{StudyFactor} objects
 }
 
 }

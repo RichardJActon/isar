@@ -254,7 +254,7 @@ default = "any"}
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Serialize \link{CharaceristicCategoryReferences} object to an R list
+Serialize \link{CharacteristicCategoryReferences} object to an R list
 }
 
 \subsection{Returns}{

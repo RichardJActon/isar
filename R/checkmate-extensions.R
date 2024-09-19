@@ -6,7 +6,8 @@
 #' @param x object to check
 #' @param mode vector mode, defaults to the type of the vector
 #' @param null.ok allow NULL to be valid
-#'
+#' @param zero.len.string.ok accept zero length strings
+#' 
 #' @return TRUE or string containing an error message
 #' @export
 #'
