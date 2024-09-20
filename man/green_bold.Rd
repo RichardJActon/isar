@@ -10,5 +10,5 @@ green_bold(string)
 \item{string}{a string to make green and bold}
 }
 \description{
-make text green and bold with crayon
+make text green and bold with cli
 }

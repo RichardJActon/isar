@@ -12,5 +12,5 @@ green_bold_name_plain_content(label, content)
 \item{content}{value}
 }
 \description{
-make text green and bold with crayon
+make text green and bold with cli
 }

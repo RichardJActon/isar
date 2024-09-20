@@ -225,20 +225,19 @@ date_input_handling <- function(date, strict = TRUE, null.ok = FALSE) {
 
 #' green_bold
 #'
-#' make text green and bold with crayon
+#' make text green and bold with cli
 #'
 #' @param string a string to make green and bold
 #'
 #' @export
 #'
 green_bold <- function(string) {
-	#crayon::green(crayon::bold(string))
 	cli::col_green(cli::style_bold(string))
 }
 
 #' green_bold_name_plain_content
 #'
-#' make text green and bold with crayon
+#' make text green and bold with cli
 #'
 #' @param label key
 #' @param content value
@@ -265,11 +264,6 @@ pretty_print_comments <- function(comments) {
 		
 		purrr::iwalk(
 			# Improve comment formatting for longer comments
-			# comments, ~cat(
-			# 	paste0("    ", crayon::bold(.y), ": "),
-			# 	stringr::str_wrap(.x, indent = 4, exdent = 4),
-			# 	sep = "\n"
-			# )
 			comments, ~{
 				cli::cli_par()
 				#cli::cli_h3(cli::cli_text( .y, ". ", .x$name))

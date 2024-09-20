@@ -28,7 +28,6 @@
 #' @importFrom R6 R6Class
 #' @importFrom checkmate qtest check_string check_list
 #' @importFrom glue glue
-# #' @importFrom crayon green yellow bold italic
 #' @importFrom cli cli_h1 cli_h2 cli_text col_yellow style_italic
 #' @importFrom purrr iwalk
 # #' @importFrom stringr str_wrap
@@ -408,14 +407,6 @@ OntologySource <- R6::R6Class(
 			cli::col_yellow(cli::style_italic(paste0(
 				"    ... of: ", format(length(self$terms_list), big.mark = ",")
 			)))
-			#cat(green_bold("Terms:"), sep = "\n")
-			# purrr::iwalk(
-			# 	head(self$terms_list),
-			# 	~cat(paste0("    ", crayon::bold(.y), ": ", .x), sep = "\n")
-			# )
-			# cat(crayon::yellow(crayon::italic(
-			# 	"    ... of: ", format(length(self$terms_list), big.mark = ",")
-			# )))
 		}
 	)
 )
