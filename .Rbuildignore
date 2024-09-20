@@ -5,3 +5,10 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^\.github$
+^\.dockerignore$
+^\.gitlab-ci\.yml$
+^\.renv-install\.sh$
+^data\/\.gitkeep$
+^tests\/testthat\/test-data-ISAdatasets\/\.git$
+^\.renku$
+^\.rstudio_config_dir$
