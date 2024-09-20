@@ -26,7 +26,8 @@ Imports:
     stringr,
     testthat,
     tibble,
-    tidyr
+    tidyr,
+    emo
 Depends:
     R (>= 2.10),
     R6
