@@ -534,10 +534,11 @@ Investigation <- R6::R6Class(
 			#  green_bold_name_plain_content("ID", private$id)
 			green_bold_name_plain_content("Filename", self$filename) # emo::ji("page")
 			green_bold_name_plain_content(
-				emo::ji("calendar"), " Submission date", self$submission_date
+				paste0(emo::ji("calendar"), " Submission date"),
+				self$submission_date
 			)
 			green_bold_name_plain_content(
-				emo::ji("calendar"), " Public release date",
+				paste0(emo::ji("calendar"), " Public release date"),
 				self$public_release_date
 			)
 
