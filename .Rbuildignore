@@ -9,7 +9,7 @@
 ^\.gitlab-ci\.yml$
 ^\.renv_install\.sh$
 ^data\/\.gitkeep$
-^tests\/testthat\/test-data-ISAdatasets\/\.git$
+^tests\/testthat\/test-data\/ISAdatasets\/\.git$
 ^\.renku$
 ^\.renkulfsignore$
 ^\.rstudio_config_dir$
