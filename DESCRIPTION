@@ -8,7 +8,7 @@ Authors@R:
         comment = c(ORCID = "0000-0002-2574-9611")
     )
 Description: Investigation Study Assay metadata format tools for R. A partial re-implementation of [ISA-tools](https://github.com/ISA-tools/) in R with some customisations and additions.
-License: AGPL (>= 3)
+License: AGPL (>= 3) + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
