@@ -12,6 +12,8 @@ test_empty(x, mode = typeof(x), null.ok = FALSE, zero.len.string.ok = FALSE)
 \item{mode}{vector mode}
 
 \item{null.ok}{allow NULL to be valid}
+
+\item{zero.len.string.ok}{accept zero length strings}
 }
 \value{
 TRUE or FALSE

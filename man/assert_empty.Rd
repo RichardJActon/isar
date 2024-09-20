@@ -19,6 +19,8 @@ assert_empty(
 \item{mode}{vector mode}
 
 \item{null.ok}{allow NULL to be valid}
+
+\item{zero.len.string.ok}{accept zero length strings}
 }
 \value{
 x or throws an error

@@ -42,6 +42,7 @@ check_empty <- function(
 #' @param x object to check
 #' @param mode vector mode
 #' @param null.ok allow NULL to be valid
+#' @param zero.len.string.ok accept zero length strings
 #'
 #' @return x or throws an error
 #' @export
@@ -63,6 +64,7 @@ assert_empty <- checkmate::makeAssertionFunction(check_empty)
 #' @param x object to check
 #' @param mode vector mode
 #' @param null.ok allow NULL to be valid
+#' @param zero.len.string.ok accept zero length strings
 #'
 #' @return use with testthat
 #' @export
@@ -85,6 +87,7 @@ expect_empty <- checkmate::makeExpectationFunction(check_empty)
 #' @param x object to check
 #' @param mode vector mode
 #' @param null.ok allow NULL to be valid
+#' @param zero.len.string.ok accept zero length strings
 #'
 #' @return TRUE or FALSE
 #' @export
