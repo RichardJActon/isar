@@ -3,7 +3,6 @@
 #' @field comments comments associated with instances of this class.
 #'
 #' @importFrom R6 R6Class
-#' @importFrom uuid UUIDgenerate
 #'
 #' @export
 Organisation <- R6::R6Class(
@@ -56,25 +55,7 @@ Organisation <- R6::R6Class(
 		#'
 		#' @param lst an [Organisation] object serialized to a list
 		from_list = function(lst) {
-			# private$id <- lst[["id"]]
-
 			self$comments <- lst[["comments"]]
-		}# ,
-		# #' @details
-		# #' Get the uuid of this object
-		# #' @return a uuid
-		# get_id = function() {
-		# 	private$id
-		# },
-		# #' @details
-		# #' set the uuid of this object
-		# #' @param id a uuid
-		# #' @param suffix a human readable suffix
-		# set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
-		# 	private$id <- generate_id(id, suffix)
-		# }
-	)# ,
-	# private = list(
-	# 	id = generate_id()
-	# )
+		}
+	)
 )

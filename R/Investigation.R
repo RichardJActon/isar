@@ -513,20 +513,6 @@ Investigation <- R6::R6Class(
 			}
 		},
 
-		# #' @details
-		# #' Get the uuid of this object
-		# #' @return a uuid
-		# get_id = function() {
-		# 	private$id
-		# },
-
-		#' @details
-		#' set the uuid of this object
-		#' @param id a uuid
-		#' @param suffix a human readable suffix
-		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
-			private$id <- generate_id(id, suffix)
-		},
 		#' @details
 		#' Pretty prints [Investigation] objects
 		print = function() {
@@ -580,8 +566,5 @@ Investigation <- R6::R6Class(
 			)
 			pretty_print_comments(self$comments)
 		}
-	)# ,
-	# private = list(
-	# 	id = generate_id()
-	# )
+	)
 )

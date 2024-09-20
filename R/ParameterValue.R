@@ -11,7 +11,6 @@
 #'
 #' @importFrom R6 R6Class
 #' @importFrom checkmate check_r6
-#' @importFrom uuid UUIDgenerate
 ParameterValue <- R6::R6Class(
 	"ParameterValue",
 	public = list(

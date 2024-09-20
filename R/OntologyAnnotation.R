@@ -14,9 +14,6 @@
 #' @importFrom checkmate check_r6 test_string
 #' @importFrom purrr set_names
 #' @importFrom cli cli_h1 col_blue
-# #' @importFrom uuid UUIDgenerate
-# #' @importFrom shiny NS tagList verbatimTextOutput renderText moduleServer
-# #' @importFrom shinyWidgets pickerInput pickerOptions
 #'
 #' @export
 OntologyAnnotation <- R6::R6Class(
@@ -318,46 +315,6 @@ OntologyAnnotation <- R6::R6Class(
 		},
 		# getters
 
-		#  ## Shiny
-		#  # unique ID?
-		#
-		#  #' @details
-		#  #'
-		#  #' Shiny UI element for picking an ontology term
-		#  #'
-		#  #' @param id Shiny module namespace
-		#  #' @return a shiny UI element
-		#  get_OntologyAnnotation_ui = function(id = "OntologyAnnotation") {
-		#  	ns <- shiny::NS(id)
-		#  	shiny::tagList(
-		#  		shinyWidgets::pickerInput(
-		#  			ns("measurement_type"), "Measurement Type",
-		#  			choices = names(self$term_source$terms_list),
-		#  			selected = self$term,
-		#  			multiple = FALSE,
-		#  			options = shinyWidgets::pickerOptions(
-		#  				actionsBox = TRUE, liveSearch = TRUE#, size = 5
-		#  			)
-		#  		),
-		#  		shiny::verbatimTextOutput(ns("measurement_type_test"))
-		#  	)
-		#  },
-		#
-		#  #' @details
-		#  #'
-		#  #' Shiny server element for picking an ontology term
-		#  #'
-		#  #' @param id Shiny module namespace
-		#  #' @return a shiny UI element
-		#  get_OntologyAnnotation_server = function(id) {
-		#  	shiny::moduleServer(id, function(input, output, session) {
-		#  		output$measurement_type_test <- shiny::renderText(input$measurement_type)
-		#  		#self$term <- input$measurement_type
-		#  		measurement_type <- shiny::reactive(input$measurement_type)
-		#  		self$set_term(measurement_type())
-		#  	})
-		#  },
-
 		#' @details
 		#' checks if comments are a named list of character vectors
 		#' @param comments comments
@@ -497,21 +454,6 @@ OntologyAnnotation <- R6::R6Class(
 			}
 		},
 
-		# #' @details
-		# #' Get the uuid of this object
-		# #' @return a uuid
-		# get_id = function() {
-		# 	private$id
-		# },
-		#
-		# #' @details
-		# #' set the uuid of this object
-		# #' @param id a uuid
-		# #' @param suffix a human readable suffix
-		# set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
-		# 	private$id <- generate_id(id, suffix)
-		# },
-
 		#' @details
 		#' Pretty Prints [OntologyAnnotation] objects
 		print = function() {
@@ -525,7 +467,6 @@ OntologyAnnotation <- R6::R6Class(
 		}
 	),
 	private = list(
-		# id = generate_id()
 		# record if in the input the source or accession where missing
 		# entirely as opposed to empty so that this can be preserved in output
 		#!! TODO add flag to make this optional? is it really a desirable

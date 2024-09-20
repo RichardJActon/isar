@@ -79,28 +79,6 @@ s3_identical_maker <- function(obj_pub_props, get_id = TRUE) {
 	}
 }
 
-#' generate_id
-#' generates a uuid with optional suffix
-#' @param id a uuid
-#' @param suffix a human readable string to be suffixed to the uuid
-#'
-#' @importFrom uuid UUIDgenerate UUIDvalidate
-#' @importFrom checkmate qtest
-# #' @export
-generate_id <- function(id = uuid::UUIDgenerate(), suffix = character()) {
-	if(!checkmate::qtest(suffix, "S?")) {
-		stop("suffix must be a character vector of length 1")
-	}
-	if(!checkmate::qtest(suffix, "S[0]")) {
-		if(!grepl("^\\w+$", suffix)) {
-			# NB _ not considered special!
-			stop("suffix must not contain any special characters")
-		}
-	}
-	if(!uuid::UUIDvalidate(id)) { stop("invalid uuid!") }
-	paste(c(id, suffix), collapse = "-")
-}
-
 #' test_id
 #' Tests if an id is valid, returns TRUE if valid and FALSE if not
 #' (follows checkmate conventions)

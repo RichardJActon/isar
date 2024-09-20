@@ -18,7 +18,6 @@
 #' @importFrom checkmate qtest check_r6
 #' @importFrom fs path_file file_exists path_join
 #' @importFrom digest digest
-#' @importFrom uuid UUIDgenerate
 #'
 #' @export
 DataFile <- R6::R6Class(
@@ -308,16 +307,8 @@ DataFile <- R6::R6Class(
 		#' get the id of the [DataFile] object
 		#' @return a string
 		get_id = function() { self$`@id` }
-		# #' @details
-		# #' set the uuid of this object
-		# #' @param id a uuid
-		# #' @param suffix a human readable suffix
-		# set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
-		# 	private$id <- generate_id(id, suffix)
-		# }
 	),
 	private = list(
-		# id = generate_id(),
 		hash = NULL
 	)
 )

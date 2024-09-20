@@ -12,7 +12,6 @@
 #' @importFrom R6 R6Class
 #' @importFrom checkmate qtest check_string
 #' @importFrom purrr map_lgl
-#' @importFrom uuid UUIDgenerate
 #'
 #' @export
 Material <- R6::R6Class(
@@ -187,13 +186,6 @@ Material <- R6::R6Class(
 			self$comments <- lst[["comments"]]
 		},
 
-		# #' @details
-		# #' Get the uuid of this object
-		# #' @return a uuid
-		# get_id = function() {
-		# 	private$id
-		# },
-
 		#' @details
 		#' set the uuid of this object
 		#' @param id a uuid
@@ -224,7 +216,6 @@ Material <- R6::R6Class(
 		}
 	),
 	private = list(
-		# id = generate_id()
 		raw_name = character()
 	)
 )
