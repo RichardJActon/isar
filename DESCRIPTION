@@ -28,6 +28,8 @@ Imports:
     tibble,
     tidyr,
     emo
+Remotes:
+    hadley/emo
 Depends:
     R (>= 2.10),
     R6
