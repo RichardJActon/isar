@@ -11,11 +11,11 @@
 OntologySourceReferences <- R6::R6Class(
 	"OntologySourceReferences",
 	public = list(
-		ontology_source_references = NULL,
+		ontology_source_references = list(),
 		#' @details
 		#' Create a new OntologySourceReferences object
 		#' @param ontology_source_references a list of [OntologySource] objects
-		initialize = function(ontology_source_references = NULL) {
+		initialize = function(ontology_source_references = list()) {
 			self$ontology_source_references <- ontology_source_references
 		},
 		#' @details
@@ -50,16 +50,6 @@ OntologySourceReferences <- R6::R6Class(
 		#' @return a vector of ontology source names
 		get_ontology_source_names = function() {
 			names(self$ontology_source_references)
-		},
-
-		#' @details
-		#' Get the provision status of Ontology Sources, where they explicitly
-		#' listed in the Investigation or not?
-		#' @return a vector of ontology source names
-		get_ontology_source_provision = function() {
-			self$ontology_source_references %>%
-				purrr::map_lgl(~.x$explicitly_provided) %>%
-				purrr::set_names(names(self$ontology_source_references))
 		},
 
 		#' @details

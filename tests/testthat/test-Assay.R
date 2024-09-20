@@ -6,9 +6,17 @@ test_that("Assay works", {
 	
 	techtype <- OntologySource$new("techtype", terms_list = list(Human = "clay tablet", Alien = "£$&%$%^&*"))
 	cowsphericity <- OntologySource$new("cowsphericity", terms_list = list(High = "Physics", Low = "Biology"))
-	human <- OntologyAnnotation$new("Human", techtype)
-	biology <- OntologyAnnotation$new("Low", cowsphericity)
 
+	ont_refs <- OntologySourceReferences$new(
+		list("techtype" = techtype, "cowsphericity" = cowsphericity)
+	)
+		
+	human <- OntologyAnnotation$new("Human", techtype,ontology_source_references = ont_refs)
+	biology <- NULL
+	warns <- capture_warnings(
+		biology <- OntologyAnnotation$new("Low", cowsphericity)
+	)
+	expect_match(warns, "is not in the ontology source reference")
 	test_assay$set_technology_type(human)
 	expect_equal(test_assay$technology_type$term, "Human")
 	test_assay$set_measurement_type(biology)

@@ -45,6 +45,11 @@ OntologyAnnotation <- R6::R6Class(
 			`@id` = character()
 		) {
 			# transition to character() !!
+			if(is.null(ontology_source_references)){
+				self$ontology_source_references <- OntologySourceReferences$new()
+			} else {
+				self$ontology_source_references <- ontology_source_references
+			}
 			if (
 				test_empty(term, mode = "character", null.ok = TRUE) &&
 				!test_empty(term_accession, mode = "character", null.ok = TRUE)
@@ -84,11 +89,6 @@ OntologyAnnotation <- R6::R6Class(
 				term_accession <- character()
 			}
 			#-self$set_term(term)
-			if(is.null(ontology_source_references)){
-				self$ontology_source_references <- OntologySourceReferences$new()
-			} else {
-				self$ontology_source_references <- ontology_source_references
-			}
 			self$`@id` <- `@id`
 			# if(!is.null(term)) {
 			# 	# handling on not explicitly enumerated lists?
@@ -125,6 +125,7 @@ OntologyAnnotation <- R6::R6Class(
 		#' Checks that the source of ontology terms is an [OntologySource] object
 		#' @param term_source an [OntologySource] object
 		check_term_source = function(term_source) {
+			# browser()
 			check <- checkmate::check_r6(term_source, "OntologySource")
 			error_with_check_message_on_failure(check)
 			#if(term_source$name %in% super$get_ontology_source_names()) {
@@ -132,20 +133,25 @@ OntologyAnnotation <- R6::R6Class(
 				term_source$name %in%
 				self$ontology_source_references$get_ontology_source_names()
 			) {
-				if(
-					self$ontology_source_references$get_ontology_source_provision()[[
-					#super$get_ontology_source_provision()[[
-						term_source$name
-					]] == TRUE
-				) {
-					# provided
-					return(TRUE)
-				} else {
+				if(term_source$name == "UnknownSource") {
 					# not provided previously generated
 					warning("Using an automatically generated OntologySource")
 					return(TRUE)
+				} else {
+					return(TRUE)
 				}
-
+			} else {
+				warning(
+					"OntologySource: ", term_source$name,
+					" is not in the ontology source reference!\n",
+					"This suggests it was not listed as an ontology used",
+					" by this investigation the source files\n",
+					"Attempting to add it to the reference..."
+				)
+				src_to_add <- list(term_source)
+				names(src_to_add) <- term_source$name
+				self$ontology_source_references$add_ontology_sources(src_to_add)
+				return(TRUE)
 			}
 		},
 
