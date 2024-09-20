@@ -81,7 +81,7 @@ unique_role_sources <- function(roles) {
 #' @param source_description The description of the [OntologySource] DEFAULT undefined source
 #' @param ... other arguments to `OntologySource$new()`
 #'
-#' @return an [OntologSource] object or NULL if there are no undefined sources
+#' @return an [OntologySource] object or NULL if there are no undefined sources
 #' @export
 #'
 generate_ontology_source_from_annotation_with_undefined_source <- function(

@@ -307,13 +307,6 @@ Get the value and unit of this parameter value as a combined string
 
 \subsection{Returns}{
 a string
-#' @details
-#' set the uuid of this object
-#' @param id a uuid
-#' @param suffix a human readable suffix
-set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
-private$id <- generate_id(id, suffix)
-}
 }
 }
 \if{html}{\out{<hr>}}

@@ -10,6 +10,6 @@ to_table_by_process_io_type(x)
 \item{x}{a list of objects which can be \link{Process}es or their inputs and outputs}
 }
 \description{
-generate tabular outputs for objects of type: \link{DateFile}, \link{Sample},
+generate tabular outputs for objects of type: \link{DataFile}, \link{Sample},
 \link{Process}, \link{Source}, or \link{Material}
 }

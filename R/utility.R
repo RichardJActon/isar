@@ -344,6 +344,7 @@ get_r6_class <- function(x) {
 	}
 }
 
+# experimenting with enum like structures ----
 #
 # enum <- function(...) {
 #

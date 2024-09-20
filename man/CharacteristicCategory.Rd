@@ -147,7 +147,7 @@ Check if the type is an \link{OntologyAnnotation} object
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Set the type if the type is an \link{OntologyAnnotion} object
+Set the type if the type is an \link{OntologyAnnotation} object
 }
 
 }

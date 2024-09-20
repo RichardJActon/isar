@@ -366,14 +366,7 @@ An R list representation of a \link{Characteristic} object
 \describe{
 \item{\code{lst}}{an Characteristic object serialized to a list}
 
-\item{\code{recursive}}{call to_list methods of any objects within this object (default TRUE)
-#' @details
-#' set the uuid of this object
-#' @param id a uuid
-#' @param suffix a human readable suffix
-set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
-private$id <- generate_id(id, suffix)
-},}
+\item{\code{recursive}}{call to_list methods of any objects within this object (default TRUE)}
 
 \item{\code{json}}{json  (default TRUE)}
 }

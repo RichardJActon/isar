@@ -250,20 +250,7 @@ add a factor value object to the study factor references.
 \describe{
 \item{\code{lst}}{a list serialization of a study factor object}
 
-\item{\code{recursive}}{call to_list methods of any objects within this object (default TRUE)
-#' @details
-#' Get the uuid of this object
-#' @return a uuid
-get_id = function() {
-private$id
-},
-#' @details
-#' set the uuid of this object
-#' @param id a uuid
-#' @param suffix a human readable suffix
-set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
-private$id <- generate_id(id, suffix)
-},}
+\item{\code{recursive}}{call to_list methods of any objects within this object (default TRUE)}
 
 \item{\code{json}}{json  (default TRUE)}
 }

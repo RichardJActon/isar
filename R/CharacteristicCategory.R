@@ -63,7 +63,7 @@ CharacteristicCategory <- R6::R6Class(
 			error_with_check_message_on_failure(check)
 		},
 		#' @details
-		#' Set the type if the type is an [OntologyAnnotion] object
+		#' Set the type if the type is an [OntologyAnnotation] object
 		#' @param type the type of of the characteristic
 		set_type = function(type) {
 			if(self$check_type(type)) { self$type <- type }

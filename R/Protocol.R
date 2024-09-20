@@ -174,14 +174,14 @@ Protocol <- R6::R6Class(
 		#' Set parameters if input is valid
 		#' @param parameters a [ProtocolParameter] object
 		check_parameters = function(parameters) {
-			check <- checkmate::check_r6(parameters, "ProtcolParameter")
+			check <- checkmate::check_r6(parameters, "ProtocolParameter")
 			error_with_check_message_on_failure(
-				check, nextline = "Class: ProtcolParameter"
+				check, nextline = "Class: ProtocolParameter"
 			)
 		},
 		#' @details
 		#' Set parameters if input is valid
-		#' @param parameters an [ProtcolParameter] object
+		#' @param parameters an [ProtocolParameter] object
 		set_parameters = function(parameters) {
 			if(self$check_parameters(parameters)) {
 				self$check_parameter <- parameters

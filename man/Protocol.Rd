@@ -349,7 +349,7 @@ Set parameters if input is valid
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{parameters}}{an \link{ProtcolParameter} object}
+\item{\code{parameters}}{an \link{ProtocolParameter} object}
 }
 \if{html}{\out{</div>}}
 }

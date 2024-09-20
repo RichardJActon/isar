@@ -29,6 +29,7 @@
 #' @importFrom checkmate qtest check_r6 check_string
 #' @importFrom purrr map set_names map_chr
 #' @importFrom glue glue
+#' @importFrom emo ji
 #'
 # #' @importFrom shinyWidgets pickerInput
 #'
@@ -66,7 +67,7 @@ Assay <- R6::R6Class(
 		#' @param comments Comments associated with instances of this class.
 		#' @param data_files [DataFile] objects.
 		#' @param ontology_source_references an [OntologySourceReferences] object listing all the ontology sources used.
-		#' @param protocols [Protocols] objects
+		#' @param protocols [Protocol] objects
 		#' @param @id identifier
 		initialize = function(
 			measurement_type = NULL,

@@ -22,7 +22,7 @@ termAccession termSource annotationValue}
 \item{...}{other arguments to \code{OntologySource$new()}}
 }
 \value{
-an \link{OntologSource} object or NULL if there are no undefined sources
+an \link{OntologySource} object or NULL if there are no undefined sources
 }
 \description{
 takes a list of ontology annotation information in the form of

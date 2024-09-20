@@ -132,8 +132,8 @@ CharacteristicCategoryReferences <- R6::R6Class(
 			}
 		},
 		#' @details
-		#' Populate [CharaceristicCategoryReferences] object from a list
-		#' @param lst a list from which to generate a [CharaceristicCategoryReferences] object
+		#' Populate [CharacteristicCategoryReferences] object from a list
+		#' @param lst a list from which to generate a [CharacteristicCategoryReferences] object
 		#' @param explicitly_provided (logical) if true the category was
 		#' explicitly declared if false it was generated automatically as no
 		#' explicitly declared category was found

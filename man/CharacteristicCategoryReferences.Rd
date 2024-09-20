@@ -277,7 +277,7 @@ an R list
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{lst}}{a list from which to generate a \link{CharaceristicCategoryReferences} object}
+\item{\code{lst}}{a list from which to generate a \link{CharacteristicCategoryReferences} object}
 
 \item{\code{explicitly_provided}}{(logical) if true the category was
 explicitly declared if false it was generated automatically as no
@@ -292,7 +292,7 @@ existing ones.}
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Populate \link{CharaceristicCategoryReferences} object from a list
+Populate \link{CharacteristicCategoryReferences} object from a list
 }
 
 }

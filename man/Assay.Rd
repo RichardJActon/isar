@@ -127,7 +127,7 @@ experimental workflow described by a particular protocol.
 
 \item{\code{unit_references}}{A list of units used as a \link{UnitReferences} object.}
 
-\item{\code{protocols}}{\link{Protocols} objects}
+\item{\code{protocols}}{\link{Protocol} objects}
 
 \item{\code{@id}}{identifier}
 }
