@@ -45,7 +45,6 @@ R6 object to represent Materials
 \item \href{#method-Material-to_table}{\code{Material$to_table()}}
 \item \href{#method-Material-to_list}{\code{Material$to_list()}}
 \item \href{#method-Material-from_list}{\code{Material$from_list()}}
-\item \href{#method-Material-set_id}{\code{Material$set_id()}}
 \item \href{#method-Material-print}{\code{Material$print()}}
 \item \href{#method-Material-clone}{\code{Material$clone()}}
 }
@@ -330,28 +329,6 @@ An R list representation of a \link{Material} object
 }
 \subsection{Details}{
 Make \link{Material} object from list
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Material-set_id"></a>}}
-\if{latex}{\out{\hypertarget{method-Material-set_id}{}}}
-\subsection{Method \code{set_id()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Material$set_id(id = uuid::UUIDgenerate(), suffix = character())}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{id}}{a uuid}
-
-\item{\code{suffix}}{a human readable suffix}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-set the uuid of this object
 }
 
 }

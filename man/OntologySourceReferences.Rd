@@ -22,7 +22,6 @@ R6 class for OntologySourceReferences
 \item \href{#method-OntologySourceReferences-check_ontology_sources}{\code{OntologySourceReferences$check_ontology_sources()}}
 \item \href{#method-OntologySourceReferences-add_ontology_sources}{\code{OntologySourceReferences$add_ontology_sources()}}
 \item \href{#method-OntologySourceReferences-get_ontology_source_names}{\code{OntologySourceReferences$get_ontology_source_names()}}
-\item \href{#method-OntologySourceReferences-get_ontology_source_provision}{\code{OntologySourceReferences$get_ontology_source_provision()}}
 \item \href{#method-OntologySourceReferences-get_ontology_sources}{\code{OntologySourceReferences$get_ontology_sources()}}
 \item \href{#method-OntologySourceReferences-get_ontology_source_origins}{\code{OntologySourceReferences$get_ontology_source_origins()}}
 \item \href{#method-OntologySourceReferences-to_table}{\code{OntologySourceReferences$to_table()}}
@@ -38,7 +37,7 @@ R6 class for OntologySourceReferences
 \if{latex}{\out{\hypertarget{method-OntologySourceReferences-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OntologySourceReferences$new(ontology_source_references = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{OntologySourceReferences$new(ontology_source_references = list())}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -106,23 +105,6 @@ a vector of ontology source names
 
 \subsection{Details}{
 Get the names of the Ontology Sources Used in this Investigation
-}
-
-\subsection{Returns}{
-a vector of ontology source names
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-OntologySourceReferences-get_ontology_source_provision"></a>}}
-\if{latex}{\out{\hypertarget{method-OntologySourceReferences-get_ontology_source_provision}{}}}
-\subsection{Method \code{get_ontology_source_provision()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OntologySourceReferences$get_ontology_source_provision()}\if{html}{\out{</div>}}
-}
-
-\subsection{Details}{
-Get the provision status of Ontology Sources, where they explicitly
-listed in the Investigation or not?
 }
 
 \subsection{Returns}{
