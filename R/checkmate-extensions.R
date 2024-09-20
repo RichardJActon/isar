@@ -23,25 +23,16 @@
 check_empty <- function(
 	x, mode = typeof(x), null.ok = FALSE, zero.len.string.ok = FALSE
 ) {
-	if(null.ok && mode == "NULL") {
-		v <- NULL
-	} else {
-		v <- vector(mode = mode)
-	}
+	if(null.ok && is.null(x)) { return(TRUE) } 
+	if (mode != "NULL") { v <- vector(mode = mode) }
 	if(zero.len.string.ok && mode == "character") {
 		x <- strsplit(x, split = "")[[1]]
 	}
 	res <- identical(x, v)
-	if(res) {
-		return(TRUE)
-	}
+	if(res) { return(TRUE) }
 	text <- paste0("Must be empty ", mode, " vector")
-	if (null.ok) {
-		text <- paste0(text, " or NULL")
-		# if (is.null(x) || res) {
-		# 	return(TRUE)
-		# }
-	}
+	if (null.ok) { text <- paste0(text, " or NULL") }
+	if (null.ok && mode == "NULL") { text <- "Must be empty vector or NULL" }
 	return(text)
 }
 

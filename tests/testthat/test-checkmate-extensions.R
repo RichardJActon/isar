@@ -5,7 +5,8 @@ test_that("check_empty", {
 	expect_true(check_empty(character(), mode))
 	expect_true(check_empty(character(), mode, null.ok = TRUE))
 	expect_true(check_empty(NULL, mode, null.ok = TRUE))
-	expect_equal(check_empty("", mode), text)
+	expect_true(check_empty("", mode, zero.len.string.ok = TRUE))
+	expect_equal(check_empty("", mode, zero.len.string.ok = FALSE), text)
 	text <- paste0(text, " or NULL")
 	expect_equal(check_empty("", mode, null.ok = TRUE), text)
 
