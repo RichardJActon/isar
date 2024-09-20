@@ -5,8 +5,8 @@
 #' Checks if a directory exists and contains the right files for an ISA-tab
 #' description.
 #'
-#' Follows the pattern of the `check_*` functions from the {checkmate}
-#' package.
+#' Follows the pattern of the `check_*` functions from the
+#' [checkmate](https://mllg.github.io/checkmate/) package.
 #'
 #' @param path the path to an ISA-tab directory
 #'

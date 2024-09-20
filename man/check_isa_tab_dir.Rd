@@ -17,6 +17,6 @@ Checks if a directory exists and contains the right files for an ISA-tab
 description.
 }
 \details{
-Follows the pattern of the \verb{check_*} functions from the {checkmate}
-package.
+Follows the pattern of the \verb{check_*} functions from the
+\href{https://mllg.github.io/checkmate/}{checkmate} package.
 }
