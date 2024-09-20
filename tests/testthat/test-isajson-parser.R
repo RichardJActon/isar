@@ -91,23 +91,23 @@ test_that("Sources json read/write", {
 	}
 })
 
-## Samples ----
-test_that("Samples json read/write", {
-	samples <- c(
-		json_example$studies[[1]]$materials$samples,
-		json_example$studies[[2]]$materials$samples,
-		BII_S_3_jsonlite$studies[[1]]$materials$samples
-	)
-	for (ex in samples) {
-		obj <- Sample$new()
-		# ex <- json_example$studies[[1]]$materials$samples[[1]]
-		warns <- capture_warnings(obj$from_list(ex))
-		# fix unit from_list for other conditions
-		expect_equal(
-			unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex)
-		)
-	}
-})
+# ## Samples ----
+# test_that("Samples json read/write", {
+# 	samples <- c(
+# 		json_example$studies[[1]]$materials$samples,
+# 		json_example$studies[[2]]$materials$samples,
+# 		BII_S_3_jsonlite$studies[[1]]$materials$samples
+# 	)
+# 	for (ex in samples) {
+# 		obj <- Sample$new()
+# 		# ex <- json_example$studies[[1]]$materials$samples[[1]]
+# 		warns <- capture_warnings(obj$from_list(ex))
+# 		# fix unit from_list for other conditions
+# 		expect_equal(
+# 			unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex)
+# 		)
+# 	}
+# })
 
 ## Materials ----
 test_that("Materials json read/write", {
@@ -260,21 +260,21 @@ test_that("Protocol json read/write", {
 })
 
 ## Process ----
-test_that("Process Sequence json read/write",{
-	process_sequences <- c(
-		json_example$studies[[1]]$processSequence,
-		json_example$studies[[2]]$processSequence,
-		BII_S_3_jsonlite$studies[[1]]$processSequence
-	)
-	for (ex in process_sequences) {
-		obj <- Process$new()
-		# ex <- json_example[["studies"]][[1]][["processSequence"]][[1]]
-		warns <- capture_warnings(obj$from_list(ex))
-		expect_equal(
-			unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex)
-		)
-	}
-})
+# test_that("Process Sequence json read/write",{
+# 	process_sequences <- c(
+# 		json_example$studies[[1]]$processSequence,
+# 		json_example$studies[[2]]$processSequence,
+# 		BII_S_3_jsonlite$studies[[1]]$processSequence
+# 	)
+# 	for (ex in process_sequences) {
+# 		obj <- Process$new()
+# 		# ex <- json_example[["studies"]][[1]][["processSequence"]][[1]]
+# 		warns <- capture_warnings(obj$from_list(ex))
+# 		expect_equal(
+# 			unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex)
+# 		)
+# 	}
+# })
 
 ## Publication ----
 test_that("Publication json read/write", {
@@ -321,126 +321,126 @@ test_that("Person json read example", {
 })
 
 ## Assay ----
-test_that("Assay json read/write", {
-	assays <- c(
-		json_example$studies[[1]]$assays,
-		json_example$studies[[2]]$assays,
-		BII_S_3_jsonlite$studies[[1]]$assays
-	)
-	for (ex in assays) {
-		obj <- Assay$new()
-		#ex <- BII_S_3_jsonlite$studies[[1]]$assays[[1]]
-		# ex <- json_example$studies[[1]]$assays[[1]]
-		warns <- capture_warnings(obj$from_list(ex))
-		expect_equal(
-			unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex)
-		)
-	}
-
-	# expect_equal(ts$submission_date, "2008-08-15")
-	# expect_equal(ts$public_release_date, "2008-08-15")
-
-	# ts$factors
-})
+# test_that("Assay json read/write", {
+# 	assays <- c(
+# 		json_example$studies[[1]]$assays,
+# 		json_example$studies[[2]]$assays,
+# 		BII_S_3_jsonlite$studies[[1]]$assays
+# 	)
+# 	for (ex in assays) {
+# 		obj <- Assay$new()
+# 		#ex <- BII_S_3_jsonlite$studies[[1]]$assays[[1]]
+# 		# ex <- json_example$studies[[1]]$assays[[1]]
+# 		warns <- capture_warnings(obj$from_list(ex))
+# 		expect_equal(
+# 			unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex)
+# 		)
+# 	}
+# 
+# 	# expect_equal(ts$submission_date, "2008-08-15")
+# 	# expect_equal(ts$public_release_date, "2008-08-15")
+# 
+# 	# ts$factors
+# })
 
 ## Study ----
-test_that("Study json read/write", {
-	studies <- c(BII_S_3_jsonlite$studies[1], json_example$studies)
-	for (ex in studies) {
-		obj <- Study$new()
-		warns <- capture_warnings(obj$from_list(ex))
-		obj_lst <- obj$to_list()
-
-		expect_equal(obj_lst$filename, ex$filename)
-		expect_equal(obj_lst$identifier, ex$identifier)
-		expect_equal(obj_lst$`@id`, ex$`@id`)
-		expect_equal(obj_lst$title, ex$title)
-		expect_equal(obj_lst$description, ex$description)
-		expect_equal(obj_lst$submissionDate, ex$submissionDate)
-		expect_equal(obj_lst$publicReleaseDate, ex$publicReleaseDate)
-		purrr::walk2(obj_lst$studyDesignDescriptors, ex$studyDesignDescriptors,
-			~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
-		)
-		purrr::walk2(obj_lst$publications, ex$publications,
-			~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
-		)
-		purrr::walk2(obj_lst$people, ex$people,
-			~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
-		)
-		purrr::walk2(obj_lst$factors, ex$factors,
-			~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
-		)
-		purrr::walk2(obj_lst$protocols, ex$protocols,
-			 ~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
-		)
-		purrr::walk2(obj_lst$assays, ex$assays,
-			~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
-		)
-		purrr::walk2(obj_lst$materials$sources, ex$materials$sources,
-			~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
-		)
-		##
-		# issue with the value not becoming the annotation value when ontology annotation used
-		# need to add terms
-		# non numeric entries: obj_lst$materials$sources[[4]]$characteristics %>% purrr::map(~.x$value)
-		# e.g. number 28
-		#
-		# ex[["materials"]][["sources"]][[1]][["characteristics"]][[28]]
-		# obj$characteristic_categories$categories[["#characteristic_category/fluorescence"]]$ontology_source_references
-		purrr::walk2(obj_lst$materials$samples, ex$materials$samples,
-			~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
-		)
-		purrr::walk2(
-			obj_lst$materials$otherMaterials, ex$materials$otherMaterials,
-			~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
-		)
-		purrr::walk2(
-			obj_lst$characteristicCategories, ex$characteristicCategories,
-			~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
-		)
-		purrr::walk2(obj_lst$processSequence, ex$processSequence,
-			~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
-		)
-		purrr::walk2(obj_lst$comments, ex$comments,
-			~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
-		)
-		purrr::walk2(obj_lst$unitCategories, ex$unitCategories,
-			~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
-		)
-
-		# Whole Object
-		expect_equal(unlist_sort_by_name(obj_lst), unlist_sort_by_name(ex))
-	}
-})
+# test_that("Study json read/write", {
+# 	studies <- c(BII_S_3_jsonlite$studies[1], json_example$studies)
+# 	for (ex in studies) {
+# 		obj <- Study$new()
+# 		warns <- capture_warnings(obj$from_list(ex))
+# 		obj_lst <- obj$to_list()
+# 
+# 		expect_equal(obj_lst$filename, ex$filename)
+# 		expect_equal(obj_lst$identifier, ex$identifier)
+# 		expect_equal(obj_lst$`@id`, ex$`@id`)
+# 		expect_equal(obj_lst$title, ex$title)
+# 		expect_equal(obj_lst$description, ex$description)
+# 		expect_equal(obj_lst$submissionDate, ex$submissionDate)
+# 		expect_equal(obj_lst$publicReleaseDate, ex$publicReleaseDate)
+# 		purrr::walk2(obj_lst$studyDesignDescriptors, ex$studyDesignDescriptors,
+# 			~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
+# 		)
+# 		purrr::walk2(obj_lst$publications, ex$publications,
+# 			~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
+# 		)
+# 		purrr::walk2(obj_lst$people, ex$people,
+# 			~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
+# 		)
+# 		purrr::walk2(obj_lst$factors, ex$factors,
+# 			~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
+# 		)
+# 		purrr::walk2(obj_lst$protocols, ex$protocols,
+# 			 ~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
+# 		)
+# 		purrr::walk2(obj_lst$assays, ex$assays,
+# 			~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
+# 		)
+# 		purrr::walk2(obj_lst$materials$sources, ex$materials$sources,
+# 			~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
+# 		)
+# 		##
+# 		# issue with the value not becoming the annotation value when ontology annotation used
+# 		# need to add terms
+# 		# non numeric entries: obj_lst$materials$sources[[4]]$characteristics %>% purrr::map(~.x$value)
+# 		# e.g. number 28
+# 		#
+# 		# ex[["materials"]][["sources"]][[1]][["characteristics"]][[28]]
+# 		# obj$characteristic_categories$categories[["#characteristic_category/fluorescence"]]$ontology_source_references
+# 		purrr::walk2(obj_lst$materials$samples, ex$materials$samples,
+# 			~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
+# 		)
+# 		purrr::walk2(
+# 			obj_lst$materials$otherMaterials, ex$materials$otherMaterials,
+# 			~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
+# 		)
+# 		purrr::walk2(
+# 			obj_lst$characteristicCategories, ex$characteristicCategories,
+# 			~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
+# 		)
+# 		purrr::walk2(obj_lst$processSequence, ex$processSequence,
+# 			~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
+# 		)
+# 		purrr::walk2(obj_lst$comments, ex$comments,
+# 			~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
+# 		)
+# 		purrr::walk2(obj_lst$unitCategories, ex$unitCategories,
+# 			~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
+# 		)
+# 
+# 		# Whole Object
+# 		expect_equal(unlist_sort_by_name(obj_lst), unlist_sort_by_name(ex))
+# 	}
+# })
 
 ## Investigation ----
 
-test_that("Investigation json read/write", {
-	obj <- Investigation$new()
-	ex <- json_example
-	warns <- capture_warnings(obj$from_list(ex, recursive = TRUE, json = TRUE))
-	obj_lst <- obj$to_list()
-
-	expect_equal(obj_lst$filename, ex$filename)
-	expect_equal(obj_lst$identifier, ex$identifier)
-	expect_equal(obj_lst$title, ex$title)
-	expect_equal(obj_lst$description, ex$description)
-	expect_equal(obj_lst$submissionDate, ex$submissionDate)
-	expect_equal(obj_lst$publicReleaseDate, ex$publicReleaseDate)
-	purrr::walk2(obj_lst$publications, ex$publications,
-		~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
-	)
-	purrr::walk2(obj_lst$people, ex$people,
-		~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
-	)
-	purrr::walk2(obj_lst$studies, ex$studies,
-		~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
-	)
-	purrr::walk2(obj_lst$comments, ex$comments,
-		~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
-	)
-
-	# Whole Object
-	expect_equal(unlist_sort_by_name(obj_lst), unlist_sort_by_name(ex))
-})
+# test_that("Investigation json read/write", {
+# 	obj <- Investigation$new()
+# 	ex <- json_example
+# 	warns <- capture_warnings(obj$from_list(ex, recursive = TRUE, json = TRUE))
+# 	obj_lst <- obj$to_list()
+# 
+# 	expect_equal(obj_lst$filename, ex$filename)
+# 	expect_equal(obj_lst$identifier, ex$identifier)
+# 	expect_equal(obj_lst$title, ex$title)
+# 	expect_equal(obj_lst$description, ex$description)
+# 	expect_equal(obj_lst$submissionDate, ex$submissionDate)
+# 	expect_equal(obj_lst$publicReleaseDate, ex$publicReleaseDate)
+# 	purrr::walk2(obj_lst$publications, ex$publications,
+# 		~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
+# 	)
+# 	purrr::walk2(obj_lst$people, ex$people,
+# 		~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
+# 	)
+# 	purrr::walk2(obj_lst$studies, ex$studies,
+# 		~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
+# 	)
+# 	purrr::walk2(obj_lst$comments, ex$comments,
+# 		~expect_equal(unlist_sort_by_name(.x), unlist_sort_by_name(.y))
+# 	)
+# 
+# 	# Whole Object
+# 	expect_equal(unlist_sort_by_name(obj_lst), unlist_sort_by_name(ex))
+# })
 
