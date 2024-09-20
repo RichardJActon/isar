@@ -13,3 +13,7 @@
 ^\.renku$
 ^\.renkulfsignore$
 ^\.rstudio_config_dir$
+^Dockerfile$
+^install_r_pkgs\.R$
+^ghtest.Rprofile$
+^data-raw$
