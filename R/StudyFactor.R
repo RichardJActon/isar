@@ -170,21 +170,6 @@ StudyFactor <- R6::R6Class(
 			}
 		},
 
-		#' #' @details
-		#' #' Get the uuid of this object
-		#' #' @return a uuid
-		#' get_id = function() {
-		#' 	private$id
-		#' },
-
-				#' #' @details
-		#' #' set the uuid of this object
-		#' #' @param id a uuid
-		#' #' @param suffix a human readable suffix
-		#' set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
-		#' 	private$id <- generate_id(id, suffix)
-		#' },
-
 		#' @details
 		#' Pretty prints [StudyFactor] objects
 		print = function() {
@@ -195,10 +180,5 @@ StudyFactor <- R6::R6Class(
 			green_bold_name_plain_content("factor type", self$factor_type$term)
 			#pretty_print_comments(self$comments)
 		}
-	)# ,
-	# active = list(
-	# ),
-	# private = list(
-	# 	id = generate_id()
-	# )
+	)
 )

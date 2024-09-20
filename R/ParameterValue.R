@@ -223,26 +223,12 @@ ParameterValue <- R6::R6Class(
 			}
 		},
 
-		# #' @details
-		# #' Get the uuid of this object
-		# #' @return a uuid
-		# get_id = function() {
-		# 	private$id
-		# #' },
-
 		#' @details
 		#' Get the value and unit of this parameter value as a combined string
 		#' @return a string
 		get_value_in_units = function() {
 			paste(self$value, self$units)
 		},
-		#' #' @details
-		#' #' set the uuid of this object
-		#' #' @param id a uuid
-		#' #' @param suffix a human readable suffix
-		#' set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
-		#' 	private$id <- generate_id(id, suffix)
-		#' }
 
 		#' @details
 		#' Pretty prints [ParameterValue] objects
@@ -254,8 +240,5 @@ ParameterValue <- R6::R6Class(
 			cli::cli_text(self$value, " ", self$unit$unit$term)
 			pretty_print_comments(self$comments)
 		}
-	)#,
-	# private = list(
-	# 	id = generate_id()
-	# )
+	)
 )
