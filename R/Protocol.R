@@ -19,6 +19,7 @@
 #' @importFrom checkmate qtest check_string check_r6 test_list
 #' @importFrom purrr map_lgl set_names map
 #' @importFrom cli cli_h1 col_blue cli_h2 col_green cli_text cli_par cli_end cli_ul
+#' @importFrom emo ji
 #'
 #' @export
 Protocol <- R6::R6Class(

@@ -7,6 +7,7 @@
 #' @importFrom checkmate check_list test_string test_date
 #' @importFrom purrr map_lgl iwalk
 #' @importFrom cli col_red col_green col_yellow col_red col_cyan style_bold cli_h2 cli_h3 cli_text
+#' @importFrom emo ji
 #'
 check_comments <- function(comments) {
 	check <- checkmate::check_list(

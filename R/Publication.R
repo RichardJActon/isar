@@ -17,6 +17,7 @@
 #' @importFrom R6 R6Class
 #' @importFrom checkmate qtest test_list test_r6
 #' @importFrom purrr map_lgl
+#' @importFrom emo ji
 #'
 #' @export
 Publication <- R6::R6Class(

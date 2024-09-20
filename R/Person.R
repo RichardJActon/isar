@@ -28,7 +28,7 @@
 #' @importFrom checkmate qtest
 #' @importFrom purrr map
 #' @importFrom cli cli_h1 col_blue cli_h2 col_cyan
-#' @importFrom uuid UUIDgenerate
+#' @importFrom emo ji
 #'
 #' @export
 Person <- R6::R6Class(

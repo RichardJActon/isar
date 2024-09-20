@@ -21,6 +21,7 @@
 #'
 #' @importFrom R6 R6Class
 #' @importFrom checkmate check_date
+#' @importFrom emo ji
 #'
 #' @export
 Investigation <- R6::R6Class(

@@ -30,6 +30,7 @@
 #' @importFrom R6 R6Class
 #' @importFrom cli cli_h1 col_blue col_green cli_h2
 #' @importFrom purrr set_names map
+#' @importFrom emo ji
 #'
 #' @export
 Study <- R6::R6Class(

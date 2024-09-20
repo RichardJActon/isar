@@ -25,6 +25,7 @@
 #' @importFrom checkmate check_string test_list test_r6 check_date
 #' @importFrom purrr map map_lgl
 #' @importFrom cli cli_h1 col_blue cli_h2 cli_ul
+#' @importFrom emo ji
 #'
 #' @export
 Process <- R6::R6Class(
