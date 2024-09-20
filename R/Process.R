@@ -359,7 +359,7 @@ Process <- R6::R6Class(
 
 			lst[["@id"]] <- self$`@id`
 
-			lst[["date"]] <- self$date
+			lst[["date"]] <- ifelse(is.null(self$date), "", self$date)
 			lst[["comments"]] <- self$comments
 			lst[["performer"]] <- self$performer# purrr::map(self$performer, ~.x$to_list),
 			# lst[["name"]] <- self$name
@@ -431,12 +431,15 @@ Process <- R6::R6Class(
 				} else {
 					self$parameter_values <- lst[["parameterValues"]] %>%
 						purrr::map(~{
+							prot_params <- self$executes_protocol
+							if(!is.character(self$executes_protocol)) {
+								prot_params <- self$executes_protocol$parameters
+							}
 							pv <- ParameterValue$new(
 								ontology_source_references =
 									self$ontology_source_references,
 								unit_references = self$unit_references,
-								protocol_parameters =
-									self$executes_protocol$parameters
+								protocol_parameters = prot_params 
 							)
 							pv$from_list(.x, recursive = recursive, json = json)
 							pv

@@ -259,8 +259,10 @@ green_bold_name_plain_content <- function(label, content) {
 #' @export
 pretty_print_comments <- function(comments) {
 	if (length(comments) > 0) {
-		cli::cli_h2(cli::col_cyan("Comments (", length(comments), ") 🗩"))
-		#cat(green_bold("Comments:\n")) # 🗩
+		cli::cli_h2(cli::col_cyan(
+			"Comments (", length(comments), ") ", emo::ji("comment")
+		))
+		
 		purrr::iwalk(
 			# Improve comment formatting for longer comments
 			# comments, ~cat(

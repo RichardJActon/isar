@@ -223,7 +223,9 @@ Investigation <- R6::R6Class(
 		#' @details
 		#' Check that input is an [OntologySourceReferences] object
 		#' @param ontology_source_references an [OntologySourceReferences] object
-		check_ontology_source_references = function(ontology_source_references) {
+		check_ontology_source_references = function(
+			ontology_source_references
+		) {
 			check <- checkmate::check_r6(
 				ontology_source_references, "OntologySourceReferences"
 			)
@@ -486,7 +488,9 @@ Investigation <- R6::R6Class(
 				self$description <- lst[["description"]]
 				self$submission_date <- lst[["submission_date"]]
 				self$public_release_date <- lst[["public_release_date"]]
-				self$ontology_source_references <- lst[["ontology_source_references"]]
+				self$ontology_source_references <- lst[[
+					"ontology_source_references"
+				]]
 				if (recursive) {
 					self$publications <- purrr::map(lst[["publications"]], ~{
 						p <- Publication$new()
@@ -530,10 +534,10 @@ Investigation <- R6::R6Class(
 			#  green_bold_name_plain_content("ID", private$id)
 			green_bold_name_plain_content("Filename", self$filename) # emo::ji("page")
 			green_bold_name_plain_content(
-				emo::ji("calendar"), " Submission date️", self$submission_date
+				emo::ji("calendar"), " Submission date", self$submission_date
 			)
 			green_bold_name_plain_content(
-				emo::ji("calendar"), " Public release date️",
+				emo::ji("calendar"), " Public release date",
 				self$public_release_date
 			)
 
@@ -550,13 +554,17 @@ Investigation <- R6::R6Class(
 				)
 			)
 			cli::cli_h2(
-				cli::col_green("Contacts (",length(self$contacts),") 👤")
+				cli::col_green(
+					"Contacts (",length(self$contacts),") ", emo::ji("user")
+				)
 			)
 			cli::cli_ul(purrr::map_chr(self$contacts, ~{
 				paste0(.x$get_full_name(), cli::col_grey(" (", .x$`@id`, ")"))
 			}))
 			cli::cli_h2(
-				cli::col_green("Studies (", length(self$studies), ") 🔎")
+				cli::col_green(
+					"Studies (", length(self$studies), ") ", emo::ji("search")
+				)
 			)
 			purrr::walk(
 				self$studies, ~{

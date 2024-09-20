@@ -370,7 +370,7 @@ Person <- R6::R6Class(
 			green_bold_name_plain_content("Name", self$get_full_name())
 			#green_bold_name_plain_content("Name", paste(self$first_name, self$mid_initials, self$last_name))
 			green_bold_name_plain_content("orcid", self$orcid)
-			green_bold_name_plain_content(paste0("email ️", emo::ji("email")), self$email) #
+			green_bold_name_plain_content(paste0("email ", emo::ji("email")), self$email) #
 			green_bold_name_plain_content(paste0("phone ", emo::ji("telephone_receiver")), self$phone) #
 			# green_bold_name_plain_content("id", private$id)
 			green_bold_name_plain_content("@id", self$`@id`)

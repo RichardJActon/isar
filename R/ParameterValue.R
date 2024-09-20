@@ -128,7 +128,11 @@ ParameterValue <- R6::R6Class(
 		#' @param category the id of a protocol parameter which represents the 
 		#' category of this parameter
 		set_valid_category = function(category) {
-			self$category <- self$protocol_parameters[[category$`@id`]]
+			if(is.character(self$protocol_parameters)) {
+				self$category <- NULL
+			} else {
+				self$category <- self$protocol_parameters[[category$`@id`]]
+			}
 		},
 
 		#' @details

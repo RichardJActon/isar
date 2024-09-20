@@ -852,9 +852,9 @@ Study <- R6::R6Class(
 			cli::cli_h2(cli::col_green("Description"))
 			cli::cli_text(self$description)
 
-			cli::cli_h2(
-				cli::col_green("Contacts (",length(self$contacts),") 👤")
-			)
+			cli::cli_h2(cli::col_green(
+				"Contacts (",length(self$contacts),") ", emo::ji("user")
+			))
 			cli::cli_ul(purrr::map_chr(self$contacts, ~{
 				paste0(.x$get_full_name(), cli::col_grey(" (", .x$`@id`, ")"))
 			}))
