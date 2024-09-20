@@ -187,13 +187,6 @@ Material <- R6::R6Class(
 		},
 
 		#' @details
-		#' set the uuid of this object
-		#' @param id a uuid
-		#' @param suffix a human readable suffix
-		set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
-			private$id <- generate_id(id, suffix)
-		},
-		#' @details
 		#' Pretty prints [Material] objects
 		print = function() {
 			cli::cli_h1(cli::col_blue("Material"))

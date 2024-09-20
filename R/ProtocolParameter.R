@@ -7,7 +7,6 @@
 #'
 #' @importFrom R6 R6Class
 #' @importFrom checkmate check_r6
-#' @importFrom uuid UUIDgenerate
 #'
 #' @export
 ProtocolParameter <- R6::R6Class(

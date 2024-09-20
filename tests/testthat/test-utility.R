@@ -38,17 +38,18 @@ test_that("date_string_conversion works",{
 # S3? ----
 
 # custom uuid functions ----
-test_that("generate_id, test_id & check_id work", {
-	id2test <- generate_id()
-	expect_true(uuid::UUIDvalidate(id2test))
-	expect_true(test_id(id2test))
-	id_with_suffix2test <- generate_id(suffix = "x")
-	expect_false(uuid::UUIDvalidate(id_with_suffix2test))
-	expect_true(test_id(id_with_suffix2test))
-	expect_error(generate_id(suffix = "-x"), regexp = "suffix must not contain any special characters")
-	expect_error(generate_id("notauuid"), regexp = "invalid uuid!")
-	expect_error(test_id(1), regexp = "input must be a character vector")
-	expect_equal(check_id("notauuid"), "id must be a valid uuid or a valid uuid with a suffix")
-	expect_true(check_id(id2test))
-	expect_true(check_id(id_with_suffix2test))
-})
+# test_that("generate_id, test_id & check_id work", {
+# 	id2test <- generate_id()
+# 	expect_true(uuid::UUIDvalidate(id2test))
+# 	expect_true(test_id(id2test))
+# 	id_with_suffix2test <- generate_id(suffix = "x")
+# 	expect_false(uuid::UUIDvalidate(id_with_suffix2test))
+# 	expect_true(test_id(id_with_suffix2test))
+# 	expect_error(generate_id(suffix = "-x"), regexp = "suffix must not contain any special characters")
+# 	expect_error(generate_id("notauuid"), regexp = "invalid uuid!")
+# 	expect_error(test_id(1), regexp = "input must be a character vector")
+# 	expect_equal(check_id("notauuid"), "id must be a valid uuid or a valid uuid with a suffix")
+# 	expect_true(check_id(id2test))
+# 	expect_true(check_id(id_with_suffix2test))
+# })
+# 

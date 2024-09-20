@@ -17,7 +17,7 @@ test_that("Characteristic works", {
 	test_comments(test_characteristic)
 
 	## ID ----
-	expect_true(uuid::UUIDvalidate(test_characteristic$get_id()))
+	# expect_true(uuid::UUIDvalidate(test_characteristic$get_id()))
 
 	test_characteristic$set_comments(list("a" = "1", "b" = "2"))
 	# test_characteristic$to_list(recursive = TRUE)

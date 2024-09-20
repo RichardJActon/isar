@@ -15,7 +15,6 @@
 #'
 #' @importFrom checkmate qtest check_string
 #' @importFrom R6 R6Class
-#' @importFrom uuid UUIDgenerate
 #'
 #' @export
 StudyFactor <- R6::R6Class(

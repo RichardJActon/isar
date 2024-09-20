@@ -24,7 +24,10 @@ BII_I_1_a_proteome <- readr::read_tsv(
 # ISA-tab directory validation works ----
 test_that("ISA-tab directory validation works", {
 	## Directory exists ----
-	isa_tab_example_dir <- paste0("/not/a/directory", uuid::UUIDgenerate())
+	isa_tab_example_dir <- paste0(
+		"/not/a/directory",
+		paste0(sample(1:1000, 10, replace = TRUE), collapse = "")
+	)
 	expect_error(
 		isa_tab_example_dir %>%
 			check_isa_tab_dir() %>%

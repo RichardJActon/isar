@@ -79,40 +79,6 @@ s3_identical_maker <- function(obj_pub_props, get_id = TRUE) {
 	}
 }
 
-#' test_id
-#' Tests if an id is valid, returns TRUE if valid and FALSE if not
-#' (follows checkmate conventions)
-#' @param id a uuid or uuid with a suffix
-#' @importFrom uuid UUIDvalidate
-# #' @export
-test_id <- function(id) {
-	if(uuid::UUIDvalidate(id)) {
-		return(TRUE)
-	} else if (uuid::UUIDvalidate(sub("-\\w+$", "", id))) {
-		return(TRUE)
-	} else {
-		return(FALSE)
-	}
-}
-
-# test_id(generate_id())
-# test_id(generate_id(suffix = "x"))
-# test_id(generate_id(suffix = "x-x"))
-# test_id("notuuid")
-# test_id(1)
-
-#' check_id
-#' Checks if an id is valid, returns TRUE if valid and explanatory string if not
-#' (follows checkmate conventions)
-#' @param id a uuid or uuid with a suffix
-# #' @export
-check_id <- function(id) {
-	if(test_id(id)) { return(TRUE) } else {
-		return("id must be a valid uuid or a valid uuid with a suffix")
-	}
-}
-
-
 #' date_input_handling
 #'
 #' @param date_string a string to be converted to a date

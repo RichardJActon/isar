@@ -300,9 +300,6 @@ DataFile <- R6::R6Class(
 		#' @return a hash
 		get_hash = function() { private$hash },
 
-		# #' @details
-		# #' Get the uuid of this object
-		# #' @return a uuid
 		#' @details
 		#' get the id of the [DataFile] object
 		#' @return a string
