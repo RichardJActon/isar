@@ -504,20 +504,6 @@ Process <- R6::R6Class(
 			self$comments <- lst[["comments"]]
 		},
 
-		# #' @details
-		# #' Get the uuid of this object
-		# #' @return a uuid
-		# get_id = function() {
-		# 	private$id
-		# },
-		# #' @details
-		# #' set the uuid of this object
-		# #' @param id a uuid
-		# #' @param suffix a human readable suffix
-		# set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
-		# 	private$id <- generate_id(id, suffix)
-		# },
-
 		#' @details
 		#' infer the order of processes in process sequence from the next and 
 		#' previous process values. 
@@ -597,7 +583,6 @@ Process <- R6::R6Class(
 		}
 	),
 	private = list(
-		# id = generate_id()
 		infered_name = FALSE
 	)
 )

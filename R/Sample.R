@@ -19,7 +19,6 @@
 #' @importFrom cli cli_h1 cli col_blue
 #' @importFrom glue glue
 #' @importFrom purrr map_lgl
-#' @importFrom uuid UUIDgenerate
 #'
 #' @export
 Sample <- R6::R6Class(
@@ -340,7 +339,6 @@ Sample <- R6::R6Class(
 		}
 	),
 	private = list(
-		# id = generate_id()
 		raw_name = character()
 	)
 )

@@ -823,19 +823,6 @@ Study <- R6::R6Class(
 				# self$units <- lst[["units"]]
 			}
 		},
-		# #' @details
-		# #' Get the uuid of this object
-		# #' @return a uuid
-		# get_id = function() {
-		# 	private$id
-		# },
-		# #' @details
-		# #' set the uuid of this object
-		# #' @param id a uuid
-		# #' @param suffix a human readable suffix
-		# set_id = function(id = uuid::UUIDgenerate(), suffix = character()) {
-		# 	private$id <- generate_id(id, suffix)
-		# },
 
 		#' @details
 		#' Pretty prints [Study] objects
