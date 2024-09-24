@@ -3,7 +3,10 @@ test_that("Characteristic works", {
 
 	drug <- OntologySource$new("drug", terms_list = list(dox = "dox", flox = "flox", pox = "pox"))
 
-	exposure_1 <- OntologyAnnotation$new("dox", drug)
+	ont_refs <- OntologySourceReferences$new(
+		list("drug" = drug)
+	)
+	exposure_1 <- OntologyAnnotation$new("dox", drug, ontology_source_references = ont_refs)
 	# exposure_2 <- OntologyAnnotation$new("flox", drug)
 
 	mg <- Unit$new(unit = "milligram")
