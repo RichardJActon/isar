@@ -81,8 +81,8 @@ assert_empty <- checkmate::makeAssertionFunction(check_empty)
 #' expect_empty(character(), mode)
 #' expect_empty(character(), mode, null.ok = TRUE)
 #' expect_empty(NULL, mode, null.ok = TRUE)
-#' expect_empty("", mode)
-#' expect_empty("", mode, null.ok = TRUE)
+#' expect_empty("", mode, zero.len.string.ok = TRUE)
+#' expect_empty("", mode, null.ok = TRUE, zero.len.string.ok = TRUE)
 #'
 #' @importFrom checkmate makeAssertionFunction makeExpectation
 expect_empty <- checkmate::makeExpectationFunction(check_empty)
@@ -104,8 +104,8 @@ expect_empty <- checkmate::makeExpectationFunction(check_empty)
 #' test_empty(character(), mode)
 #' test_empty(character(), mode, null.ok = TRUE)
 #' test_empty(NULL, mode, null.ok = TRUE)
-#' test_empty("", mode)
-#' test_empty("", mode, null.ok = TRUE)
+#' test_empty("", mode, zero.len.string.ok = TRUE)
+#' test_empty("", mode, null.ok = TRUE, zero.len.string.ok = TRUE)
 #'
 #' @importFrom checkmate makeTestFunction
 test_empty <- checkmate::makeTestFunction(check_empty)

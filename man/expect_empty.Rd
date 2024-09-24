@@ -40,7 +40,7 @@ mode <- "character"
 expect_empty(character(), mode)
 expect_empty(character(), mode, null.ok = TRUE)
 expect_empty(NULL, mode, null.ok = TRUE)
-expect_empty("", mode)
-expect_empty("", mode, null.ok = TRUE)
+expect_empty("", mode, zero.len.string.ok = TRUE)
+expect_empty("", mode, null.ok = TRUE, zero.len.string.ok = TRUE)
 
 }

@@ -27,7 +27,7 @@ mode <- "character"
 test_empty(character(), mode)
 test_empty(character(), mode, null.ok = TRUE)
 test_empty(NULL, mode, null.ok = TRUE)
-test_empty("", mode)
-test_empty("", mode, null.ok = TRUE)
+test_empty("", mode, zero.len.string.ok = TRUE)
+test_empty("", mode, null.ok = TRUE, zero.len.string.ok = TRUE)
 
 }

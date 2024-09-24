@@ -20,6 +20,6 @@ the sub-section names, this makes it easier to use the same parser for
 fields which are in both Study and Investigation such as people and contacts
 }
 \examples{
-clear_na_cols_and_transpose(tibble::tibble(A = c(NA, NA), B = 1:2, C = c(NA, FALSE)))
+clear_na_cols_and_transpose(tibble::tibble(c(NA, NA), 1:2, c(NA, FALSE)))
 
 }
