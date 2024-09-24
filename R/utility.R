@@ -81,7 +81,7 @@ s3_identical_maker <- function(obj_pub_props, get_id = TRUE) {
 
 #' date_input_handling
 #'
-#' @param date_string a string to be converted to a date
+#' @param date a string to be converted to a date
 #' @param strict do not attempt to read alternative date formats default = TRUE
 #' @param null.ok allow null date values default = FALSE
 #'
