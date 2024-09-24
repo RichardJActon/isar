@@ -21,6 +21,10 @@ assert_empty(
 \item{null.ok}{allow NULL to be valid}
 
 \item{zero.len.string.ok}{accept zero length strings}
+
+\item{.var.name}{Name of the checked object to print in assertions. Defaults to the heuristic implemented in \code{\link[checkmate:vname]{checkmate::vname()}}.}
+
+\item{add}{Collection to store assertion messages. See \code{\link[checkmate:AssertCollection]{checkmate::AssertCollection()}}.}
 }
 \value{
 x or throws an error
@@ -34,6 +38,6 @@ mode <- "character"
 assert_empty(character(), mode)
 assert_empty(character(), mode, null.ok = TRUE)
 assert_empty(NULL, mode, null.ok = TRUE)
-assert_empty("", mode)
-assert_empty("", mode, null.ok = TRUE)
+assert_empty("", zero.len.string.ok = TRUE)
+assert_empty("", mode, null.ok = TRUE, zero.len.string.ok = TRUE)
 }

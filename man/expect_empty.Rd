@@ -21,6 +21,12 @@ expect_empty(
 \item{null.ok}{allow NULL to be valid}
 
 \item{zero.len.string.ok}{accept zero length strings}
+
+\item{info}{default = NULL Extra information to be included in the message for the testthat reporter.
+See \code{\link[testthat:expect_that]{testthat::expect_that()}}.}
+
+\item{label}{default = vname(x) Name of the checked object to print in messages.
+Defaults to the heuristic implemented in \code{\link[checkmate:vname]{checkmate::vname()}}.}
 }
 \value{
 use with testthat

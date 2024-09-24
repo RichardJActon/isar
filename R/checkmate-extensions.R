@@ -43,6 +43,8 @@ check_empty <- function(
 #' @param mode vector mode
 #' @param null.ok allow NULL to be valid
 #' @param zero.len.string.ok accept zero length strings
+#' @param .var.name Name of the checked object to print in assertions. Defaults to the heuristic implemented in [checkmate::vname()].
+#' @param add Collection to store assertion messages. See [checkmate::AssertCollection()].
 #'
 #' @return x or throws an error
 #' @export
@@ -53,8 +55,8 @@ check_empty <- function(
 #' assert_empty(character(), mode)
 #' assert_empty(character(), mode, null.ok = TRUE)
 #' assert_empty(NULL, mode, null.ok = TRUE)
-#' assert_empty("", mode)
-#' assert_empty("", mode, null.ok = TRUE)
+#' assert_empty("", zero.len.string.ok = TRUE)
+#' assert_empty("", mode, null.ok = TRUE, zero.len.string.ok = TRUE)
 #' @importFrom checkmate makeAssertionFunction
 assert_empty <- checkmate::makeAssertionFunction(check_empty)
 
@@ -65,6 +67,10 @@ assert_empty <- checkmate::makeAssertionFunction(check_empty)
 #' @param mode vector mode
 #' @param null.ok allow NULL to be valid
 #' @param zero.len.string.ok accept zero length strings
+#' @param info default = NULL Extra information to be included in the message for the testthat reporter.
+#' See [testthat::expect_that()].
+#' @param label default = vname(x) Name of the checked object to print in messages.
+#' Defaults to the heuristic implemented in [checkmate::vname()].
 #'
 #' @return use with testthat
 #' @export
