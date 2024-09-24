@@ -77,6 +77,7 @@ An investigation maintains metadata about the project context and links to one o
 \item \href{#method-Investigation-cat_table}{\code{Investigation$cat_table()}}
 \item \href{#method-Investigation-to_list}{\code{Investigation$to_list()}}
 \item \href{#method-Investigation-from_list}{\code{Investigation$from_list()}}
+\item \href{#method-Investigation-from_json}{\code{Investigation$from_json()}}
 \item \href{#method-Investigation-print}{\code{Investigation$print()}}
 \item \href{#method-Investigation-clone}{\code{Investigation$clone()}}
 }
@@ -609,6 +610,26 @@ generate an R list representation translatable to JSON
 }
 \subsection{Details}{
 Make \link{Investigation} from list
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Investigation-from_json"></a>}}
+\if{latex}{\out{\hypertarget{method-Investigation-from_json}{}}}
+\subsection{Method \code{from_json()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$from_json(path)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{path}}{path to the isa-json file}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Populate an \link{Investigation} Object from an isa-json file
 }
 
 }

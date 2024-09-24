@@ -21,6 +21,8 @@
 #'
 #' @importFrom R6 R6Class
 #' @importFrom checkmate check_date
+#' @importFrom fs file_exists
+#' @importFrom jsonlite read_json
 #' @importFrom emo ji
 #'
 #' @export
@@ -512,7 +514,20 @@ Investigation <- R6::R6Class(
 				self$comments <- lst[["comments"]]
 			}
 		},
-
+		#' @details
+		#' Populate an [Investigation] Object from an isa-json file
+		#' @param path path to the isa-json file
+		from_json = function(path) {
+			if(fs::file_exists(path)) {
+				path %>%
+					jsonlite::read_json() %>% 
+					self$from_list(recursive = TRUE, json = TRUE)
+			} else {
+				stop(path, " does not exist!")
+			}
+			
+		},
+		
 		#' @details
 		#' Pretty prints [Investigation] objects
 		print = function() {

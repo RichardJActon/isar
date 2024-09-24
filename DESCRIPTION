@@ -22,8 +22,6 @@ Imports:
     jsonlite,
     purrr,
     readr,
-    rjson,
-    stringr,
     testthat,
     tibble,
     tidyr,
