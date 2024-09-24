@@ -193,13 +193,13 @@ transpose_first_to_title <- function(tbl) {
 #' @export
 #'
 #' @examples
-#' clear_na_cols_and_transpose(tibble::tibble(A = c(NA, NA), B = 1:2, C = c(NA, FALSE)))
+#' clear_na_cols_and_transpose(tibble::tibble(c(NA, NA), 1:2, c(NA, FALSE)))
 #'
-#' @importFrom dplyr `%>%`
+#' @importFrom dplyr `%>%` mutate
 clear_na_cols_and_transpose <- function(tbl) {
 	tbl %>%
 		clear_all_na_cols() %>%
-		dplyr::mutate(X1 = sub("\\w+ (.*)","\\1", X1)) %>%
+		dplyr::mutate(X1 = sub("\\w+ (.*)","\\1", .[[names(.)[1]]])) %>%
 		transpose_first_to_title()
 }
 
