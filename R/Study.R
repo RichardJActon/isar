@@ -743,10 +743,6 @@ Study <- R6::R6Class(
 						smpl$from_list(.x, recursive = recursive, json = json)
 						smpl
 					})
-				# self$samples <- lst[["samples"]]
-				# process_sequence_order <- get_process_sequence_order_from_json(
-				# 	lst[["processSequence"]]
-				# )
 
 				self$process_sequence <-
 					lst[["processSequence"]] %>%
