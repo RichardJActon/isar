@@ -15,8 +15,6 @@ CharacteristicCategory
 
 \item{\code{type}}{The type of characteristic as an \link{OntologyAnnotation}}
 
-\item{\code{explicitly_provided}}{boolean was this characteristic explicitly as a characteristic category of this study (deprecating in favour of source)}
-
 \item{\code{ontology_source_references}}{\link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor}
 
 \item{\code{origin}}{an id of the object from which characteristic category originated}
@@ -45,7 +43,6 @@ CharacteristicCategory
 \if{html}{\out{<div class="r">}}\preformatted{CharacteristicCategory$new(
   `@id` = character(),
   type = NULL,
-  explicitly_provided = logical(),
   origin = character(),
   ontology_source_references = NULL
 )}\if{html}{\out{</div>}}
@@ -57,8 +54,6 @@ CharacteristicCategory
 \item{\code{@id}}{identifier}
 
 \item{\code{type}}{The type of characteristic as an \link{OntologyAnnotation}}
-
-\item{\code{explicitly_provided}}{boolean was this characteristic explicitly as a characteristic category of this study (deprecating in favour of source)}
 
 \item{\code{origin}}{an id of the object from which characteristic category originated}
 

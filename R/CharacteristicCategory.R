@@ -2,7 +2,6 @@
 #'
 #' @field @id identifier
 #' @field type The type of characteristic as an [OntologyAnnotation]
-#' @field explicitly_provided boolean was this characteristic explicitly as a characteristic category of this study (deprecating in favour of source)
 #' @field ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor
 #' @field origin an id of the object from which characteristic category originated
 #'
@@ -12,7 +11,6 @@ CharacteristicCategory <- R6::R6Class(
 	public = list(
 		`@id` = character(),
 		type = NULL,
-		explicitly_provided = logical(),
 		origin = character(),
 		ontology_source_references = NULL,
 		#' @details
@@ -20,13 +18,11 @@ CharacteristicCategory <- R6::R6Class(
 		#' Create a new [CharacteristicCategory] object
 		#' @param @id identifier
 		#' @param type The type of characteristic as an [OntologyAnnotation]
-		#' @param explicitly_provided boolean was this characteristic explicitly as a characteristic category of this study (deprecating in favour of source)
 		#' @param ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor
 		#' @param origin an id of the object from which characteristic category originated
 		initialize = function(
 			`@id` = character(),
 			type = NULL,
-			explicitly_provided = logical(),
 			origin = character(),
 			ontology_source_references = NULL
 		) {
@@ -36,7 +32,6 @@ CharacteristicCategory <- R6::R6Class(
 				self$set_id(`@id`)
 			}
 			self$set_type(type)
-			self$explicitly_provided <- explicitly_provided # checks!
 			self$origin <- origin # checks!
 			self$ontology_source_references <- ontology_source_references
 		},
@@ -96,9 +91,6 @@ CharacteristicCategory <- R6::R6Class(
 			cli::cli_h1(cli::col_blue("Characteristic Category"))
 			green_bold_name_plain_content("@id", self[["@id"]])
 			green_bold_name_plain_content("Type", self$type$term)
-			green_bold_name_plain_content(
-				"Explicitly Provided", self$explicitly_provided
-			)
 			green_bold_name_plain_content("Origin", self$origin)
 			# cli::cli_h2(cli::col_green("Type"))
 			# cli::cli_ul(self$type$term)
