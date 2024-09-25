@@ -152,8 +152,7 @@ Characteristic <- R6::R6Class(
 						`@id` = category$`@id`,
 						ontology_source_references =
 							self$ontology_source_references,
-						explicitly_provided = FALSE,
-						source = category$`@id`
+						origin = category$`@id`
 					)
 					self$category <- self$category_references$categories[[
 						category$`@id`
@@ -165,8 +164,7 @@ Characteristic <- R6::R6Class(
 							`@id` = "Unspecified",
 							ontology_source_references =
 								self$ontology_source_references,
-							explicitly_provided = FALSE,
-							source = category$`@id`
+							origin = category$`@id`
 						)
 					self$category <- self$category_references$categories[[
 						"UnknownCharacteristic"

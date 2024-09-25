@@ -4,7 +4,7 @@
 #' @field type The type of characteristic as an [OntologyAnnotation]
 #' @field explicitly_provided boolean was this characteristic explicitly as a characteristic category of this study (deprecating in favour of source)
 #' @field ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor
-#' @field source an id of the object from which characteristic category originated
+#' @field origin an id of the object from which characteristic category originated
 #'
 #' @export
 CharacteristicCategory <- R6::R6Class(
@@ -13,7 +13,7 @@ CharacteristicCategory <- R6::R6Class(
 		`@id` = character(),
 		type = NULL,
 		explicitly_provided = logical(),
-		source = character(),
+		origin = character(),
 		ontology_source_references = NULL,
 		#' @details
 		#'
@@ -22,12 +22,12 @@ CharacteristicCategory <- R6::R6Class(
 		#' @param type The type of characteristic as an [OntologyAnnotation]
 		#' @param explicitly_provided boolean was this characteristic explicitly as a characteristic category of this study (deprecating in favour of source)
 		#' @param ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor
-		#' @param source an id of the object from which characteristic category originated
+		#' @param origin an id of the object from which characteristic category originated
 		initialize = function(
 			`@id` = character(),
 			type = NULL,
 			explicitly_provided = logical(),
-			source = character(),
+			origin = character(),
 			ontology_source_references = NULL
 		) {
 			if(test_empty(`@id`, mode = "character")) {
@@ -37,7 +37,7 @@ CharacteristicCategory <- R6::R6Class(
 			}
 			self$set_type(type)
 			self$explicitly_provided <- explicitly_provided # checks!
-			self$source <- source # checks!
+			self$origin <- origin # checks!
 			self$ontology_source_references <- ontology_source_references
 		},
 		#' @details
@@ -99,7 +99,7 @@ CharacteristicCategory <- R6::R6Class(
 			green_bold_name_plain_content(
 				"Explicitly Provided", self$explicitly_provided
 			)
-			green_bold_name_plain_content("Source", self$source)
+			green_bold_name_plain_content("Origin", self$origin)
 			# cli::cli_h2(cli::col_green("Type"))
 			# cli::cli_ul(self$type$term)
 			# self$type$print()

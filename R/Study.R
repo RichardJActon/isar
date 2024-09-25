@@ -553,7 +553,7 @@ Study <- R6::R6Class(
 			)
 			lst[["publicReleaseDate"]] <- self$public_release_date
 			lst[["characteristicCategories"]] <-
-				self$characteristic_categories$to_list(source = self$`@id`)
+				self$characteristic_categories$to_list(origin = self$`@id`)
 			lst[["assays"]] <- self$assays %>% purrr::map(~.x$to_list()) %>%
 				purrr::set_names(NULL)
 			lst[["filename"]] <- self$filename
@@ -675,8 +675,7 @@ Study <- R6::R6Class(
 						)
 				}
 				self$characteristic_categories$from_list(
-					lst[["characteristicCategories"]],
-					explicitly_provided = TRUE, source = self$`@id`,
+					lst[["characteristicCategories"]], origin = self$`@id`,
 					add = TRUE
 				)
 

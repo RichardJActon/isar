@@ -344,7 +344,7 @@ Assay <- R6::R6Class(
 				lst[["unitCategories"]] <- list()
 			} else {
 				lst[["unitCategories"]] <- self$unit_references$to_list(
-					source = self$`@id`
+					origin = self$`@id`
 				)
 			}
 			# purrr::map(self$unit_references, ~{
@@ -538,8 +538,8 @@ Assay <- R6::R6Class(
 			}
 			# add any categories not found in the supplied reference
 			self$characteristic_categories$from_list(
-				lst[["characteristicCategories"]], # source ?
-				explicitly_provided = TRUE, add = TRUE, source = self$`@id`
+				lst[["characteristicCategories"]], add = TRUE,
+				origin = self$`@id`
 			)
 
 			self$measurement_type$from_list(

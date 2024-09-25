@@ -100,7 +100,7 @@ CharacteristicCategoryReferences <- R6::R6Class(
 		#' study does it originate
 		#' @return character vector of characteristic category sources
 		get_characteristic_category_origins = function() {
-			purrr::map_chr(self$categories, ~.x$source)
+			purrr::map_chr(self$categories, ~.x$origin)
 		},
 
 		#' @details
@@ -110,15 +110,15 @@ CharacteristicCategoryReferences <- R6::R6Class(
 		#' "any" lists categories from all sources. 
 		#' default = "any"
 		#' @return an R list
-		to_list = function(source = "any") {
-			if(source == "any") {
+		to_list = function(origin = "any") {
+			if(origin == "any") {
 				self$categories %>%
 					purrr::map(~.x$to_list()) %>%
 					purrr::set_names(NULL)
 			} else if(source %in% self$get_characteristic_category_origins()) {
 				self$categories %>%
 					`[`(
-						self$get_characteristic_category_origins() %in% source
+						self$get_characteristic_category_origins() %in% origin
 					) %>%
 					purrr::map(~.x$to_list()) %>%
 					purrr::set_names(NULL)
@@ -142,13 +142,12 @@ CharacteristicCategoryReferences <- R6::R6Class(
 		#' the ones already present in the reference, if fale then overwrite and
 		#' existing ones.
 		from_list = function(
-			lst, explicitly_provided = logical(), source = NA, add = FALSE
+			lst, origin = NA, add = FALSE
 		) {
 			ccl <- lst %>%
 				purrr::map(~{
 					cc <- CharacteristicCategory$new(
-						explicitly_provided = explicitly_provided,
-						source = source,
+						origin = origin,
 						ontology_source_references =
 							self$ontology_source_references
 					)
