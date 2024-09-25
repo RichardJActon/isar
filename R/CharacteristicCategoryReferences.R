@@ -105,7 +105,7 @@ CharacteristicCategoryReferences <- R6::R6Class(
 
 		#' @details
 		#' Serialize [CharacteristicCategoryReferences] object to an R list
-		#' @param source ids of sources of characteristic categories for which
+		#' @param origin ids of sources of characteristic categories for which
 		#' to generate a list of category references. 
 		#' "any" lists categories from all sources. 
 		#' default = "any"
@@ -137,7 +137,7 @@ CharacteristicCategoryReferences <- R6::R6Class(
 		#' @param explicitly_provided (logical) if true the category was
 		#' explicitly declared if false it was generated automatically as no
 		#' explicitly declared category was found
-		#' @param source the id of the object in which this category originated
+		#' @param origin the id of the object in which this category originated
 		#' @param add (logical) if true append new charateristic categoeries to
 		#' the ones already present in the reference, if fale then overwrite and
 		#' existing ones.

@@ -3,8 +3,9 @@
 #' A Characteristic acts as a qualifying property to a material object.
 #'
 #' @field category The classifier of the type of characteristic being described.
+#' a [CharacteristicCategory] object.
 #' @field value The value of this instance of a characteristic as relevant to the attached material.
-#' @field unit If applicable, a unit qualifier for the value (if the value is numeric).
+#' @field unit If applicable, a [Unit] qualifier for the value (if the value is numeric).
 #' @field category_references an [CharacteristicCategoryReferences] object
 #' @field comments comments
 #' @field @id identifier

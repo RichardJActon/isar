@@ -240,13 +240,13 @@ character vector of characteristic category sources
 \if{latex}{\out{\hypertarget{method-CharacteristicCategoryReferences-to_list}{}}}
 \subsection{Method \code{to_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{CharacteristicCategoryReferences$to_list(source = "any")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{CharacteristicCategoryReferences$to_list(origin = "any")}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{source}}{ids of sources of characteristic categories for which
+\item{\code{origin}}{ids of sources of characteristic categories for which
 to generate a list of category references.
 "any" lists categories from all sources.
 default = "any"}
@@ -266,12 +266,7 @@ an R list
 \if{latex}{\out{\hypertarget{method-CharacteristicCategoryReferences-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{CharacteristicCategoryReferences$from_list(
-  lst,
-  explicitly_provided = logical(),
-  source = NA,
-  add = FALSE
-)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{CharacteristicCategoryReferences$from_list(lst, origin = NA, add = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -279,15 +274,15 @@ an R list
 \describe{
 \item{\code{lst}}{a list from which to generate a \link{CharacteristicCategoryReferences} object}
 
-\item{\code{explicitly_provided}}{(logical) if true the category was
-explicitly declared if false it was generated automatically as no
-explicitly declared category was found}
-
-\item{\code{source}}{the id of the object in which this category originated}
+\item{\code{origin}}{the id of the object in which this category originated}
 
 \item{\code{add}}{(logical) if true append new charateristic categoeries to
 the ones already present in the reference, if fale then overwrite and
 existing ones.}
+
+\item{\code{explicitly_provided}}{(logical) if true the category was
+explicitly declared if false it was generated automatically as no
+explicitly declared category was found}
 }
 \if{html}{\out{</div>}}
 }

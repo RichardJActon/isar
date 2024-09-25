@@ -9,11 +9,12 @@ A Characteristic acts as a qualifying property to a material object.
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{category}}{The classifier of the type of characteristic being described.}
+\item{\code{category}}{The classifier of the type of characteristic being described.
+a \link{CharacteristicCategory} object.}
 
 \item{\code{value}}{The value of this instance of a characteristic as relevant to the attached material.}
 
-\item{\code{unit}}{If applicable, a unit qualifier for the value (if the value is numeric).}
+\item{\code{unit}}{If applicable, a \link{Unit} qualifier for the value (if the value is numeric).}
 
 \item{\code{category_references}}{an \link{CharacteristicCategoryReferences} object}
 
