@@ -1,69 +1,75 @@
 # Characteristic ----
 test_that("Characteristic works", {
 
-	drug <- OntologySource$new("drug", terms_list = list(dox = "dox", flox = "flox", pox = "pox"))
+	drug <- OntologySource$new(
+		"drug", terms_list = list(dox = "dox", flox = "flox", pox = "pox")
+	)
 
 	ont_refs <- OntologySourceReferences$new(
-		list("drug" = drug)
+		list("drug" = drug, "Ontology of units of Measure (OM)" = OM)
 	)
-	exposure_1 <- OntologyAnnotation$new("dox", drug, ontology_source_references = ont_refs)
-	# exposure_2 <- OntologyAnnotation$new("flox", drug)
+	exposure_1 <- OntologyAnnotation$new(
+		"dox", drug, ontology_source_references = ont_refs
+	)
 
-	mg <- Unit$new(unit = "milligram")
+	milligram <- OntologyAnnotation$new(
+		"milligram", OM, ontology_source_references = ont_refs
+	)
+	
+	mg <- Unit$new(
+		`@id` = "#unit/milligram", unit = milligram,
+		ontology_source_references = ont_refs
+	)
 
+	charcat_1_chemcomp <- CharacteristicCategory$new(
+		`@id` = "#charcat/example", origin = "example",
+		type = exposure_1,
+		ontology_source_references = ont_refs
+	)
+	
 	test_characteristic <- Characteristic$new(
-		category = exposure_1, value = 10, unit = mg
+		category = charcat_1_chemcomp, value = 10, unit = mg
 	)
 	checkmate::expect_r6(test_characteristic, "Characteristic")
 
 	## Comments ----
 	test_comments(test_characteristic)
 
-	## ID ----
-	# expect_true(uuid::UUIDvalidate(test_characteristic$get_id()))
-
 	test_characteristic$set_comments(list("a" = "1", "b" = "2"))
-	# test_characteristic$to_list(recursive = TRUE)
 
 	## To list ----
-	# !! test recursive
 	test_characteristic <- Characteristic$new()
-	test_characteristic$set_category(exposure_1)
+	test_characteristic$set_category(charcat_1_chemcomp)
 	test_characteristic$set_unit(mg)
 	test_characteristic$set_value(10)
 
 
 	example_list <- list(
-		id = test_characteristic$get_id(),
-		category = "dox",
-		value = 10,
-		unit = "milligram",
-		comments = NULL
+		category = list(`@id` = "#charcat/example"),
+		unit = list(
+			`@id` = "#unit/milligram",
+			termAccession = "mg",
+			annotationValue = "milligram",
+			termSource = "Ontology of units of Measure (OM)"
+		),
+		value = 10# ,
+		# comments = NULL
 	)
-	expect_equal(test_characteristic$to_list(recursive = FALSE), example_list)
+	expect_equal(test_characteristic$to_list(), example_list)
 
 	## From list ----
-	# !! test recursive
-	test_from_list <- OntologyAnnotation$new()
-	test_from_list$from_list(example_list, recursive = FALSE)
-	# expect_equal(test_from_list$to_list(recursive = FALSE), example_list)
-
+	urefs <- UnitReferences$new(ontology_source_references = ont_refs)
+	urefs$add_unit_references(list("#unit/milligram" = mg))
+	
 	test_from_list <- Characteristic$new(
-		category = exposure_1, value = 10, unit = mg
+		ontology_source_references = ont_refs, unit_references = urefs,
+		category_references = CharacteristicCategoryReferences$new(
+			list("#charcat/example" = charcat_1_chemcomp)
+		)
 	)
+	test_from_list$from_list(example_list)
 
-	example_list_null <- list(
-		id = test_characteristic$get_id(),
-		annotation_value = NULL,
-		term_source = NULL,
-		term_accession = NULL,
-		comments = NULL
-	)
-	test_from_list <- Characteristic$new()
-	test_from_list$from_list(example_list_null, recursive = FALSE)
-	# expect_equal(test_from_list$to_list(recursive = FALSE), example_list_null)
+	expect_equal(test_from_list$to_list(), example_list)
 
 	# identity tests
-	# expect_true(identical(test_characteristic, test_characteristic))
-	# expect_false(identical(test_characteristic, Characteristic$new()))
 })
