@@ -33,9 +33,32 @@ ProtocolParameter <- R6::R6Class(
 			} else {
 				self$set_parameter_name(parameter_name)
 			}
-			self$ontology_source_references <- ontology_source_references
+			self$set_ontology_source_references(
+				ontology_source_references, null.action = "create"
+			)
 			self$comments <- comments
 			self$`@id` <- `@id`
+		},
+		#' @details
+		#' 
+		#' @param ontology_source_references an [OntologySourceReferences] object
+		#' @param null.action how to handle NULLs:
+		#' - "error" thow an error 
+		#' - "passthrough" set to NULL
+		#' - "create" set to an empty  [OntologySourceReferences] object
+		set_ontology_source_references = function(ontology_source_references, null.action) {
+			set_ontology_source_references(self, ontology_source_references, null.action)
+		},
+		
+		#' @details
+		#' 
+		#' returns TRUE if ontology_source_references is an [OntologySourceReferences]
+		#' object and throws an error if it is not
+		#'
+		#' @param ontology_source_references something you want to check is an
+		#' [OntologySourceReferences] object.
+		check_ontology_source_references = function(ontology_source_references) {
+			check_ontology_source_references(ontology_source_references)
 		},
 		#' @details
 		#' Check that parameter_name is an [OntologyAnnotation] object
