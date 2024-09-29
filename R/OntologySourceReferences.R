@@ -46,6 +46,19 @@ OntologySourceReferences <- R6::R6Class(
 			}
 		},
 		#' @details
+		#' Add ontology source to the reference
+		#' @param ontology_source an [OntologySource] object
+		add_ontology_source = function(ontology_source) {
+			if (checkmate::test_r6(ontology_source, "OntologySource")) {
+				ontology_source %>%
+					list() %>%
+					purrr::set_names(ontology_source$name) %>%
+					self$add_ontology_sources()
+			} else {
+				stop("ontology_source is not an OntologySource object!")
+			}
+		},
+		#' @details
 		#' Get the names of the Ontology Sources Used in this Investigation
 		#' @return a vector of ontology source names
 		get_ontology_source_names = function() {
