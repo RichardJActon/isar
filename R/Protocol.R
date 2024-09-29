@@ -93,8 +93,33 @@ Protocol <- R6::R6Class(
 			self$check_comments(comments)
 			self$`@id` <- paste0("#protocol/", self$name)
 			self$origin <- origin
-			self$ontology_source_references <- ontology_source_references
+			self$set_ontology_source_references(
+				ontology_source_references, null.action = "create"
+			)
 		},
+		
+		#' @details
+		#' 
+		#' @param ontology_source_references an [OntologySourceReferences] object
+		#' @param null.action how to handle NULLs:
+		#' - "error" thow an error 
+		#' - "passthrough" set to NULL
+		#' - "create" set to an empty  [OntologySourceReferences] object
+		set_ontology_source_references = function(ontology_source_references, null.action) {
+			set_ontology_source_references(self, ontology_source_references, null.action)
+		},
+		
+		#' @details
+		#' 
+		#' returns TRUE if ontology_source_references is an [OntologySourceReferences]
+		#' object and throws an error if it is not
+		#'
+		#' @param ontology_source_references something you want to check is an
+		#' [OntologySourceReferences] object.
+		check_ontology_source_references = function(ontology_source_references) {
+			check_ontology_source_references(ontology_source_references)
+		},
+		
 		#' @details
 		#' Check that name is a single string
 		#' @param name the name of the protocol
