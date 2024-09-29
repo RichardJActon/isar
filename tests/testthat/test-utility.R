@@ -29,10 +29,15 @@ test_that("date_string_conversion works",{
 	# not a leap year but feb 29
 	expect_error(
 		warns <- capture_warnings(date_input_handling("3034-02-29")),
-		regexp = "No Valid Date format found"
+		regexp = "character string is not in a standard unambiguous format"
 	)
-	warns <- capture_warnings(date_input_handling("10/12/1928"))
-
+	expect_warning(
+		mess <- capture_messages(
+			date_input_handling("10/12/1928", strict = FALSE)
+		),
+		"Date is not formated correctly"
+	)
+	expect_match(mess, "Did you mean Monday 10 December 1928 (1928-12-10)?", fixed = TRUE)
 })
 
 # S3? ----
