@@ -35,12 +35,12 @@ warns <- capture_warnings(obj$from_list(
 ))
 
 # warning composition
-warns %>%
-	tibble::tibble(warns = .) %>%
-	dplyr::group_by(warns) %>%
-	dplyr::summarise(n = dplyr::n(), groups = "warns") %>%
-	dplyr::select(-groups) %>%
-	dplyr::arrange(-n) # %>% View()
+# warns %>%
+# 	tibble::tibble(warns = .) %>%
+# 	dplyr::group_by(warns) %>%
+# 	dplyr::summarise(n = dplyr::n(), groups = "warns") %>%
+# 	dplyr::select(-groups) %>%
+# 	dplyr::arrange(-n) # %>% View()
 
 
 # Investigation ----
@@ -154,7 +154,7 @@ test_that("BII-S-2.txt can be generated from BII-I-1.json", {
 ## a_proteome.txt ----
 test_that("a_proteome.txt can be generated from BII-I-1.json", {
 	test_output <- tempfile()
-	obj$studies[["BII-S-1"]]$assays[["#assay/a_proteome.txt"]]$to_table()
+	# obj$studies[["BII-S-1"]]$assays[["#assay/a_proteome.txt"]]$to_table()
 
 	obj$studies[["BII-S-1"]]$assays[["#assay/a_proteome.txt"]]$cat_table(
 		test_output, overwrite = TRUE
@@ -286,7 +286,9 @@ test_that("a_metabolome.txt can be generated from BII-I-1.json", {
 # 		unit = list(`@id` = "#Unit/l/hour")
 # 	)
 
-assay_1_samples <- BII_I_1_jsonlite$studies[[1]]$assays[[1]]$materials$samples %>%
+assay_1_samples <- BII_I_1_jsonlite$studies[[1]]$assays[[
+		1
+	]]$materials$samples %>%
 	purrr::map_chr(~.x$`@id`)
 
 # keep - helper
