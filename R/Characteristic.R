@@ -50,7 +50,7 @@ Characteristic <- R6::R6Class(
 				self$set_category(category)
 			}
 			self$value <- value
-			self$unit <- unit
+			if(is.null(unit)) { self$unit <- unit } else { self$set_unit(unit) }
 			if(is.null(category_references)) {
 				self$category_references <-
 					CharacteristicCategoryReferences$new()
