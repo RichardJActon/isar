@@ -299,7 +299,7 @@ OntologyAnnotation <- R6::R6Class(
 				# 	"UnknownSource"
 				# )
 			}
-			if(term %in% names(self$term_source$terms)) {# get_?
+			if(term %in% names(self$term_source$terms_list)) {# get_?
 				self$term <- term
 				self$term_accession <- term_accession
 			} else {
