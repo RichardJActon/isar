@@ -239,7 +239,7 @@ test_that("UnitReferences json read example", {
 
 ## Protocol ----
 test_that("Protocol json read/write", {
-	protocols  <- c(
+	protocols <- c(
 		json_example$studies[[1]]$protocols,
 		json_example$studies[[2]]$protocols,
 		BII_S_3_jsonlite$studies[[1]]$protocols
