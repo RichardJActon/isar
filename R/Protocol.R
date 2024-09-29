@@ -343,14 +343,20 @@ Protocol <- R6::R6Class(
 			lst[["name"]] <- self$name
 
 			# weird inconsistencies with missing data in the json output?
-			ptl <- self$protocol_type$to_list()
+			if(is.null(self$protocol_type)) {
+				ptl <- list()
+			} else (
+				ptl <- self$protocol_type$to_list()
+			)
 			# if(ptl[["termAccession"]] == "") {
 			# 	ptl <- ptl[names(ptl) != "termAccession"]
 			# }
 			# if(ptl[["termSource"]] == "") {
 			# 	ptl <- ptl[names(ptl) != "termSource"]
 			# }
-			if(ptl[["annotationValue"]] == "Unspecified Term") {
+			if(checkmate::test_list(ptl, len = 0, null.ok = TRUE)) {
+				ptl[["annotationValue"]] <- ""
+			} else if(ptl[["annotationValue"]] == "Unspecified Term") {
 				ptl[["annotationValue"]] <- ""
 			}
 			lst[["protocolType"]] <- ptl
