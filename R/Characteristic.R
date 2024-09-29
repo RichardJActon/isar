@@ -231,12 +231,10 @@ Characteristic <- R6::R6Class(
 		#' object (default FALSE)
 		to_list = function(ld = FALSE, recursive = TRUE) {
 			lst <- list()
-			if(recursive) {
-				# browser()
-				# lst[["@id"]] <- self$`@id`
+			# if(recursive) {
 				lst[["category"]][["@id"]] <- self$category$`@id`
 				if(!is.null(self$unit)) {
-					lst[["unit"]] <- self$unit$to_list(recursive = FALSE)
+					lst[["unit"]] <- self$unit$to_list(recursive = recursive)
 				}
 				if(checkmate::test_r6(self$value, "OntologyAnnotation")) {
 					lst[["value"]] <- self$value$to_list()
@@ -244,16 +242,15 @@ Characteristic <- R6::R6Class(
 					lst[["value"]] <- self$value
 				}
 				lst[["comments"]] <- self$comments
-
-			} else {
-				lst <- list(
-					"@id" = self$`@id`,
-					"category" = self$category$term,
-					"value" = self$value$term,
-					"unit" = self$unit$unit$term,
-					"comments" = self$comments
-				)
-			}
+			# } else {
+			# 	lst <- list(
+			# 		"@id" = self$`@id`,
+			# 		"category" = self$category$term,
+			# 		"value" = self$value$term,
+			# 		"unit" = self$unit$unit$term,
+			# 		"comments" = self$comments
+			# 	)
+			# }
 			return(lst)
 		},
 		#' @details
