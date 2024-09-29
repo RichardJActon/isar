@@ -418,7 +418,9 @@ Protocol <- R6::R6Class(
 
 				#self$parameters <- lst[["parameters"]]
 
-				if (!checkmate::test_list(lst[["parameters"]], len = 0)) {
+				if (!checkmate::test_list(
+					lst[["parameters"]], len = 0, null.ok = TRUE
+				)) {
 					self$parameters <-
 						lst[["parameters"]] %>%
 						purrr::set_names(purrr::map_chr(., ~.x$`@id`)) %>%
@@ -433,9 +435,9 @@ Protocol <- R6::R6Class(
 							# pv$from_list(.x)
 							# pv
 						})
-				} #else {
-				# 	self$parameters <- lst[["parameters"]]
-				# }
+				} else {
+					self$parameters <- lst[["parameters"]]
+				}
 
 				if (!checkmate::test_list(lst[["components"]], len = 0)) {
 					self$components <- purrr::map(lst[["components"]], ~{
