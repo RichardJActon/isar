@@ -74,6 +74,18 @@ ProtocolParameter <- R6::R6Class(
 		#' @param parameter_name an [OntologyAnnotation] object
 		set_parameter_name = function(parameter_name) {
 			if(self$check_parameter_name(parameter_name)) {
+				if(
+					!parameter_name$term_source$name %in% 
+					self$ontology_source_references$get_ontology_source_names()
+				) { 
+					parameter_name$term_source %>%
+						self$ontology_source_references$add_ontology_source()
+					warning(
+						"ontology annotation source was not present in the",
+						" OntologySourceReferences!\n",
+						"Attempting to add it ..."
+					)
+				}
 				self$parameter_name <- parameter_name
 			}
 		},
