@@ -182,3 +182,53 @@ OntologySourceReferences <- R6::R6Class(
 # osr <- OntologySourceReferences$new()
 # osr$from_list(BII_I_1_jsonlite[["ontologySourceReferences"]])
 # osr$ontology_source_references
+
+#' check_ontology_source_references
+#' 
+#' returns TRUE if ontology_source_references is an [OntologySourceReferences]
+#' object and throws an error if it is not
+#'
+#' @param ontology_source_references something you want to check is an
+#' [OntologySourceReferences] object.
+#'
+#' @export
+#'
+check_ontology_source_references <- function(ontology_source_references) {
+	check <- checkmate::check_r6(
+		ontology_source_references, "OntologySourceReferences"
+	)
+	error_with_check_message_on_failure(check)
+}
+
+#' set_ontology_source_references
+#' 
+#' sets ontology_source_references attribute if 
+#' ontology_source_reference is an [OntologySourceReferences] object
+#'
+#' @param self an object with an ontology_source_references attribute 
+#' @param ontology_source_references an [OntologySourceReferences] object
+#' @param null.action how to handle NULLs:
+#' - "error" thow an error 
+#' - "passthrough" set to NULL
+#' - "create" set to an empty  [OntologySourceReferences] object
+set_ontology_source_references <- function(
+	self, ontology_source_references, null.action = "error"
+) {
+	if(is.null(ontology_source_references)) {
+		switch(null.action,
+			"error" = {
+				stop("ontology_source_references must not be NULL!")
+			},
+			"passthrough" = {
+				self$ontology_source_references <- 
+					ontology_source_references
+			},
+			"create" = {
+				self$ontology_source_references <- 
+					OntologySourceReferences$new()
+			}
+		)
+	} else if (
+		check_ontology_source_references(ontology_source_references)
+	) { self$ontology_source_references <- ontology_source_references }
+}
