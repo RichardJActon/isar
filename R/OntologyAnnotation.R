@@ -378,8 +378,12 @@ OntologyAnnotation <- R6::R6Class(
 			} else {
 				lst[["termAccession"]] <- self$term_accession
 			}
-
-			lst[["annotationValue"]] <- self$term
+			
+			if (is.null(self$term)) { } else if(
+				self$term == "Unspecified Term"
+			) { } else {
+				lst[["annotationValue"]] <- self$term
+			}
 
 			if (private$null_source) { } else if(
 				self$term_source$name == "UnknownSource"
