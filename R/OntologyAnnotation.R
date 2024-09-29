@@ -142,10 +142,12 @@ OntologyAnnotation <- R6::R6Class(
 				}
 			} else {
 				warning(
-					"OntologySource: ", term_source$name,
-					" is not in the ontology source reference!\n",
-					"This suggests it was not listed as an ontology used",
-					" by this investigation the source files\n",
+					"OntologySource: '", term_source$name,
+					"' is not in the ontology source reference!\n",
+					"To silence this warning provide an",
+					" OntologySourceReference which includes the",
+					" OntologySource from which you wish to create an",
+					" annotation\n",
 					"Attempting to add it to the reference..."
 				)
 				src_to_add <- list(term_source)
