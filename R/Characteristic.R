@@ -363,7 +363,8 @@ Characteristic <- R6::R6Class(
 			if(is.null(self$unit)) {
 				green_bold_name_plain_content("value", self$value$term)
 			} else {
-				green_bold_name_plain_content("unit", self$unit$term)
+				green_bold_name_plain_content("unit", self$unit$unit$term)
+				green_bold_name_plain_content("value", self$value)
 			}
 			pretty_print_comments(self$comments)
 		}
