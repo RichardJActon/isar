@@ -1,6 +1,12 @@
 # ISAR
 
-**WARNING alpha software!**
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/RichardJActon/isar/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/RichardJActon/isar/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/RichardJActon/isar/graph/badge.svg)](https://app.codecov.io/gh/RichardJActon/isar)
+[![Lifecycle:experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+<!-- badges: end-->
+
+**WARNING pre-alpha software!**
 
 This is a partial reimplementation of [`isa-api`](https://github.com/ISA-tools/isa-api) in R
 
@@ -25,3 +31,4 @@ alternatively clone the repository:
 ```         
 git clone https://gitlab.renkulab.io/hdbi/data-management/isar.git
 ```
+
