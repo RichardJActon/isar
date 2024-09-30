@@ -17,7 +17,7 @@ issue tracking and development take place on the [project repository](https://re
 
 # install instructions
 
-```         
+```
 renv::install("RichardJActon/isar")
 ```
 
@@ -29,7 +29,7 @@ Launch a pre-configured RStudio development environment in Renku
 
 alternatively clone the repository:
 
-```         
+```
 git clone https://gitlab.renkulab.io/hdbi/data-management/isar.git
 ```
 
