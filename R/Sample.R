@@ -86,7 +86,19 @@ Sample <- R6::R6Class(
 			self$comments <- comments
 			self$`@id` <- `@id`
 		},
-
+		#' @details
+		#' Check if the name of the material is a string
+		#' @param name The name of the material
+		check_name = function(name) {
+			check <- checkmate::check_string(name, min.chars = 1L)
+			error_with_check_message_on_failure(check)
+		},
+		#' @details
+		#' set the name of the material if valid
+		#' @param name The name of the material
+		set_name = function(name) {
+			if (self$check_name(name)) { self$name <- name }
+		},
 		#' @details
 		#'
 		#' validates the factor_values field is a list of [FactorValue] objects
