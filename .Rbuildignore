@@ -17,3 +17,4 @@
 ^install_r_pkgs\.R$
 ^ghtest.Rprofile$
 ^data-raw$
+^default\.nix$
