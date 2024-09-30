@@ -4,6 +4,7 @@
 [![R-CMD-check](https://github.com/RichardJActon/isar/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/RichardJActon/isar/actions/workflows/R-CMD-check.yaml)
 [![Codecov test coverage](https://codecov.io/gh/RichardJActon/isar/graph/badge.svg)](https://app.codecov.io/gh/RichardJActon/isar)
 [![Lifecycle:experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 <!-- badges: end-->
 
 **WARNING pre-alpha software!**
