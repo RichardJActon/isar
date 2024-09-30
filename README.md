@@ -35,6 +35,6 @@ git clone https://gitlab.renkulab.io/hdbi/data-management/isar.git
 
 ## Structure of test coverage
 
-[![https://app.codecov.io/gh/RichardJActon/isar](https://codecov.io/gh/RichardJActon/isar/graphs/tree.svg?token=ABrfqCl8r5)[(https://app.codecov.io/gh/RichardJActon/isar)
+[![](https://codecov.io/gh/RichardJActon/isar/graphs/tree.svg?token=ABrfqCl8r5)](https://app.codecov.io/gh/RichardJActon/isar)
 
 
