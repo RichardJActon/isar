@@ -5,6 +5,8 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^\.github$
+^\.envrc$
+^\.rix\.Rprofile$
 ^\.dockerignore$
 ^\.gitlab-ci\.yml$
 ^\.renv_install\.sh$
