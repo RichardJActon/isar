@@ -37,7 +37,35 @@ let
       optparse
       usethis;
   };
-    
+
+  git_archive_pkgs = [
+    (pkgs.rPackages.buildRPackage {
+      name = "isar";
+      src = pkgs.fetchgit {
+        url = "https://github.com/RichardJActon/isar";
+        rev = "1f79faeb4d6c5c9df9e3b7fed599a742f6cff66d";
+        sha256 = "sha256-ptuTW5S8MBmFDEf4oyCoZrfop79D/vAtR/jzxO9JIPA=";
+      };
+      propagatedBuildInputs = builtins.attrValues {
+        inherit (pkgs.rPackages)
+        cli
+        digest
+        dplyr
+        fs
+        glue
+        jsonlite
+        purrr
+        readr
+        testthat
+        tibble
+        tidyr
+        R6
+        checkmate
+        optparse;
+      };
+    })
+  ];
+
   system_packages = builtins.attrValues {
     inherit (pkgs)
       R
@@ -60,6 +88,6 @@ pkgs.mkShell {
    LC_PAPER = "en_US.UTF-8";
    LC_MEASUREMENT = "en_US.UTF-8";
 
-  buildInputs = [  rpkgs  system_packages  wrapped_pkgs ];
-  
+  buildInputs = [ git_archive_pkgs  rpkgs  system_packages  wrapped_pkgs ];
+
 }
