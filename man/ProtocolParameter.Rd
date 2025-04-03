@@ -33,6 +33,8 @@ Person$new()
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-ProtocolParameter-new}{\code{ProtocolParameter$new()}}
+\item \href{#method-ProtocolParameter-set_ontology_source_references}{\code{ProtocolParameter$set_ontology_source_references()}}
+\item \href{#method-ProtocolParameter-check_ontology_source_references}{\code{ProtocolParameter$check_ontology_source_references()}}
 \item \href{#method-ProtocolParameter-check_parameter_name}{\code{ProtocolParameter$check_parameter_name()}}
 \item \href{#method-ProtocolParameter-set_parameter_name}{\code{ProtocolParameter$set_parameter_name()}}
 \item \href{#method-ProtocolParameter-check_comments}{\code{ProtocolParameter$check_comments()}}
@@ -72,6 +74,58 @@ Person$new()
 }
 \subsection{Details}{
 Create a new \link{ProtocolParameter} object
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ProtocolParameter-set_ontology_source_references"></a>}}
+\if{latex}{\out{\hypertarget{method-ProtocolParameter-set_ontology_source_references}{}}}
+\subsection{Method \code{set_ontology_source_references()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ProtocolParameter$set_ontology_source_references(
+  ontology_source_references,
+  null.action
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object}
+
+\item{\code{null.action}}{how to handle NULLs:
+\itemize{
+\item "error" thow an error
+\item "passthrough" set to NULL
+\item "create" set to an empty  \link{OntologySourceReferences} object
+}}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Specify the \link{OntologySourceReferences} for the \link{ProtocolParameter}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ProtocolParameter-check_ontology_source_references"></a>}}
+\if{latex}{\out{\hypertarget{method-ProtocolParameter-check_ontology_source_references}{}}}
+\subsection{Method \code{check_ontology_source_references()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ProtocolParameter$check_ontology_source_references(ontology_source_references)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ontology_source_references}}{something you want to check is an
+\link{OntologySourceReferences} object.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+returns TRUE if ontology_source_references is an \link{OntologySourceReferences}
+object and throws an error if it is not
 }
 
 }

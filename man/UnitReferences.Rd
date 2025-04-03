@@ -116,13 +116,13 @@ Add new units to the unit reference
 \if{latex}{\out{\hypertarget{method-UnitReferences-get_unit_ids}{}}}
 \subsection{Method \code{get_unit_ids()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{UnitReferences$get_unit_ids(source = "any")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{UnitReferences$get_unit_ids(origin = "any")}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{source}}{the ids of the source of the units for which you would like to get ids}
+\item{\code{origin}}{the ids of the origin of the units for which you would like to get ids}
 }
 \if{html}{\out{</div>}}
 }
@@ -139,13 +139,13 @@ character vector of unit reference @ids
 \if{latex}{\out{\hypertarget{method-UnitReferences-get_unit_types}{}}}
 \subsection{Method \code{get_unit_types()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{UnitReferences$get_unit_types(source = "any")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{UnitReferences$get_unit_types(origin = "any")}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{source}}{the ids of the source of the units for which you would like to get types}
+\item{\code{origin}}{the ids of the origin of the units for which you would like to get types}
 }
 \if{html}{\out{</div>}}
 }
@@ -166,12 +166,12 @@ character vector of unit types
 }
 
 \subsection{Details}{
-get the source of the unit e.g. from which study's list of unit
+get the origin of the unit e.g. from which study's list of unit
 categories did this reference originate
 }
 
 \subsection{Returns}{
-character vector of unit sources
+character vector of unit origins
 }
 }
 \if{html}{\out{<hr>}}
@@ -179,15 +179,15 @@ character vector of unit sources
 \if{latex}{\out{\hypertarget{method-UnitReferences-to_list}{}}}
 \subsection{Method \code{to_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{UnitReferences$to_list(source = "any")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{UnitReferences$to_list(origin = "any")}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{source}}{ids of sources of unit references for which
+\item{\code{origin}}{ids of origins of unit references for which
 to generate a list represenation of unit references.
-"any" lists categories from all sources.
+"any" lists categories from all origins.
 default = "any"}
 }
 \if{html}{\out{</div>}}
@@ -205,7 +205,7 @@ An R list representation of a \link{UnitReferences} object
 \if{latex}{\out{\hypertarget{method-UnitReferences-from_list}{}}}
 \subsection{Method \code{from_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{UnitReferences$from_list(lst, source = NA, add = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{UnitReferences$from_list(lst, origin = NA, add = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -213,7 +213,7 @@ An R list representation of a \link{UnitReferences} object
 \describe{
 \item{\code{lst}}{a \link{UnitReferences} object serialized to a list}
 
-\item{\code{source}}{the source of the \link{Unit} object, if it was it listed
+\item{\code{origin}}{the origin of the \link{Unit} object, if it was it listed
 in study unit categories list which one?}
 
 \item{\code{add}}{(logical) add new ob}

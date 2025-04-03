@@ -58,58 +58,58 @@ UnitReferences <- R6::R6Class(
 		},
 		#' @details
 		#' Get the @ids of the unit references
-		#' @param source the ids of the source of the units for which you would like to get ids
+		#' @param origin the ids of the origin of the units for which you would like to get ids
 		#' @return character vector of unit reference @ids
-		get_unit_ids = function(source = "any") {
-			if(source == "any") {
+		get_unit_ids = function(origin = "any") {
+			if(origin == "any") {
 				names(self$units)
-			} else if (source %in% self$get_unit_origins()) {
+			} else if (origin %in% self$get_unit_origins()) {
 				self$units %>%
 					`[`(
-						self$get_unit_origins() %in% source
+						self$get_unit_origins() %in% origin
 					) %>%
 					names()
 			}
 		},
 		#' @details
 		#' Get the types of the unit references
-		#' @param source the ids of the source of the units for which you would like to get types
+		#' @param origin the ids of the origin of the units for which you would like to get types
 		#' @return character vector of unit types
-		get_unit_types = function(source = "any") {
-			if(source == "any") {
+		get_unit_types = function(origin = "any") {
+			if(origin == "any") {
 				self$units %>%
 					purrr::map_chr(~.x$unit$term)
-			} else if (source %in% self$get_unit_origins()) {
+			} else if (origin %in% self$get_unit_origins()) {
 				self$units %>%
 					`[`(
-						self$get_unit_origins() %in% source
+						self$get_unit_origins() %in% origin
 					) %>%
 					purrr::map_chr(~.x$unit$term)
 			}
 		},
 		#' @details
-		#' get the source of the unit e.g. from which study's list of unit
+		#' get the origin of the unit e.g. from which study's list of unit
 		#' categories did this reference originate
-		#' @return character vector of unit sources
+		#' @return character vector of unit origins
 		get_unit_origins = function() {
-			purrr::map_chr(self$units, ~.x$source)
+			purrr::map_chr(self$units, ~.x$origin)
 		},
 		#' @details
 		#' Generate an R list representation of a [UnitReferences] object
-		#' @param source ids of sources of unit references for which
-		#' to generate a list represenation of unit references. 
-		#' "any" lists categories from all sources. 
+		#' @param origin ids of origins of unit references for which
+		#' to generate a list represenation of unit references.
+		#' "any" lists categories from all origins.
 		#' default = "any"
 		#' @return An R list representation of a [UnitReferences] object
-		to_list = function(source = "any") {
-			if(source == "any") {
+		to_list = function(origin = "any") {
+			if(origin == "any") {
 				self$units %>%
 					purrr::map(~.x$to_list()) %>%
 					purrr::set_names(NULL)
-			} else if (source %in% self$get_unit_origins()) {
+			} else if (origin %in% self$get_unit_origins()) {
 				self$units %>%
 					`[`(
-						self$get_unit_origins() %in% source
+						self$get_unit_origins() %in% origin
 					) %>%
 					purrr::map(~.x$to_list()) %>%
 					purrr::set_names(NULL)
@@ -118,10 +118,10 @@ UnitReferences <- R6::R6Class(
 		#' @details
 		#' Make a [UnitReferences] object from list
 		#' @param lst a [UnitReferences] object serialized to a list
-		#' @param source the source of the [Unit] object, if it was it listed
+		#' @param origin the origin of the [Unit] object, if it was it listed
 		#' in study unit categories list which one?
 		#' @param add (logical) add new ob
-		from_list = function(lst, source = NA, add = FALSE) {
+		from_list = function(lst, origin = NA, add = FALSE) {
 			# browser()
 			ur <- lst %>%
 				purrr::set_names(purrr::map_chr(., ~.x$`@id`)) %>%
@@ -130,7 +130,7 @@ UnitReferences <- R6::R6Class(
 						ontology_source_references =
 							self$ontology_source_references,
 						# unit_references = self$unit_references,
-						source = source
+						origin = origin
 					)
 					u$from_list(.x)
 					u

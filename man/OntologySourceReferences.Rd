@@ -21,6 +21,7 @@ R6 class for OntologySourceReferences
 \item \href{#method-OntologySourceReferences-new}{\code{OntologySourceReferences$new()}}
 \item \href{#method-OntologySourceReferences-check_ontology_sources}{\code{OntologySourceReferences$check_ontology_sources()}}
 \item \href{#method-OntologySourceReferences-add_ontology_sources}{\code{OntologySourceReferences$add_ontology_sources()}}
+\item \href{#method-OntologySourceReferences-add_ontology_source}{\code{OntologySourceReferences$add_ontology_source()}}
 \item \href{#method-OntologySourceReferences-get_ontology_source_names}{\code{OntologySourceReferences$get_ontology_source_names()}}
 \item \href{#method-OntologySourceReferences-get_ontology_sources}{\code{OntologySourceReferences$get_ontology_sources()}}
 \item \href{#method-OntologySourceReferences-get_ontology_source_origins}{\code{OntologySourceReferences$get_ontology_source_origins()}}
@@ -94,6 +95,26 @@ Add ontology sources to the
 \subsection{Returns}{
 a vector of ontology source names
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OntologySourceReferences-add_ontology_source"></a>}}
+\if{latex}{\out{\hypertarget{method-OntologySourceReferences-add_ontology_source}{}}}
+\subsection{Method \code{add_ontology_source()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OntologySourceReferences$add_ontology_source(ontology_source)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ontology_source}}{an \link{OntologySource} object}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Add ontology source to the reference
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OntologySourceReferences-get_ontology_source_names"></a>}}
@@ -197,13 +218,13 @@ Serialise a tabular representation of reference ontology sources
 \if{latex}{\out{\hypertarget{method-OntologySourceReferences-to_list}{}}}
 \subsection{Method \code{to_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OntologySourceReferences$to_list(source = "any")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{OntologySourceReferences$to_list(origin = "any")}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{source}}{ontology sources of which origin to include
+\item{\code{origin}}{ontology sources of which origin to include
 if any includes all sources including those not explicitly provided
 (default: "any")}
 }
@@ -222,7 +243,7 @@ Serialize object to a list
 \if{html}{\out{<div class="r">}}\preformatted{OntologySourceReferences$from_list(
   lst,
   explicitly_provided = logical(),
-  source = NA
+  origin = NA
 )}\if{html}{\out{</div>}}
 }
 
@@ -234,7 +255,7 @@ Serialize object to a list
 \item{\code{explicitly_provided}}{was the source explicitly provided
 as opposed to be automatically generated.}
 
-\item{\code{source}}{the origin of the  (default: NA)}
+\item{\code{origin}}{the origin of the  (default: NA)}
 }
 \if{html}{\out{</div>}}
 }

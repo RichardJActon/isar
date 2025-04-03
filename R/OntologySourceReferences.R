@@ -87,7 +87,7 @@ OntologySourceReferences <- R6::R6Class(
 		#' @return character vector of the origins of the [OntologySource]
 		#' objects in the reference
 		get_ontology_source_origins = function() {
-			purrr::map_chr(self$ontology_source_references, ~.x$source)
+			purrr::map_chr(self$ontology_source_references, ~.x$origin)
 		},
 
 		#' @details
@@ -114,7 +114,7 @@ OntologySourceReferences <- R6::R6Class(
 
 		#' @details
 		#' Serialise a tabular representation of reference ontology sources
-		#' 
+		#'
 		#' @param path path/name of the file to which to write the table
 		# # overwrite ?
 		cat_table = function(path = stdout()) {
@@ -132,17 +132,17 @@ OntologySourceReferences <- R6::R6Class(
 
 		#' @details
 		#' Serialize object to a list
-		#' @param source ontology sources of which origin to include
+		#' @param origin ontology sources of which origin to include
 		#' if any includes all sources including those not explicitly provided
 		#' (default: "any")
-		to_list = function(source = "any") {
-			if(source == "any") {
+		to_list = function(origin = "any") {
+			if(origin == "any") {
 				self$ontology_source_references %>%
 					purrr::map(~.x$to_list()) %>%
 					purrr::set_names(NULL)
-			} else if (source %in% self$get_ontology_source_origins()) {
+			} else if (origin %in% self$get_ontology_source_origins()) {
 				self$ontology_source_references %>%
-					`[`(self$get_ontology_source_origins() %in% source) %>%
+					`[`(self$get_ontology_source_origins() %in% origin) %>%
 					purrr::map(~.x$to_list()) %>%
 					purrr::set_names(NULL)
 			} else {
@@ -161,16 +161,16 @@ OntologySourceReferences <- R6::R6Class(
 		#' @param lst an ontology source object serialized to a list
 		#' @param explicitly_provided was the source explicitly provided
 		#' as opposed to be automatically generated.
-		#' @param source the origin of the  (default: NA)
+		#' @param origin the origin of the  (default: NA)
 		from_list = function(
-			lst, explicitly_provided = logical(), source = NA
+			lst, explicitly_provided = logical(), origin = NA
 		) {#, json = TRUE
 		# add_from_list = function(lst) {#, json = TRUE
 			ontology_sources <- purrr::map(
 				lst, ~{
 					os <- OntologySource$new(
 						explicitly_provided = explicitly_provided,
-						source = source
+						origin = origin
 					)
 					os$from_list(.x, json = TRUE)
 					os
@@ -197,7 +197,7 @@ OntologySourceReferences <- R6::R6Class(
 # osr$ontology_source_references
 
 #' check_ontology_source_references
-#' 
+#'
 #' returns TRUE if ontology_source_references is an [OntologySourceReferences]
 #' object and throws an error if it is not
 #'

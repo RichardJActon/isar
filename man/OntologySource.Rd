@@ -31,8 +31,8 @@ An \link{OntologySource} describes the resource from which the value of an \link
 list of \link{OntologySourceReferences} for the \link{Investigation} (TRUE) or was
 it dynamically generated (FALSE)?}
 
-\item{\code{source}}{the source of the \link{OntologySource} object, was it listed in
-an investigation ontolgoy source reference list, elsewhere or auto generated}
+\item{\code{origin}}{the origin of the \link{OntologySource} object, was it listed in
+an investigation ontolgoy origin reference list, elsewhere or auto generated}
 
 \item{\code{isa_process_type}}{the type of process from the list of predefined
 types see: \code{names(valid_isa_process_types)}}
@@ -83,7 +83,7 @@ types see: \code{names(valid_isa_process_types)}}
   terms_list = NULL,
   comments = NULL,
   explicitly_provided = logical(),
-  source = character(),
+  origin = character(),
   isa_process_type = NULL
 )}\if{html}{\out{</div>}}
 }
@@ -113,7 +113,7 @@ types see: \code{names(valid_isa_process_types)}}
 list of \link{OntologySourceReferences} for the \link{Investigation} (TRUE) or was
 it dynamically generated (FALSE)?}
 
-\item{\code{source}}{the source of the \link{OntologySource} object, was it listed in
+\item{\code{origin}}{the source of the \link{OntologySource} object, was it listed in
 an investigation ontolgoy source reference list, elsewhere or auto generated
 an investigation ontolgoy source reference list, elsewhere or auto generated}
 

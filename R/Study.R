@@ -546,7 +546,7 @@ Study <- R6::R6Class(
 			lst[["comments"]] <- self$comments
 			lst[["description"]] <- self$description
 			lst[["unitCategories"]] <- self$unit_references$to_list(
-				source = self$`@id`
+				origin = self$`@id`
 			)
 			lst[["studyDesignDescriptors"]] <- purrr::map(
 				self$design_descriptors, ~.x$to_list()
@@ -630,7 +630,7 @@ Study <- R6::R6Class(
 				)
 				if (!checkmate::test_list(lst[["unitCategories"]], len = 0)) {
 					self$unit_references$from_list(
-						lst[["unitCategories"]], source = self$`@id`
+						lst[["unitCategories"]], origin = self$`@id`
 					)
 				}
 				self$publications <- purrr::map(lst[["publications"]], ~{
@@ -866,10 +866,10 @@ Study <- R6::R6Class(
 			cli::cli_h2(cli::col_green("Units"))
 # 			cli::cli_ul(purrr::map_chr(self$units, ~.x$term))
 			cli::cli_ul(paste0(
-				self$unit_references$get_unit_types(source = self$`@id`),
+				self$unit_references$get_unit_types(origin = self$`@id`),
 				cli::col_grey(
 					" (",
-					self$unit_references$get_unit_ids(source = self$`@id`),
+					self$unit_references$get_unit_ids(origin = self$`@id`),
 					")"
 				)
 			))

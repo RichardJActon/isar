@@ -42,6 +42,8 @@ An experimental Protocol used in the study.
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Protocol-new}{\code{Protocol$new()}}
+\item \href{#method-Protocol-set_ontology_source_references}{\code{Protocol$set_ontology_source_references()}}
+\item \href{#method-Protocol-check_ontology_source_references}{\code{Protocol$check_ontology_source_references()}}
 \item \href{#method-Protocol-check_name}{\code{Protocol$check_name()}}
 \item \href{#method-Protocol-set_name}{\code{Protocol$set_name()}}
 \item \href{#method-Protocol-check_description}{\code{Protocol$check_description()}}
@@ -115,6 +117,58 @@ An experimental Protocol used in the study.
 }
 \subsection{Details}{
 Create a new Protocol object
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Protocol-set_ontology_source_references"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-set_ontology_source_references}{}}}
+\subsection{Method \code{set_ontology_source_references()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Protocol$set_ontology_source_references(
+  ontology_source_references,
+  null.action
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object}
+
+\item{\code{null.action}}{how to handle NULLs:
+\itemize{
+\item "error" thow an error
+\item "passthrough" set to NULL
+\item "create" set to an empty  \link{OntologySourceReferences} object
+}}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+specify the ontology sourece references for the \link{Protocol}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Protocol-check_ontology_source_references"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-check_ontology_source_references}{}}}
+\subsection{Method \code{check_ontology_source_references()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Protocol$check_ontology_source_references(ontology_source_references)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ontology_source_references}}{something you want to check is an
+\link{OntologySourceReferences} object.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+returns TRUE if ontology_source_references is an \link{OntologySourceReferences}
+object and throws an error if it is not
 }
 
 }

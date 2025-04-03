@@ -267,7 +267,7 @@ OntologyAnnotation <- R6::R6Class(
 					terms_list = list(term_accession) %>%
 						purrr::set_names(term),
 					explicitly_provided = FALSE,
-					source = "Unknown"
+					origin = "Unknown"
 				)
 				osl <- list(os) %>% purrr::set_names(term_source_name)
 				self$ontology_source_references$add_ontology_sources(osl)
@@ -286,7 +286,7 @@ OntologyAnnotation <- R6::R6Class(
 					os <- OntologySource$new(
 						name = "UnknownSource",
 						explicitly_provided = FALSE,
-						source = "Unknown"
+						origin = "Unknown"
 					)
 					osl <- list(UnknownSource = os)
 					self$ontology_source_references$add_ontology_sources(osl)

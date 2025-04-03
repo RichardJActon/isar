@@ -45,6 +45,8 @@ Sample$new()
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Sample-new}{\code{Sample$new()}}
+\item \href{#method-Sample-check_name}{\code{Sample$check_name()}}
+\item \href{#method-Sample-set_name}{\code{Sample$set_name()}}
 \item \href{#method-Sample-check_factor_values}{\code{Sample$check_factor_values()}}
 \item \href{#method-Sample-set_factor_values}{\code{Sample$set_factor_values()}}
 \item \href{#method-Sample-to_list}{\code{Sample$to_list()}}
@@ -106,6 +108,46 @@ Sample$new()
 }
 \subsection{Details}{
 Create a new instance of sample
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Sample-check_name"></a>}}
+\if{latex}{\out{\hypertarget{method-Sample-check_name}{}}}
+\subsection{Method \code{check_name()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Sample$check_name(name)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{The name of the material}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Check if the name of the material is a string
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Sample-set_name"></a>}}
+\if{latex}{\out{\hypertarget{method-Sample-set_name}{}}}
+\subsection{Method \code{set_name()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Sample$set_name(name)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{The name of the material}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+set the name of the material if valid
 }
 
 }

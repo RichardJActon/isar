@@ -23,13 +23,13 @@
 #
 # hard code units of measurement ontology?
 # unit annotation
-# unit source
+# unit origin
 
 #' R6 object for specifying a unit of measurement
 #' @field unit a unit of measurement
 #' @field @id identifier
 #' @field ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor
-#' @field source the source of the [OntologySource] object, was it listed in
+#' @field origin the origin of the [OntologySource] object, was it listed in
 # #' @field unit_references A list of units used as a [UnitReferences] object.
 #'
 #' @importFrom R6 R6Class
@@ -42,20 +42,20 @@ Unit <- R6::R6Class(
 		`@id` = character(),
 		ontology_source_references = NULL,
 #		unit_references = NULL,
-		source = NA,
+		origin = NA,
 		#' @details
 		#' Create a new [Unit] object
 		#' @param unit a unit of measurement
 		#' @param @id identifier
 		#' @param ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor
-		#' @param source the source of the [OntologySource] object, was it listed in
+		#' @param origin the origin of the [OntologySource] object, was it listed in
  		#' @param unit_references A list of units used as a [UnitReferences] object
 		initialize = function(
 			unit = NULL,
 			`@id` = character(),
 			ontology_source_references = NULL,
 			# unit_references = NULL,
-			source = NA
+			origin = NA
 		) {
 			# self$set_unit_from_string(unit)
 			# need a list of ontology annotations to account for
@@ -78,7 +78,7 @@ Unit <- R6::R6Class(
 				self$unit <- unit
 			}
 			# self$unit_references <- unit_references
-			self$source <- source
+			self$origin <- origin
 		},
 		#' @details
 		#' Get the term associated with the unit as a string
@@ -112,10 +112,10 @@ Unit <- R6::R6Class(
 		#' @details
 		#' Make [Unit] object from list
 		#' @param lst an Unit object serialized to a list
-		#' @param source id of the source of the [Unit] object
+		#' @param origin id of the origin of the [Unit] object
 		#' @param add should the list of units be added to existing unit
 		#' references if not overwrite them (bolean) default = FALSE
-		from_list = function(lst, source = NA, add = FALSE) {
+		from_list = function(lst, origin = NA, add = FALSE) {
 			self$`@id` <- lst[["@id"]]
 			self$unit <- OntologyAnnotation$new(
 				ontology_source_references = self$ontology_source_references
@@ -129,7 +129,7 @@ Unit <- R6::R6Class(
 			cli::cli_h1(cli::col_blue("Unit"))
 			green_bold_name_plain_content("@id", self[["@id"]])
 			green_bold_name_plain_content("Type", self$unit$term)
-			green_bold_name_plain_content("Source", self$source)
+			green_bold_name_plain_content("origin", self$origin)
 		}
 	)
 )

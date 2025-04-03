@@ -351,7 +351,7 @@ Assay <- R6::R6Class(
 			# 	c(list(`@id` = .x$`@id`), .x$to_list())
 			# })
 			lst[["characteristicCategories"]] <-
-				self$characteristic_categories$to_list(source = self$`@id`)
+				self$characteristic_categories$to_list(origin = self$`@id`)
 			lst[["processSequence"]] <- self$process_sequence %>%
 				purrr::map(~.x$to_list()) %>%
 				purrr::set_names(NULL)
@@ -523,7 +523,7 @@ Assay <- R6::R6Class(
 
 			if (!checkmate::test_list(lst[["unitCategories"]], len = 0)) {
 				self$unit_references$from_list(
-					lst[["unitCategories"]], source = self$`@id`,
+					lst[["unitCategories"]], origin = self$`@id`,
 					add = TRUE#,
 					#recursive = recursive, json = json
 				)

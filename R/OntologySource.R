@@ -20,8 +20,8 @@
 #' @field explicitly_provided Was this [OntologySource] provided in the
 #' list of [OntologySourceReferences] for the [Investigation] (TRUE) or was
 #' it dynamically generated (FALSE)?
-#' @field source the source of the [OntologySource] object, was it listed in
-#' an investigation ontolgoy source reference list, elsewhere or auto generated
+#' @field origin the origin of the [OntologySource] object, was it listed in
+#' an investigation ontolgoy origin reference list, elsewhere or auto generated
 #' @field isa_process_type the type of process from the list of predefined
 #' types see: `names(valid_isa_process_types)`
 #'
@@ -46,7 +46,7 @@ OntologySource <- R6::R6Class(
 		terms_list = NULL,
 		comments = NULL,
 		explicitly_provided = logical(),
-		source = character(),
+		origin = character(),
 		isa_process_type = NULL,
 		#' @details
 		#'
@@ -64,7 +64,7 @@ OntologySource <- R6::R6Class(
 		#' @param explicitly_provided Was this [OntologySource] provided in the
 		#' list of [OntologySourceReferences] for the [Investigation] (TRUE) or was
 		#' it dynamically generated (FALSE)?
-		#' @param source the source of the [OntologySource] object, was it listed in
+		#' @param origin the source of the [OntologySource] object, was it listed in
 		#' an investigation ontolgoy source reference list, elsewhere or auto generated
 		#' an investigation ontolgoy source reference list, elsewhere or auto generated
 		#' @param isa_process_type the type of process from the list of predefined
@@ -79,7 +79,7 @@ OntologySource <- R6::R6Class(
 			terms_list = NULL,
 			comments = NULL,
 			explicitly_provided = logical(),
-			source = character(),
+			origin = character(),
 			isa_process_type = NULL
 		) {
 			if (checkmate::qtest(name, "S[0]")) { self$name <- name } else {
@@ -148,7 +148,7 @@ OntologySource <- R6::R6Class(
 			}
 
 			self$explicitly_provided <- explicitly_provided
-			self$source <- source
+			self$origin <- origin
 			self$set_isa_process_type(isa_process_type)
 		},
 		#' @details

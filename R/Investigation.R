@@ -442,7 +442,7 @@ Investigation <- R6::R6Class(
 					OntologySourceReferences$new()
 				self$ontology_source_references$from_list(
 					lst[["ontologySourceReferences"]],
-					explicitly_provided = TRUE, source = self$identifier
+					explicitly_provided = TRUE, origin = self$identifier
 				)
 				self$characteristic_categories <-
 					CharacteristicCategoryReferences$new(
