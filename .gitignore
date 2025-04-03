@@ -380,3 +380,7 @@ tags
 .renku/cache
 .Rproj.user
 .Rproj.user/**
+
+
+# nix
+.direnv
