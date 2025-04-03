@@ -344,7 +344,7 @@ Sample <- R6::R6Class(
 
 			cli::cli_h1(cli::col_green("Characteristics"))
 			purrr::walk(self$characteristics, ~{
-				green_bold_name_plain_content(.x$category$type, .x$value$term)
+				green_bold_name_plain_content(.x$category$type$term, .x$value$term)
 			})
 
 			pretty_print_comments(self$comments)
