@@ -5,7 +5,11 @@
 CRediT <- OntologySource$new(
 	name = "CRediT",
 	url = "https://credit.niso.org/",
-	description = "CRediT (Contributor Roles Taxonomy) is a high-level taxonomy, including 14 roles, that can be used to represent the roles typically played by contributors to research outputs. The roles describe each contributor’s specific contribution to the scholarly output.",
+	description = paste(
+		"CRediT (Contributor Roles Taxonomy) is a high-level taxonomy, including 14 roles,",
+		"that can be used to represent the roles typically played by contributors to research outputs.",
+		"The roles describe each contributor's specific contribution to the scholarly output."
+	),
 	terms_list = list(
 		"Conceptualization" = "https://credit.niso.org/contributor-roles/conceptualization/",
 		"Data curation" = "https://credit.niso.org/contributor-roles/data-curation/",
