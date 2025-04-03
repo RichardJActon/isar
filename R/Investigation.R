@@ -578,7 +578,7 @@ Investigation <- R6::R6Class(
 					cli::cli_text(
 						"    ", cli::style_bold("Title: "), .x$title
 					)
-					cli::cli_text("    ", cli::style_bold("@id: "), .x$`@id`)
+					cli::cli_text("    ", cli::col_grey(cli::style_bold("@id: "), .x$`@id`))
 					cli::cli_end()
 				}
 			)
