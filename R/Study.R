@@ -30,7 +30,7 @@
 #' @importFrom R6 R6Class
 #' @importFrom cli cli_h1 col_blue col_green cli_h2
 #' @importFrom purrr set_names map
-#' @importFrom emo ji
+# #' @importFrom emo ji
 #'
 #' @export
 Study <- R6::R6Class(
@@ -822,7 +822,8 @@ Study <- R6::R6Class(
 		#' @details
 		#' Pretty prints [Study] objects
 		print = function() {
-			cli::cli_h1(cli::col_blue("Study ", emo::ji("search")))
+			# cli::cli_h1(cli::col_blue("Study ", emo::ji("search")))
+			cli::cli_h1(cli::col_blue("Study "))
 			green_bold_name_plain_content("Title", self$title)
 			# green_bold_name_plain_content("ID", private$id)
 			green_bold_name_plain_content(
@@ -836,15 +837,14 @@ Study <- R6::R6Class(
 			cli::cli_text(self$description)
 
 			cli::cli_h2(cli::col_green(
-				"Contacts (",length(self$contacts),") ", emo::ji("user")
+				"Contacts (",length(self$contacts),") "# , emo::ji("user")
 			))
 			cli::cli_ul(purrr::map_chr(self$contacts, ~{
 				paste0(.x$get_full_name(), cli::col_grey(" (", .x$`@id`, ")"))
 			}))
 
 			cli::cli_h2(cli::col_green(
-				"Publications (", length(self$publications), ") ",
-				emo::ji("book")
+				"Publications (", length(self$publications), ") ", # emo::ji("book")
 			))
 			purrr::walk(
 				self$publications, ~cli::cli_text(
@@ -874,8 +874,7 @@ Study <- R6::R6Class(
 				)
 			))
 			cli::cli_h2(cli::col_green(
-				"Protocols (", length(self$protocols), ") ",
-				emo::ji("clipboard")
+				"Protocols (", length(self$protocols), ") "#, emo::ji("clipboard")
 			))
 			cli::cli_ul(paste0(
 				purrr::map_chr(self$protocols, ~.x$name),
@@ -883,8 +882,7 @@ Study <- R6::R6Class(
 			))
 
 			cli::cli_h2(cli::col_green(
-				"Processes (", length(self$process_sequence) ,") ",
-				emo::ji("gear")
+				"Processes (", length(self$process_sequence) ,") "# , emo::ji("gear")
 			))
 			cli::cli_ol(paste0(
 				self$get_process_names(),

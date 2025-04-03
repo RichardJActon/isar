@@ -7,7 +7,7 @@
 #' @importFrom checkmate check_list test_string test_date
 #' @importFrom purrr map_lgl iwalk
 #' @importFrom cli col_red col_green col_yellow col_red col_cyan style_bold cli_h2 cli_h3 cli_text
-#' @importFrom emo ji
+# #' @importFrom emo ji
 #'
 check_comments <- function(comments) {
 	check <- checkmate::check_list(
@@ -103,11 +103,11 @@ date_input_handling <- function(date, strict = TRUE, null.ok = FALSE) {
 	}
 	message <- paste0(
 		"\n",
-		emo::ji("rage"),
+		#emo::ji("rage"),
 		cli::col_red(cli::style_bold(
 			" Date is not formated correctly!\n"
 		)),
-		emo::ji("halo"),
+		#emo::ji("halo"),
 		cli::col_green(
 			" Please use an ISO8601 compliant date string: YYYY-mm-dd\n"
 		),
@@ -130,7 +130,7 @@ date_input_handling <- function(date, strict = TRUE, null.ok = FALSE) {
 				stop(message)
 			} else {
 				warning(paste0(message,
-					emo::ji("worried"),
+					#emo::ji("worried"),
 					cli::col_yellow(" Attempting other date formats...\n"),
 					cli::col_yellow(cli::style_bold(
 						" This is NOT ADVISED may result in errors due to ambiguity in the date format!\n"
@@ -150,7 +150,7 @@ date_input_handling <- function(date, strict = TRUE, null.ok = FALSE) {
 					),
 					error = function(res) {
 						stop(paste0(
-							emo::ji("disappointed"),
+							#emo::ji("disappointed"),
 							cli::col_red(" No Valid Date format found!")
 						))
 					}
@@ -204,9 +204,9 @@ green_bold_name_plain_content <- function(label, content) {
 pretty_print_comments <- function(comments) {
 	if (length(comments) > 0) {
 		cli::cli_h2(cli::col_cyan(
-			"Comments (", length(comments), ") ", emo::ji("comment")
+			"Comments (", length(comments), ") "#, emo::ji("comment")
 		))
-		
+
 		purrr::iwalk(
 			# Improve comment formatting for longer comments
 			comments, ~{

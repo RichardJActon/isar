@@ -29,7 +29,7 @@
 #' @importFrom checkmate qtest check_r6 check_string
 #' @importFrom purrr map set_names map_chr
 #' @importFrom glue glue
-#' @importFrom emo ji
+# #' @importFrom emo ji
 #'
 # #' @importFrom shinyWidgets pickerInput
 #'
@@ -626,7 +626,8 @@ Assay <- R6::R6Class(
 		#' @details
 		#' Pretty prints [Assay] objects
 		print = function() {
-			cli::cli_h1(cli::col_blue("Assay ", emo::ji("balance_scale")))
+			# cli::cli_h1(cli::col_blue("Assay ", emo::ji("balance_scale")))
+			cli::cli_h1(cli::col_blue("Assay"))
 
 			green_bold_name_plain_content("@id", self$`@id`)
 			green_bold_name_plain_content("Measurement Type", self$measurement_type$term)

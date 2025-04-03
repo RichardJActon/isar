@@ -23,7 +23,7 @@
 #' @importFrom checkmate check_date
 #' @importFrom fs file_exists
 #' @importFrom jsonlite read_json
-#' @importFrom emo ji
+# #' @importFrom emo ji
 #'
 #' @export
 Investigation <- R6::R6Class(
@@ -531,16 +531,19 @@ Investigation <- R6::R6Class(
 		#' @details
 		#' Pretty prints [Investigation] objects
 		print = function() {
-			cli::cli_h1(cli::col_blue("Investigation ", emo::ji("detective")))
+			# cli::cli_h1(cli::col_blue("Investigation ", emo::ji("detective")))
+			cli::cli_h1(cli::col_blue("Investigation"))
 			green_bold_name_plain_content("Title", self$title)
 			#  green_bold_name_plain_content("ID", private$id)
 			green_bold_name_plain_content("Filename", self$filename) # emo::ji("page")
 			green_bold_name_plain_content(
-				paste0(emo::ji("calendar"), " Submission date"),
+				# paste0(emo::ji("calendar"), " Submission date"),
+				paste0("Submission date"),
 				self$submission_date
 			)
 			green_bold_name_plain_content(
-				paste0(emo::ji("calendar"), " Public release date"),
+				# paste0(emo::ji("calendar"), " Public release date"),
+				paste0("Public release date"),
 				self$public_release_date
 			)
 
@@ -548,8 +551,8 @@ Investigation <- R6::R6Class(
 			cli::cli_h2(cli::col_green("Description"))
 			cli::cli_text(self$description) # indentation?
 			cli::cli_h2(cli::col_green(
-				"Publications (", length(self$publications), ") ",
-				emo::ji("book")
+				"Publications (", length(self$publications), ") "#,
+				# emo::ji("book")
 			))
 			purrr::walk(
 				self$publications, ~cli::cli_text(
@@ -558,7 +561,7 @@ Investigation <- R6::R6Class(
 			)
 			cli::cli_h2(
 				cli::col_green(
-					"Contacts (",length(self$contacts),") ", emo::ji("user")
+					"Contacts (",length(self$contacts),") "#, emo::ji("user")
 				)
 			)
 			cli::cli_ul(purrr::map_chr(self$contacts, ~{
@@ -566,7 +569,7 @@ Investigation <- R6::R6Class(
 			}))
 			cli::cli_h2(
 				cli::col_green(
-					"Studies (", length(self$studies), ") ", emo::ji("search")
+					"Studies (", length(self$studies), ") "#, emo::ji("search")
 				)
 			)
 			purrr::walk(

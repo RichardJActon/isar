@@ -28,7 +28,7 @@
 #' @importFrom checkmate qtest
 #' @importFrom purrr map
 #' @importFrom cli cli_h1 col_blue cli_h2 col_cyan
-#' @importFrom emo ji
+# #' @importFrom emo ji
 #'
 #' @export
 Person <- R6::R6Class(
@@ -354,17 +354,22 @@ Person <- R6::R6Class(
 		#' @details
 		#' Pretty Prints [Person] objects
 		print = function() {
-			cli::cli_h1(cli::col_blue("Person ", emo::ji("user")))
+			# cli::cli_h1(cli::col_blue("Person ", emo::ji("user")))
+			cli::cli_h1(cli::col_blue("Person "))
 			green_bold_name_plain_content("Name", self$get_full_name())
-			#green_bold_name_plain_content("Name", paste(self$first_name, self$mid_initials, self$last_name))
+			# green_bold_name_plain_content("Name", paste(self$first_name, self$mid_initials, self$last_name))
 			green_bold_name_plain_content("orcid", self$orcid)
-			green_bold_name_plain_content(paste0("email ", emo::ji("email")), self$email) #
-			green_bold_name_plain_content(paste0("phone ", emo::ji("telephone_receiver")), self$phone) #
+			# green_bold_name_plain_content(paste0("email ", emo::ji("email")), self$email)
+			green_bold_name_plain_content("email ", self$email)
+			# green_bold_name_plain_content(paste0("phone ", emo::ji("telephone_receiver")), self$phone) #
+			green_bold_name_plain_content("phone ", self$phone)
 			# green_bold_name_plain_content("id", private$id)
 			green_bold_name_plain_content("@id", self$`@id`)
 			green_bold_name_plain_content("affiliation", self$affiliation) # allow multiple...
-			green_bold_name_plain_content(paste0("fax", emo::ji("fax")), self$fax) #
-			green_bold_name_plain_content(paste0("address ", emo::ji("office")), self$address) #
+			# green_bold_name_plain_content(paste0("fax", emo::ji("fax")), self$fax) #
+			green_bold_name_plain_content("fax", self$fax)
+			# green_bold_name_plain_content(paste0("address ", emo::ji("office")), self$address) #
+			green_bold_name_plain_content("address ", self$address) #
 			cli::cli_h2(cli::col_cyan("Roles"))
 			purrr::walk(
 				self$roles, ~green_bold_name_plain_content(

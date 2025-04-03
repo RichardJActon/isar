@@ -23,8 +23,7 @@ Imports:
     readr,
     testthat,
     tibble,
-    tidyr,
-    emo
+    tidyr
 Remotes:
     hadley/emo
 Depends:

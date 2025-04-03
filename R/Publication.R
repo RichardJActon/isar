@@ -17,7 +17,7 @@
 #' @importFrom R6 R6Class
 #' @importFrom checkmate qtest test_list test_r6
 #' @importFrom purrr map_lgl
-#' @importFrom emo ji
+# #' @importFrom emo ji
 #'
 #' @export
 Publication <- R6::R6Class(
@@ -274,7 +274,8 @@ Publication <- R6::R6Class(
 		#' Pretty prints [Publication] objects
 		#' @return none
 		print = function() {
-			cli::cli_h1(cli::col_blue("Publication ", emo::ji("book")))
+			# cli::cli_h1(cli::col_blue("Publication ", emo::ji("book")))
+			cli::cli_h1(cli::col_blue("Publication "))
 			green_bold_name_plain_content("Title", self$title)
 			green_bold_name_plain_content("pubmed id", self$pubmed_id)
 			green_bold_name_plain_content("DOI", self$doi)
