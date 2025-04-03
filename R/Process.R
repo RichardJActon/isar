@@ -15,9 +15,9 @@
 #' @field sources list of available [Source]s
 #' @field samples list of available [Sample]s
 #' @field next_process id of the next process in the sequence
-#' @field previous_process id of the previous process in the sequence 
-#' @field materials a list of [Material] objects 
-#' @field data_files as list of [DataFile] objects 
+#' @field previous_process id of the previous process in the sequence
+#' @field materials a list of [Material] objects
+#' @field data_files as list of [DataFile] objects
 #' @field ontology_source_references ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor.
 #' @field unit_references A list of units used as a [UnitReferences] objects
 #' @field protocol_parameters A list of [ProtocolParameter] objects
@@ -65,9 +65,9 @@ Process <- R6::R6Class(
 		#' @param sources list of available [Source]s
 		#' @param samples list of available [Sample]s
 		#' @param next_process id of the next process in the sequence
-		#' @param previous_process id of the previous process in the sequence 
-		#' @param materials a list of [Material] objects 
-		#' @param data_files as list of [DataFile] objects 
+		#' @param previous_process id of the previous process in the sequence
+		#' @param materials a list of [Material] objects
+		#' @param data_files as list of [DataFile] objects
 		#' @param ontology_source_references ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor.
 		#' @param unit_references A list of units used as a [UnitReferences] objects
 		#' @param protocol_parameters A list of [ProtocolParameter] objects
@@ -440,7 +440,7 @@ Process <- R6::R6Class(
 								ontology_source_references =
 									self$ontology_source_references,
 								unit_references = self$unit_references,
-								protocol_parameters = prot_params 
+								protocol_parameters = prot_params
 							)
 							pv$from_list(.x, recursive = recursive, json = json)
 							pv
@@ -505,12 +505,12 @@ Process <- R6::R6Class(
 		},
 
 		#' @details
-		#' infer the order of processes in process sequence from the next and 
-		#' previous process values. 
-		#' @param lst list of processes with identifiers if next and previous 
+		#' infer the order of processes in process sequence from the next and
+		#' previous process values.
+		#' @param lst list of processes with identifiers if next and previous
 		#' process ids
-		#' @param available_processes list of available [Process] objects from 
-		#' process sqeuence 
+		#' @param available_processes list of available [Process] objects from
+		#' process sqeuence
 		# ?make this a private method?
 		add_process_order = function(lst, available_processes) {
 			next_id <- lst[["nextProcess"]][["@id"]]
@@ -661,7 +661,7 @@ process_order <- function(processes) {
 # 	igraph::make_directed_graph(edges = edges)
 # }
 
-#' process_io_paths 
+#' process_io_paths
 #'
 #' @param processes list of [Process] objects as in the process_sequence
 #' sequence field of an [Assay] object
@@ -715,7 +715,7 @@ process_io_paths <- function(processes) {
 }
 
 
-#' process_paths 
+#' process_paths
 #'
 #' @param processes list of [Process] objects as in the process_sequence
 #' sequence field of an [Assay] object
@@ -776,8 +776,8 @@ process_paths <- function(processes) {
 	# do.call("rbind", .)
 }
 
-#' to_table_by_process_io_type 
-#' 
+#' to_table_by_process_io_type
+#'
 #' generate tabular outputs for objects of type: [DataFile], [Sample],
 #' [Process], [Source], or [Material]
 #'
