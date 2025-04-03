@@ -65,14 +65,16 @@ CRediT_role_descriptions <- c(
 
 CRediT_names <- names(CRediT_role_uuids)
 CRediT_names_clean <- gsub("[\\& -]+", "_", CRediT_names)
+OSR <- OntologySourceReferences$new()
+OSR$add_ontology_source(CRediT)
 
 for (i in seq_along(CRediT_names_clean)) {
 	assign(CRediT_names_clean[i], {
 		x <- OntologyAnnotation$new(
-			term = CRediT_names[i], term_source = CRediT,
-			comments = list("description" = CRediT_role_descriptions[i])
+			term = CRediT_names[i], term_source = CRediT, # term_accession = CRediT_role_uuids[i],
+			comments = list("description" = CRediT_role_descriptions[i]),
+			ontology_source_references = OSR
 		)
-		x$set_id(CRediT_role_uuids[i])
 		x
 	})
 }
