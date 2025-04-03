@@ -490,7 +490,7 @@ a Tibble
 }
 
 \subsection{Details}{
-Generate a taular representation of the assay, basis for serialising
+Generate a tabular representation of the assay, basis for serialising
 to a study file
 }
 
