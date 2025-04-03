@@ -293,7 +293,7 @@ Investigation <- R6::R6Class(
 		},
 
 		#' @details
-		#' Generate a tabular representation of the investigation that can be 
+		#' Generate a tabular representation of the investigation that can be
 		#' serialised to an ISA investigation file.
 		#' @return a Tibble
 		to_table = function() {
@@ -355,8 +355,8 @@ Investigation <- R6::R6Class(
 		#' @details
 		#' writes the tabular representation of the investigtion to a file
 		#' @param path the path/filename to which to write the output
-		#' @param overwrite should any existing files at path be overwritten? 
-		#' (boolean) Default: FALSE 
+		#' @param overwrite should any existing files at path be overwritten?
+		#' (boolean) Default: FALSE
 		cat_table = function(path = stdout(), overwrite = FALSE) {
 			if (is.character(path)) {
 				if(fs::file_exists(path)) {
@@ -520,7 +520,7 @@ Investigation <- R6::R6Class(
 		from_json = function(path) {
 			if(fs::file_exists(path)) {
 				path %>%
-					jsonlite::read_json() %>% 
+					jsonlite::read_json() %>%
 					self$from_list(recursive = TRUE, json = TRUE)
 			} else {
 				stop(path, " does not exist!")

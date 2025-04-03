@@ -360,7 +360,7 @@ Assay <- R6::R6Class(
 			return(lst)
 		},
 		#' @details
-		#' generate a table of details of this assay to appear within an 
+		#' generate a table of details of this assay to appear within an
 		#' Investigation file
 		#' @return a Tibble
 		header_table = function() {
@@ -397,11 +397,11 @@ Assay <- R6::R6Class(
 
 		# expand.grid(list("a","b"),list("c","d","e")) %>% t() %>% unlist() %>% igraph::make_directed_graph()
 		# %>% igraph::all_simple_paths(from = "a") %>% purrr::keep(\(x)(all(length(x) > 2)))
-		
+
 		#' @details
-		#' Generate a taular representation of the assay, basis for serialising 
+		#' Generate a tabular representation of the assay, basis for serialising
 		#' to a study file
-		#' @return a Tibble  
+		#' @return a Tibble
 		to_table = function() {
 
 		# node types:
@@ -471,8 +471,8 @@ Assay <- R6::R6Class(
 		#' @details
 		#' writes the tabular representation of the assay to a file
 		#' @param path the path/filename to which to write the output
-		#' @param overwrite should any existing files at path be overwritten? 
-		#' (boolean) Default: FALSE 
+		#' @param overwrite should any existing files at path be overwritten?
+		#' (boolean) Default: FALSE
 		cat_table = function(path = stdout(), overwrite = FALSE) {
 			if (is.character(path)) {
 				if(fs::file_exists(path)) {
@@ -690,19 +690,19 @@ Assay <- R6::R6Class(
 		# }
 
 		#' @details
-		#' get the order of the processes in process sequence 
+		#' get the order of the processes in process sequence
 		#' @return list of vectors of process ids
 		get_process_order = function() { private$process_order() },
 
 		#' @details
 		#' get the order of the processes in process sequence and their inputs
-		#' and outputs 
-		#' @return list of vectors of ids of processes and and their inputs / 
+		#' and outputs
+		#' @return list of vectors of ids of processes and and their inputs /
 		#' outputs
 		get_process_paths = function() { private$process_paths() },
 
 		#' @details
-		#' get the inputs and outputs of the processes in process sequence in 
+		#' get the inputs and outputs of the processes in process sequence in
 		#' order
 		#' @return list of vectors of process input / output ids
 		get_process_io_paths = function() { private$process_io_paths() }

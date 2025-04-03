@@ -315,13 +315,13 @@ OntologySource <- R6::R6Class(
 			}
 			return(ontology_source_ref)
 		},
-		
+
 		#' @details
 		#' set the type of the process from the list of valid pre-defined
-		#' types. This is used to given certain types of process custom 
+		#' types. This is used to given certain types of process custom
 		#' names in the isa-tab serialisation.
 		#' see `names(valid_isa_process_types)` for valid types
-		#' @param x the type name 
+		#' @param x the type name
 		set_isa_process_type = function(x) {
 			self$isa_process_type <- assert_enum(x, valid_isa_process_types)
 		},

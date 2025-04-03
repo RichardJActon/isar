@@ -214,14 +214,14 @@ check_ontology_source_references <- function(ontology_source_references) {
 }
 
 #' set_ontology_source_references
-#' 
-#' sets ontology_source_references attribute if 
+#'
+#' sets ontology_source_references attribute if
 #' ontology_source_reference is an [OntologySourceReferences] object
 #'
-#' @param self an object with an ontology_source_references attribute 
+#' @param self an object with an ontology_source_references attribute
 #' @param ontology_source_references an [OntologySourceReferences] object
 #' @param null.action how to handle NULLs:
-#' - "error" thow an error 
+#' - "error" thow an error
 #' - "passthrough" set to NULL
 #' - "create" set to an empty  [OntologySourceReferences] object
 set_ontology_source_references <- function(
@@ -233,11 +233,11 @@ set_ontology_source_references <- function(
 				stop("ontology_source_references must not be NULL!")
 			},
 			"passthrough" = {
-				self$ontology_source_references <- 
+				self$ontology_source_references <-
 					ontology_source_references
 			},
 			"create" = {
-				self$ontology_source_references <- 
+				self$ontology_source_references <-
 					OntologySourceReferences$new()
 			}
 		)

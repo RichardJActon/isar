@@ -343,10 +343,10 @@ OntologyAnnotation <- R6::R6Class(
 				self$comments <- c(comments, comment)
 			}
 		},
-		
+
 		#' @details
 		#' generate a tabular representation of an ontology annotation object
-		#' @return a Tibble 
+		#' @return a Tibble
 		to_table = function() {
 			tibble::tibble_row(
 				term = ifelse(
@@ -378,7 +378,7 @@ OntologyAnnotation <- R6::R6Class(
 			} else {
 				lst[["termAccession"]] <- self$term_accession
 			}
-			
+
 			if (is.null(self$term)) { } else if(
 				self$term == "Unspecified Term"
 			) { } else {

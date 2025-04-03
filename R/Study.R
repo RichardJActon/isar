@@ -297,7 +297,7 @@ Study <- R6::R6Class(
 		},
 
 		#' @details
-		#' Checks if there are any samples in the study which are not used in 
+		#' Checks if there are any samples in the study which are not used in
 		#' any assays. Returns a logical and throws a warning if unused samples
 		#' are found
 		#' @param quiet if TRUE suppress the warning message. default = FALSE
@@ -354,7 +354,7 @@ Study <- R6::R6Class(
 		# },
 
 		#' @details
-		#' generate a tabular summary of the study object for inclusion in the 
+		#' generate a tabular summary of the study object for inclusion in the
 		#' ISA investigation file.
 		#' @param index an integer to indicate which study this is when there
 		#' is more than one study in the investigation, default = 1
@@ -464,7 +464,7 @@ Study <- R6::R6Class(
 
 		#' @details
 		#' generate a tabular representation of the Study object
-		#' @return a Tibble 
+		#' @return a Tibble
 		to_table = function() {
 			# processes_by_input <- self$get_processes_by_inputs()
 			# self$sources %>%
@@ -493,11 +493,11 @@ Study <- R6::R6Class(
 		},
 
 		#' @details
-		#' serialise the tabular representation of the study to an isa-tab 
+		#' serialise the tabular representation of the study to an isa-tab
 		#' study file
 		#' @param path the path/filename to which to write the output
-		#' @param overwrite should any existing files at path be overwritten? 
-		#' (boolean) Default: FALSE 
+		#' @param overwrite should any existing files at path be overwritten?
+		#' (boolean) Default: FALSE
 		cat_table = function(path = stdout(), overwrite = FALSE) {
 			if (is.character(path)) {
 				if(fs::file_exists(path)) {
@@ -906,19 +906,19 @@ Study <- R6::R6Class(
 		},
 
 		#' @details
-		#' get the order of the processes in process sequence 
+		#' get the order of the processes in process sequence
 		#' @return list of vectors of process ids
 		get_process_order = function() { private$process_order() },
 
 		#' @details
 		#' get the order of the processes in process sequence and their inputs
-		#' and outputs 
-		#' @return list of vectors of ids of processes and and their inputs / 
+		#' and outputs
+		#' @return list of vectors of ids of processes and and their inputs /
 		#' outputs
 		get_process_paths = function() { private$process_paths() },
 
 		#' @details
-		#' get the inputs and outputs of the processes in process sequence in 
+		#' get the inputs and outputs of the processes in process sequence in
 		#' order
 		#' @return list of vectors of process input / output ids
 		get_process_io_paths = function() { private$process_io_paths() }

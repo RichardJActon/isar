@@ -97,9 +97,9 @@ Unit <- R6::R6Class(
 			}
 			return(lst)
 		},
-		
+
 		#' @details
-		#' generate tabular representation of [Unit] object 
+		#' generate tabular representation of [Unit] object
 		#' @return a Tibble
 		to_table = function() {
 			self$unit$to_table() %>% purrr::set_names(

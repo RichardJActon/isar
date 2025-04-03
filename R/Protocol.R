@@ -12,7 +12,7 @@
 #' @field comments Comments associated with instances of this class.
 #' @field @id identifier
 #change origin to source
-#' @field origin the id of source assay from which the protocol was generated 
+#' @field origin the id of source assay from which the protocol was generated
 #' @field ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor.
 #'
 #' @importFrom R6 R6Class
@@ -48,7 +48,7 @@ Protocol <- R6::R6Class(
 		#' @param comments Comments associated with instances of this class.
 		#' @param @id identifier
 		#change origin to source
-		#' @param origin the id of source assay from which the protocol was generated 
+		#' @param origin the id of source assay from which the protocol was generated
 		#' @param ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor.
 		initialize = function(
 			name = character(),
@@ -97,20 +97,22 @@ Protocol <- R6::R6Class(
 				ontology_source_references, null.action = "create"
 			)
 		},
-		
+
 		#' @details
-		#' 
+		#'
+		#' specify the ontology sourece references for the [Protocol]
+		#'
 		#' @param ontology_source_references an [OntologySourceReferences] object
 		#' @param null.action how to handle NULLs:
-		#' - "error" thow an error 
+		#' - "error" thow an error
 		#' - "passthrough" set to NULL
 		#' - "create" set to an empty  [OntologySourceReferences] object
 		set_ontology_source_references = function(ontology_source_references, null.action) {
 			set_ontology_source_references(self, ontology_source_references, null.action)
 		},
-		
+
 		#' @details
-		#' 
+		#'
 		#' returns TRUE if ontology_source_references is an [OntologySourceReferences]
 		#' object and throws an error if it is not
 		#'

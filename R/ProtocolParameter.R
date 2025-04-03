@@ -40,18 +40,20 @@ ProtocolParameter <- R6::R6Class(
 			self$`@id` <- `@id`
 		},
 		#' @details
-		#' 
+		#'
+		#' Specify the [OntologySourceReferences] for the [ProtocolParameter]
+		#'
 		#' @param ontology_source_references an [OntologySourceReferences] object
 		#' @param null.action how to handle NULLs:
-		#' - "error" thow an error 
+		#' - "error" thow an error
 		#' - "passthrough" set to NULL
 		#' - "create" set to an empty  [OntologySourceReferences] object
 		set_ontology_source_references = function(ontology_source_references, null.action) {
 			set_ontology_source_references(self, ontology_source_references, null.action)
 		},
-		
+
 		#' @details
-		#' 
+		#'
 		#' returns TRUE if ontology_source_references is an [OntologySourceReferences]
 		#' object and throws an error if it is not
 		#'
@@ -75,9 +77,9 @@ ProtocolParameter <- R6::R6Class(
 		set_parameter_name = function(parameter_name) {
 			if(self$check_parameter_name(parameter_name)) {
 				if(
-					!parameter_name$term_source$name %in% 
+					!parameter_name$term_source$name %in%
 					self$ontology_source_references$get_ontology_source_names()
-				) { 
+				) {
 					parameter_name$term_source %>%
 						self$ontology_source_references$add_ontology_source()
 					warning(
