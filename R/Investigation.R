@@ -351,7 +351,7 @@ Investigation <- R6::R6Class(
 
 			dplyr::bind_rows(general, publications, contacts, studies)
 		},
-		
+
 		#' @details
 		#' writes the tabular representation of the investigtion to a file
 		#' @param path the path/filename to which to write the output
@@ -525,9 +525,9 @@ Investigation <- R6::R6Class(
 			} else {
 				stop(path, " does not exist!")
 			}
-			
+
 		},
-		
+
 		#' @details
 		#' Pretty prints [Investigation] objects
 		print = function() {

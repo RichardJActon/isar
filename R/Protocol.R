@@ -121,7 +121,7 @@ Protocol <- R6::R6Class(
 		check_ontology_source_references = function(ontology_source_references) {
 			check_ontology_source_references(ontology_source_references)
 		},
-		
+
 		#' @details
 		#' Check that name is a single string
 		#' @param name the name of the protocol

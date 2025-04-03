@@ -780,7 +780,7 @@ process_paths <- function(processes) {
 #' 
 #' generate tabular outputs for objects of type: [DataFile], [Sample],
 #' [Process], [Source], or [Material]
-#' 
+#'
 #' @param x a list of objects which can be [Process]es or their inputs and outputs
 to_table_by_process_io_type <- function(x) {
 	switch(
