@@ -213,6 +213,26 @@ test_that("Can parse isa-json", {
 		}
 	})
 
+	## Unit ----
+	test_that("Unit json read/write", {
+		units <- list(
+			json_example$studies[[1]]$materials[["samples"]][[1]]$factorValues[[2]]$unit,
+			BII_S_3_jsonlite$studies[[1]]$materials$sources[[1]]$characteristics[[1]]$unit,
+			BII_S_3_jsonlite$studies[[1]]$materials$sources[[1]]$characteristics[[2]]$unit,
+			BII_S_3_jsonlite$studies[[1]]$materials$sources[[1]]$characteristics[[6]]$unit,
+			BII_S_3_jsonlite$studies[[1]]$materials$sources[[1]]$characteristics[[10]]$unit,
+			BII_S_3_jsonlite$studies[[1]]$materials$sources[[1]]$characteristics[[11]]$unit,
+			BII_S_3_jsonlite$studies[[1]]$materials$sources[[1]]$characteristics[[32]]$unit,
+			BII_S_3_jsonlite$studies[[1]]$materials$sources[[1]]$characteristics[[34]]$unit
+		)
+		# ex <- units[[1]]
+		for (ex in units) {
+			obj <- Unit$new()
+			warns <- capture_warnings(obj$from_list(ex))
+			expect_equal(unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex))
+		}
+	})
+
 	## Unit Categories ----
 	test_that("UnitReferences json read/write", {
 		unit_references <- list(
@@ -220,6 +240,7 @@ test_that("Can parse isa-json", {
 			# json_example$studies[[2]]$unitCategories, empty
 			BII_S_3_jsonlite$studies[[1]]$unitCategories
 		)
+		# ex <- unit_references[[2]]
 		for (ex in unit_references) {
 			obj <- UnitReferences$new()
 			# ex <- json_example[["studies"]][[1]]$unitCategories
