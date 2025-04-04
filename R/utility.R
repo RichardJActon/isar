@@ -1,24 +1,22 @@
-#' check_comments
+#' check_comment
 #'
-#' @param comments a list of comments, named and with length 1 character vectors#
+#' @param comment A comment
+#' (a list with names 'name' and 'value' each length 1 character vectors)
 #' @importFrom checkmate check_list test_string
 #' @importFrom purrr map_lgl
 #'
-#' @importFrom checkmate check_list test_string test_date
-#' @importFrom purrr map_lgl iwalk
-#' @importFrom cli col_red col_green col_yellow col_red col_cyan style_bold cli_h2 cli_h3 cli_text
-# #' @importFrom emo ji
-#'
-check_comments <- function(comments) {
+check_comment <- function(comment) {
 	check <- checkmate::check_list(
-		comments, min.len = 1, types = "character", names = "named",
-		null.ok = TRUE
+		comment, len = 2, types = "character", names = "named", null.ok = TRUE
 	)
+	if (!all(names(comment) %in% c("value", "name"))) {
+		stop("A 'comment' must be list with names 'value' & 'name'")
+	}
 	if (!isTRUE(check)) {
 		stop(check)
 	} else {
 		comment_is_string <- purrr::map_lgl(
-			comments, ~checkmate::test_string(.x)
+			comment, ~checkmate::test_string(.x)
 		)
 		if(all(comment_is_string)) {
 			return(TRUE)
@@ -30,6 +28,31 @@ check_comments <- function(comments) {
 			))
 		}
 	}
+}
+
+#' check_comments
+#'
+#' @param comments a list of comments
+#' @importFrom checkmate check_list test_string
+#' @importFrom purrr map_lgl
+#'
+check_comments <- function(comments) {
+	errors <- list()
+	checks <- purrr::imap_lgl(comments, ~{
+		tryCatch(
+			check_comment(.x),
+			error = function(e) {
+				errors[[as.character(.y)]] <<- e
+				FALSE
+			}
+		)
+	})
+	if (all(checks)) { return(TRUE) } else {stop(
+		"Errors found in some comments!\n",
+		paste0(purrr::imap_chr(errors, ~{
+			paste0("[[", .y, "]] ", .x$message)
+		}), collapse = "\n")
+	)}
 }
 
 #' error_with_check_message_on_failure

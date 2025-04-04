@@ -4,6 +4,22 @@ test_that("error_with_check_message_on_failure works", {
 	expect_true(error_with_check_message_on_failure(TRUE))
 })
 
+# check_comment ----
+test_that("check_comment works", {
+	expect_true(check_comment(NULL))
+	expect_error(check_comment("string"), regexp = "Must be of type 'list' \\(or 'NULL'\\), not 'character'")
+	expect_error(check_comment(1L), regexp = "Must be of type 'list' \\(or 'NULL'\\), not 'integer'")
+	expect_error(check_comment(1), regexp = "Must be of type 'list' \\(or 'NULL'\\), not 'double'")
+	expect_error(check_comment(TRUE), regexp = "Must be of type 'list' \\(or 'NULL'\\), not 'logical'")
+	expect_error(check_comment(list(value = "x", name = c("string", "string2"))), regexp = "Comment\\(s\\) 2")
+	expect_error(
+		check_comment(list(a = "b", name = c("string", "string2"))),
+		regexp = "A 'comment' must be list with names 'value' & 'name'"
+	)
+	expect_true(check_comment(list(name = "string", value = "string")))
+	expect_true(error_with_check_message_on_failure(TRUE))
+})
+
 # check_comments ----
 test_that("check_comments works", {
 	expect_true(check_comments(NULL))
@@ -11,14 +27,11 @@ test_that("check_comments works", {
 	expect_error(check_comments(1L), regexp = "Must be of type 'list' \\(or 'NULL'\\), not 'integer'")
 	expect_error(check_comments(1), regexp = "Must be of type 'list' \\(or 'NULL'\\), not 'double'")
 	expect_error(check_comments(TRUE), regexp = "Must be of type 'list' \\(or 'NULL'\\), not 'logical'")
-	expect_error(check_comments(list(name = c("string", "string2"))), regexp = "Comment\\(s\\) 1")
 	expect_error(
-		check_comments(list(a = "b", name = c("string", "string2"))),
-		regexp = "Comment\\(s\\) 2"
+		check_comments(list(value = "x", name = c("string", "string2"))),
+		regexp = "Must be of type 'list' \\(or 'NULL'\\), not 'character'"
 	)
-	expect_error(check_comments(list("string")), regexp = "Must have names")
-	expect_true(check_comments(list(name = "string")))
-	expect_true(error_with_check_message_on_failure(TRUE))
+	expect_true(check_comments(list(list(name = "string", value = "string"))))
 })
 
 # date string conversion ---
@@ -57,4 +70,4 @@ test_that("date_string_conversion works",{
 # 	expect_true(check_id(id2test))
 # 	expect_true(check_id(id_with_suffix2test))
 # })
-# 
+#

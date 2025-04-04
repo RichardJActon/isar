@@ -15,7 +15,7 @@ test_that("Characteristic works", {
 	milligram <- OntologyAnnotation$new(
 		"milligram", OM, ontology_source_references = ont_refs
 	)
-	
+
 	mg <- Unit$new(
 		`@id` = "#unit/milligram", unit = milligram,
 		ontology_source_references = ont_refs
@@ -26,7 +26,7 @@ test_that("Characteristic works", {
 		type = exposure_1,
 		ontology_source_references = ont_refs
 	)
-	
+
 	test_characteristic <- Characteristic$new(
 		category = charcat_1_chemcomp, value = 10, unit = mg
 	)
@@ -35,7 +35,10 @@ test_that("Characteristic works", {
 	## Comments ----
 	test_comments(test_characteristic)
 
-	test_characteristic$set_comments(list("a" = "1", "b" = "2"))
+	test_characteristic$set_comments(list(
+		list(name = "a", value = "1"),
+		list(name = "b", value = "2")
+	))
 
 	## To list ----
 	test_characteristic <- Characteristic$new()
@@ -60,7 +63,7 @@ test_that("Characteristic works", {
 	## From list ----
 	urefs <- UnitReferences$new(ontology_source_references = ont_refs)
 	urefs$add_unit_references(list("#unit/milligram" = mg))
-	
+
 	test_from_list <- Characteristic$new(
 		ontology_source_references = ont_refs, unit_references = urefs,
 		category_references = CharacteristicCategoryReferences$new(
