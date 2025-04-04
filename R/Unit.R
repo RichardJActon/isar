@@ -59,7 +59,7 @@ Unit <- R6::R6Class(
 		) {
 			# self$set_unit_from_string(unit)
 			# need a list of ontology annotations to account for
-			# composit units e.g. ms^-2 is meters and seconds
+			# composite units e.g. ms^-2 is meters and seconds
 			# need a separate field for the unit and the ontology
 			# annotation(s) used in the unit
 			#self$unit <- OntologyAnnotation$new(unit, OM)
