@@ -114,8 +114,7 @@ list of \link{OntologySourceReferences} for the \link{Investigation} (TRUE) or w
 it dynamically generated (FALSE)?}
 
 \item{\code{origin}}{the source of the \link{OntologySource} object, was it listed in
-an investigation ontolgoy source reference list, elsewhere or auto generated
-an investigation ontolgoy source reference list, elsewhere or auto generated}
+an investigation ontology source reference list, elsewhere or auto generated}
 
 \item{\code{isa_process_type}}{the type of process from the list of predefined}
 }

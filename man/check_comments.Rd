@@ -7,7 +7,7 @@
 check_comments(comments)
 }
 \arguments{
-\item{comments}{a list of comments, named and with length 1 character vectors#}
+\item{comments}{a list of comments}
 }
 \description{
 check_comments
