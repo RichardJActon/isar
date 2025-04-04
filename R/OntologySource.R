@@ -65,8 +65,7 @@ OntologySource <- R6::R6Class(
 		#' list of [OntologySourceReferences] for the [Investigation] (TRUE) or was
 		#' it dynamically generated (FALSE)?
 		#' @param origin the source of the [OntologySource] object, was it listed in
-		#' an investigation ontolgoy source reference list, elsewhere or auto generated
-		#' an investigation ontolgoy source reference list, elsewhere or auto generated
+		#' an investigation ontology source reference list, elsewhere or auto generated
 		#' @param isa_process_type the type of process from the list of predefined
 		initialize = function(
 			name = character(),
