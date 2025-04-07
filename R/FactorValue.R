@@ -166,7 +166,8 @@ FactorValue <- R6::R6Class(
 			} else {
 				warning("Factor category not listed!")
 				sf <- StudyFactor$new(
-					factor_type = self$factor,# explicitly_provided = FALSE
+					ontology_source_references = self$ontology_source_references,
+					# factor_values_reference =
 					origin = self$`@id`
 				)
 				self$study_factor_references$add_study_factors(
