@@ -170,8 +170,9 @@ FactorValue <- R6::R6Class(
 					# factor_values_reference =
 					origin = self$`@id`
 				)
+				sf$from_list(factor)
 				self$study_factor_references$add_study_factors(
-					list("UndefinedFactor" = sf)
+					sf %>% list() %>% purrr::set_names(factor[["@id"]])
 				)
 			}
 		},
