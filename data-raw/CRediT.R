@@ -64,7 +64,7 @@ CRediT_role_descriptions <- c(
 )
 
 CRediT_names <- names(CRediT_role_uuids)
-CRediT_names_clean <- tolower(gsub("[\\& -]+", "_", CRediT_names))
+CRediT_names_clean <- paste0("credit_", tolower(gsub("[\\& -]+", "_", CRediT_names)))
 OSR <- OntologySourceReferences$new()
 OSR$add_ontology_source(CRediT)
 
@@ -105,20 +105,20 @@ for (i in seq_along(CRediT_names_clean)) {
 # fs::file_delete(paste0("data/", CRediT_names[grepl(" ", CRediT_names)],".rda"))
 
 # cat(paste0("usethis::use_data(",CRediT_names_clean,", overwrite = TRUE)"), sep = "\n")
-usethis::use_data(conceptualization, overwrite = TRUE)
-usethis::use_data(data_curation, overwrite = TRUE)
-usethis::use_data(formal_analysis, overwrite = TRUE)
-usethis::use_data(funding_acquisition, overwrite = TRUE)
-usethis::use_data(investigation, overwrite = TRUE)
-usethis::use_data(methodology, overwrite = TRUE)
-usethis::use_data(project_administration, overwrite = TRUE)
-usethis::use_data(resources, overwrite = TRUE)
-usethis::use_data(software, overwrite = TRUE)
-usethis::use_data(supervision, overwrite = TRUE)
-usethis::use_data(validation, overwrite = TRUE)
-usethis::use_data(visualization, overwrite = TRUE)
-usethis::use_data(writing_original_draft, overwrite = TRUE)
-usethis::use_data(writing_review_editing, overwrite = TRUE)
+usethis::use_data(credit_conceptualization, overwrite = TRUE)
+usethis::use_data(credit_data_curation, overwrite = TRUE)
+usethis::use_data(credit_formal_analysis, overwrite = TRUE)
+usethis::use_data(credit_funding_acquisition, overwrite = TRUE)
+usethis::use_data(credit_investigation, overwrite = TRUE)
+usethis::use_data(credit_methodology, overwrite = TRUE)
+usethis::use_data(credit_project_administration, overwrite = TRUE)
+usethis::use_data(credit_resources, overwrite = TRUE)
+usethis::use_data(credit_software, overwrite = TRUE)
+usethis::use_data(credit_supervision, overwrite = TRUE)
+usethis::use_data(credit_validation, overwrite = TRUE)
+usethis::use_data(credit_visualization, overwrite = TRUE)
+usethis::use_data(credit_writing_original_draft, overwrite = TRUE)
+usethis::use_data(credit_writing_review_editing, overwrite = TRUE)
 
 # generate documentation for data.R
 # glue::glue(

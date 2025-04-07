@@ -16,69 +16,69 @@
 #' CRediT taxonomy: Conceptualization
 #' @format [OntologyAnnotation] object
 #' @source <https://credit.niso.org/contributor-roles/conceptualization/>
-"conceptualization"
+"credit_conceptualization"
 
 #' CRediT taxonomy: Data curation
 #' @format [OntologyAnnotation] object
 #' @source <https://credit.niso.org/contributor-roles/data-curation/>
-"data_curation"
+"credit_data_curation"
 
 #' CRediT taxonomy: Formal analysis
 #' @format [OntologyAnnotation] object
 #' @source <https://credit.niso.org/contributor-roles/formal-analysis/>
-"formal_analysis"
+"credit_formal_analysis"
 
 #' CRediT taxonomy: Funding acquisition
 #' @format [OntologyAnnotation] object
 #' @source <https://credit.niso.org/contributor-roles/funding-acquisition/>
-"funding_acquisition"
+"credit_funding_acquisition"
 
 #' CRediT taxonomy: Investigation
 #' @format [OntologyAnnotation] object
 #' @source <https://credit.niso.org/contributor-roles/investigation/>
-"investigation"
+"credit_investigation"
 
 #' CRediT taxonomy: Methodology
 #' @format [OntologyAnnotation] object
 #' @source <https://credit.niso.org/contributor-roles/methodology/>
-"methodology"
+"credit_methodology"
 
 #' CRediT taxonomy: Project administration
 #' @format [OntologyAnnotation] object
 #' @source <https://credit.niso.org/contributor-roles/project-administration/>
-"project_administration"
+"credit_project_administration"
 
 #' CRediT taxonomy: Resources
 #' @format [OntologyAnnotation] object
 #' @source <https://credit.niso.org/contributor-roles/resources/>
-"resources"
+"credit_resources"
 
 #' CRediT taxonomy: Software
 #' @format [OntologyAnnotation] object
 #' @source <https://credit.niso.org/contributor-roles/software/>
-"software"
+"credit_software"
 
 #' CRediT taxonomy: Supervision
 #' @format [OntologyAnnotation] object
 #' @source <https://credit.niso.org/contributor-roles/supervision/>
-"supervision"
+"credit_supervision"
 
 #' CRediT taxonomy: Validation
 #' @format [OntologyAnnotation] object
 #' @source <https://credit.niso.org/contributor-roles/validation/>
-"validation"
+"credit_validation"
 
 #' CRediT taxonomy: Visualization
 #' @format [OntologyAnnotation] object
 #' @source <https://credit.niso.org/contributor-roles/visualization/>
-"visualization"
+"credit_visualization"
 
 #' CRediT taxonomy: Writing - original draft
 #' @format [OntologyAnnotation] object
 #' @source <https://credit.niso.org/contributor-roles/writing-original-draft/>
-"writing_original_draft"
+"credit_writing_original_draft"
 
 #' CRediT taxonomy: Writing - review & editing
 #' @format [OntologyAnnotation] object
 #' @source <https://credit.niso.org/contributor-roles/writing-review-editing/>
-"writing_review_editing"
+"credit_writing_review_editing"
