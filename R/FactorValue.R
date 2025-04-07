@@ -152,7 +152,6 @@ FactorValue <- R6::R6Class(
 					ontology_source_references =
 						self$ontology_source_references,
 					unit_references = self$unit_references
-
 				)
 			}
 			if(
@@ -221,7 +220,7 @@ FactorValue <- R6::R6Class(
 			}
 			lst[["comments"]] <- self$comments
 			#"@id" = super$`@id`
-			lst[["category"]][["@id"]] <- self$`@id`
+			lst[["category"]][["@id"]] <- private$category_id
 			return(lst)
 		},
 
@@ -268,7 +267,8 @@ FactorValue <- R6::R6Class(
 				# self$factor_name$from_list(
 				# 	lst[["factor_name"]], recursive = recursive, json = json
 				# )
-				self$`@id` <- lst[["category"]][["@id"]]
+				# self$`@id` <- lst[["category"]][["@id"]]
+				private$category_id <- lst[["category"]][["@id"]]
 				#self$factor <- super$get_or_create_reference(
 				# "StudyFactor", lst[["category"]][["@id"]],
 				# value = lst[["factor_name"]]
@@ -295,11 +295,11 @@ FactorValue <- R6::R6Class(
 						lst[["value"]], recursive = recursive, json = json
 					)
 					self$`@id` <- paste0(
-						self$`@id`, "/", self$value$term
+						private$category_id, "/", self$value$term
 					)
 				} else {
 					self$value <- lst[["value"]] %>% as.numeric()
-					self$`@id` <- paste0(self$`@id`, "/", self$value)
+					self$`@id` <- paste0(private$category_id, "/", self$value)
 				}
 				self$set_comments(lst[["comments"]])
 			} else {
@@ -330,5 +330,8 @@ FactorValue <- R6::R6Class(
 			#green_bold_name_plain_content("ID", private$id)
 			pretty_print_comments(self$comments)
 		}
+	),
+	private = list(
+		category_id = character()
 	)
 )
