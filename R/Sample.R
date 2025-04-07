@@ -75,13 +75,25 @@ Sample <- R6::R6Class(
 			} else {
 				self$set_factor_values(factor_values)
 			}
-			self$study_factor_references <- study_factor_references
 			self$characteristics <- characteristics # list
 			self$derives_from <- derives_from # list
-
-			self$ontology_source_references <- ontology_source_references
 			self$category_references <- category_references
-			self$unit_references <- unit_references
+			if (is.null(ontology_source_references)) {
+				self$ontology_source_references <-
+					OntologySourceReferences$new()
+			}
+			if (is.null(unit_references)) {
+				self$unit_references <- UnitReferences$new(
+					ontology_source_references = self$ontology_source_references
+				)
+			}
+			if (is.null(study_factor_references)) {
+				self$study_factor_references <- StudyFactorReferences$new(
+					ontology_source_references =
+						self$ontology_source_references,
+					unit_references = self$unit_references
+				)
+			}
 			self$sources <- sources
 			self$comments <- comments
 			self$`@id` <- `@id`
