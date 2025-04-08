@@ -87,7 +87,7 @@ test_that("isa-json can be converted to isa-tab", {
 
 			stab <- readr::read_tsv(
 				test_file_paths[["s_BII-S-1"]],
-				name_repair = "unique_quiet", show_col_types = FALSE
+				name_repair = function(x) { x }, show_col_types = FALSE
 			)
 			ttab <- readr::read_tsv(
 				test_output,
