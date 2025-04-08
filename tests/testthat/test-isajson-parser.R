@@ -93,23 +93,23 @@ test_that("Can parse isa-json", {
 		}
 	})
 
-	# ## Samples ----
-	# test_that("Samples json read/write", {
-	# 	samples <- c(
-	# 		json_example$studies[[1]]$materials$samples,
-	# 		json_example$studies[[2]]$materials$samples,
-	# 		BII_S_3_jsonlite$studies[[1]]$materials$samples
-	# 	)
-	# 	for (ex in samples) {
-	# 		obj <- Sample$new()
-	# 		# ex <- json_example$studies[[1]]$materials$samples[[1]]
-	# 		warns <- capture_warnings(obj$from_list(ex))
-	# 		# fix unit from_list for other conditions
-	# 		expect_equal(
-	# 			unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex)
-	# 		)
-	# 	}
-	# })
+	## Samples ----
+	test_that("Samples json read/write", {
+		samples <- c(
+			json_example$studies[[1]]$materials$samples,
+			json_example$studies[[2]]$materials$samples,
+			BII_S_3_jsonlite$studies[[1]]$materials$samples
+		)
+		for (ex in samples) {
+			obj <- Sample$new()
+			# ex <- json_example$studies[[1]]$materials$samples[[1]]
+			warns <- capture_warnings(obj$from_list(ex))
+			# fix unit from_list for other conditions
+			expect_equal(
+				unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex)
+			)
+		}
+	})
 
 	## Materials ----
 	test_that("Materials json read/write", {
