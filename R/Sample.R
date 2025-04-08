@@ -81,11 +81,15 @@ Sample <- R6::R6Class(
 			if (is.null(ontology_source_references)) {
 				self$ontology_source_references <-
 					OntologySourceReferences$new()
+			} else {
+				self$ontology_source_references <- ontology_source_references
 			}
 			if (is.null(unit_references)) {
 				self$unit_references <- UnitReferences$new(
 					ontology_source_references = self$ontology_source_references
 				)
+			} else {
+				self$ontology_source_references <- ontology_source_references
 			}
 			if (is.null(study_factor_references)) {
 				self$study_factor_references <- StudyFactorReferences$new(
@@ -93,6 +97,8 @@ Sample <- R6::R6Class(
 						self$ontology_source_references,
 					unit_references = self$unit_references
 				)
+			} else {
+				self$study_factor_references <- study_factor_references
 			}
 			self$sources <- sources
 			self$comments <- comments
