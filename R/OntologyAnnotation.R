@@ -4,10 +4,12 @@
 #' [OntologyAnnotation]
 #'
 #' @field term the name of ontology term
-#' @field term_source the ontology that is the source of the term represented by an [OntologySource] object
+#' @field term_source the ontology that is the source of the term represented
+#' by an [OntologySource] object
 #' @field term_accession the unique identifier of the ontology term
 #' @field comments comments
-#' @field ontology_source_references an [OntologySourceReferences] object listing all the ontology sources used
+#' @field ontology_source_references an [OntologySourceReferences] object
+#' listing all the ontology sources used
 #' @field @id identifier
 #'
 #' @importFrom R6 R6Class
@@ -28,10 +30,12 @@ OntologyAnnotation <- R6::R6Class(
 		#' @details
 		#' create a new factor value
 		#' @param term the name of ontology term
-		#' @param term_source the ontology that is the source of the term represented by an [OntologySource] object.
+		#' @param term_source the ontology that is the source of the term
+		#' represented by an [OntologySource] object.
 		#' @param term_accession the unique identifier of the ontology term
 		#' @param comments comments
-		#' @param ontology_source_references an [OntologySourceReferences] object listing all the ontology sources used.
+		#' @param ontology_source_references an [OntologySourceReferences]
+		#' object listing all the ontology sources used.
 		#' @param @id identifier
 		#'
 		#' @examples
@@ -46,7 +50,8 @@ OntologyAnnotation <- R6::R6Class(
 		) {
 			# transition to character() !!
 			if(is.null(ontology_source_references)){
-				self$ontology_source_references <- OntologySourceReferences$new()
+				self$ontology_source_references <-
+					OntologySourceReferences$new()
 			} else {
 				self$ontology_source_references <- ontology_source_references
 			}
@@ -122,7 +127,8 @@ OntologyAnnotation <- R6::R6Class(
 		},
 
 		#' @details
-		#' Checks that the source of ontology terms is an [OntologySource] object
+		#' Checks that the source of ontology terms is an [OntologySource]
+		#' object
 		#' @param term_source an [OntologySource] object
 		check_term_source = function(term_source) {
 			# browser()
@@ -158,7 +164,8 @@ OntologyAnnotation <- R6::R6Class(
 		},
 
 		#' @details
-		#' Checks that the supplied term is in the list of valid terms from the ontology source object
+		#' Checks that the supplied term is in the list of valid terms from the
+		#' ontology source object
 		#' @param term an ontology term
 		check_term = function(term) {
 			if(term %in% names(self$term_source$terms_list)) {
@@ -169,7 +176,8 @@ OntologyAnnotation <- R6::R6Class(
 		},
 
 		#' @details
-		#' Checks that the supplied term accession is in the the list of valid accession terms from the ontology source object
+		#' Checks that the supplied term accession is in the the list of valid
+		#' accession terms from the ontology source object
 		#' @param term_accession an accession for an ontology term
 		check_term_accession = function(term_accession) {
 			if(term_accession %in% unlist(self$term_source$terms_list)) {
@@ -191,7 +199,8 @@ OntologyAnnotation <- R6::R6Class(
 		},
 
 		#' @details
-		#' Sets the term and the term accession corresponding to that term if the term passes validity checks
+		#' Sets the term and the term accession corresponding to that term if
+		#' the term passes validity checks
 		#' @param term an ontology term
 		set_term = function(term) {
 			if(self$check_term(term)) {
@@ -201,7 +210,8 @@ OntologyAnnotation <- R6::R6Class(
 		},
 
 		#' @details
-		#' Sets the term accession and the term corresponding to that accession if the accession passes validity checks
+		#' Sets the term accession and the term corresponding to that accession
+		#' if the accession passes validity checks
 		#' @param term_accession an accession for an ontology term
 		set_term_accession = function(term_accession) {
 			if(self$check_term_accession(term_accession)) {
@@ -218,7 +228,9 @@ OntologyAnnotation <- R6::R6Class(
 		#' @param term the ontology term
 		#' @param term_accession the accession of the ontology term
 		#' @param term_source_name the name of the source of the ontology term
-		set_valid_annotation = function(term, term_accession, term_source_name) {
+		set_valid_annotation = function(
+			term, term_accession, term_source_name
+		) {
 			term_accession <- switch(
 				as.character(is.null(term_accession)),
 				"TRUE" = "", "FALSE" = term_accession
@@ -310,7 +322,9 @@ OntologyAnnotation <- R6::R6Class(
 						purrr::set_names(list(term_accession), term)
 					)
 				} else {
-					warning("Missing term accession! using term as accession...")
+					warning(
+						"Missing term accession! using term as accession..."
+					)
 					self$term_source$add_terms(
 						purrr::set_names(list(term), term)
 					)
@@ -367,7 +381,8 @@ OntologyAnnotation <- R6::R6Class(
 		#' @details
 		#' generate an R list representation translatable to JSON
 		#' @param ld logical json-ld
-		#' @param recursive call to_list methods of any objects within this object (default FALSE)
+		#' @param recursive call to_list methods of any objects within this
+		#' object (default FALSE)
 		to_list = function(ld = FALSE, recursive = TRUE) {
 			lst <- list()
 
@@ -413,7 +428,8 @@ OntologyAnnotation <- R6::R6Class(
 		#' @details
 		#' Make [OntologyAnnotation] from list
 		#' @param lst an ontology source object serialized to a list
-		#' @param recursive call to_list methods of any objects within this object (default FALSE)
+		#' @param recursive call to_list methods of any objects within
+		#' this object (default FALSE)
 		#' @param json json  (default TRUE)
 		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			if(json) {
