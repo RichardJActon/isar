@@ -44,6 +44,7 @@ ParameterValue <- R6::R6Class(
 		){
 			self$category <- category
 			self$value <- value
+			self$set_unit_references(unit_references, null.action = "create")
 			if(is.null(unit)) { self$unit <- unit } else {
 				self$set_unit(unit)
 			}
@@ -58,21 +59,23 @@ ParameterValue <- R6::R6Class(
 				"ontology_source_references must be",
 				" an OntologySourceReferences object"
 			)}
-
-			if(is.null(unit_references)) {
-				self$unit_references <- UnitReferences$new(
-					ontology_source_references =
-						self$ontology_source_references
-				)
-			} else if (checkmate::test_r6(unit_references, "UnitReferences")) {
-				self$unit_references <- unit_references
-			} else {stop(
-				"unit_references must be an UnitReferences object"
-			)}
 			self$protocol_parameters <- protocol_parameters
 			self$comments <- comments
 			# self$`@id` <- `@id`# paste0("#parameter/", gsub(" ", "_", self$value))
 		},
+		#' @details
+		#'
+		#' specify the unit references for the [Protocol]
+		#'
+		#' @param unit_references an [UnitReferences] object
+		#' @param null.action how to handle NULLs:
+		#' - "error" throw an error
+		#' - "passthrough" set to NULL
+		#' - "create" set to an empty  [UnitReferences] object
+		set_unit_references = function(unit_references, null.action) {
+			set_unit_references(self, unit_references, null.action)
+		},
+
 		#' @details
 		#' check if unit is a [Unit] object
 		#' @param unit a [Unit] object

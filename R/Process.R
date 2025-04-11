@@ -109,7 +109,7 @@ Process <- R6::R6Class(
 			self$materials <- materials
 			self$data_files <- data_files
 			self$ontology_source_references <- ontology_source_references
-			self$unit_references <- unit_references
+			self$set_unit_references(unit_references, null.action = "create")
 		},
 		#' @details
 		#' Check the the name has a non-zero length
@@ -184,6 +184,19 @@ Process <- R6::R6Class(
 				self$comments <- c(comments, comment)
 			}
 		},
+		#' @details
+		#'
+		#' specify the unit references for the [Protocol]
+		#'
+		#' @param unit_references an [UnitReferences] object
+		#' @param null.action how to handle NULLs:
+		#' - "error" throw an error
+		#' - "passthrough" set to NULL
+		#' - "create" set to an empty  [UnitReferences] object
+		set_unit_references = function(unit_references, null.action) {
+			set_unit_references(self, unit_references, null.action)
+		},
+
 		#' @details
 		#' generate a tabular representation of a process object
 		#' @return a Tibble

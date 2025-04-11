@@ -149,3 +149,74 @@ UnitReferences <- R6::R6Class(
 		}
 	)
 )
+
+#' check_unit_references
+#'
+#' returns TRUE if unit_references is an [UnitReferences]
+#' object and throws an error if it is not
+#'
+#' @param unit_references something you want to check is an
+#' [UnitReferences] object.
+#'
+#' @export
+#'
+check_unit_references <- function(unit_references) {
+	check <- checkmate::check_r6(
+		unit_references, "UnitReferences"
+	)
+	error_with_check_message_on_failure(check)
+}
+
+#' set_unit_references
+#'
+#' sets unit_references attribute if
+#' unit_reference is an [UnitReferences] object
+#'
+#' @param self an object with an unit_references attribute
+#' @param unit_references an [UnitReferences] object
+#' @param null.action how to handle NULLs:
+#' - "error" thow an error
+#' - "passthrough" set to NULL
+#' - "create" set to an empty  [UnitReferences] object
+set_unit_references <- function(
+		self, unit_references, null.action = "error"
+) {
+	if(is.null(unit_references)) {
+		switch(null.action,
+			"error" = { stop("unit_references must not be NULL!") },
+			"passthrough" = { self$unit_references <- unit_references },
+			"create" = { self$unit_references <- UnitReferences$new(
+				ontology_source_references = self$ontology_source_references
+			) }
+		)
+	} else if (
+		check_unit_references(unit_references)
+	) { self$unit_references <- unit_references }
+}
+
+# boilerplate methods
+#
+# #' @details
+# #'
+# #' specify the unit references for the [Protocol]
+# #'
+# #' @param unit_references an [UnitReferences] object
+# #' @param null.action how to handle NULLs:
+# #' - "error" throw an error
+# #' - "passthrough" set to NULL
+# #' - "create" set to an empty  [UnitReferences] object
+# set_unit_references = function(unit_references, null.action) {
+# 	set_unit_references(self, unit_references, null.action)
+# },
+#
+# #' @details
+# #'
+# #' returns TRUE if unit_references is an [UnitReferences]
+# #' object and throws an error if it is not
+# #'
+# #' @param unit_references something you want to check is an
+# #' [UnitReferences] object.
+# check_unit_references = function(unit_references) {
+# 	check_unit_references(unit_references)
+# },
+#
