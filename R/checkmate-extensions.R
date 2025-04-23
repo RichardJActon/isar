@@ -7,7 +7,7 @@
 #' @param mode vector mode, defaults to the type of the vector
 #' @param null.ok allow NULL to be valid
 #' @param zero.len.string.ok accept zero length strings
-#' 
+#'
 #' @return TRUE or string containing an error message
 #' @export
 #'
@@ -23,15 +23,30 @@
 check_empty <- function(
 	x, mode = typeof(x), null.ok = FALSE, zero.len.string.ok = FALSE
 ) {
-	if(null.ok && is.null(x)) { return(TRUE) } 
-	if (mode != "NULL") { v <- vector(mode = mode) }
-	if(zero.len.string.ok && mode == "character") {
+	checkmate::assert_logical(null.ok, any.missing = FALSE, len = 1)
+	checkmate::assert_logical(zero.len.string.ok, any.missing = FALSE, len = 1)
+	supported_types <- c(
+		"logical", "integer", "double", "numeric", "character", "NULL"#, "complex", "list"
+		# "closure", "special", "builtin", "environment", "S4",
+		# "symbol", "pairlist", "promise", "object", "language", "char",
+		# "...", "any", "expression", "externalptr", "bytecode", "weakref"
+	)
+	checkmate::assert_choice(mode, choices = supported_types)
+	if (null.ok && is.null(x)) { return(TRUE) }
+	if(mode == "NULL" && !null.ok) {
+		stop("mode cannot be NULL if null.ok is not TRUE!")
+		# if (is.null(x)) { return("Must not be NULL") }
+	}
+	if (mode != "NULL") { v <- vector(mode = mode) } else {
+		v <- NA
+	}
+	if (zero.len.string.ok && mode == "character") {
 		x <- strsplit(x, split = "")[[1]]
 	}
 	res <- identical(x, v)
-	if(res) { return(TRUE) }
+	if (res) { return(TRUE) }
 	text <- paste0("Must be empty ", mode, " vector")
-	if (null.ok) { text <- paste0(text, " or NULL") }
+	if (null.ok && mode != "NULL") { text <- paste0(text, " or NULL") }
 	if (null.ok && mode == "NULL") { text <- "Must be empty vector or NULL" }
 	return(text)
 }

@@ -57,4 +57,27 @@ test_that("check_empty", {
 	expect_empty(numeric(), mode)
 	expect_empty(numeric(), mode, null.ok = TRUE)
 	expect_empty(NULL, mode, null.ok = TRUE)
+
+
+	mode <- "NULL"
+	text <- paste0("Must be empty ", mode, " vector")
+	null_not_null_ok_error_text <- "mode cannot be NULL if null.ok is not TRUE"
+	expect_error(check_empty(NULL, mode), null_not_null_ok_error_text)
+	expect_true(check_empty(NULL, mode, null.ok = TRUE))
+
+	expect_error(check_empty(1, mode), null_not_null_ok_error_text)
+	text <- paste0(text, " or NULL")
+	expect_equal(
+		check_empty(c(1,3), mode, null.ok = TRUE),
+		"Must be empty vector or NULL"
+	)
+
+	expect_error(test_empty(NULL, mode), null_not_null_ok_error_text)
+	expect_true(test_empty(NULL, mode, null.ok = TRUE))
+
+	expect_error(test_empty(1, mode), null_not_null_ok_error_text)
+	expect_false(test_empty(c(1,3), mode, null.ok = TRUE))
+
+	expect_error(expect_empty(NULL, mode), null_not_null_ok_error_text)
+	expect_empty(NULL, mode, null.ok = TRUE)
 })
