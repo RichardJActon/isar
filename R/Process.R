@@ -108,6 +108,9 @@ Process <- R6::R6Class(
 			self$materials <- materials
 			self$data_files <- data_files
 			self$ontology_source_references <- ontology_source_references
+			self$set_ontology_source_references(
+				ontology_source_references, null.action = "create"
+			)
 			self$set_unit_references(unit_references, null.action = "create")
 			self$set_protocol_references(
 				# protocol_references, null.action = "passthrough" # "create"
@@ -187,6 +190,20 @@ Process <- R6::R6Class(
 				self$comments <- c(comments, comment)
 			}
 		},
+
+		#' @details
+		#'
+		#' specify the ontology source references for the [Protocol]
+		#'
+		#' @param ontology_source_references an [OntologySourceReferences] object
+		#' @param null.action how to handle NULLs:
+		#' - "error" throw an error
+		#' - "passthrough" set to NULL
+		#' - "create" set to an empty  [OntologySourceReferences] object
+		set_ontology_source_references = function(ontology_source_references, null.action) {
+			set_ontology_source_references(self, ontology_source_references, null.action)
+		},
+
 		#' @details
 		#'
 		#' specify the protocol references for the [Protocol]

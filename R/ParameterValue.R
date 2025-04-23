@@ -70,21 +70,13 @@ ParameterValue <- R6::R6Class(
 		){
 			self$category <- category
 			self$value <- value
+			self$set_ontology_source_references(
+				ontology_source_references, null.action = "create"
+			)
 			self$set_unit_references(unit_references, null.action = "create")
 			if(is.null(unit)) { self$unit <- unit } else {
 				self$set_unit(unit)
 			}
-			if(is.null(ontology_source_references)) {
-				self$ontology_source_references <-
-					OntologySourceReferences$new()
-			} else if (checkmate::test_r6(
-				ontology_source_references, "OntologySourceReferences"
-			)) {
-				self$ontology_source_references <- ontology_source_references
-			} else {stop(
-				"ontology_source_references must be",
-				" an OntologySourceReferences object"
-			)}
 			self$set_protocol_references(
 				protocol_references, null.action = "passthrough"
 			)
@@ -92,6 +84,19 @@ ParameterValue <- R6::R6Class(
 			self$comments <- comments
 			# self$`@id` <- `@id`# paste0("#parameter/", gsub(" ", "_", self$value))
 		},
+		#' @details
+		#'
+		#' specify the ontology source references for the [Protocol]
+		#'
+		#' @param ontology_source_references an [OntologySourceReferences] object
+		#' @param null.action how to handle NULLs:
+		#' - "error" throw an error
+		#' - "passthrough" set to NULL
+		#' - "create" set to an empty  [OntologySourceReferences] object
+		set_ontology_source_references = function(ontology_source_references, null.action) {
+			set_ontology_source_references(self, ontology_source_references, null.action)
+		},
+
 		#' @details
 		#'
 		#' specify the protocol references for the [Protocol]

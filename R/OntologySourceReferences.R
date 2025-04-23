@@ -34,7 +34,6 @@ OntologySourceReferences <- R6::R6Class(
 		},
 		#' @details
 		#' Add ontology sources to the
-		#' @return a vector of ontology source names
 		#' @param ontology_sources list of [OntologySource] objects
 		add_ontology_sources = function(ontology_sources) {
 			if(self$check_ontology_sources(
@@ -245,3 +244,30 @@ set_ontology_source_references <- function(
 		check_ontology_source_references(ontology_source_references)
 	) { self$ontology_source_references <- ontology_source_references }
 }
+
+# boilerplate methods
+#
+# #' @details
+# #'
+# #' specify the ontology source references for the [Protocol]
+# #'
+# #' @param ontology_source_references an [OntologySourceReferences] object
+# #' @param null.action how to handle NULLs:
+# #' - "error" throw an error
+# #' - "passthrough" set to NULL
+# #' - "create" set to an empty  [OntologySourceReferences] object
+# set_ontology_source_references = function(ontology_source_references, null.action) {
+# 	set_ontology_source_references(self, ontology_source_references, null.action)
+# },
+#
+# #' @details
+# #'
+# #' returns TRUE if ontology_source_references is an [OntologySourceReferences]
+# #' object and throws an error if it is not
+# #'
+# #' @param ontology_source_references something you want to check is an
+# #' [OntologySourceReferences] object.
+# check_ontology_source_references = function(ontology_source_references) {
+# 	check_ontology_source_references(ontology_source_references)
+# },
+#
