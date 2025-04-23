@@ -398,7 +398,7 @@ Investigation <- R6::R6Class(
 				"publicReleaseDate" = self$public_release_date,
 				"ontologySourceReferences" =
 					self$ontology_source_references$to_list(
-						source = self$identifier
+						origin = self$identifier
 					),
 				"comments" = self$comments,
 				"identifier" = self$identifier,
