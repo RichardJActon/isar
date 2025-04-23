@@ -755,7 +755,9 @@ Study <- R6::R6Class(
 							protocol_references = self$protocol_references,
 							sources = self$sources,
 							samples = self$samples,
-							ontology_source_references = self$recursive,
+							# ontology_source_references = self$recursive,
+							ontology_source_references =
+								self$ontology_source_references ,
 							unit_references = self$unit_references
 						)
 						ps$from_list(.x, recursive = recursive, json = json) # recursive!
