@@ -388,14 +388,15 @@ Investigation <- R6::R6Class(
 		#' @param ld logical json-ld
 		to_list = function(ld = FALSE) {
 			lst <- list(
-				"submissionDate" = self$submission_date,
+				"submissionDate" = self$submission_date %>% as.character(),
 				"people" = self$contacts %>%
 					purrr::map(~.x$to_list()) %>% purrr::set_names(NULL),
 				"publications" = purrr::map(self$publications, ~.x$to_list()),
 				"description" = self$description,
 				"studies" = self$studies %>%
 					purrr::map(~.x$to_list()) %>% purrr::set_names(NULL),
-				"publicReleaseDate" = self$public_release_date,
+				"publicReleaseDate" = self$public_release_date %>%
+					as.character(),
 				"ontologySourceReferences" =
 					self$ontology_source_references$to_list(
 						origin = self$identifier

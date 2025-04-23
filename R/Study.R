@@ -530,7 +530,7 @@ Study <- R6::R6Class(
 		to_list = function(ld = FALSE) {
 			lst <- list()
 			# lst[["id"]] <- private$id
-			lst[["submissionDate"]] <- self$submission_date
+			lst[["submissionDate"]] <- self$submission_date %>% as.character()
 			if(checkmate::test_list(
 				self$process_sequence, len = 0, null.ok = TRUE
 			)) {
@@ -551,7 +551,8 @@ Study <- R6::R6Class(
 			lst[["studyDesignDescriptors"]] <- purrr::map(
 				self$design_descriptors, ~.x$to_list()
 			)
-			lst[["publicReleaseDate"]] <- self$public_release_date
+			lst[["publicReleaseDate"]] <- self$public_release_date %>%
+				as.character()
 			lst[["characteristicCategories"]] <-
 				self$characteristic_categories$to_list(origin = self$`@id`)
 			lst[["assays"]] <- self$assays %>% purrr::map(~.x$to_list()) %>%
