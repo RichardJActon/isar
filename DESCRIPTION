@@ -59,6 +59,7 @@ Collate:
     'Process.R'
     'Protocol.R'
     'ProtocolParameter.R'
+    'ProtocolReferences.R'
     'Publication.R'
     'Sample.R'
     'Source.R'

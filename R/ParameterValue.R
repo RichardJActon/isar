@@ -1,17 +1,40 @@
 #' An R6 object for representing ParameterValue
-#' A ParameterValue represents the instance value of a [ProtocolParameter], used in a Process.
-#' @field category A link to the relevant [ProtocolParameter] that the value is set for.
+#'
+#' A ParameterValue represents the instance value of a [ProtocolParameter],
+#' used in a Process.
+#' You cannot create a [ParameterValue] object without providing a [Protocol]
+#' object.
+#' A [Process] entails the execution of a [Protocol].
+#' [Protocol]s have parameters the values of which ([ParameterValue]s) can be
+#' specified in a [Process] executing that [Protocol].
+#' The 'categories' of [ParameterValue]s available are exposed by the
+#' [Protocol].
+#' Thus in order to know the available categories of [ParameterValue]s the
+#' [Protocol] being executed must be specified.
+#' A 'placeholder' [Protocol] is not automatically generated as unlike
+#' [OntologySources] in and [OntologySourceReference] [ParameterValue]
+#' categories are not intended to be exposed to all [Process]es only those
+#' which execute the [Protocol]s that expose them.
+#'
+#' @field category A link to the relevant [ProtocolParameter] that the value is
+#' set for.
 #' @field value The value of the parameter.
 #' @field unit The qualifying unit classifier, if the value is numeric.
-#' @field ontology_source_references ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor.
+#' @field ontology_source_references ontology_source_references
+#' [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA
+#' descriptor.
 #' @field unit_references A list of units used as a [UnitReferences] object
-#' @field protocol_parameters a named list of available [ProtocolParameter] objects
+#' @field protocol The [Protocol] object that exposes the category of this
+#' parameter.
+#' @field protocol_references The [Protocol References] object that exposes the category of this parameter.
 #' @field comments Comments associated with instances of this class.
 # #' @field @id identifier
 #'
 #' @importFrom R6 R6Class
 #' @importFrom checkmate check_r6
 ParameterValue <- R6::R6Class(
+#
+# Don't think it makes sense to have a default protocol which would contain all categories without one, better to fail and require manual? - let's see?
 	"ParameterValue",
 	public = list(
 		category = NULL,
@@ -19,7 +42,8 @@ ParameterValue <- R6::R6Class(
 		unit = NULL,
 		ontology_source_references = NULL,
 		unit_references = NULL,
-		protocol_parameters = NULL,
+		protocol = NULL,
+		protocol_references = NULL,
 		comments = NULL,
 		#`@id` = character(),
 		#' @details
@@ -29,7 +53,8 @@ ParameterValue <- R6::R6Class(
 		#' @param unit The qualifying unit classifier, if the value is numeric.
 		#' @param ontology_source_references ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor.
 		#' @param unit_references A list of units used as a [UnitReferences] object
-		#' @param protocol_parameters a named list of available [ProtocolParameter] objects
+		#' @param protocol The [Protocol] object that exposes the category of this parameter.
+		#' @param protocol_references The [Protocol References] object that exposes the category of this parameter.
 		#' @param comments Comments associated with instances of this class.
 		#' @param @id identifier
 		initialize = function(
@@ -38,7 +63,8 @@ ParameterValue <- R6::R6Class(
 			unit = NULL,
 			ontology_source_references = NULL,
 			unit_references = NULL,
-			protocol_parameters = NULL,
+			protocol = NULL,
+			protocol_references = NULL,
 			comments = NULL#,
 			# `@id` = character()
 		){
@@ -59,10 +85,26 @@ ParameterValue <- R6::R6Class(
 				"ontology_source_references must be",
 				" an OntologySourceReferences object"
 			)}
-			self$protocol_parameters <- protocol_parameters
+			self$set_protocol_references(
+				protocol_references, null.action = "passthrough"
+			)
+			self$set_protocol(protocol, null.action = "passthrough")
 			self$comments <- comments
 			# self$`@id` <- `@id`# paste0("#parameter/", gsub(" ", "_", self$value))
 		},
+		#' @details
+		#'
+		#' specify the protocol references for the [Protocol]
+		#'
+		#' @param protocol_references an [ProtocolReferences] object
+		#' @param null.action how to handle NULLs:
+		#' - "error" throw an error
+		#' - "passthrough" set to NULL
+		#' - "create" set to an empty  [ProtocolReferences] object
+		set_protocol_references = function(protocol_references, null.action) {
+			set_protocol_references(self, protocol_references, null.action)
+		},
+
 		#' @details
 		#'
 		#' specify the unit references for the [Protocol]
@@ -124,16 +166,115 @@ ParameterValue <- R6::R6Class(
 					self$unit_references$add_unit_references()
 			}
 		},
+
+		#' @details
+		#' set the protocol object
+		#' @param protocol a protocol object
+		set_protocol = function(protocol, null.action = "error") {
+			if(is.null(protocol)) {
+				switch(null.action,
+					"error" = {
+						stop("protocol must be a Protocol object!")
+					},
+					"passthrough" = { self$protocol <- NULL },
+					"create" = {
+						pid <- "#protocol/Unknown"
+						self$set_protocol_references(
+							self$protocol_references, null.action = "create"
+						)
+						Protocol$new(
+							ontology_source_references =
+								self$ontology_source_references,
+							protocol_references = self$protocol_references,
+							# origin = self$`@id`,
+							origin = paste("generated protocol for parameter value", pid),
+							name = "Unknown Protocol",
+							`@id` = pid
+						) %>%
+							list() %>%
+							purrr::set_names(pid) %>%
+							self$protocol_references$add_protocols()
+						self$protocol <-
+							self$protocol_references$protocols[[pid]]
+					}
+				)
+			} else if(
+				checkmate::test_r6(protocol, "Protocol")
+			) {
+				if(
+					!protocol$`@id` %in%
+						self$protocol_references$get_protocol_ids()
+				) {
+					protocol %>% list() %>% purrr::set_names(protocol$`@id`) %>%
+					self$protocol_references$add_protocols()
+					warning(
+						"Protocol Not Found in PrococolReferences!\n",
+						"Attempting to add it to the reference..."
+					)
+				}
+				# print(paste("protocol @id:", protocol$`@id`))
+				self$protocol <- self$protocol_references$protocols[[
+					protocol$`@id`
+				]]
+				# print(paste("protocol @id after ref asign:", protocol$`@id`))
+				# print(
+				# 	paste("protocol reference with the protocol @id:",
+				# 	self$protocol_references$protocols[[
+				# 		protocol$`@id`
+				# 	]]$`@id`
+				# ))
+				# print(paste("self protocol @id:",self$protocol$`@id`))
+				# print(paste(
+				# 	"self protocol reference ids:\n",
+				# 	paste(self$protocol_references$get_protocol_ids(),collapse = "\n")
+				# ))
+			} else {
+				pid <- protocol$`@id`
+				Protocol$new(
+					ontology_source_references =
+						self$ontology_source_references,
+					protocol_references = self$protocol_references,
+					origin = paste("generated protocol for parameter value", pid),
+					name = "Unknown Protocol",
+					`@id` = pid
+				) %>%
+					list() %>%
+					purrr::set_names(pid) %>%
+					self$protocol_references$add_protocols()
+				self$protocol <-
+					self$protocol_references$protocols[[pid]]
+			}
+		},
 		#' @details
 		#' select the protocol parameter that represents the category of this
 		#' parameter value
-		#' @param category the id of a protocol parameter which represents the 
+		#' @param category the id of a protocol parameter which represents the
 		#' category of this parameter
 		set_valid_category = function(category) {
-			if(is.character(self$protocol_parameters)) {
-				self$category <- NULL
+
+			# self$set_protocol(self$protocol, null.action = "create")
+			# print(paste("self protocol @id from set category:", self$protocol$`@id`))
+			# print(self$protocol_references$get_protocol_ids())
+			# print(paste(
+			# 	"self protocol reference ids from set category:\n",
+			# 	paste(self$protocol_references$get_protocol_ids(),collapse = "\n")
+			# ))
+
+			if (category$`@id` %in% names(self$protocol$parameters)) {
+				self$category <- self$protocol$parameters[[category$`@id`]]
 			} else {
-				self$category <- self$protocol_parameters[[category$`@id`]]
+				ProtocolParameter$new(
+					ontology_source_references =
+						self$ontology_source_references,
+					`@id` = category$`@id`,
+					parameter_name = OntologyAnnotation$new(
+						ontology_source_references = self$ontology_source_references
+					)
+				) %>%
+					list() %>%
+					purrr::set_names(category$`@id`) %>%
+					self$protocol$add_parameters()
+				self$category <- self$protocol$parameters[[category$`@id`]]
 			}
 		},
 
@@ -179,16 +320,18 @@ ParameterValue <- R6::R6Class(
 		to_list = function(ld = FALSE) {
 			lst <- list()
 			#lst[["@id"]] <- self$`@id`
-			if(checkmate::test_list(self$category, len = 0, null.ok = TRUE)){
+			if(checkmate::test_list(self$category, len = 0, null.ok = TRUE)) {
 				lst[["category"]] <- self$category
 			} else {
-				lst[["category"]] <- self$category$to_list()
+				# lst[["category"]] <- self$category$to_list()
+				lst[["category"]][["@id"]] <- self$category$`@id`
 			}
 			lst[["value"]] <- self$value
-			if(checkmate::test_list(self$unit, len = 0, null.ok = TRUE)){
+			if(checkmate::test_list(self$unit, len = 0, null.ok = TRUE)) {
 				lst[["unit"]] <- self$unit
 			} else {
-				lst[["unit"]] <- self$unit$to_list()
+				# lst[["unit"]] <- self$unit$to_list()
+				lst[["unit"]]["@id"] <- self$unit$`@id`
 			}
 			lst[["comments"]] <- self$comments
 			return(lst)
@@ -204,6 +347,7 @@ ParameterValue <- R6::R6Class(
 		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			if(json) {
 				#self$`@id` <- lst[["@id"]]
+				self$set_protocol(self$protocol, null.action = "create")
 				if(is.null(lst[["category"]])) {
 					self$category <- NULL
 				} else {

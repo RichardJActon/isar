@@ -28,14 +28,18 @@ ProtocolParameter <- R6::R6Class(
 			comments = NULL,
 			`@id` = character()
 		) {
-			if(is.null(parameter_name)) {
-				self$parameter_name <- parameter_name
-			} else {
-				self$set_parameter_name(parameter_name)
-			}
 			self$set_ontology_source_references(
 				ontology_source_references, null.action = "create"
 			)
+			if(is.null(parameter_name)) {
+				# self$parameter_name <- parameter_name
+				# print(parameter_name)
+				self$parameter_name <- OntologyAnnotation$new(
+					ontology_source_references = self$ontology_source_references
+				)
+			} else {
+				self$set_parameter_name(parameter_name)
+			}
 			self$comments <- comments
 			self$`@id` <- `@id`
 		},
@@ -76,6 +80,11 @@ ProtocolParameter <- R6::R6Class(
 		#' @param parameter_name an [OntologyAnnotation] object
 		set_parameter_name = function(parameter_name) {
 			if(self$check_parameter_name(parameter_name)) {
+				# self$ontology_source_references$get_ontology_source_names() %>% print()
+				# parameter_name$term_source$name %>% print()
+
+				if(!is.null(parameter_name$term_source$name)) {
+
 				if(
 					!parameter_name$term_source$name %in%
 					self$ontology_source_references$get_ontology_source_names()
@@ -88,7 +97,11 @@ ProtocolParameter <- R6::R6Class(
 						"Attempting to add it ..."
 					)
 				}
-				self$parameter_name <- parameter_name
+				}
+				# self$parameter_name <- parameter_name
+				# self$parameter_name <- ParameterValue$new(
+				# 	ontology_source_references = self$ontology_source_references
+				# )
 			}
 		},
 		#' @details
@@ -111,21 +124,29 @@ ProtocolParameter <- R6::R6Class(
 		},
 		#' @details
 		#' generate an R list representation translatable to JSON
-		#' @param ld logical json-ld
-		#' @param recursive use the `from_list()` method on list items that are also isar objects (default = TRUE)
+		#' @param json logical output json
+		#' @param recursive use the `from_list()` method on list items that are
+		#' also isar objects (default = TRUE)
 		#' @examples
-		#' Person$new()
-		to_list = function(ld = FALSE, recursive = TRUE) {
-			lst <- list(
-				#"id" = private$id,
-				"parameterName" = switch(
-					as.character(recursive),
-					"TRUE" = self$parameter_name$to_list(),
-					"FALSE" = self$parameter_name$term
-				),
-				"comments" = self$comments,
-				"@id" = self$`@id`
+		#' pp <- ProtocolParamter$new()
+		#' pp$to_list()
+		to_list = function(json = TRUE, recursive = TRUE) {
+			# ! weird special case in isa-api
+			if(!test_empty(self$`@id`)) {
+				if (self$`@id` == "#parameter/Array_Design_REF") {
+					return(list())
+				}
+			}
+			lst <- list()
+			lst[["parameterName"]] <- switch(
+				as.character(recursive),
+				"TRUE" = self$parameter_name$to_list(),
+				"FALSE" = self$parameter_name$term
 			)
+			if (!is.null(self$comments)) {
+				lat[["comments"]] <- self$comments
+			}
+			lst[["@id"]] <- self$`@id`
 			return(lst)
 		},
 
@@ -161,13 +182,15 @@ ProtocolParameter <- R6::R6Class(
 		#' Pretty Prints [ProtocolParameter] objects
 		print = function() {
 			cli::cli_h1(cli::col_blue("Protocol Parameter"))
-			green_bold_name_plain_content("Name", self$parameter_name$term)
-			green_bold_name_plain_content(
-				"Term Accession", self$parameter_name$term_accession
-			)
-			green_bold_name_plain_content(
-				"Term Source", self$parameter_name$term_source$name
-			)
+			if (!is.null(self$parameter_name)) {
+				green_bold_name_plain_content("Name", self$parameter_name$term)
+				green_bold_name_plain_content(
+					"Term Accession", self$parameter_name$term_accession
+				)
+				green_bold_name_plain_content(
+					"Term Source", self$parameter_name$term_source$name
+				)
+			}
 			green_bold_name_plain_content("@id", self$`@id`)
 			# green_bold_name_plain_content("ID", private$id)
 			pretty_print_comments(self$comments)

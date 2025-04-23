@@ -11,7 +11,7 @@
 #' @field outputs A list of output materials, possibly [Sample]s, [Material]s, [DataFile]s
 #' @field comments Comments associated with instances of this class.
 #' @field @id identifier
-#' @field protocols list of available [Protocol]s
+#' @field protocol_referencs list of available [ProtocolReferences]s
 #' @field sources list of available [Source]s
 #' @field samples list of available [Sample]s
 #' @field next_process id of the next process in the sequence
@@ -20,7 +20,7 @@
 #' @field data_files as list of [DataFile] objects
 #' @field ontology_source_references ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor.
 #' @field unit_references A list of units used as a [UnitReferences] objects
-#' @field protocol_parameters A list of [ProtocolParameter] objects
+# #' @field protocol_parameters A list of [ProtocolParameter] objects
 #'
 #' @importFrom checkmate check_string test_list test_r6 check_date
 #' @importFrom purrr map map_lgl
@@ -40,7 +40,7 @@ Process <- R6::R6Class(
 		outputs = NULL,
 		comments = NULL,
 		`@id` = NULL,
-		protocols = NULL,
+		protocol_references = NULL,
 		sources = NULL,
 		samples = NULL,
 		next_process = NULL,
@@ -49,7 +49,7 @@ Process <- R6::R6Class(
 		data_files = NULL,
 		ontology_source_references = NULL,
 		unit_references = NULL,
-		protocol_parameters = NULL,
+		# protocol_parameters = NULL,
 		#' @details
 		#' Create a new [Process]
 		#' @param name If relevant, a unique name for the process to disambiguate it from other processes.
@@ -61,7 +61,7 @@ Process <- R6::R6Class(
 		#' @param outputs A list of output materials, possibly [Sample]s, [Material]s, [DataFile]s
 		#' @param comments Comments associated with instances of this class.
 		#' @param @id identifier
-		#' @param protocols list of available [Protocol]s
+		#' @param protocol_references list of available [ProtocolReferences]s
 		#' @param sources list of available [Source]s
 		#' @param samples list of available [Sample]s
 		#' @param next_process id of the next process in the sequence
@@ -70,7 +70,7 @@ Process <- R6::R6Class(
 		#' @param data_files as list of [DataFile] objects
 		#' @param ontology_source_references ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor.
 		#' @param unit_references A list of units used as a [UnitReferences] objects
-		#' @param protocol_parameters A list of [ProtocolParameter] objects
+		# #' @param protocol_parameters A list of [ProtocolParameter] objects
 		initialize = function(
 			name = character(),
 			executes_protocol = NULL,
@@ -81,7 +81,7 @@ Process <- R6::R6Class(
 			outputs = NULL,
 			comments = NULL,
 			`@id` = NULL,
-			protocols = NULL,
+			protocol_references = NULL,
 			sources = NULL,
 			samples = NULL,
 			next_process = NULL,
@@ -89,8 +89,8 @@ Process <- R6::R6Class(
 			materials = NULL,
 			data_files = NULL,
 			ontology_source_references = NULL,
-			unit_references = NULL,
-			protocol_parameters = NULL
+			unit_references = NULL# ,
+			# protocol_parameters = NULL
 		) {
 			self$name <- name
 			self$executes_protocol <- executes_protocol
@@ -101,7 +101,6 @@ Process <- R6::R6Class(
 			self$outputs <- outputs
 			self$comments <- comments
 			self$`@id` <- `@id`
-			self$protocols <- protocols
 			self$sources <- sources
 			self$samples <- samples
 			self$next_process <- next_process
@@ -110,6 +109,10 @@ Process <- R6::R6Class(
 			self$data_files <- data_files
 			self$ontology_source_references <- ontology_source_references
 			self$set_unit_references(unit_references, null.action = "create")
+			self$set_protocol_references(
+				# protocol_references, null.action = "passthrough" # "create"
+				protocol_references, null.action = "create"
+			)
 		},
 		#' @details
 		#' Check the the name has a non-zero length
@@ -184,6 +187,19 @@ Process <- R6::R6Class(
 				self$comments <- c(comments, comment)
 			}
 		},
+		#' @details
+		#'
+		#' specify the protocol references for the [Protocol]
+		#'
+		#' @param protocol_references an [ProtocolReferences] object
+		#' @param null.action how to handle NULLs:
+		#' - "error" throw an error
+		#' - "passthrough" set to NULL
+		#' - "create" set to an empty  [ProtocolReferences] object
+		set_protocol_references = function(protocol_references, null.action) {
+			set_protocol_references(self, protocol_references, null.action)
+		},
+
 		#' @details
 		#'
 		#' specify the unit references for the [Protocol]
@@ -430,14 +446,41 @@ Process <- R6::R6Class(
 		#' @param recursive call to_list methods of any objects within this object (default TRUE)
 		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			# browser()
+			self$`@id` <- lst[["@id"]]
+			self$set_name(lst[["name"]])
+			self$set_date(lst[["date"]], null.ok = TRUE)
 			if(json) {
-				if(is.null(self$protocols)) {
+				if(is.null(self$protocol_references)) {
+					# should never be the case now empy reference is created on init instead of keeping null
 					self$executes_protocol <- lst[["executesProtocol"]][["@id"]]
+				} else if (
+					lst[["executesProtocol"]][["@id"]] %in%
+					self$protocol_references$get_protocol_ids()
+				) {
+					self$executes_protocol <-
+						self$protocol_references$protocols[[
+							lst[["executesProtocol"]][["@id"]]
+						]]
 				} else {
-					self$executes_protocol <- self$protocols[[ # handle possible missing here?
-						lst[["executesProtocol"]][["@id"]]
-					]]
+					warning(
+						"Protocol not in reference!\n",
+						"Attempting to add a placeholder"
+					)
+					Protocol$new(
+						name = "Unknown Protocol",
+						`@id` = lst[["executesProtocol"]][["@id"]],
+						origin = self$`@id`,
+						protocol_references = self$protocol_references
+					) %>%
+						list() %>%
+						purrr::set_names(lst[["executesProtocol"]][["@id"]]) %>%
+						self$protocol_references$add_protocols()
+					self$executes_protocol <-
+						self$protocol_references$protocols[[
+							lst[["executesProtocol"]][["@id"]]
+						]]
 				}
+
 				if(checkmate::test_list(
 					lst[["parameterValues"]], len = 0, null.ok = TRUE
 				)) {
@@ -445,20 +488,22 @@ Process <- R6::R6Class(
 				} else {
 					self$parameter_values <- lst[["parameterValues"]] %>%
 						purrr::map(~{
-							prot_params <- self$executes_protocol
-							if(!is.character(self$executes_protocol)) {
-								prot_params <- self$executes_protocol$parameters
-							}
 							pv <- ParameterValue$new(
 								ontology_source_references =
 									self$ontology_source_references,
 								unit_references = self$unit_references,
-								protocol_parameters = prot_params
+								protocol_references = self$protocol_references,
+								protocol = self$protocol_references$protocols[[
+									lst[["executesProtocol"]][["@id"]]
+								]]
 							)
+							# print(pv$protocol$`@id`)
 							pv$from_list(.x, recursive = recursive, json = json)
 							pv
 						})# %>%
 						#purrr::set_names(purrr::map_chr(., ~.x$`@id`))
+					# print(self$executes_protocol$`@id`)
+					# print(self$protocol_references$get_protocol_ids())
 				}
 
 				inputs_and_outputs <- c(
@@ -502,9 +547,6 @@ Process <- R6::R6Class(
 				# self$outputs <- lst[["outputs"]] # sample obj ?
 				# self$inputs <- lst[["inputs"]] # source obj
 			}
-			self$`@id` <- lst[["@id"]]
-			self$set_name(lst[["name"]])
-			self$set_date(lst[["date"]], null.ok = TRUE)
 			if(recursive && !json) {
 				self$performer <- purrr::map(lst[["performer"]], ~{
 					p <- Person$new()

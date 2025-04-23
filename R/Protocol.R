@@ -11,9 +11,9 @@
 #' @field components A list of [OntologyAnnotation] describing a protocol's components; e.g. instrument names, software names, and reagents names.
 #' @field comments Comments associated with instances of this class.
 #' @field @id identifier
-#change origin to source
 #' @field origin the id of source assay from which the protocol was generated
 #' @field ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor.
+#' @field protocol_references a [ProtocolReferences] object
 #'
 #' @importFrom R6 R6Class
 #' @importFrom checkmate qtest check_string check_r6 test_list
@@ -36,6 +36,7 @@ Protocol <- R6::R6Class(
 		`@id` = character(),
 		origin = character(),
 		ontology_source_references = NULL,
+		protocol_references = NULL,
 		#' @details
 		#' Create a new Protocol object
 		#' @param name The name of the protocol used
@@ -50,6 +51,7 @@ Protocol <- R6::R6Class(
 		#change origin to source
 		#' @param origin the id of source assay from which the protocol was generated
 		#' @param ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor.
+		#' @param protocol_references a [ProtocolReferences] object
 		initialize = function(
 			name = character(),
 			protocol_type = NULL,
@@ -59,9 +61,10 @@ Protocol <- R6::R6Class(
 			parameters = NULL,
 			components = NULL,
 			comments = NULL,
-			`@id` = NULL,
+			`@id` = character(),
 			origin = character(),
-			ontology_source_references = NULL
+			ontology_source_references = NULL,
+			protocol_references = NULL
 		) {
 			if (checkmate::qtest(name, "S[0]")) { self$name <- name } else {
 				self$set_name(name)
@@ -91,20 +94,24 @@ Protocol <- R6::R6Class(
 				self$aet_components(components)
 			}
 			self$check_comments(comments)
-			self$`@id` <- paste0("#protocol/", self$name)
+			# self$`@id` <- paste0("#protocol/", self$name)
+			self$`@id` <- `@id`
 			self$origin <- origin
 			self$set_ontology_source_references(
 				ontology_source_references, null.action = "create"
+			)
+			self$set_protocol_references(
+				protocol_references, null.action = "passthrough" # "create"
 			)
 		},
 
 		#' @details
 		#'
-		#' specify the ontology sourece references for the [Protocol]
+		#' specify the ontology source references for the [Protocol]
 		#'
 		#' @param ontology_source_references an [OntologySourceReferences] object
 		#' @param null.action how to handle NULLs:
-		#' - "error" thow an error
+		#' - "error" throw an error
 		#' - "passthrough" set to NULL
 		#' - "create" set to an empty  [OntologySourceReferences] object
 		set_ontology_source_references = function(ontology_source_references, null.action) {
@@ -113,15 +120,27 @@ Protocol <- R6::R6Class(
 
 		#' @details
 		#'
-		#' returns TRUE if ontology_source_references is an [OntologySourceReferences]
-		#' object and throws an error if it is not
+		#' specify the protocol references for the [Protocol]
 		#'
-		#' @param ontology_source_references something you want to check is an
-		#' [OntologySourceReferences] object.
-		check_ontology_source_references = function(ontology_source_references) {
-			check_ontology_source_references(ontology_source_references)
+		#' @param protocol_references an [ProtocolReferences] object
+		#' @param null.action how to handle NULLs:
+		#' - "error" throw an error
+		#' - "passthrough" set to NULL
+		#' - "create" set to an empty  [ProtocolReferences] object
+		set_protocol_references = function(protocol_references, null.action) {
+			set_protocol_references(self, protocol_references, null.action)
 		},
 
+		#' @details
+		#'
+		#' returns TRUE if protocol_references is a [ProtocolReferences]
+		#' object and throws an error if it is not
+		#'
+		#' @param protocol_references something you want to check is an
+		#' [ProtocolReferences] object.
+		check_protocol_references = function(protocol_references) {
+			check_ontology_source_references(protocol_references)
+		},
 		#' @details
 		#' Check that name is a single string
 		#' @param name the name of the protocol
@@ -201,17 +220,34 @@ Protocol <- R6::R6Class(
 		#' Set parameters if input is valid
 		#' @param parameters a [ProtocolParameter] object
 		check_parameters = function(parameters) {
-			check <- checkmate::check_r6(parameters, "ProtocolParameter")
-			error_with_check_message_on_failure(
-				check, nextline = "Class: ProtocolParameter"
-			)
+			# check <- checkmate::check_r6(parameters, "ProtocolParameter")
+			# error_with_check_message_on_failure(
+			# 	check, nextline = "Class: ProtocolParameter"
+			# )
+			if(
+				checkmate::test_list(parameters, min.len = 1) &&
+				all(purrr::map_lgl(
+					parameters, ~checkmate::test_r6(.x, "ProtocolParameter")
+				))
+			) { return(TRUE) } else {
+				stop("All components must be ProtocolParameter objects")
+			}
 		},
 		#' @details
 		#' Set parameters if input is valid
 		#' @param parameters an [ProtocolParameter] object
 		set_parameters = function(parameters) {
 			if(self$check_parameters(parameters)) {
-				self$check_parameter <- parameters
+				selfparameters <- parameters
+			}
+		},
+		#' @details
+		#' Add parameters if input is valid
+		#' @param parameters an [ProtocolParameter] object
+		add_parameters = function(parameters) {
+			new_params <- c(self$parameters, parameters)
+			if(self$check_parameters(new_params)) {
+				self$parameters <- new_params
 			}
 		},
 		#' @details
@@ -433,9 +469,6 @@ Protocol <- R6::R6Class(
 							)
 							pp$from_list(.x)
 							pp
-							# pv <- ParameterValue$new()
-							# pv$from_list(.x)
-							# pv
 						})
 				} else {
 					self$parameters <- lst[["parameters"]]
@@ -502,6 +535,7 @@ Protocol <- R6::R6Class(
 			green_bold_name_plain_content("@id", self$`@id`)
 			green_bold_name_plain_content("uri", self$uri)
 			green_bold_name_plain_content("version", self$version)
+			green_bold_name_plain_content("origin", self$origin)
 			green_bold_name_plain_content("protocol_type", self$protocol_type$term)
 			cli::cli_h2(cli::col_green("Description"))
 			cli::cli_text(self$description)
@@ -513,7 +547,8 @@ Protocol <- R6::R6Class(
 			# needs cleaning up list not from isajson
 			if (!checkmate::test_list(self$parameters, len = 0)) {
 				cli::cli_ul(purrr::map_chr(
-					self$parameters, ~.x$parameter_name$term
+					# self$parameters, ~.x$parameter_name$term
+					self$parameters, ~cli::col_grey("(", .x$`@id`, ")")
 				))
 			}
 			# model a param values of ont annotations

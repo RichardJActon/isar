@@ -2,29 +2,44 @@
 % Please edit documentation in R/ParameterValue.R
 \name{ParameterValue}
 \alias{ParameterValue}
-\title{An R6 object for representing ParameterValue
-A ParameterValue represents the instance value of a \link{ProtocolParameter}, used in a Process.}
+\title{An R6 object for representing ParameterValue}
 \description{
-An R6 object for representing ParameterValue
-A ParameterValue represents the instance value of a \link{ProtocolParameter}, used in a Process.
-
-An R6 object for representing ParameterValue
-A ParameterValue represents the instance value of a \link{ProtocolParameter}, used in a Process.
+A ParameterValue represents the instance value of a \link{ProtocolParameter},
+used in a Process.
+You cannot create a \link{ParameterValue} object without providing a \link{Protocol}
+object.
+A \link{Process} entails the execution of a \link{Protocol}.
+\link{Protocol}s have parameters the values of which (\link{ParameterValue}s) can be
+specified in a \link{Process} executing that \link{Protocol}.
+The 'categories' of \link{ParameterValue}s available are exposed by the
+\link{Protocol}.
+Thus in order to know the available categories of \link{ParameterValue}s the
+\link{Protocol} being executed must be specified.
+A 'placeholder' \link{Protocol} is not automatically generated as unlike
+\link{OntologySources} in and \link{OntologySourceReference} \link{ParameterValue}
+categories are not intended to be exposed to all \link{Process}es only those
+which execute the \link{Protocol}s that expose them.
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{category}}{A link to the relevant \link{ProtocolParameter} that the value is set for.}
+\item{\code{category}}{A link to the relevant \link{ProtocolParameter} that the value is
+set for.}
 
 \item{\code{value}}{The value of the parameter.}
 
 \item{\code{unit}}{The qualifying unit classifier, if the value is numeric.}
 
-\item{\code{ontology_source_references}}{ontology_source_references \link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor.}
+\item{\code{ontology_source_references}}{ontology_source_references
+\link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA
+descriptor.}
 
 \item{\code{unit_references}}{A list of units used as a \link{UnitReferences} object}
 
-\item{\code{protocol_parameters}}{a named list of available \link{ProtocolParameter} objects}
+\item{\code{protocol}}{The \link{Protocol} object that exposes the category of this
+parameter.}
+
+\item{\code{protocol_references}}{The \link{Protocol References} object that exposes the category of this parameter.}
 
 \item{\code{comments}}{Comments associated with instances of this class.}
 }
@@ -34,12 +49,16 @@ A ParameterValue represents the instance value of a \link{ProtocolParameter}, us
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-ParameterValue-new}{\code{ParameterValue$new()}}
+\item \href{#method-ParameterValue-set_ontology_source_references}{\code{ParameterValue$set_ontology_source_references()}}
+\item \href{#method-ParameterValue-set_protocol_references}{\code{ParameterValue$set_protocol_references()}}
+\item \href{#method-ParameterValue-set_unit_references}{\code{ParameterValue$set_unit_references()}}
 \item \href{#method-ParameterValue-check_unit}{\code{ParameterValue$check_unit()}}
 \item \href{#method-ParameterValue-set_unit}{\code{ParameterValue$set_unit()}}
 \item \href{#method-ParameterValue-check_comments}{\code{ParameterValue$check_comments()}}
 \item \href{#method-ParameterValue-set_comments}{\code{ParameterValue$set_comments()}}
 \item \href{#method-ParameterValue-add_comment}{\code{ParameterValue$add_comment()}}
 \item \href{#method-ParameterValue-set_valid_unit}{\code{ParameterValue$set_valid_unit()}}
+\item \href{#method-ParameterValue-set_protocol}{\code{ParameterValue$set_protocol()}}
 \item \href{#method-ParameterValue-set_valid_category}{\code{ParameterValue$set_valid_category()}}
 \item \href{#method-ParameterValue-to_table}{\code{ParameterValue$to_table()}}
 \item \href{#method-ParameterValue-to_list}{\code{ParameterValue$to_list()}}
@@ -60,7 +79,8 @@ A ParameterValue represents the instance value of a \link{ProtocolParameter}, us
   unit = NULL,
   ontology_source_references = NULL,
   unit_references = NULL,
-  protocol_parameters = NULL,
+  protocol = NULL,
+  protocol_references = NULL,
   comments = NULL
 )}\if{html}{\out{</div>}}
 }
@@ -78,7 +98,9 @@ A ParameterValue represents the instance value of a \link{ProtocolParameter}, us
 
 \item{\code{unit_references}}{A list of units used as a \link{UnitReferences} object}
 
-\item{\code{protocol_parameters}}{a named list of available \link{ProtocolParameter} objects}
+\item{\code{protocol}}{The \link{Protocol} object that exposes the category of this parameter.}
+
+\item{\code{protocol_references}}{The \link{Protocol References} object that exposes the category of this parameter.}
 
 \item{\code{comments}}{Comments associated with instances of this class.}
 
@@ -88,6 +110,90 @@ A ParameterValue represents the instance value of a \link{ProtocolParameter}, us
 }
 \subsection{Details}{
 New \link{ParameterValue} object
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ParameterValue-set_ontology_source_references"></a>}}
+\if{latex}{\out{\hypertarget{method-ParameterValue-set_ontology_source_references}{}}}
+\subsection{Method \code{set_ontology_source_references()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ParameterValue$set_ontology_source_references(
+  ontology_source_references,
+  null.action
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object}
+
+\item{\code{null.action}}{how to handle NULLs:
+\itemize{
+\item "error" throw an error
+\item "passthrough" set to NULL
+\item "create" set to an empty  \link{OntologySourceReferences} object
+}}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+specify the ontology source references for the \link{Protocol}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ParameterValue-set_protocol_references"></a>}}
+\if{latex}{\out{\hypertarget{method-ParameterValue-set_protocol_references}{}}}
+\subsection{Method \code{set_protocol_references()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ParameterValue$set_protocol_references(protocol_references, null.action)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{protocol_references}}{an \link{ProtocolReferences} object}
+
+\item{\code{null.action}}{how to handle NULLs:
+\itemize{
+\item "error" throw an error
+\item "passthrough" set to NULL
+\item "create" set to an empty  \link{ProtocolReferences} object
+}}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+specify the protocol references for the \link{Protocol}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ParameterValue-set_unit_references"></a>}}
+\if{latex}{\out{\hypertarget{method-ParameterValue-set_unit_references}{}}}
+\subsection{Method \code{set_unit_references()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ParameterValue$set_unit_references(unit_references, null.action)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{unit_references}}{an \link{UnitReferences} object}
+
+\item{\code{null.action}}{how to handle NULLs:
+\itemize{
+\item "error" throw an error
+\item "passthrough" set to NULL
+\item "create" set to an empty  \link{UnitReferences} object
+}}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+specify the unit references for the \link{Protocol}
 }
 
 }
@@ -208,6 +314,26 @@ Add comment if it is in a valid format
 }
 \subsection{Details}{
 Set the unit as a valid ontology term
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ParameterValue-set_protocol"></a>}}
+\if{latex}{\out{\hypertarget{method-ParameterValue-set_protocol}{}}}
+\subsection{Method \code{set_protocol()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ParameterValue$set_protocol(protocol)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{protocol}}{a protocol object}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+set the protocol object
 }
 
 }

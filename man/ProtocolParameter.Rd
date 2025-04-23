@@ -14,7 +14,8 @@ A parameter used by a protocol.
 ## Method `ProtocolParameter$to_list`
 ## ------------------------------------------------
 
-Person$new()
+pp <- ProtocolParamter$new()
+pp$to_list()
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
@@ -234,15 +235,16 @@ Add comment if it is in a valid format
 \if{latex}{\out{\hypertarget{method-ProtocolParameter-to_list}{}}}
 \subsection{Method \code{to_list()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ProtocolParameter$to_list(ld = FALSE, recursive = TRUE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ProtocolParameter$to_list(json = TRUE, recursive = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{ld}}{logical json-ld}
+\item{\code{json}}{logical output json}
 
-\item{\code{recursive}}{use the \code{from_list()} method on list items that are also isar objects (default = TRUE)}
+\item{\code{recursive}}{use the \code{from_list()} method on list items that are
+also isar objects (default = TRUE)}
 }
 \if{html}{\out{</div>}}
 }
@@ -252,7 +254,8 @@ generate an R list representation translatable to JSON
 
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{Person$new()
+\preformatted{pp <- ProtocolParamter$new()
+pp$to_list()
 }
 \if{html}{\out{</div>}}
 

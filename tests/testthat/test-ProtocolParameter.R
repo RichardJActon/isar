@@ -3,12 +3,15 @@ test_that("ProtocolParameter works", {
 	test_protocol_parameter <- ProtocolParameter$new()
 
 	## Parameter Name ----
-	expect_null(test_protocol_parameter$parameter_name)
+	# expect_null(test_protocol_parameter$parameter_name)
+	checkmate::expect_r6(
+		test_protocol_parameter$parameter_name, "OntologyAnnotation"
+	)
 
 	warns <- capture_warnings(
 		oa <- OntologyAnnotation$new(term = "gram", term_source = OM)
 	)
-	
+
 	expect_match(warns, "Attempting to add it", all = FALSE)
 	warns <- capture_warnings(test_protocol_parameter$set_parameter_name(oa))
 	expect_match(warns, "Attempting to add it", all = FALSE)
@@ -35,7 +38,7 @@ test_that("ProtocolParameter works", {
 	warns <- capture_warnings(test_from_list$from_list(example_list))
 	expect_match(warns, "Term Source Unknown")
 	expect_equal(test_from_list$to_list(), example_list)
-	
+
 	# with OM in the reference
 	ors <- OntologySourceReferences$new()
 	ors$add_ontology_source(OM)

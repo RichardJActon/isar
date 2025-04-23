@@ -22,7 +22,7 @@
 #' @field comments Comments associated with instances of this class
 #' @field data_files [DataFile] objects
 #' @field ontology_source_references an [OntologySourceReferences] object listing all the ontology sources used
-#' @field protocols [Protocol] objects
+#' @field protocol_references [Protocol] objects
 #' @field @id identifier
 #'
 #' @importFrom R6 R6Class
@@ -50,7 +50,7 @@ Assay <- R6::R6Class(
 		data_files = NULL,
 		ontology_source_references = NULL,
 		unit_references = NULL,
-		protocols = NULL,
+		protocol_references = NULL,
 		`@id` = character(),
 		#' @details
 		#' Create a new assay
@@ -67,7 +67,7 @@ Assay <- R6::R6Class(
 		#' @param comments Comments associated with instances of this class.
 		#' @param data_files [DataFile] objects.
 		#' @param ontology_source_references an [OntologySourceReferences] object listing all the ontology sources used.
-		#' @param protocols [Protocol] objects
+		#' @param protocol_references [Protocol] objects
 		#' @param @id identifier
 		initialize = function(
 			measurement_type = NULL,
@@ -83,7 +83,7 @@ Assay <- R6::R6Class(
 			data_files = NULL,
 			ontology_source_references = NULL,
 			unit_references = NULL,
-			protocols = NULL,
+			protocol_references = NULL,
 			`@id` = character()
 		) {
 			if (is.null(measurement_type)) {
@@ -115,7 +115,7 @@ Assay <- R6::R6Class(
 			self$data_files <- data_files
 			self$ontology_source_references <- ontology_source_references
 			self$unit_references <- unit_references
-			self$protocols <- protocols
+			self$protocol_references <- protocol_references
 			self$`@id` <- `@id`
 		},
 		#' @details
@@ -415,7 +415,7 @@ Assay <- R6::R6Class(
 
 		# source, protocol, sample
 
-		# sample, protocols, extracts, assay/process, data, process/transforms, derived data
+		# sample, protocol_references, extracts, assay/process, data, process/transforms, derived data
 
 		# not add generated from to data files based on process paths
 		# out side of this function
@@ -589,12 +589,14 @@ Assay <- R6::R6Class(
 				purrr::set_names(purrr::map_chr(., ~.x$`@id`)) %>%
 				purrr::map(~{
 						ps <- Process$new(
-							protocols = self$protocols,
+							protocol_references = self$protocol_references,
 							sources = self$sources,
 							samples = self$samples,
 							materials = self$other_materials,
 							data_files = self$data_files,
-							ontology_source_references = self$recursive,
+							# ontology_source_references = self$recursive,
+							ontology_source_references =
+								self$ontology_source_references,
 							unit_references = self$unit_references
 						)
 						ps$from_list(.x, recursive = recursive, json = json)
@@ -642,7 +644,7 @@ Assay <- R6::R6Class(
 			#
 			# green_bold_name_plain_content("", self$data_files)
 			# green_bold_name_plain_content("", self$ontology_source_references)
-			# green_bold_name_plain_content("", self$protocols)
+			# green_bold_name_plain_content("", self$protocol_references)
 
 			pretty_print_comments(self$comments)
 		},

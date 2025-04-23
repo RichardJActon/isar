@@ -35,6 +35,8 @@ An experimental Protocol used in the study.
 \item{\code{origin}}{the id of source assay from which the protocol was generated}
 
 \item{\code{ontology_source_references}}{\link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor.}
+
+\item{\code{protocol_references}}{a \link{ProtocolReferences} object}
 }
 \if{html}{\out{</div>}}
 }
@@ -43,7 +45,8 @@ An experimental Protocol used in the study.
 \itemize{
 \item \href{#method-Protocol-new}{\code{Protocol$new()}}
 \item \href{#method-Protocol-set_ontology_source_references}{\code{Protocol$set_ontology_source_references()}}
-\item \href{#method-Protocol-check_ontology_source_references}{\code{Protocol$check_ontology_source_references()}}
+\item \href{#method-Protocol-set_protocol_references}{\code{Protocol$set_protocol_references()}}
+\item \href{#method-Protocol-check_protocol_references}{\code{Protocol$check_protocol_references()}}
 \item \href{#method-Protocol-check_name}{\code{Protocol$check_name()}}
 \item \href{#method-Protocol-set_name}{\code{Protocol$set_name()}}
 \item \href{#method-Protocol-check_description}{\code{Protocol$check_description()}}
@@ -56,6 +59,7 @@ An experimental Protocol used in the study.
 \item \href{#method-Protocol-set_protocol_type}{\code{Protocol$set_protocol_type()}}
 \item \href{#method-Protocol-check_parameters}{\code{Protocol$check_parameters()}}
 \item \href{#method-Protocol-set_parameters}{\code{Protocol$set_parameters()}}
+\item \href{#method-Protocol-Add_parameters}{\code{Protocol$Add_parameters()}}
 \item \href{#method-Protocol-check_components}{\code{Protocol$check_components()}}
 \item \href{#method-Protocol-set_components}{\code{Protocol$set_components()}}
 \item \href{#method-Protocol-check_comments}{\code{Protocol$check_comments()}}
@@ -84,7 +88,8 @@ An experimental Protocol used in the study.
   comments = NULL,
   `@id` = NULL,
   origin = character(),
-  ontology_source_references = NULL
+  ontology_source_references = NULL,
+  protocol_references = NULL
 )}\if{html}{\out{</div>}}
 }
 
@@ -112,6 +117,8 @@ An experimental Protocol used in the study.
 \item{\code{origin}}{the id of source assay from which the protocol was generated}
 
 \item{\code{ontology_source_references}}{\link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor.}
+
+\item{\code{protocol_references}}{a \link{ProtocolReferences} object}
 }
 \if{html}{\out{</div>}}
 }
@@ -138,7 +145,7 @@ Create a new Protocol object
 
 \item{\code{null.action}}{how to handle NULLs:
 \itemize{
-\item "error" thow an error
+\item "error" throw an error
 \item "passthrough" set to NULL
 \item "create" set to an empty  \link{OntologySourceReferences} object
 }}
@@ -146,28 +153,55 @@ Create a new Protocol object
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-specify the ontology sourece references for the \link{Protocol}
+specify the ontology source references for the \link{Protocol}
 }
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Protocol-check_ontology_source_references"></a>}}
-\if{latex}{\out{\hypertarget{method-Protocol-check_ontology_source_references}{}}}
-\subsection{Method \code{check_ontology_source_references()}}{
+\if{html}{\out{<a id="method-Protocol-set_protocol_references"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-set_protocol_references}{}}}
+\subsection{Method \code{set_protocol_references()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Protocol$check_ontology_source_references(ontology_source_references)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Protocol$set_protocol_references(protocol_references, null.action)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{ontology_source_references}}{something you want to check is an
-\link{OntologySourceReferences} object.}
+\item{\code{protocol_references}}{an \link{ProtocolReferences} object}
+
+\item{\code{null.action}}{how to handle NULLs:
+\itemize{
+\item "error" throw an error
+\item "passthrough" set to NULL
+\item "create" set to an empty  \link{ProtocolReferences} object
+}}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-returns TRUE if ontology_source_references is an \link{OntologySourceReferences}
+specify the protocol references for the \link{Protocol}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Protocol-check_protocol_references"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-check_protocol_references}{}}}
+\subsection{Method \code{check_protocol_references()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Protocol$check_protocol_references(protocol_references)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{protocol_references}}{something you want to check is an
+\link{ProtocolReferences} object.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+returns TRUE if protocol_references is a \link{ProtocolReferences}
 object and throws an error if it is not
 }
 
@@ -409,6 +443,26 @@ Set parameters if input is valid
 }
 \subsection{Details}{
 Set parameters if input is valid
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Protocol-Add_parameters"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-Add_parameters}{}}}
+\subsection{Method \code{Add_parameters()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Protocol$Add_parameters(parameters)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{parameters}}{an \link{ProtocolParameter} object}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Add parameters if input is valid
 }
 
 }
