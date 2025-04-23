@@ -1,11 +1,9 @@
 test_that("factor_values checking works", {
 	test_sample <- Sample$new()
 	checkmate::expect_r6(test_sample, "Sample")
-	## Comments ----
-	expect_null(test_sample$comments)
 
-	# test_sample$set_comments(list(test = "comment"))
-	# test_comments(test_sample)
+	## Comments ----
+	test_comments(test_sample)
 
 	## factor value ----
 	expect_error(
