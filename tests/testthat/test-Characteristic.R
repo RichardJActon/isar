@@ -50,10 +50,10 @@ test_that("Characteristic works", {
 	example_list <- list(
 		category = list(`@id` = "#charcat/example"),
 		unit = list(
-			`@id` = "#unit/milligram",
-			termAccession = "mg",
-			annotationValue = "milligram",
-			termSource = "Ontology of units of Measure (OM)"
+			`@id` = "#unit/milligram"# ,
+			# termAccession = "mg",
+			# annotationValue = "milligram",
+			# termSource = "Ontology of units of Measure (OM)"
 		),
 		value = 10# ,
 		# comments = NULL
