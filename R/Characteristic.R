@@ -176,9 +176,9 @@ Characteristic <- R6::R6Class(
 
 		#' @details
 		#' Set the unit as a valid ontology term, validity is currently
-		#' determined the presence of a unit in a the reference or the ability 
+		#' determined the presence of a unit in a the reference or the ability
 		#' to create a new unit object from the list.
-		#' @param lst a list to processed into a valid unit object 
+		#' @param lst a list to processed into a valid unit object
 		#set_valid_unit = function(unit_id, term, term_accession, term_source) {
 		set_valid_unit = function(lst) {
 			# browser()
@@ -211,10 +211,10 @@ Characteristic <- R6::R6Class(
 					self$unit_references$add_unit_references()
 			}
 		},
-		
+
 		#' @details
 		#' generate a tabular representation of the characteristic
-		#' @return a Tibble 
+		#' @return a Tibble
 		to_table = function() {
 			self$value$to_table() %>% purrr::set_names(
 				paste0("Characteristics[", self$category$type$term, "]"),
@@ -234,7 +234,8 @@ Characteristic <- R6::R6Class(
 			# if(recursive) {
 				lst[["category"]][["@id"]] <- self$category$`@id`
 				if(!is.null(self$unit)) {
-					lst[["unit"]] <- self$unit$to_list(recursive = recursive)
+					# lst[["unit"]] <- self$unit$to_list(recursive = recursive)
+					lst[["unit"]][["@id"]] <- self$unit$`@id`
 				}
 				if(checkmate::test_r6(self$value, "OntologyAnnotation")) {
 					lst[["value"]] <- self$value$to_list()
