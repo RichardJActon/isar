@@ -103,8 +103,6 @@ parameter.}
 \item{\code{protocol_references}}{The \link{Protocol References} object that exposes the category of this parameter.}
 
 \item{\code{comments}}{Comments associated with instances of this class.}
-
-\item{\code{@id}}{identifier}
 }
 \if{html}{\out{</div>}}
 }
@@ -322,13 +320,20 @@ Set the unit as a valid ontology term
 \if{latex}{\out{\hypertarget{method-ParameterValue-set_protocol}{}}}
 \subsection{Method \code{set_protocol()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ParameterValue$set_protocol(protocol)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ParameterValue$set_protocol(protocol, null.action = "error")}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{protocol}}{a protocol object}
+
+\item{\code{null.action}}{how to handle NULLs:
+\itemize{
+\item "error" throw an error
+\item "passthrough" set to NULL
+\item "create" set to an empty  \link{ProtocolReferences} object
+}}
 }
 \if{html}{\out{</div>}}
 }

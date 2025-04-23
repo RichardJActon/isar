@@ -59,7 +59,7 @@ An experimental Protocol used in the study.
 \item \href{#method-Protocol-set_protocol_type}{\code{Protocol$set_protocol_type()}}
 \item \href{#method-Protocol-check_parameters}{\code{Protocol$check_parameters()}}
 \item \href{#method-Protocol-set_parameters}{\code{Protocol$set_parameters()}}
-\item \href{#method-Protocol-Add_parameters}{\code{Protocol$Add_parameters()}}
+\item \href{#method-Protocol-add_parameters}{\code{Protocol$add_parameters()}}
 \item \href{#method-Protocol-check_components}{\code{Protocol$check_components()}}
 \item \href{#method-Protocol-set_components}{\code{Protocol$set_components()}}
 \item \href{#method-Protocol-check_comments}{\code{Protocol$check_comments()}}
@@ -86,7 +86,7 @@ An experimental Protocol used in the study.
   parameters = NULL,
   components = NULL,
   comments = NULL,
-  `@id` = NULL,
+  `@id` = character(),
   origin = character(),
   ontology_source_references = NULL,
   protocol_references = NULL
@@ -447,11 +447,11 @@ Set parameters if input is valid
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Protocol-Add_parameters"></a>}}
-\if{latex}{\out{\hypertarget{method-Protocol-Add_parameters}{}}}
-\subsection{Method \code{Add_parameters()}}{
+\if{html}{\out{<a id="method-Protocol-add_parameters"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-add_parameters}{}}}
+\subsection{Method \code{add_parameters()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Protocol$Add_parameters(parameters)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Protocol$add_parameters(parameters)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

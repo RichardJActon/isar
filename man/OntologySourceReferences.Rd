@@ -92,9 +92,6 @@ check ontology_sources is a list of \link{OntologySource} objects
 Add ontology sources to the
 }
 
-\subsection{Returns}{
-a vector of ontology source names
-}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OntologySourceReferences-add_ontology_source"></a>}}

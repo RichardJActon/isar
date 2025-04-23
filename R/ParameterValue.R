@@ -56,7 +56,7 @@ ParameterValue <- R6::R6Class(
 		#' @param protocol The [Protocol] object that exposes the category of this parameter.
 		#' @param protocol_references The [Protocol References] object that exposes the category of this parameter.
 		#' @param comments Comments associated with instances of this class.
-		#' @param @id identifier
+		# #' @param @id identifier
 		initialize = function(
 			category = NULL,
 			value = NULL,
@@ -175,6 +175,10 @@ ParameterValue <- R6::R6Class(
 		#' @details
 		#' set the protocol object
 		#' @param protocol a protocol object
+		#' @param null.action how to handle NULLs:
+		#' - "error" throw an error
+		#' - "passthrough" set to NULL
+		#' - "create" set to an empty  [ProtocolReferences] object
 		set_protocol = function(protocol, null.action = "error") {
 			if(is.null(protocol)) {
 				switch(null.action,

@@ -24,13 +24,15 @@ OA <- OntologyAnnotation$new()
 \describe{
 \item{\code{term}}{the name of ontology term}
 
-\item{\code{term_source}}{the ontology that is the source of the term represented by an \link{OntologySource} object}
+\item{\code{term_source}}{the ontology that is the source of the term represented
+by an \link{OntologySource} object}
 
 \item{\code{term_accession}}{the unique identifier of the ontology term}
 
 \item{\code{comments}}{comments}
 
-\item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object listing all the ontology sources used}
+\item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object
+listing all the ontology sources used}
 
 \item{\code{@id}}{identifier}
 }
@@ -77,13 +79,15 @@ OA <- OntologyAnnotation$new()
 \describe{
 \item{\code{term}}{the name of ontology term}
 
-\item{\code{term_source}}{the ontology that is the source of the term represented by an \link{OntologySource} object.}
+\item{\code{term_source}}{the ontology that is the source of the term
+represented by an \link{OntologySource} object.}
 
 \item{\code{term_accession}}{the unique identifier of the ontology term}
 
 \item{\code{comments}}{comments}
 
-\item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object listing all the ontology sources used.}
+\item{\code{ontology_source_references}}{an \link{OntologySourceReferences}
+object listing all the ontology sources used.}
 
 \item{\code{@id}}{identifier}
 }
@@ -118,7 +122,8 @@ create a new factor value
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Checks that the source of ontology terms is an \link{OntologySource} object
+Checks that the source of ontology terms is an \link{OntologySource}
+object
 }
 
 }
@@ -138,7 +143,8 @@ Checks that the source of ontology terms is an \link{OntologySource} object
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Checks that the supplied term is in the list of valid terms from the ontology source object
+Checks that the supplied term is in the list of valid terms from the
+ontology source object
 }
 
 }
@@ -158,7 +164,8 @@ Checks that the supplied term is in the list of valid terms from the ontology so
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Checks that the supplied term accession is in the the list of valid accession terms from the ontology source object
+Checks that the supplied term accession is in the the list of valid
+accession terms from the ontology source object
 }
 
 }
@@ -198,7 +205,8 @@ Sets the value of term_source if it passes the checks
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Sets the term and the term accession corresponding to that term if the term passes validity checks
+Sets the term and the term accession corresponding to that term if
+the term passes validity checks
 }
 
 }
@@ -218,7 +226,8 @@ Sets the term and the term accession corresponding to that term if the term pass
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Sets the term accession and the term corresponding to that accession if the accession passes validity checks
+Sets the term accession and the term corresponding to that accession
+if the accession passes validity checks
 }
 
 }
@@ -337,7 +346,8 @@ a Tibble
 \describe{
 \item{\code{ld}}{logical json-ld}
 
-\item{\code{recursive}}{call to_list methods of any objects within this object (default FALSE)}
+\item{\code{recursive}}{call to_list methods of any objects within this
+object (default FALSE)}
 }
 \if{html}{\out{</div>}}
 }
@@ -359,7 +369,8 @@ generate an R list representation translatable to JSON
 \describe{
 \item{\code{lst}}{an ontology source object serialized to a list}
 
-\item{\code{recursive}}{call to_list methods of any objects within this object (default FALSE)}
+\item{\code{recursive}}{call to_list methods of any objects within
+this object (default FALSE)}
 
 \item{\code{json}}{json  (default TRUE)}
 }

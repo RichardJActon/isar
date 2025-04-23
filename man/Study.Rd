@@ -31,7 +31,7 @@ study is the central unit, containing information on the subject under study, it
 
 \item{\code{factors}}{A factor corresponds to an independent variable manipulated by the experimentalist with the intention to affect biological systems in a way that can be measured by an assay.}
 
-\item{\code{protocols}}{Protocols used within the ISA artifact.}
+\item{\code{protocol_references}}{Protocols used within the ISA artefact.}
 
 \item{\code{assays}}{An Assay represents a portion of the experimental design.}
 
@@ -110,7 +110,7 @@ study is the central unit, containing information on the subject under study, it
   contacts = NULL,
   publications = NULL,
   factors = NULL,
-  protocols = NULL,
+  protocol_references = NULL,
   assays = NULL,
   sources = NULL,
   samples = NULL,
@@ -148,7 +148,7 @@ study is the central unit, containing information on the subject under study, it
 
 \item{\code{factors}}{A factor corresponds to an independent variable manipulated by the experimentalist with the intention to affect biological systems in a way that can be measured by an assay.}
 
-\item{\code{protocols}}{Protocols used within the ISA artifact.}
+\item{\code{protocol_references}}{protocol_references used within the ISA artefact.}
 
 \item{\code{assays}}{An Assay represents a portion of the experimental design.}
 

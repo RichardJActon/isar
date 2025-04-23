@@ -47,6 +47,9 @@ Sample$new()
 \item \href{#method-Sample-new}{\code{Sample$new()}}
 \item \href{#method-Sample-check_name}{\code{Sample$check_name()}}
 \item \href{#method-Sample-set_name}{\code{Sample$set_name()}}
+\item \href{#method-Sample-check_comments}{\code{Sample$check_comments()}}
+\item \href{#method-Sample-set_comments}{\code{Sample$set_comments()}}
+\item \href{#method-Sample-add_comment}{\code{Sample$add_comment()}}
 \item \href{#method-Sample-check_factor_values}{\code{Sample$check_factor_values()}}
 \item \href{#method-Sample-set_factor_values}{\code{Sample$set_factor_values()}}
 \item \href{#method-Sample-to_list}{\code{Sample$to_list()}}
@@ -148,6 +151,66 @@ Check if the name of the material is a string
 }
 \subsection{Details}{
 set the name of the material if valid
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Sample-check_comments"></a>}}
+\if{latex}{\out{\hypertarget{method-Sample-check_comments}{}}}
+\subsection{Method \code{check_comments()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Sample$check_comments(comments)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comments}}{comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+checks if comments are a named list of character vectors
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Sample-set_comments"></a>}}
+\if{latex}{\out{\hypertarget{method-Sample-set_comments}{}}}
+\subsection{Method \code{set_comments()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Sample$set_comments(comments)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comments}}{a list of comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Sets comments if they are in a valid format
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Sample-add_comment"></a>}}
+\if{latex}{\out{\hypertarget{method-Sample-add_comment}{}}}
+\subsection{Method \code{add_comment()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Sample$add_comment(comment)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{comment}}{a list of comments}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Add comment if it is in a valid format
 }
 
 }

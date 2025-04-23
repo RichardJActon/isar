@@ -40,7 +40,7 @@ experimental workflow described by a particular protocol.
 
 \item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object listing all the ontology sources used}
 
-\item{\code{protocols}}{\link{Protocol} objects}
+\item{\code{protocol_references}}{\link{Protocol} objects}
 
 \item{\code{@id}}{identifier}
 }
@@ -95,7 +95,7 @@ experimental workflow described by a particular protocol.
   data_files = NULL,
   ontology_source_references = NULL,
   unit_references = NULL,
-  protocols = NULL,
+  protocol_references = NULL,
   `@id` = character()
 )}\if{html}{\out{</div>}}
 }
@@ -127,7 +127,7 @@ experimental workflow described by a particular protocol.
 
 \item{\code{unit_references}}{A list of units used as a \link{UnitReferences} object.}
 
-\item{\code{protocols}}{\link{Protocol} objects}
+\item{\code{protocol_references}}{\link{Protocol} objects}
 
 \item{\code{@id}}{identifier}
 }

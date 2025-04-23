@@ -11,7 +11,7 @@
 #' @field outputs A list of output materials, possibly [Sample]s, [Material]s, [DataFile]s
 #' @field comments Comments associated with instances of this class.
 #' @field @id identifier
-#' @field protocol_referencs list of available [ProtocolReferences]s
+#' @field protocol_references list of available [ProtocolReferences]s
 #' @field sources list of available [Source]s
 #' @field samples list of available [Sample]s
 #' @field next_process id of the next process in the sequence
