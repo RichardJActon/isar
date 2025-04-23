@@ -273,10 +273,23 @@ Assay <- R6::R6Class(
 				}
 				warning(
 					"None of the samples with the supplied IDs were found!\n",
-					"Recording IDs in place referencing appropriate sample objects!"
+					# "Recording IDs in place referencing appropriate sample objects!"
+					"Generating filler sample objects!"
 				)
-				self$samples <- sample_ids
-				names(self$samples) <- sample_ids
+				# self$samples <- sample_ids
+				# names(self$samples) <- sample_ids
+
+				self$samples <- sample_ids %>% purrr::set_names(sample_ids) %>%
+					purrr::map(~{
+						s <- Sample$new(
+							`@id` = .x,
+							ontology_source_references =
+								self$ontology_source_references,
+							unit_references = self$unit_references
+						)
+						s
+					})
+
 			}
 		},
 		# # Getters
