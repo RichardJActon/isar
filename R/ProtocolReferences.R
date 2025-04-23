@@ -100,7 +100,8 @@ ProtocolReferences <- R6::R6Class(
 				p$from_list(.x)
 				p
 			}) %>%
-				purrr::set_names(., purrr::map_chr(., ~.x[["@id"]]))
+				purrr::set_names(., purrr::map_chr(., ~.x[["@id"]])) %>%
+				self$set_protocols()
 		},
 		#' @details
 		#' Pretty prints the [ProtocolReferences] object
