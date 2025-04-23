@@ -118,6 +118,24 @@ Sample <- R6::R6Class(
 			if (self$check_name(name)) { self$name <- name }
 		},
 		#' @details
+		#' checks if comments are a named list of character vectors
+		#' @param comments comments
+		check_comments = function(comments) { check_comments(comments) },
+		#' @details
+		#' Sets comments if they are in a valid format
+		#' @param comments a list of comments
+		set_comments = function(comments) {
+			if(self$check_comments(comments)) { self$comments <- comments }
+		},
+		#' @details
+		#' Add comment if it is in a valid format
+		#' @param comment a list of comments
+		add_comment = function(comment) {
+			if(self$check_comments(comment)) {
+				self$comments <- c(comments, comment)
+			}
+		},
+		#' @details
 		#'
 		#' validates the factor_values field is a list of [FactorValue] objects
 		#'
