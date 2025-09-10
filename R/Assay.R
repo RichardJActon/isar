@@ -22,7 +22,7 @@
 #' @field comments Comments associated with instances of this class
 #' @field data_files [DataFile] objects
 #' @field ontology_source_references an [OntologySourceReferences] object listing all the ontology sources used
-#' @field protocol_references [Protocol] objects
+#' @field protocol_references [ProtocolReferences] objects
 #' @field @id identifier
 #'
 #' @importFrom R6 R6Class
@@ -67,7 +67,7 @@ Assay <- R6::R6Class(
 		#' @param comments Comments associated with instances of this class.
 		#' @param data_files [DataFile] objects.
 		#' @param ontology_source_references an [OntologySourceReferences] object listing all the ontology sources used.
-		#' @param protocol_references [Protocol] objects
+		#' @param protocol_references [ProtocolReferences] objects
 		#' @param @id identifier
 		initialize = function(
 			measurement_type = NULL,
@@ -115,7 +115,8 @@ Assay <- R6::R6Class(
 			self$data_files <- data_files
 			self$ontology_source_references <- ontology_source_references
 			self$unit_references <- unit_references
-			self$protocol_references <- protocol_references
+			# self$protocol_references <- protocol_references
+			self$set_protocol_references(protocol_references, null.action = "create")
 			self$`@id` <- `@id`
 		},
 		#' @details
@@ -291,6 +292,19 @@ Assay <- R6::R6Class(
 					})
 
 			}
+		},
+
+		#' @details
+		#'
+		#' Specify the [ProtocolReferences] for the [ProtocolParameter]
+		#'
+		#' @param protocol_references an [ProtocolReferences] object
+		#' @param null.action how to handle NULLs:
+		#' - "error" thow an error
+		#' - "passthrough" set to NULL
+		#' - "create" set to an empty  [ProtocolReferences] object
+		set_protocol_references = function(protocol_references, null.action) {
+			set_protocol_references(self, protocol_references, null.action)
 		},
 		# # Getters
 		# ## Shiny
