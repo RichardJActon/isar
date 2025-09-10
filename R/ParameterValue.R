@@ -54,7 +54,7 @@ ParameterValue <- R6::R6Class(
 		#' @param ontology_source_references ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor.
 		#' @param unit_references A list of units used as a [UnitReferences] object
 		#' @param protocol The [Protocol] object that exposes the category of this parameter.
-		#' @param protocol_references The [Protocol References] object that exposes the category of this parameter.
+		#' @param protocol_references The [ProtocolReferences] object that exposes the category of this parameter.
 		#' @param comments Comments associated with instances of this class.
 		# #' @param @id identifier
 		initialize = function(
