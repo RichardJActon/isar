@@ -147,7 +147,7 @@ Study <- R6::R6Class(
 			self$characteristic_categories <- characteristic_categories
 			self$comments <- comments
 			# self$units <- units
-			self$ontology_source_references <- ontology_source_references
+			self$set_ontology_source_references(ontology_source_references, null.action = "create")
 			self$unit_references <- unit_references
 		},
 		#' @details
@@ -333,6 +333,18 @@ Study <- R6::R6Class(
 			self$process_sequence %>% purrr::map_chr(~.x$name)
 		},
 
+		#' @details
+		#'
+		#' specify the ontology source references for the [Study]
+		#'
+		#' @param ontology_source_references an [OntologySourceReferences] object
+		#' @param null.action how to handle NULLs:
+		#' - "error" throw an error
+		#' - "passthrough" set to NULL
+		#' - "create" set to an empty  [OntologySourceReferences] object
+		set_ontology_source_references = function(ontology_source_references, null.action) {
+			set_ontology_source_references(self, ontology_source_references, null.action)
+		},
 		# #' get_processes_by_inputs
 		# #'
 		# #' vectors of the processes associated with unique inputs
