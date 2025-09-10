@@ -196,13 +196,16 @@ ParameterValue <- R6::R6Class(
 								self$ontology_source_references,
 							protocol_references = self$protocol_references,
 							# origin = self$`@id`,
-							origin = paste("generated protocol for parameter value", pid),
+							origin = paste(
+								"generated protocol for parameter value", pid
+							),
 							name = "Unknown Protocol",
 							`@id` = pid
 						) %>%
 							list() %>%
 							purrr::set_names(pid) %>%
 							self$protocol_references$add_protocols()
+
 						self$protocol <-
 							self$protocol_references$protocols[[pid]]
 					}
@@ -243,13 +246,16 @@ ParameterValue <- R6::R6Class(
 					ontology_source_references =
 						self$ontology_source_references,
 					protocol_references = self$protocol_references,
-					origin = paste("generated protocol for parameter value", pid),
+					origin = paste(
+						"generated protocol for parameter value", pid
+					),
 					name = "Unknown Protocol",
 					`@id` = pid
 				) %>%
 					list() %>%
 					purrr::set_names(pid) %>%
 					self$protocol_references$add_protocols()
+
 				self$protocol <-
 					self$protocol_references$protocols[[pid]]
 			}
