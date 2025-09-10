@@ -144,7 +144,7 @@ ProtocolParameter <- R6::R6Class(
 				"FALSE" = self$parameter_name$term
 			)
 			if (!is.null(self$comments)) {
-				lat[["comments"]] <- self$comments
+				lst[["comments"]] <- self$comments
 			}
 			lst[["@id"]] <- self$`@id`
 			return(lst)
