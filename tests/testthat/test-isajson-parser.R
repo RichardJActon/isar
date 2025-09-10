@@ -271,6 +271,9 @@ test_that("Can parse isa-json", {
 		for (ex in protocols) {
 			obj <- Protocol$new()
 			# ex <- json_example[["studies"]][[1]][["protocols"]][[1]]
+			# ex <- protocols[[11]] # grow protocol - used in process from study 2
+			# ex <- protocols[[14]] # has a parameter
+			# ex <- protocols[[19]] # has 3 parameters
 			warns <- capture_warnings(obj$from_list(ex))
 			# ex$protocolType[["termAccession"]] <- ""
 			# ex$protocolType[["termSource"]] <- ""
