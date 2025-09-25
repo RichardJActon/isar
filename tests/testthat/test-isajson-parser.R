@@ -20,6 +20,7 @@ test_that("Can parse isa-json", {
 	# library(devtools)
 	# load_all()
 
+
 	# inv <- Investigation$new()
 	# inv$from_list(BII_I_1_jsonlite, recursive = TRUE, json = TRUE)
 
@@ -271,9 +272,9 @@ test_that("Can parse isa-json", {
 		for (ex in protocols) {
 			obj <- Protocol$new()
 			# ex <- json_example[["studies"]][[1]][["protocols"]][[1]]
-			# ex <- protocols[[11]] # grow protocol - used in process from study 2
+			# ex <- json_example$studies[[2]]$protocols[[3]] # grow protocol - used in process from study 2
 			# ex <- protocols[[14]] # has a parameter
-			# ex <- protocols[[19]] # has 3 parameters
+			# ex <- BII_S_3_jsonlite$studies[[1]]$protocols[[5]] # has 3 parameters
 			warns <- capture_warnings(obj$from_list(ex))
 			# ex$protocolType[["termAccession"]] <- ""
 			# ex$protocolType[["termSource"]] <- ""
@@ -294,7 +295,7 @@ test_that("Can parse isa-json", {
 			obj <- Process$new()
 			# ex <- json_example[["studies"]][[1]][["processSequence"]][[1]]
 			# ex <- json_example$studies[[2]]$processSequence[[1]]
-			# ex <- BII_S_3_jsonlite$studies[[1]]$processSequence[[1]]
+			# ex <- BII_S_3_jsonlite$studies[[1]]$processSequence[[1]] # contains parameter values
 			warns <- capture_warnings(obj$from_list(ex))
 			expect_equal(
 				unlist_sort_by_name(obj$to_list()), unlist_sort_by_name(ex)
@@ -357,6 +358,7 @@ test_that("Can parse isa-json", {
 			# print(ex$`@id`)
 			obj <- Assay$new()
 			#ex <- BII_S_3_jsonlite$studies[[1]]$assays[[1]]
+			# ex <- json_example$studies[[1]]$assays[[1]]
 			# ex <- json_example$studies[[1]]$assays[[2]]
 			# ex <- json_example$studies[[2]]$assays[[1]]
 			warns <- capture_warnings(obj$from_list(ex))
