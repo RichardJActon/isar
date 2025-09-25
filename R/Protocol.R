@@ -13,7 +13,6 @@
 #' @field @id identifier
 #' @field origin the id of source assay from which the protocol was generated
 #' @field ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor.
-#' @field protocol_references a [ProtocolReferences] object
 #'
 #' @importFrom R6 R6Class
 #' @importFrom checkmate qtest check_string check_r6 test_list
@@ -36,7 +35,6 @@ Protocol <- R6::R6Class(
 		`@id` = character(),
 		origin = character(),
 		ontology_source_references = NULL,
-		protocol_references = NULL,
 		#' @details
 		#' Create a new Protocol object
 		#' @param name The name of the protocol used
@@ -51,7 +49,6 @@ Protocol <- R6::R6Class(
 		#change origin to source
 		#' @param origin the id of source assay from which the protocol was generated
 		#' @param ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor.
-		#' @param protocol_references a [ProtocolReferences] object
 		initialize = function(
 			name = character(),
 			protocol_type = NULL,
@@ -63,8 +60,7 @@ Protocol <- R6::R6Class(
 			comments = NULL,
 			`@id` = character(),
 			origin = character(),
-			ontology_source_references = NULL,
-			protocol_references = NULL
+			ontology_source_references = NULL
 		) {
 			if (checkmate::qtest(name, "S[0]")) { self$name <- name } else {
 				self$set_name(name)
@@ -100,9 +96,6 @@ Protocol <- R6::R6Class(
 			self$set_ontology_source_references(
 				ontology_source_references, null.action = "create"
 			)
-			self$set_protocol_references(
-				protocol_references, null.action = "passthrough" # "create"
-			)
 		},
 
 		#' @details
@@ -118,29 +111,6 @@ Protocol <- R6::R6Class(
 			set_ontology_source_references(self, ontology_source_references, null.action)
 		},
 
-		#' @details
-		#'
-		#' specify the protocol references for the [Protocol]
-		#'
-		#' @param protocol_references an [ProtocolReferences] object
-		#' @param null.action how to handle NULLs:
-		#' - "error" throw an error
-		#' - "passthrough" set to NULL
-		#' - "create" set to an empty  [ProtocolReferences] object
-		set_protocol_references = function(protocol_references, null.action) {
-			set_protocol_references(self, protocol_references, null.action)
-		},
-
-		#' @details
-		#'
-		#' returns TRUE if protocol_references is a [ProtocolReferences]
-		#' object and throws an error if it is not
-		#'
-		#' @param protocol_references something you want to check is an
-		#' [ProtocolReferences] object.
-		check_protocol_references = function(protocol_references) {
-			check_ontology_source_references(protocol_references)
-		},
 		#' @details
 		#' Check that name is a single string
 		#' @param name the name of the protocol
