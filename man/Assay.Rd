@@ -40,7 +40,7 @@ experimental workflow described by a particular protocol.
 
 \item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object listing all the ontology sources used}
 
-\item{\code{protocol_references}}{\link{Protocol} objects}
+\item{\code{protocol_references}}{\link{ProtocolReferences} objects}
 
 \item{\code{@id}}{identifier}
 }
@@ -65,6 +65,7 @@ experimental workflow described by a particular protocol.
 \item \href{#method-Assay-check_sample_ids}{\code{Assay$check_sample_ids()}}
 \item \href{#method-Assay-set_samples}{\code{Assay$set_samples()}}
 \item \href{#method-Assay-set_samples_by_id}{\code{Assay$set_samples_by_id()}}
+\item \href{#method-Assay-set_protocol_references}{\code{Assay$set_protocol_references()}}
 \item \href{#method-Assay-to_list}{\code{Assay$to_list()}}
 \item \href{#method-Assay-header_table}{\code{Assay$header_table()}}
 \item \href{#method-Assay-to_table}{\code{Assay$to_table()}}
@@ -127,7 +128,7 @@ experimental workflow described by a particular protocol.
 
 \item{\code{unit_references}}{A list of units used as a \link{UnitReferences} object.}
 
-\item{\code{protocol_references}}{\link{Protocol} objects}
+\item{\code{protocol_references}}{\link{ProtocolReferences} objects}
 
 \item{\code{@id}}{identifier}
 }
@@ -441,6 +442,33 @@ Set samples if samples is a list of \link{Sample} objects
 }
 \subsection{Details}{
 Set samples if samples is a list of ids of \link{Sample} objects
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Assay-set_protocol_references"></a>}}
+\if{latex}{\out{\hypertarget{method-Assay-set_protocol_references}{}}}
+\subsection{Method \code{set_protocol_references()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Assay$set_protocol_references(protocol_references, null.action)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{protocol_references}}{an \link{ProtocolReferences} object}
+
+\item{\code{null.action}}{how to handle NULLs:
+\itemize{
+\item "error" thow an error
+\item "passthrough" set to NULL
+\item "create" set to an empty  \link{ProtocolReferences} object
+}}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Specify the \link{ProtocolReferences} for the \link{ProtocolParameter}
 }
 
 }

@@ -33,7 +33,7 @@ Process nodes represent the application of a protocol to some input material
 
 \item{\code{@id}}{identifier}
 
-\item{\code{protocol_references}}{list of available \link{ProtocolReferences}s}
+\item{\code{protocol_references}}{\link{ProtocolReferences} object}
 
 \item{\code{sources}}{list of available \link{Source}s}
 
@@ -65,9 +65,8 @@ Process nodes represent the application of a protocol to some input material
 \item \href{#method-Process-check_comments}{\code{Process$check_comments()}}
 \item \href{#method-Process-set_comments}{\code{Process$set_comments()}}
 \item \href{#method-Process-add_comment}{\code{Process$add_comment()}}
-\item \href{#method-Process-set_ontology_source_references}{\code{Process$set_ontology_source_references()}}
-\item \href{#method-Process-set_protocol_references}{\code{Process$set_protocol_references()}}
 \item \href{#method-Process-set_unit_references}{\code{Process$set_unit_references()}}
+\item \href{#method-Process-set_protocol_references}{\code{Process$set_protocol_references()}}
 \item \href{#method-Process-to_table}{\code{Process$to_table()}}
 \item \href{#method-Process-to_list}{\code{Process$to_list()}}
 \item \href{#method-Process-from_list}{\code{Process$from_list()}}
@@ -124,7 +123,7 @@ Process nodes represent the application of a protocol to some input material
 
 \item{\code{@id}}{identifier}
 
-\item{\code{protocol_references}}{list of available \link{ProtocolReferences}s}
+\item{\code{protocol_references}}{\link{ProtocolReferences} object}
 
 \item{\code{sources}}{list of available \link{Source}s}
 
@@ -312,60 +311,6 @@ Add comment if it is in a valid format
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Process-set_ontology_source_references"></a>}}
-\if{latex}{\out{\hypertarget{method-Process-set_ontology_source_references}{}}}
-\subsection{Method \code{set_ontology_source_references()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Process$set_ontology_source_references(ontology_source_references, null.action)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object}
-
-\item{\code{null.action}}{how to handle NULLs:
-\itemize{
-\item "error" throw an error
-\item "passthrough" set to NULL
-\item "create" set to an empty  \link{OntologySourceReferences} object
-}}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-specify the ontology source references for the \link{Protocol}
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Process-set_protocol_references"></a>}}
-\if{latex}{\out{\hypertarget{method-Process-set_protocol_references}{}}}
-\subsection{Method \code{set_protocol_references()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Process$set_protocol_references(protocol_references, null.action)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{protocol_references}}{an \link{ProtocolReferences} object}
-
-\item{\code{null.action}}{how to handle NULLs:
-\itemize{
-\item "error" throw an error
-\item "passthrough" set to NULL
-\item "create" set to an empty  \link{ProtocolReferences} object
-}}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-specify the protocol references for the \link{Protocol}
-}
-
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Process-set_unit_references"></a>}}
 \if{latex}{\out{\hypertarget{method-Process-set_unit_references}{}}}
 \subsection{Method \code{set_unit_references()}}{
@@ -389,6 +334,33 @@ specify the protocol references for the \link{Protocol}
 }
 \subsection{Details}{
 specify the unit references for the \link{Protocol}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Process-set_protocol_references"></a>}}
+\if{latex}{\out{\hypertarget{method-Process-set_protocol_references}{}}}
+\subsection{Method \code{set_protocol_references()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Process$set_protocol_references(protocol_references, null.action)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{protocol_references}}{an \link{ProtocolReferences} object}
+
+\item{\code{null.action}}{how to handle NULLs:
+\itemize{
+\item "error" thow an error
+\item "passthrough" set to NULL
+\item "create" set to an empty  \link{ProtocolReferences} object
+}}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Specify the \link{ProtocolReferences} for the \link{ProtocolParameter}
 }
 
 }

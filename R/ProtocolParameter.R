@@ -23,6 +23,7 @@ ProtocolParameter <- R6::R6Class(
 		#' @param parameter_name A parameter name as an ontology term
 		#' @param ontology_source_references an [OntologySourceReferences] object
 		#' @param comments Comments associated with instances of this class.
+		#' @param protocol a [Protocol] object
 		#' @param @id identifier
 		initialize = function(
 			parameter_name = NULL,

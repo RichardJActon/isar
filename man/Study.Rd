@@ -31,7 +31,7 @@ study is the central unit, containing information on the subject under study, it
 
 \item{\code{factors}}{A factor corresponds to an independent variable manipulated by the experimentalist with the intention to affect biological systems in a way that can be measured by an assay.}
 
-\item{\code{protocol_references}}{Protocols used within the ISA artefact.}
+\item{\code{protocol_references}}{protocol_references used within the ISA artifact.}
 
 \item{\code{assays}}{An Assay represents a portion of the experimental design.}
 
@@ -81,6 +81,8 @@ study is the central unit, containing information on the subject under study, it
 \item \href{#method-Study-check_for_unused_samples}{\code{Study$check_for_unused_samples()}}
 \item \href{#method-Study-get_source_names}{\code{Study$get_source_names()}}
 \item \href{#method-Study-get_process_names}{\code{Study$get_process_names()}}
+\item \href{#method-Study-set_protocol_references}{\code{Study$set_protocol_references()}}
+\item \href{#method-Study-set_ontology_source_references}{\code{Study$set_ontology_source_references()}}
 \item \href{#method-Study-header_table}{\code{Study$header_table()}}
 \item \href{#method-Study-to_table}{\code{Study$to_table()}}
 \item \href{#method-Study-cat_table}{\code{Study$cat_table()}}
@@ -148,7 +150,7 @@ study is the central unit, containing information on the subject under study, it
 
 \item{\code{factors}}{A factor corresponds to an independent variable manipulated by the experimentalist with the intention to affect biological systems in a way that can be measured by an assay.}
 
-\item{\code{protocol_references}}{protocol_references used within the ISA artefact.}
+\item{\code{protocol_references}}{protocol_references used within the ISA artifact.}
 
 \item{\code{assays}}{An Assay represents a portion of the experimental design.}
 
@@ -576,6 +578,60 @@ get the names of \link{Process}es
 \subsection{Returns}{
 character vector of sources names
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Study-set_protocol_references"></a>}}
+\if{latex}{\out{\hypertarget{method-Study-set_protocol_references}{}}}
+\subsection{Method \code{set_protocol_references()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Study$set_protocol_references(protocol_references, null.action)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{protocol_references}}{an \link{ProtocolReferences} object}
+
+\item{\code{null.action}}{how to handle NULLs:
+\itemize{
+\item "error" thow an error
+\item "passthrough" set to NULL
+\item "create" set to an empty  \link{ProtocolReferences} object
+}}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Specify the \link{ProtocolReferences} for the \link{ProtocolParameter}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Study-set_ontology_source_references"></a>}}
+\if{latex}{\out{\hypertarget{method-Study-set_ontology_source_references}{}}}
+\subsection{Method \code{set_ontology_source_references()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Study$set_ontology_source_references(ontology_source_references, null.action)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object}
+
+\item{\code{null.action}}{how to handle NULLs:
+\itemize{
+\item "error" throw an error
+\item "passthrough" set to NULL
+\item "create" set to an empty  \link{OntologySourceReferences} object
+}}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+specify the ontology source references for the \link{Study}
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Study-header_table"></a>}}

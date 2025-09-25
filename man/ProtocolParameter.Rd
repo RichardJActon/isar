@@ -26,6 +26,8 @@ pp$to_list()
 
 \item{\code{comments}}{Comments associated with instances of this class.}
 
+\item{\code{protocol}}{Protocols object for which this is a parameter}
+
 \item{\code{@id}}{identifier}
 }
 \if{html}{\out{</div>}}
@@ -56,6 +58,7 @@ pp$to_list()
   parameter_name = NULL,
   ontology_source_references = NULL,
   comments = NULL,
+  protocol = NULL,
   `@id` = character()
 )}\if{html}{\out{</div>}}
 }
@@ -68,6 +71,8 @@ pp$to_list()
 \item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object}
 
 \item{\code{comments}}{Comments associated with instances of this class.}
+
+\item{\code{protocol}}{a \link{Protocol} object}
 
 \item{\code{@id}}{identifier}
 }

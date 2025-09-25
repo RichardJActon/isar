@@ -100,7 +100,7 @@ parameter.}
 
 \item{\code{protocol}}{The \link{Protocol} object that exposes the category of this parameter.}
 
-\item{\code{protocol_references}}{The \link{Protocol References} object that exposes the category of this parameter.}
+\item{\code{protocol_references}}{The \link{ProtocolReferences} object that exposes the category of this parameter.}
 
 \item{\code{comments}}{Comments associated with instances of this class.}
 }

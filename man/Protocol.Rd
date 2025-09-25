@@ -35,8 +35,6 @@ An experimental Protocol used in the study.
 \item{\code{origin}}{the id of source assay from which the protocol was generated}
 
 \item{\code{ontology_source_references}}{\link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor.}
-
-\item{\code{protocol_references}}{a \link{ProtocolReferences} object}
 }
 \if{html}{\out{</div>}}
 }
@@ -45,8 +43,6 @@ An experimental Protocol used in the study.
 \itemize{
 \item \href{#method-Protocol-new}{\code{Protocol$new()}}
 \item \href{#method-Protocol-set_ontology_source_references}{\code{Protocol$set_ontology_source_references()}}
-\item \href{#method-Protocol-set_protocol_references}{\code{Protocol$set_protocol_references()}}
-\item \href{#method-Protocol-check_protocol_references}{\code{Protocol$check_protocol_references()}}
 \item \href{#method-Protocol-check_name}{\code{Protocol$check_name()}}
 \item \href{#method-Protocol-set_name}{\code{Protocol$set_name()}}
 \item \href{#method-Protocol-check_description}{\code{Protocol$check_description()}}
@@ -88,8 +84,7 @@ An experimental Protocol used in the study.
   comments = NULL,
   `@id` = character(),
   origin = character(),
-  ontology_source_references = NULL,
-  protocol_references = NULL
+  ontology_source_references = NULL
 )}\if{html}{\out{</div>}}
 }
 
@@ -117,8 +112,6 @@ An experimental Protocol used in the study.
 \item{\code{origin}}{the id of source assay from which the protocol was generated}
 
 \item{\code{ontology_source_references}}{\link{OntologySource}s to be referenced by \link{OntologyAnnotation}s used in this ISA descriptor.}
-
-\item{\code{protocol_references}}{a \link{ProtocolReferences} object}
 }
 \if{html}{\out{</div>}}
 }
@@ -154,55 +147,6 @@ Create a new Protocol object
 }
 \subsection{Details}{
 specify the ontology source references for the \link{Protocol}
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Protocol-set_protocol_references"></a>}}
-\if{latex}{\out{\hypertarget{method-Protocol-set_protocol_references}{}}}
-\subsection{Method \code{set_protocol_references()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Protocol$set_protocol_references(protocol_references, null.action)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{protocol_references}}{an \link{ProtocolReferences} object}
-
-\item{\code{null.action}}{how to handle NULLs:
-\itemize{
-\item "error" throw an error
-\item "passthrough" set to NULL
-\item "create" set to an empty  \link{ProtocolReferences} object
-}}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-specify the protocol references for the \link{Protocol}
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Protocol-check_protocol_references"></a>}}
-\if{latex}{\out{\hypertarget{method-Protocol-check_protocol_references}{}}}
-\subsection{Method \code{check_protocol_references()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Protocol$check_protocol_references(protocol_references)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{protocol_references}}{something you want to check is an
-\link{ProtocolReferences} object.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-returns TRUE if protocol_references is a \link{ProtocolReferences}
-object and throws an error if it is not
 }
 
 }

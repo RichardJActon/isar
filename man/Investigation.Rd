@@ -395,18 +395,28 @@ Check that input is an \link{OntologySourceReferences} object
 \if{latex}{\out{\hypertarget{method-Investigation-set_ontology_source_references}{}}}
 \subsection{Method \code{set_ontology_source_references()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Investigation$set_ontology_source_references(ontology_source_references)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Investigation$set_ontology_source_references(
+  ontology_source_references,
+  null.action
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{ontology_source_references}}{an \link{OntologySourceReferences} object}
+
+\item{\code{null.action}}{how to handle NULLs:
+\itemize{
+\item "error" throw an error
+\item "passthrough" set to NULL
+\item "create" set to an empty  \link{OntologySourceReferences} object
+}}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Set ontology_source_references to be an \link{OntologySourceReferences} object
+specify the ontology source references for the \link{Investigation}
 }
 
 }
