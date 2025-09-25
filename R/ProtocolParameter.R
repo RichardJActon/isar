@@ -3,6 +3,7 @@
 #' @field parameter_name A parameter name as an ontology term
 #' @field ontology_source_references an [OntologySourceReferences] object
 #' @field comments Comments associated with instances of this class.
+#' @field protocol Protocols object for which this is a parameter
 #' @field @id identifier
 #'
 #' @importFrom R6 R6Class
@@ -15,6 +16,7 @@ ProtocolParameter <- R6::R6Class(
 		parameter_name = NULL,
 		ontology_source_references = NULL,
 		comments = NULL,
+		protocol = NULL,
 		`@id` = character(),
 		#' @details
 		#' Create a new [ProtocolParameter] object
@@ -26,6 +28,7 @@ ProtocolParameter <- R6::R6Class(
 			parameter_name = NULL,
 			ontology_source_references = NULL,
 			comments = NULL,
+			protocol = NULL,
 			`@id` = character()
 		) {
 			self$set_ontology_source_references(
@@ -42,6 +45,7 @@ ProtocolParameter <- R6::R6Class(
 			}
 			self$comments <- comments
 			self$`@id` <- `@id`
+			self$protocol <- protocol
 		},
 		#' @details
 		#'
@@ -84,19 +88,21 @@ ProtocolParameter <- R6::R6Class(
 				# parameter_name$term_source$name %>% print()
 
 				if(!is.null(parameter_name$term_source$name)) {
-
-				if(
-					!parameter_name$term_source$name %in%
-					self$ontology_source_references$get_ontology_source_names()
-				) {
-					parameter_name$term_source %>%
-						self$ontology_source_references$add_ontology_source()
-					warning(
-						"ontology annotation source was not present in the",
-						" OntologySourceReferences!\n",
-						"Attempting to add it ..."
-					)
-				}
+					if(
+						parameter_name$term_source$name %in%
+						self$ontology_source_references$get_ontology_source_names()
+					) {
+						self$parameter_name <- parameter_name
+					} else {
+						parameter_name$term_source %>%
+							self$ontology_source_references$add_ontology_source()
+						warning(
+							"ontology annotation source was not present in the",
+							" OntologySourceReferences!\n",
+							"Attempting to add it ..."
+						)
+						self$parameter_name <- parameter_name
+					}
 				}
 				# self$parameter_name <- parameter_name
 				# self$parameter_name <- ParameterValue$new(
