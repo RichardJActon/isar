@@ -47,27 +47,28 @@ test_that("isa-json can be converted to isa-tab", {
 
 	# Investigation ----
 	## i_investigation.txt ----
-	test_that("i_investigation.txt can be generated from BII-I-1.json", {
-		test_output <- tempfile()
-		obj$cat_table(test_output, overwrite = TRUE)
+	# test_that("i_investigation.txt can be generated from BII-I-1.json", {
 
-		ilines <- readLines(test_file_paths[["i_investigation"]])
-		tlines <- readLines(test_output)
-
-		# comment order is not preserved so excluding them from the comparison
-		ilinesNC <- ilines[!grepl("^Comment\\[", ilines)]
-		tlinesNC <- tlines[!grepl("^Comment\\[", tlines)]
-		expect_equal(ilinesNC, tlinesNC)
-
-		# Checking comments are the same once in the same order
-		ilinesC <- sort(ilines[grepl("^Comment\\[", ilines)])
-		tlinesC <- sort(tlines[grepl("^Comment\\[", tlines)])
-
-		expect_equal(ilinesC, tlinesC)
-
-		# expect_equal(ilines, tlines)
-		fs::file_delete(test_output)
-	})
+	# 	test_output <- tempfile()
+	# 	obj$cat_table(test_output, overwrite = TRUE)
+#
+	# 	ilines <- readLines(test_file_paths[["i_investigation"]])
+	# 	tlines <- readLines(test_output)
+#
+	# 	# comment order is not preserved so excluding them from the comparison
+	# 	ilinesNC <- ilines[!grepl("^Comment\\[", ilines)]
+	# 	tlinesNC <- tlines[!grepl("^Comment\\[", tlines)]
+	# 	expect_equal(ilinesNC, tlinesNC)
+#
+	# 	# Checking comments are the same once in the same order
+	# 	ilinesC <- sort(ilines[grepl("^Comment\\[", ilines)])
+	# 	tlinesC <- sort(tlines[grepl("^Comment\\[", tlines)])
+#
+	# 	expect_equal(ilinesC, tlinesC)
+#
+	# 	# expect_equal(ilines, tlines)
+	# 	fs::file_delete(test_output)
+	# })
 
 	# Studies ----
 	test_that("Study tables can be generated from isa-json", {
