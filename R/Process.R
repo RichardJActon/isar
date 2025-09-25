@@ -11,7 +11,7 @@
 #' @field outputs A list of output materials, possibly [Sample]s, [Material]s, [DataFile]s
 #' @field comments Comments associated with instances of this class.
 #' @field @id identifier
-#' @field protocol_references list of available [ProtocolReferences]s
+#' @field protocol_referencess [ProtocolReferences] object
 #' @field sources list of available [Source]s
 #' @field samples list of available [Sample]s
 #' @field next_process id of the next process in the sequence
@@ -20,7 +20,6 @@
 #' @field data_files as list of [DataFile] objects
 #' @field ontology_source_references ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor.
 #' @field unit_references A list of units used as a [UnitReferences] objects
-# #' @field protocol_parameters A list of [ProtocolParameter] objects
 #'
 #' @importFrom checkmate check_string test_list test_r6 check_date
 #' @importFrom purrr map map_lgl
@@ -49,7 +48,6 @@ Process <- R6::R6Class(
 		data_files = NULL,
 		ontology_source_references = NULL,
 		unit_references = NULL,
-		# protocol_parameters = NULL,
 		#' @details
 		#' Create a new [Process]
 		#' @param name If relevant, a unique name for the process to disambiguate it from other processes.
@@ -61,7 +59,7 @@ Process <- R6::R6Class(
 		#' @param outputs A list of output materials, possibly [Sample]s, [Material]s, [DataFile]s
 		#' @param comments Comments associated with instances of this class.
 		#' @param @id identifier
-		#' @param protocol_references list of available [ProtocolReferences]s
+		#' @param protocol_references [ProtocolReferences] object
 		#' @param sources list of available [Source]s
 		#' @param samples list of available [Sample]s
 		#' @param next_process id of the next process in the sequence
@@ -70,7 +68,6 @@ Process <- R6::R6Class(
 		#' @param data_files as list of [DataFile] objects
 		#' @param ontology_source_references ontology_source_references [OntologySource]s to be referenced by [OntologyAnnotation]s used in this ISA descriptor.
 		#' @param unit_references A list of units used as a [UnitReferences] objects
-		# #' @param protocol_parameters A list of [ProtocolParameter] objects
 		initialize = function(
 			name = character(),
 			executes_protocol = NULL,
@@ -89,8 +86,7 @@ Process <- R6::R6Class(
 			materials = NULL,
 			data_files = NULL,
 			ontology_source_references = NULL,
-			unit_references = NULL# ,
-			# protocol_parameters = NULL
+			unit_references = NULL
 		) {
 			self$name <- name
 			self$executes_protocol <- executes_protocol
@@ -101,6 +97,9 @@ Process <- R6::R6Class(
 			self$outputs <- outputs
 			self$comments <- comments
 			self$`@id` <- `@id`
+			self$set_protocol_references(
+				protocol_references, null.action = "create"
+			)
 			self$sources <- sources
 			self$samples <- samples
 			self$next_process <- next_process
@@ -108,14 +107,7 @@ Process <- R6::R6Class(
 			self$materials <- materials
 			self$data_files <- data_files
 			self$ontology_source_references <- ontology_source_references
-			self$set_ontology_source_references(
-				ontology_source_references, null.action = "create"
-			)
 			self$set_unit_references(unit_references, null.action = "create")
-			self$set_protocol_references(
-				# protocol_references, null.action = "passthrough" # "create"
-				protocol_references, null.action = "create"
-			)
 		},
 		#' @details
 		#' Check the the name has a non-zero length
@@ -190,33 +182,6 @@ Process <- R6::R6Class(
 				self$comments <- c(comments, comment)
 			}
 		},
-
-		#' @details
-		#'
-		#' specify the ontology source references for the [Protocol]
-		#'
-		#' @param ontology_source_references an [OntologySourceReferences] object
-		#' @param null.action how to handle NULLs:
-		#' - "error" throw an error
-		#' - "passthrough" set to NULL
-		#' - "create" set to an empty  [OntologySourceReferences] object
-		set_ontology_source_references = function(ontology_source_references, null.action) {
-			set_ontology_source_references(self, ontology_source_references, null.action)
-		},
-
-		#' @details
-		#'
-		#' specify the protocol references for the [Protocol]
-		#'
-		#' @param protocol_references an [ProtocolReferences] object
-		#' @param null.action how to handle NULLs:
-		#' - "error" throw an error
-		#' - "passthrough" set to NULL
-		#' - "create" set to an empty  [ProtocolReferences] object
-		set_protocol_references = function(protocol_references, null.action) {
-			set_protocol_references(self, protocol_references, null.action)
-		},
-
 		#' @details
 		#'
 		#' specify the unit references for the [Protocol]
@@ -228,6 +193,19 @@ Process <- R6::R6Class(
 		#' - "create" set to an empty  [UnitReferences] object
 		set_unit_references = function(unit_references, null.action) {
 			set_unit_references(self, unit_references, null.action)
+		},
+
+		#' @details
+		#'
+		#' Specify the [ProtocolReferences] for the [ProtocolParameter]
+		#'
+		#' @param protocol_references an [ProtocolReferences] object
+		#' @param null.action how to handle NULLs:
+		#' - "error" thow an error
+		#' - "passthrough" set to NULL
+		#' - "create" set to an empty  [ProtocolReferences] object
+		set_protocol_references = function(protocol_references, null.action) {
+			set_protocol_references(self, protocol_references, null.action)
 		},
 
 		#' @details
