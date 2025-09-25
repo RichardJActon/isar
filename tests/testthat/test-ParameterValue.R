@@ -11,10 +11,10 @@ test_that("ParameterValue works", {
 	)
 
 	warns <- capture_warnings(test_parameter_value$from_list(example_list))
-	# expect_match(warns, "Missing term accession", all = FALSE)
-	# expect_match(warns, "Term not in source", all = FALSE)
-	# expect_match(warns, "Term Source Unknown", all = FALSE)
-	# expect_match(warns, "Unspecified Term", all = FALSE)
+	expect_match(warns, "Missing term accession", all = FALSE)
+	expect_match(warns, "Term not in source", all = FALSE)
+	expect_match(warns, "Term Source Unknown", all = FALSE)
+	expect_match(warns, "Unspecified Term", all = FALSE)
 
 	expect_r6(
 		test_parameter_value$protocol$parameters[[
