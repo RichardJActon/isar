@@ -462,40 +462,24 @@ Process <- R6::R6Class(
 		#' @param json json  (default TRUE)
 		#' @param recursive call to_list methods of any objects within this object (default TRUE)
 		from_list = function(lst, recursive = TRUE, json = TRUE) {
-			# browser()
-			self$`@id` <- lst[["@id"]]
-			self$set_name(lst[["name"]])
-			self$set_date(lst[["date"]], null.ok = TRUE)
 			if(json) {
 				if(is.null(self$protocol_references)) {
-					# should never be the case now empy reference is created on init instead of keeping null
-					self$executes_protocol <- lst[["executesProtocol"]][["@id"]]
-				} else if (
-					lst[["executesProtocol"]][["@id"]] %in%
-					self$protocol_references$get_protocol_ids()
-				) {
-					self$executes_protocol <-
-						self$protocol_references$protocols[[
-							lst[["executesProtocol"]][["@id"]]
-						]]
+					self$executes_protocol <- lst[["executesProtocol"]][["@id"]] # case should not exist with "create" on init
 				} else {
-					warning(
-						"Protocol not in reference!\n",
-						"Attempting to add a placeholder"
-					)
-					Protocol$new(
-						name = "Unknown Protocol",
-						`@id` = lst[["executesProtocol"]][["@id"]],
-						origin = self$`@id`,
-						protocol_references = self$protocol_references
-					) %>%
-						list() %>%
-						purrr::set_names(lst[["executesProtocol"]][["@id"]]) %>%
-						self$protocol_references$add_protocols()
-					self$executes_protocol <-
-						self$protocol_references$protocols[[
-							lst[["executesProtocol"]][["@id"]]
-						]]
+					if (!lst[["executesProtocol"]][["@id"]] %in% self$protocol_references$get_protocol_ids()) {
+						self$executes_protocol <- Protocol$new(
+							ontology_source_references = self$ontology_source_references,
+							origin = self$`@id`
+						)
+						self$executes_protocol$from_list(lst[["executesProtocol"]])
+						self$executes_protocol %>%
+							list() %>%
+							purrr::set_names(purrr::map_chr(., ~.x$`@id`)) %>%
+							self$protocol_references$add_protocols()
+					}
+					self$executes_protocol <- self$protocol_references$protocols[[ # get method?
+						lst[["executesProtocol"]][["@id"]]
+					]]
 				}
 
 				if(checkmate::test_list(
@@ -505,22 +489,21 @@ Process <- R6::R6Class(
 				} else {
 					self$parameter_values <- lst[["parameterValues"]] %>%
 						purrr::map(~{
+							prot_params <- self$executes_protocol
+							# if(!is.character(self$executes_protocol)) {
+							# 	prot_params <- self$executes_protocol$parameters
+							# }
 							pv <- ParameterValue$new(
 								ontology_source_references =
 									self$ontology_source_references,
 								unit_references = self$unit_references,
 								protocol_references = self$protocol_references,
-								protocol = self$protocol_references$protocols[[
-									lst[["executesProtocol"]][["@id"]]
-								]]
+								protocol = prot_params
 							)
-							# print(pv$protocol$`@id`)
 							pv$from_list(.x, recursive = recursive, json = json)
 							pv
 						})# %>%
 						#purrr::set_names(purrr::map_chr(., ~.x$`@id`))
-					# print(self$executes_protocol$`@id`)
-					# print(self$protocol_references$get_protocol_ids())
 				}
 
 				inputs_and_outputs <- c(
@@ -564,6 +547,9 @@ Process <- R6::R6Class(
 				# self$outputs <- lst[["outputs"]] # sample obj ?
 				# self$inputs <- lst[["inputs"]] # source obj
 			}
+			self$`@id` <- lst[["@id"]]
+			self$set_name(lst[["name"]])
+			self$set_date(lst[["date"]], null.ok = TRUE)
 			if(recursive && !json) {
 				self$performer <- purrr::map(lst[["performer"]], ~{
 					p <- Person$new()
