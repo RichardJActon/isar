@@ -80,7 +80,7 @@ ParameterValue <- R6::R6Class(
 			self$set_protocol_references(
 				protocol_references, null.action = "passthrough"
 			)
-			self$set_protocol(protocol, null.action = "passthrough")
+			self$set_protocol(protocol) # , null.action = "passthrough")
 			self$comments <- comments
 			# self$`@id` <- `@id`# paste0("#parameter/", gsub(" ", "_", self$value))
 		},
@@ -180,84 +180,30 @@ ParameterValue <- R6::R6Class(
 		#' - "passthrough" set to NULL
 		#' - "create" set to an empty  [ProtocolReferences] object
 		set_protocol = function(protocol, null.action = "error") {
-			if(is.null(protocol)) {
-				switch(null.action,
-					"error" = {
-						stop("protocol must be a Protocol object!")
-					},
-					"passthrough" = { self$protocol <- NULL },
-					"create" = {
-						pid <- "#protocol/Unknown"
-						self$set_protocol_references(
-							self$protocol_references, null.action = "create"
-						)
-						Protocol$new(
-							ontology_source_references =
-								self$ontology_source_references,
-							protocol_references = self$protocol_references,
-							# origin = self$`@id`,
-							origin = paste(
-								"generated protocol for parameter value", pid
-							),
-							name = "Unknown Protocol",
-							`@id` = pid
-						) %>%
-							list() %>%
-							purrr::set_names(pid) %>%
-							self$protocol_references$add_protocols()
-
-						self$protocol <-
-							self$protocol_references$protocols[[pid]]
-					}
-				)
-			} else if(
-				checkmate::test_r6(protocol, "Protocol")
-			) {
-				if(
-					!protocol$`@id` %in%
-						self$protocol_references$get_protocol_ids()
-				) {
-					protocol %>% list() %>% purrr::set_names(protocol$`@id`) %>%
-					self$protocol_references$add_protocols()
-					warning(
-						"Protocol Not Found in PrococolReferences!\n",
-						"Attempting to add it to the reference..."
-					)
-				}
-				# print(paste("protocol @id:", protocol$`@id`))
+			if(is.null(protocol$`@id`)) {
+				protocol$`@id` <- "#protocol/Unknown"
+			}
+			if (protocol$`@id` %in% self$protocol_references$get_protocol_ids()) {
 				self$protocol <- self$protocol_references$protocols[[
 					protocol$`@id`
 				]]
-				# print(paste("protocol @id after ref asign:", protocol$`@id`))
-				# print(
-				# 	paste("protocol reference with the protocol @id:",
-				# 	self$protocol_references$protocols[[
-				# 		protocol$`@id`
-				# 	]]$`@id`
-				# ))
-				# print(paste("self protocol @id:",self$protocol$`@id`))
-				# print(paste(
-				# 	"self protocol reference ids:\n",
-				# 	paste(self$protocol_references$get_protocol_ids(),collapse = "\n")
-				# ))
 			} else {
-				pid <- protocol$`@id`
 				Protocol$new(
 					ontology_source_references =
 						self$ontology_source_references,
-					protocol_references = self$protocol_references,
 					origin = paste(
-						"generated protocol for parameter value", pid
+						"generated protocol for parameter value", protocol$`@id`
 					),
 					name = "Unknown Protocol",
-					`@id` = pid
+					`@id` = protocol$`@id`
 				) %>%
 					list() %>%
-					purrr::set_names(pid) %>%
+					purrr::set_names(protocol$`@id`) %>%
 					self$protocol_references$add_protocols()
 
-				self$protocol <-
-					self$protocol_references$protocols[[pid]]
+				self$protocol <- self$protocol_references$protocols[[
+					protocol$`@id`
+				]]
 			}
 		},
 		#' @details
@@ -266,16 +212,7 @@ ParameterValue <- R6::R6Class(
 		#' @param category the id of a protocol parameter which represents the
 		#' category of this parameter
 		set_valid_category = function(category) {
-
-			# self$set_protocol(self$protocol, null.action = "create")
-			# print(paste("self protocol @id from set category:", self$protocol$`@id`))
-			# print(self$protocol_references$get_protocol_ids())
-			# print(paste(
-			# 	"self protocol reference ids from set category:\n",
-			# 	paste(self$protocol_references$get_protocol_ids(),collapse = "\n")
-			# ))
-
-			if (category$`@id` %in% names(self$protocol$parameters)) {
+		if (category$`@id` %in% names(self$protocol$parameters)) {
 				self$category <- self$protocol$parameters[[category$`@id`]]
 			} else {
 				ProtocolParameter$new(
@@ -362,7 +299,7 @@ ParameterValue <- R6::R6Class(
 		from_list = function(lst, recursive = TRUE, json = TRUE) {
 			if(json) {
 				#self$`@id` <- lst[["@id"]]
-				self$set_protocol(self$protocol, null.action = "create")
+				self$set_protocol(self$protocol) # , null.action = "create")
 				if(is.null(lst[["category"]])) {
 					self$category <- NULL
 				} else {
