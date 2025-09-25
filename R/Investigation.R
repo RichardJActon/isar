@@ -96,7 +96,9 @@ Investigation <- R6::R6Class(
 				self$set_public_release_date(public_release_date)
 			}
 			# may need to be private and inferred from child structures?
-			self$ontology_source_references <- ontology_source_references
+			self$set_ontology_source_references(
+				ontology_source_references, null.action = "create"
+			)
 			if(is.null(publications)) {
 				self$publications <- publications
 			} else {
@@ -234,17 +236,18 @@ Investigation <- R6::R6Class(
 			)
 			error_with_check_message_on_failure(check)
 		},
+
 		#' @details
-		#' Set ontology_source_references to be an [OntologySourceReferences] object
+		#'
+		#' specify the ontology source references for the [Investigation]
+		#'
 		#' @param ontology_source_references an [OntologySourceReferences] object
-		set_ontology_source_references = function(ontology_source_references) {
-			if(
-				self$check_ontology_source_references(
-					ontology_source_references
-				)
-			) {
-				self$ontology_source_references <- ontology_source_references
-			}
+		#' @param null.action how to handle NULLs:
+		#' - "error" throw an error
+		#' - "passthrough" set to NULL
+		#' - "create" set to an empty  [OntologySourceReferences] object
+		set_ontology_source_references = function(ontology_source_references, null.action) {
+			set_ontology_source_references(self, ontology_source_references, null.action)
 		},
 
 		#' @details
