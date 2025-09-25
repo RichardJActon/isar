@@ -13,7 +13,7 @@
 #' @field publications A list of Publications associated with the Study.
 #' @field contacts A list of People/contacts associated with the Study.
 #' @field factors A factor corresponds to an independent variable manipulated by the experimentalist with the intention to affect biological systems in a way that can be measured by an assay.
-#' @field protocol_references Protocols used within the ISA artefact.
+#' @field protocol_references protocol_references used within the ISA artifact.
 #' @field assays An Assay represents a portion of the experimental design.
 #' @field sources Sources associated with the study, is equivalent to materials sources.
 #' @field samples samples associated with the study, is equivalent to materials samples.
@@ -72,7 +72,7 @@ Study <- R6::R6Class(
 		#' @param publications A list of Publications associated with the Study.
 		#' @param contacts A list of People/contacts associated with the Study.
 		#' @param factors A factor corresponds to an independent variable manipulated by the experimentalist with the intention to affect biological systems in a way that can be measured by an assay.
-		#' @param protocol_references protocol_references used within the ISA artefact.
+		#' @param protocol_references protocol_references used within the ISA artifact.
 		#' @param assays An Assay represents a portion of the experimental design.
 		#' @param sources Sources associated with the study, is equivalent to materials sources.
 		#' @param samples samples associated with the study, is equivalent to materials [Sample].
@@ -138,7 +138,6 @@ Study <- R6::R6Class(
 				self$set_publications(publications)
 			}
 			self$factors <- factors
-			self$protocol_references <- protocol_references
 			self$assays <- assays
 			self$sources <- sources
 			self$samples <- samples
@@ -148,6 +147,7 @@ Study <- R6::R6Class(
 			self$comments <- comments
 			# self$units <- units
 			self$set_ontology_source_references(ontology_source_references, null.action = "create")
+			self$set_protocol_references(protocol_references, null.action = "create")
 			self$unit_references <- unit_references
 		},
 		#' @details
@@ -335,6 +335,19 @@ Study <- R6::R6Class(
 
 		#' @details
 		#'
+		#' Specify the [ProtocolReferences] for the [ProtocolParameter]
+		#'
+		#' @param protocol_references an [ProtocolReferences] object
+		#' @param null.action how to handle NULLs:
+		#' - "error" thow an error
+		#' - "passthrough" set to NULL
+		#' - "create" set to an empty  [ProtocolReferences] object
+		set_protocol_references = function(protocol_references, null.action) {
+			set_protocol_references(self, protocol_references, null.action)
+		},
+
+		#' @details
+		#'
 		#' specify the ontology source references for the [Study]
 		#'
 		#' @param ontology_source_references an [OntologySourceReferences] object
@@ -446,7 +459,7 @@ Study <- R6::R6Class(
 				# protocols
 				tibble::tibble_row(
 					section = "STUDY PROTOCOLS", index = index,
-					data = self$protocol_references$protocols %>%
+					data = self$protocol_references$protocols %>% # get method?
 						#purrr::discard(~.x$name == "unknown") %>%
 						purrr::discard(
 							~.x$protocol_type$term == "Unspecified Term"
@@ -589,7 +602,9 @@ Study <- R6::R6Class(
 				purrr::set_names(NULL)
 			lst[["identifier"]] <- self$identifier
 			lst[["title"]] <- self$title
-			lst[["protocols"]] <- self$protocol_references$to_list()
+			lst[["protocols"]] <- self$protocol_references$to_list()# %>%
+				# purrr::map(~.x$to_list()) %>%
+				# purrr::set_names(NULL)
 			# lst[["units"]] <- self$units$to_list()
 			return(lst)
 		},
@@ -690,11 +705,9 @@ Study <- R6::R6Class(
 					add = TRUE
 				)
 
-				self$protocol_references <- ProtocolReferences$new()
 				self$protocol_references$from_list(
 					lst[["protocols"]], origin = self$`@id`
 				)
-
 				# self$protocols <-
 				# 	lst[["protocols"]] %>%
 				# 	purrr::set_names(purrr::map_chr(., ~.x[["@id"]])) %>%
@@ -765,11 +778,10 @@ Study <- R6::R6Class(
 					purrr::map(~{
 						ps <- Process$new(
 							protocol_references = self$protocol_references,
+							# protocols = self$protocols,
 							sources = self$sources,
 							samples = self$samples,
-							# ontology_source_references = self$recursive,
-							ontology_source_references =
-								self$ontology_source_references ,
+							ontology_source_references = self$recursive,
 							unit_references = self$unit_references
 						)
 						ps$from_list(.x, recursive = recursive, json = json) # recursive!
@@ -795,6 +807,7 @@ Study <- R6::R6Class(
 								self$ontology_source_references,
 							characteristic_categories =
 								self$characteristic_categories,
+							# protocols = self$protocols,
 							protocol_references = self$protocol_references,
 							unit_references = self$unit_references
 						)
@@ -821,7 +834,7 @@ Study <- R6::R6Class(
 					})
 				}
 				self$factors <- lst[["factors"]]
-				self$protocol_references <- lst[["protocol_references"]]
+				self$protocols <- lst[["protocols"]]
 				self$assays <- lst[["assays"]]
 				self$sources <- lst[["sources"]]
 				self$samples <- lst[["samples"]]
@@ -892,14 +905,11 @@ Study <- R6::R6Class(
 				)
 			))
 			cli::cli_h2(cli::col_green(
-				# "Protocols (", length(self$protocols$n_protocols), ") "#, emo::ji("clipboard")
-				"Protocols (", self$protocol_references$n_protocols, ") "#, emo::ji("clipboard")
+				"Protocols (", length(self$protocols), ") "#, emo::ji("clipboard")
 			))
 			cli::cli_ul(paste0(
-				# purrr::map_chr(self$protocol_references, ~.x$name),
-				# cli::col_grey(" (", names(self$protocols), ")")
-				self$protocol_references$get_protocol_names(),
-				cli::col_grey(" (", self$protocol_references$get_protocol_ids(), ")")
+				purrr::map_chr(self$protocols, ~.x$name),
+				cli::col_grey(" (", names(self$protocols), ")")
 			))
 
 			cli::cli_h2(cli::col_green(
