@@ -315,7 +315,6 @@ OntologyAnnotation <- R6::R6Class(
 				self$term <- term
 				self$term_accession <- term_accession
 			} else {
-				#browser()
 				warning("Term not in source! Attempting to add...")
 				if (checkmate::test_string(term_accession, min.chars = 1)) {
 					self$term_source$add_terms(
@@ -385,10 +384,11 @@ OntologyAnnotation <- R6::R6Class(
 		#' object (default FALSE)
 		to_list = function(ld = FALSE, recursive = TRUE) {
 			lst <- list()
-
-			if (private$null_accession) { } else if(
-				self$term_source$name == "UnknownSource"
-			) {
+			if (private$null_accession) { } else
+			if(is.null(self$term_source$name)) {
+				 # lst[["termAccession"]] <- ""
+			} else # case shouldn't exist - may be from missing rather than empty values?
+			if(self$term_source$name == "UnknownSource") {
 				lst[["termAccession"]] <- ""
 			} else {
 				lst[["termAccession"]] <- self$term_accession
@@ -400,9 +400,11 @@ OntologyAnnotation <- R6::R6Class(
 				lst[["annotationValue"]] <- self$term
 			}
 
-			if (private$null_source) { } else if(
-				self$term_source$name == "UnknownSource"
-			) {
+			if (private$null_source) { } else
+			if(is.null(self$term_source$name)) {
+				# lst[["termSource"]] <- ""
+			} else # case shouldn't exist - may be from missing rather than empty values?
+			if(self$term_source$name == "UnknownSource") {
 				lst[["termSource"]] <- ""
 			} else {
 				lst[["termSource"]] <- self$term_source$name
@@ -435,11 +437,11 @@ OntologyAnnotation <- R6::R6Class(
 			if(json) {
 				# remediate ontology annotation lists with missing members :(
 				# such as: BII_I_1_jsonlite[["studies"]][[1]][["protocols"]][[1]][["protocolType"]]
-				if(is.null(lst[["termAccession"]])) {
+				if(is.null(lst$termAccession)) { # return null when empty or missing
 					lst[["termAccession"]] <- ""
 					private$null_accession <- TRUE
 				}
-				if(is.null(lst[["termSource"]])) {
+				if(is.null(lst$termSource)) {
 					lst[["termSource"]] <- ""
 					private$null_source <- TRUE
 				}
