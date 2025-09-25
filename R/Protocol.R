@@ -405,7 +405,8 @@ Protocol <- R6::R6Class(
 		#' @param recursive use the `from_list()` method on list items that are also isar objects (default = TRUE)
 		#' @param json json  (default TRUE)
 		from_list = function(lst, recursive = TRUE, json = TRUE) {
-			if(json) {
+			# if(json) {
+			# browser()
 				self$name <- lst[["name"]]
 				self$`@id` <- lst[["@id"]]
 				if (recursive) {
@@ -457,42 +458,42 @@ Protocol <- R6::R6Class(
 					self$components <- lst[["components"]]
 				}
 				self$comments <- lst[["comments"]]
-			} else {
-				self$name <- lst[["name"]]
-				private$id <- lst[["id"]]
-
-				if (recursive) {
-					self$protocol_type <- OntologyAnnotation$new(
-						ontology_source_references =
-							self$ontology_source_references
-					)
-					self$protocol_type$from_list(
-						lst[["protocol_type"]], json = json
-					)
-				} else {
-					self$protocol_type <- lst[["protocol_type"]]
-				}
-
-				self$description <- lst[["description"]]
-				self$uri <- lst[["uri"]]
-				self$version <- lst[["version"]]
-
-				self$parameters <- lst[["parameters"]]
-
-				if (recursive) {
-					self$components <- purrr::map(lst[["components"]], ~{
-						oa <- OntologyAnnotation$new(
-							ontology_source_references =
-								self$ontology_source_references
-						)
-						oa$from_list(.x, json = json)
-						oa
-					})
-				} else {
-					self$components <- lst[["components"]]
-				}
-				self$comments <- lst[["comments"]]
-			}
+			# } else {
+			# 	self$name <- lst[["name"]]
+			# 	private$id <- lst[["id"]]
+#
+			# 	if (recursive) {
+			# 		self$protocol_type <- OntologyAnnotation$new(
+			# 			ontology_source_references =
+			# 				self$ontology_source_references
+			# 		)
+			# 		self$protocol_type$from_list(
+			# 			lst[["protocol_type"]], json = json
+			# 		)
+			# 	} else {
+			# 		self$protocol_type <- lst[["protocol_type"]]
+			# 	}
+#
+			# 	self$description <- lst[["description"]]
+			# 	self$uri <- lst[["uri"]]
+			# 	self$version <- lst[["version"]]
+#
+			# 	self$parameters <- lst[["parameters"]]
+#
+			# 	if (recursive) {
+			# 		self$components <- purrr::map(lst[["components"]], ~{
+			# 			oa <- OntologyAnnotation$new(
+			# 				ontology_source_references =
+			# 					self$ontology_source_references
+			# 			)
+			# 			oa$from_list(.x, json = json)
+			# 			oa
+			# 		})
+			# 	} else {
+			# 		self$components <- lst[["components"]]
+			# 	}
+			# 	self$comments <- lst[["comments"]]
+			# }
 		},
 
 		#' @details
